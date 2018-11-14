@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="enet">
+</Property><Property Name="Solution File" Value="D:\coding\TEngine\Code\Externals\enet-1.3.0\enet.sln">
+</Property><Property Name="Date" Value="18. januar 2011">
+</Property><Property Name="Time" Value="01:43">
+</Property></Properties><Event ErrorLevel="0" Project="enet" Source="enet.vcproj" Description="Converting project file 'D:\coding\TEngine\Code\Externals\enet-1.3.0\enet.vcproj'.">
+</Event><Event ErrorLevel="1" Project="enet" Source="enet.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="1" Project="enet" Source="enet.vcproj" Description="MSB8012: $(TargetPath) ('D:\coding\TEngine\Code\Externals\enet-1.3.0\.\Debug\enet.lib') does not match the Librarian's OutputFile property value '.\Debug\enet.lib' ('D:\coding\TEngine\Code\Externals\enet-1.3.0\Debug\enet.lib') in project configuration 'Debug|Win32'. This may cause your project to build incorrectly. To correct this, please make sure that $(TargetPath) property value matches the value specified in %(Lib.OutputFile).">
+</Event><Event ErrorLevel="1" Project="enet" Source="enet.vcproj" Description="MSB8012: $(TargetPath) ('D:\coding\TEngine\Code\Externals\enet-1.3.0\.\Release\enet.lib') does not match the Librarian's OutputFile property value '.\Release\enet.lib' ('D:\coding\TEngine\Code\Externals\enet-1.3.0\Release\enet.lib') in project configuration 'Release|Win32'. This may cause your project to build incorrectly. To correct this, please make sure that $(TargetPath) property value matches the value specified in %(Lib.OutputFile).">
+</Event><Event ErrorLevel="0" Project="enet" Source="enet.vcproj" Description="Done converting to new project file 'D:\coding\TEngine\Code\Externals\enet-1.3.0\enet.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="enet" Source="enet.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="enet.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="enet.sln" Description="Converted">
+</Event></UpgradeLog>

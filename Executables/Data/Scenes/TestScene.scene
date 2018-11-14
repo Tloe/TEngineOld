@@ -1,0 +1,152 @@
+{
+	"Spawner"
+	{
+		"Game" :
+		{
+			"SpawnerObject" :
+			{
+
+			}
+		}
+	},
+	"Cube0" :
+	{
+		"Graphics" :
+		{
+			"RenderableObject" :
+			{
+				"Mesh" : "/Meshes/Cube01.mesh",				
+				"Textures" :
+				[
+					"/Textures/test.png"
+				],
+				"Effects" :
+				[
+					"/Shaders/TEBasicTextured.cgfx"
+				],
+				"BoundingVolumes" :
+				[
+				 	"Sphere"
+				],
+				"Parrent" : "Root"
+			}
+		},
+		"Transform" :
+		{
+			"TransformObject" :
+			{
+				"Orientation" :
+				{
+					"x" : 0.2,
+					"y" : 0.342897803,
+					"z" : 0.479425550,
+					"w" : 0.839372718
+				},
+				"Position" :
+				{
+					"x" : -1.0,
+					"y" : -0.5,
+					"z" : 0.0
+				},
+				"Scale" :
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				}
+			}
+		}
+	},
+	"Cube1" :
+	{
+		"Graphics" :
+		{
+			"RenderableObject" :
+			{
+				"Mesh" : "/Meshes/Cube01.mesh",				
+				"Textures" :
+				[
+					"/Textures/test2.png"
+				],
+				"Effects" :
+				[
+					"/Shaders/TEBasicTextured.cgfx"
+				],
+				"BoundingVolumes" :
+				[
+				 	"Sphere"
+				],
+				"Parrent" : "Root"
+			}
+		},
+		"Transform" :
+		{
+			"TransformObject" :
+			{
+				"Orientation" :
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 0.0,
+					"w" : 1.0
+				},
+				"Position" :
+				{
+					"x" : 1.2,
+					"y" : 1.0,
+					"z" : 0.0
+				},
+				"Scale" :
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				}
+			}
+		}
+	},
+	"Camera0" :
+	{
+		"Graphics" :
+		{
+			"CameraObject" :
+			{
+				"Frustrum" :
+				{
+					"Type" : 0,
+					"Fov" : 0.785,
+					"AspectRatio" : 1.333333333333333,
+					"DirMin" : 0.1,
+					"DirMax" : 100.0
+				},
+				"Parrent" : "Root",
+				"ActiveCamera" : true
+			}
+		},
+		"Transform" :
+		{
+			"TransformObject" :
+			{
+				"Orientation" :
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 0.0,
+					"w" : 1.0
+				},
+				"Position" :
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : -5.0
+				},
+				"Scale" :
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				}
+			}
+		}
+	}
+}

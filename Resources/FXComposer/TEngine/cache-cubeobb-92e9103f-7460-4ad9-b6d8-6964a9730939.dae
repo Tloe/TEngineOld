@@ -1,0 +1,848 @@
+<?xml version="1.0"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+	<asset>
+		<contributor>
+			<author>T</author>
+			<authoring_tool>NVIDIA FX Composer 2.5</authoring_tool>
+			<comments/>
+			<copyright/>
+		</contributor>
+		<created>2012-03-20T23:53:25Z</created>
+		<keywords>FXComposer, NVIDIA</keywords>
+		<modified>2012-03-20T23:53:25Z</modified>
+		<subject/>
+		<title/>
+		<unit/>
+		<up_axis>Y_UP</up_axis>
+	</asset>
+	<library_effects>
+		<effect id="Effect" name="obj_file_default_material">
+			<profile_COMMON>
+				<newparam sid="Script">
+					<semantic>STANDARDSGLOBAL</semantic>
+					<float>0.8</float>
+				</newparam>
+				<newparam sid="EmissionColor">
+					<semantic>EMISSION</semantic>
+					<float4>0 0 0 1</float4>
+				</newparam>
+				<newparam sid="AmbientColor">
+					<float4>0.2 0.2 0.2 1</float4>
+				</newparam>
+				<newparam sid="DiffuseColor">
+					<float4>0.8 0.8 0.8 1</float4>
+				</newparam>
+				<newparam sid="EnvironmentColor">
+					<float4>1 1 1 1</float4>
+				</newparam>
+				<newparam sid="Reflectivity">
+					<float>0.5</float>
+				</newparam>
+				<newparam sid="SpecularColor">
+					<semantic>SPECULAR</semantic>
+					<float4>1 1 1 1</float4>
+				</newparam>
+				<newparam sid="SpecularShininess">
+					<float>1</float>
+				</newparam>
+				<newparam sid="TransparentColor">
+					<float4>0 0 0 1</float4>
+				</newparam>
+				<newparam sid="Transparency">
+					<float>1</float>
+				</newparam>
+				<newparam sid="Index_Of_Refraction">
+					<float>1</float>
+				</newparam>
+				<technique sid="CommonProfile">
+					<phong>
+						<emission>
+							<param ref="EmissionColor"/>
+						</emission>
+						<ambient>
+							<param ref="AmbientColor"/>
+						</ambient>
+						<diffuse>
+							<param ref="DiffuseColor"/>
+						</diffuse>
+						<specular>
+							<param ref="SpecularColor"/>
+						</specular>
+						<shininess>
+							<param ref="SpecularShininess"/>
+						</shininess>
+						<reflective>
+							<param ref="EnvironmentColor"/>
+						</reflective>
+						<reflectivity>
+							<param ref="Reflectivity"/>
+						</reflectivity>
+						<transparent>
+							<param ref="TransparentColor"/>
+						</transparent>
+						<transparency>
+							<param ref="Transparency"/>
+						</transparency>
+						<index_of_refraction>
+							<param ref="Index_Of_Refraction"/>
+						</index_of_refraction>
+					</phong>
+				</technique>
+			</profile_COMMON>
+		</effect>
+		<effect id="Effect1" name="_01___Default">
+			<profile_COMMON>
+				<newparam sid="Script">
+					<semantic>STANDARDSGLOBAL</semantic>
+					<float>0.8</float>
+				</newparam>
+				<newparam sid="EmissionColor">
+					<semantic>EMISSION</semantic>
+					<float4>0 0 0 1</float4>
+				</newparam>
+				<newparam sid="AmbientColor">
+					<float4>0.5882 0.5882 0.5882 1</float4>
+				</newparam>
+				<newparam sid="DiffuseColor">
+					<float4>0.5882 0.5882 0.5882 1</float4>
+				</newparam>
+				<newparam sid="EnvironmentColor">
+					<float4>1 1 1 1</float4>
+				</newparam>
+				<newparam sid="Reflectivity">
+					<float>0.5</float>
+				</newparam>
+				<newparam sid="SpecularColor">
+					<semantic>SPECULAR</semantic>
+					<float4>0 0 0 1</float4>
+				</newparam>
+				<newparam sid="SpecularShininess">
+					<float>1.28</float>
+				</newparam>
+				<newparam sid="TransparentColor">
+					<float4>0 0 0 1</float4>
+				</newparam>
+				<newparam sid="Transparency">
+					<float>1</float>
+				</newparam>
+				<newparam sid="Index_Of_Refraction">
+					<float>1.5</float>
+				</newparam>
+				<technique sid="CommonProfile">
+					<blinn>
+						<emission>
+							<param ref="EmissionColor"/>
+						</emission>
+						<ambient>
+							<param ref="AmbientColor"/>
+						</ambient>
+						<diffuse>
+							<param ref="DiffuseColor"/>
+						</diffuse>
+						<specular>
+							<param ref="SpecularColor"/>
+						</specular>
+						<shininess>
+							<param ref="SpecularShininess"/>
+						</shininess>
+						<reflective>
+							<param ref="EnvironmentColor"/>
+						</reflective>
+						<reflectivity>
+							<param ref="Reflectivity"/>
+						</reflectivity>
+						<transparent>
+							<param ref="TransparentColor"/>
+						</transparent>
+						<transparency>
+							<param ref="Transparency"/>
+						</transparency>
+						<index_of_refraction>
+							<param ref="Index_Of_Refraction"/>
+						</index_of_refraction>
+					</blinn>
+				</technique>
+			</profile_COMMON>
+		</effect>
+	</library_effects>
+	<library_materials>
+		<material id="Cube01_01___Default" name="Cube01_01___Default">
+			<instance_effect url="#Effect1">
+				<setparam ref="Script">
+					<float>0.8</float>
+				</setparam>
+				<setparam ref="EmissionColor">
+					<float4>0 0 0 1</float4>
+				</setparam>
+				<setparam ref="AmbientColor">
+					<float4>0.5882 0.5882 0.5882 1</float4>
+				</setparam>
+				<setparam ref="DiffuseColor">
+					<float4>0.5882 0.5882 0.5882 1</float4>
+				</setparam>
+				<setparam ref="EnvironmentColor">
+					<float4>1 1 1 1</float4>
+				</setparam>
+				<setparam ref="Reflectivity">
+					<float>0.5</float>
+				</setparam>
+				<setparam ref="SpecularColor">
+					<float4>0 0 0 1</float4>
+				</setparam>
+				<setparam ref="SpecularShininess">
+					<float>1.28</float>
+				</setparam>
+				<setparam ref="TransparentColor">
+					<float4>0 0 0 1</float4>
+				</setparam>
+				<setparam ref="Transparency">
+					<float>1</float>
+				</setparam>
+				<setparam ref="Index_Of_Refraction">
+					<float>1.5</float>
+				</setparam>
+				<setparam ref="LightCount">
+					<int>4</int>
+				</setparam>
+			</instance_effect>
+		</material>
+		<material id="Obb01_01___Default" name="Obb01_01___Default">
+			<instance_effect url="#Effect1">
+				<setparam ref="Script">
+					<float>0.8</float>
+				</setparam>
+				<setparam ref="EmissionColor">
+					<float4>0 0 0 1</float4>
+				</setparam>
+				<setparam ref="AmbientColor">
+					<float4>0.5882 0.5882 0.5882 1</float4>
+				</setparam>
+				<setparam ref="DiffuseColor">
+					<float4>0.5882 0.5882 0.5882 1</float4>
+				</setparam>
+				<setparam ref="EnvironmentColor">
+					<float4>1 1 1 1</float4>
+				</setparam>
+				<setparam ref="Reflectivity">
+					<float>0.5</float>
+				</setparam>
+				<setparam ref="SpecularColor">
+					<float4>0 0 0 1</float4>
+				</setparam>
+				<setparam ref="SpecularShininess">
+					<float>1.28</float>
+				</setparam>
+				<setparam ref="TransparentColor">
+					<float4>0 0 0 1</float4>
+				</setparam>
+				<setparam ref="Transparency">
+					<float>1</float>
+				</setparam>
+				<setparam ref="Index_Of_Refraction">
+					<float>1.5</float>
+				</setparam>
+				<setparam ref="LightCount">
+					<int>4</int>
+				</setparam>
+			</instance_effect>
+		</material>
+	</library_materials>
+	<library_geometries>
+		<geometry id="01___Default" name="_01___Default">
+			<mesh>
+				<source id="Scene1" name="FXStream">
+					<float_array id="Scene1-array" count="48">-0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene1-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene2" name="FXStream">
+					<float_array id="Scene2-array" count="16">1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene2-array">
+							<param name="X" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene3" name="FXStream">
+					<float_array id="Scene3-array" count="24">1 0 0 1 1 0 0 1 0 0 0 0 1 0 0 1 1 0 0 1 0 0 0 0</float_array>
+					<technique_common>
+						<accessor count="8" source="#Scene3-array" stride="3">
+							<param name="S" type="float"/>
+							<param name="T" type="float"/>
+							<param name="R" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene4" name="FXStream">
+					<float_array id="Scene4-array" count="36">0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0 0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0</float_array>
+					<technique_common>
+						<accessor count="12" source="#Scene4-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene5" name="FXStream">
+					<float_array id="Scene5-array" count="48">-0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene5-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene6" name="FXStream">
+					<float_array id="Scene6-array" count="16">1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene6-array">
+							<param name="X" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene7" name="FXStream">
+					<float_array id="Scene7-array" count="24">1 0 0 1 1 0 0 1 0 0 0 0 1 0 0 1 1 0 0 1 0 0 0 0</float_array>
+					<technique_common>
+						<accessor count="8" source="#Scene7-array" stride="3">
+							<param name="S" type="float"/>
+							<param name="T" type="float"/>
+							<param name="R" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene8" name="FXStream">
+					<float_array id="Scene8-array" count="36">0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0 0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0</float_array>
+					<technique_common>
+						<accessor count="12" source="#Scene8-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene9" name="FXStream">
+					<float_array id="Scene9-array" count="48">-0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene9-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene10" name="FXStream">
+					<float_array id="Scene10-array" count="16">1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene10-array">
+							<param name="X" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene11" name="FXStream">
+					<float_array id="Scene11-array" count="24">1 0 0 1 1 0 0 1 0 0 0 0 1 0 0 1 1 0 0 1 0 0 0 0</float_array>
+					<technique_common>
+						<accessor count="8" source="#Scene11-array" stride="3">
+							<param name="S" type="float"/>
+							<param name="T" type="float"/>
+							<param name="R" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene12" name="FXStream">
+					<float_array id="Scene12-array" count="36">0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0 0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0</float_array>
+					<technique_common>
+						<accessor count="12" source="#Scene12-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene13" name="FXStream">
+					<float_array id="Scene13-array" count="48">-0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene13-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene14" name="FXStream">
+					<float_array id="Scene14-array" count="16">1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene14-array">
+							<param name="X" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene15" name="FXStream">
+					<float_array id="Scene15-array" count="24">1 0 0 1 1 0 0 1 0 0 0 0 1 0 0 1 1 0 0 1 0 0 0 0</float_array>
+					<technique_common>
+						<accessor count="8" source="#Scene15-array" stride="3">
+							<param name="S" type="float"/>
+							<param name="T" type="float"/>
+							<param name="R" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene16" name="FXStream">
+					<float_array id="Scene16-array" count="36">0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0 0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0</float_array>
+					<technique_common>
+						<accessor count="12" source="#Scene16-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene17" name="FXStream">
+					<float_array id="Scene17-array" count="48">-0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene17-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene18" name="FXStream">
+					<float_array id="Scene18-array" count="16">1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene18-array">
+							<param name="X" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene19" name="FXStream">
+					<float_array id="Scene19-array" count="24">1 0 0 1 1 0 0 1 0 0 0 0 1 0 0 1 1 0 0 1 0 0 0 0</float_array>
+					<technique_common>
+						<accessor count="8" source="#Scene19-array" stride="3">
+							<param name="S" type="float"/>
+							<param name="T" type="float"/>
+							<param name="R" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene20" name="FXStream">
+					<float_array id="Scene20-array" count="36">0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0 0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0</float_array>
+					<technique_common>
+						<accessor count="12" source="#Scene20-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene21" name="FXStream">
+					<float_array id="Scene21-array" count="48">-0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene21-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene22" name="FXStream">
+					<float_array id="Scene22-array" count="16">1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene22-array">
+							<param name="X" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene23" name="FXStream">
+					<float_array id="Scene23-array" count="24">1 0 0 1 1 0 0 1 0 0 0 0 1 0 0 1 1 0 0 1 0 0 0 0</float_array>
+					<technique_common>
+						<accessor count="8" source="#Scene23-array" stride="3">
+							<param name="S" type="float"/>
+							<param name="T" type="float"/>
+							<param name="R" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene24" name="FXStream">
+					<float_array id="Scene24-array" count="36">0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0 0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0</float_array>
+					<technique_common>
+						<accessor count="12" source="#Scene24-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<vertices id="01___Default-Vertex-0">
+					<input semantic="POSITION" source="#Scene1"/>
+				</vertices>
+				<polygons count="2" material="01___Default">
+					<input offset="0" semantic="VERTEX" source="#01___Default-Vertex-0"/>
+					<input offset="1" semantic="WEIGHT" source="#Scene2" set="0"/>
+					<input offset="2" semantic="TEXCOORD" source="#Scene3" set="0"/>
+					<input offset="3" semantic="NORMAL" source="#Scene4" set="0"/>
+					<p>0 0 0 0 1 1 1 0 2 2 2 0</p>
+					<p>2 2 2 0 3 3 3 0 0 0 0 0</p>
+				</polygons>
+				<polygons count="2" material="01___Default">
+					<input offset="0" semantic="VERTEX" source="#01___Default-Vertex-0"/>
+					<input offset="1" semantic="WEIGHT" source="#Scene6" set="0"/>
+					<input offset="2" semantic="TEXCOORD" source="#Scene7" set="0"/>
+					<input offset="3" semantic="NORMAL" source="#Scene8" set="0"/>
+					<p>4 4 3 1 5 5 0 1 6 6 1 1</p>
+					<p>6 6 1 1 7 7 2 1 4 4 3 1</p>
+				</polygons>
+				<polygons count="2" material="01___Default">
+					<input offset="0" semantic="VERTEX" source="#01___Default-Vertex-0"/>
+					<input offset="1" semantic="WEIGHT" source="#Scene10" set="0"/>
+					<input offset="2" semantic="TEXCOORD" source="#Scene11" set="0"/>
+					<input offset="3" semantic="NORMAL" source="#Scene12" set="0"/>
+					<p>0 0 3 2 3 3 0 2 5 5 1 2</p>
+					<p>5 5 1 2 4 4 2 2 0 0 3 2</p>
+				</polygons>
+				<polygons count="2" material="01___Default">
+					<input offset="0" semantic="VERTEX" source="#01___Default-Vertex-0"/>
+					<input offset="1" semantic="WEIGHT" source="#Scene14" set="0"/>
+					<input offset="2" semantic="TEXCOORD" source="#Scene15" set="0"/>
+					<input offset="3" semantic="NORMAL" source="#Scene16" set="0"/>
+					<p>3 3 3 3 2 2 0 3 6 6 1 3</p>
+					<p>6 6 1 3 5 5 2 3 3 3 3 3</p>
+				</polygons>
+				<polygons count="2" material="01___Default">
+					<input offset="0" semantic="VERTEX" source="#01___Default-Vertex-0"/>
+					<input offset="1" semantic="WEIGHT" source="#Scene18" set="0"/>
+					<input offset="2" semantic="TEXCOORD" source="#Scene19" set="0"/>
+					<input offset="3" semantic="NORMAL" source="#Scene20" set="0"/>
+					<p>2 2 3 4 1 1 0 4 7 7 1 4</p>
+					<p>7 7 1 4 6 6 2 4 2 2 3 4</p>
+				</polygons>
+				<polygons count="2" material="01___Default">
+					<input offset="0" semantic="VERTEX" source="#01___Default-Vertex-0"/>
+					<input offset="1" semantic="WEIGHT" source="#Scene22" set="0"/>
+					<input offset="2" semantic="TEXCOORD" source="#Scene23" set="0"/>
+					<input offset="3" semantic="NORMAL" source="#Scene24" set="0"/>
+					<p>1 1 3 5 0 0 0 5 4 4 1 5</p>
+					<p>4 4 1 5 7 7 2 5 1 1 3 5</p>
+				</polygons>
+			</mesh>
+		</geometry>
+		<geometry id="01___Default1" name="_01___Default1">
+			<mesh>
+				<source id="Scene73" name="FXStream">
+					<float_array id="Scene73-array" count="48">-0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene73-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene74" name="FXStream">
+					<float_array id="Scene74-array" count="16">1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene74-array">
+							<param name="X" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene75" name="FXStream">
+					<float_array id="Scene75-array" count="24">1 0 0 1 1 0 0 1 0 0 0 0 1 0 0 1 1 0 0 1 0 0 0 0</float_array>
+					<technique_common>
+						<accessor count="8" source="#Scene75-array" stride="3">
+							<param name="S" type="float"/>
+							<param name="T" type="float"/>
+							<param name="R" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene76" name="FXStream">
+					<float_array id="Scene76-array" count="36">0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0 0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0</float_array>
+					<technique_common>
+						<accessor count="12" source="#Scene76-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene77" name="FXStream">
+					<float_array id="Scene77-array" count="48">-0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene77-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene78" name="FXStream">
+					<float_array id="Scene78-array" count="16">1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene78-array">
+							<param name="X" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene79" name="FXStream">
+					<float_array id="Scene79-array" count="24">1 0 0 1 1 0 0 1 0 0 0 0 1 0 0 1 1 0 0 1 0 0 0 0</float_array>
+					<technique_common>
+						<accessor count="8" source="#Scene79-array" stride="3">
+							<param name="S" type="float"/>
+							<param name="T" type="float"/>
+							<param name="R" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene80" name="FXStream">
+					<float_array id="Scene80-array" count="36">0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0 0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0</float_array>
+					<technique_common>
+						<accessor count="12" source="#Scene80-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene81" name="FXStream">
+					<float_array id="Scene81-array" count="48">-0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene81-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene82" name="FXStream">
+					<float_array id="Scene82-array" count="16">1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene82-array">
+							<param name="X" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene83" name="FXStream">
+					<float_array id="Scene83-array" count="24">1 0 0 1 1 0 0 1 0 0 0 0 1 0 0 1 1 0 0 1 0 0 0 0</float_array>
+					<technique_common>
+						<accessor count="8" source="#Scene83-array" stride="3">
+							<param name="S" type="float"/>
+							<param name="T" type="float"/>
+							<param name="R" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene84" name="FXStream">
+					<float_array id="Scene84-array" count="36">0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0 0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0</float_array>
+					<technique_common>
+						<accessor count="12" source="#Scene84-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene85" name="FXStream">
+					<float_array id="Scene85-array" count="48">-0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene85-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene86" name="FXStream">
+					<float_array id="Scene86-array" count="16">1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene86-array">
+							<param name="X" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene87" name="FXStream">
+					<float_array id="Scene87-array" count="24">1 0 0 1 1 0 0 1 0 0 0 0 1 0 0 1 1 0 0 1 0 0 0 0</float_array>
+					<technique_common>
+						<accessor count="8" source="#Scene87-array" stride="3">
+							<param name="S" type="float"/>
+							<param name="T" type="float"/>
+							<param name="R" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene88" name="FXStream">
+					<float_array id="Scene88-array" count="36">0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0 0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0</float_array>
+					<technique_common>
+						<accessor count="12" source="#Scene88-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene89" name="FXStream">
+					<float_array id="Scene89-array" count="48">-0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene89-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene90" name="FXStream">
+					<float_array id="Scene90-array" count="16">1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene90-array">
+							<param name="X" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene91" name="FXStream">
+					<float_array id="Scene91-array" count="24">1 0 0 1 1 0 0 1 0 0 0 0 1 0 0 1 1 0 0 1 0 0 0 0</float_array>
+					<technique_common>
+						<accessor count="8" source="#Scene91-array" stride="3">
+							<param name="S" type="float"/>
+							<param name="T" type="float"/>
+							<param name="R" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene92" name="FXStream">
+					<float_array id="Scene92-array" count="36">0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0 0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0</float_array>
+					<technique_common>
+						<accessor count="12" source="#Scene92-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene93" name="FXStream">
+					<float_array id="Scene93-array" count="48">-0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 -0.5 0.5 0.5</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene93-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene94" name="FXStream">
+					<float_array id="Scene94-array" count="16">1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</float_array>
+					<technique_common>
+						<accessor count="16" source="#Scene94-array">
+							<param name="X" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene95" name="FXStream">
+					<float_array id="Scene95-array" count="24">1 0 0 1 1 0 0 1 0 0 0 0 1 0 0 1 1 0 0 1 0 0 0 0</float_array>
+					<technique_common>
+						<accessor count="8" source="#Scene95-array" stride="3">
+							<param name="S" type="float"/>
+							<param name="T" type="float"/>
+							<param name="R" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene96" name="FXStream">
+					<float_array id="Scene96-array" count="36">0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0 0 0 -1 0 0 1 0 -1 0 1 0 0 0 1 0 -1 0 0</float_array>
+					<technique_common>
+						<accessor count="12" source="#Scene96-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<vertices id="01___Default1-Vertex-0">
+					<input semantic="POSITION" source="#Scene73"/>
+				</vertices>
+				<polygons count="2" material="01___Default">
+					<input offset="0" semantic="VERTEX" source="#01___Default1-Vertex-0"/>
+					<input offset="1" semantic="WEIGHT" source="#Scene74" set="0"/>
+					<input offset="2" semantic="TEXCOORD" source="#Scene75" set="0"/>
+					<input offset="3" semantic="NORMAL" source="#Scene76" set="0"/>
+					<p>9 9 7 11 8 8 4 11 12 12 5 11</p>
+					<p>12 12 5 11 15 15 6 11 9 9 7 11</p>
+				</polygons>
+				<polygons count="2" material="01___Default">
+					<input offset="0" semantic="VERTEX" source="#01___Default1-Vertex-0"/>
+					<input offset="1" semantic="WEIGHT" source="#Scene78" set="0"/>
+					<input offset="2" semantic="TEXCOORD" source="#Scene79" set="0"/>
+					<input offset="3" semantic="NORMAL" source="#Scene80" set="0"/>
+					<p>8 8 4 6 9 9 5 6 10 10 6 6</p>
+					<p>10 10 6 6 11 11 7 6 8 8 4 6</p>
+				</polygons>
+				<polygons count="2" material="01___Default">
+					<input offset="0" semantic="VERTEX" source="#01___Default1-Vertex-0"/>
+					<input offset="1" semantic="WEIGHT" source="#Scene82" set="0"/>
+					<input offset="2" semantic="TEXCOORD" source="#Scene83" set="0"/>
+					<input offset="3" semantic="NORMAL" source="#Scene84" set="0"/>
+					<p>12 12 7 7 13 13 4 7 14 14 5 7</p>
+					<p>14 14 5 7 15 15 6 7 12 12 7 7</p>
+				</polygons>
+				<polygons count="2" material="01___Default">
+					<input offset="0" semantic="VERTEX" source="#01___Default1-Vertex-0"/>
+					<input offset="1" semantic="WEIGHT" source="#Scene86" set="0"/>
+					<input offset="2" semantic="TEXCOORD" source="#Scene87" set="0"/>
+					<input offset="3" semantic="NORMAL" source="#Scene88" set="0"/>
+					<p>8 8 7 8 11 11 4 8 13 13 5 8</p>
+					<p>13 13 5 8 12 12 6 8 8 8 7 8</p>
+				</polygons>
+				<polygons count="2" material="01___Default">
+					<input offset="0" semantic="VERTEX" source="#01___Default1-Vertex-0"/>
+					<input offset="1" semantic="WEIGHT" source="#Scene90" set="0"/>
+					<input offset="2" semantic="TEXCOORD" source="#Scene91" set="0"/>
+					<input offset="3" semantic="NORMAL" source="#Scene92" set="0"/>
+					<p>11 11 7 9 10 10 4 9 14 14 5 9</p>
+					<p>14 14 5 9 13 13 6 9 11 11 7 9</p>
+				</polygons>
+				<polygons count="2" material="01___Default">
+					<input offset="0" semantic="VERTEX" source="#01___Default1-Vertex-0"/>
+					<input offset="1" semantic="WEIGHT" source="#Scene94" set="0"/>
+					<input offset="2" semantic="TEXCOORD" source="#Scene95" set="0"/>
+					<input offset="3" semantic="NORMAL" source="#Scene96" set="0"/>
+					<p>10 10 7 10 9 9 4 10 15 15 5 10</p>
+					<p>15 15 5 10 14 14 6 10 10 10 7 10</p>
+				</polygons>
+			</mesh>
+		</geometry>
+	</library_geometries>
+	<library_visual_scenes>
+		<visual_scene id="Scene" name="Scene">
+			<node id="Node" name="Node" layer="">
+				<matrix>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
+				<instance_geometry url="#01___Default" sid="GeometryInstance" name="_01___Default">
+					<bind_material>
+						<technique_common>
+							<instance_material symbol="01___Default" target="#Cube01_01___Default"/>
+						</technique_common>
+					</bind_material>
+				</instance_geometry>
+			</node>
+			<node id="Node1" name="Node1" layer="">
+				<matrix>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
+				<instance_geometry url="#01___Default1" sid="GeometryInstance1" name="_01___Default1">
+					<bind_material>
+						<technique_common>
+							<instance_material symbol="01___Default" target="#Obb01_01___Default"/>
+						</technique_common>
+					</bind_material>
+				</instance_geometry>
+			</node>
+			<extra type="evaluatescene_enables">
+				<technique profile="NVIDIA_FXCOMPOSER"/>
+			</extra>
+		</visual_scene>
+	</library_visual_scenes>
+	<scene>
+		<instance_visual_scene url="#Scene"/>
+	</scene>
+</COLLADA>

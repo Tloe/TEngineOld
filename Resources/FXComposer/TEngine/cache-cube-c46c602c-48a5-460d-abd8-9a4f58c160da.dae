@@ -1,0 +1,345 @@
+<?xml version="1.0"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+	<asset>
+		<contributor>
+			<author>T</author>
+			<authoring_tool>NVIDIA FX Composer 2.5</authoring_tool>
+			<comments/>
+			<copyright/>
+		</contributor>
+		<created>2012-03-20T23:56:15Z</created>
+		<keywords>FXComposer, NVIDIA</keywords>
+		<modified>2012-03-20T23:56:16Z</modified>
+		<subject/>
+		<title/>
+		<unit/>
+		<up_axis>Y_UP</up_axis>
+	</asset>
+	<library_effects>
+		<effect id="Effect" name="Default_Material">
+			<profile_COMMON>
+				<newparam sid="Script">
+					<semantic>STANDARDSGLOBAL</semantic>
+					<float>0.8</float>
+				</newparam>
+				<newparam sid="EmissionColor">
+					<semantic>EMISSION</semantic>
+					<float4>0 0 0 1</float4>
+				</newparam>
+				<newparam sid="AmbientColor">
+					<float4>1 1 1 1</float4>
+				</newparam>
+				<newparam sid="DiffuseColor">
+					<float4>1 1 1 1</float4>
+				</newparam>
+				<newparam sid="EnvironmentColor">
+					<float4>1 1 1 1</float4>
+				</newparam>
+				<newparam sid="Reflectivity">
+					<float>0.5</float>
+				</newparam>
+				<newparam sid="SpecularColor">
+					<semantic>SPECULAR</semantic>
+					<float4>0 0 0 1</float4>
+				</newparam>
+				<newparam sid="SpecularShininess">
+					<float>10</float>
+				</newparam>
+				<newparam sid="TransparentColor">
+					<float4>0 0 0 1</float4>
+				</newparam>
+				<newparam sid="Transparency">
+					<float>1</float>
+				</newparam>
+				<newparam sid="Index_Of_Refraction">
+					<float>1</float>
+				</newparam>
+				<technique sid="CommonProfile">
+					<phong>
+						<emission>
+							<param ref="EmissionColor"/>
+						</emission>
+						<ambient>
+							<param ref="AmbientColor"/>
+						</ambient>
+						<diffuse>
+							<param ref="DiffuseColor"/>
+						</diffuse>
+						<specular>
+							<param ref="SpecularColor"/>
+						</specular>
+						<shininess>
+							<param ref="SpecularShininess"/>
+						</shininess>
+						<reflective>
+							<param ref="EnvironmentColor"/>
+						</reflective>
+						<reflectivity>
+							<param ref="Reflectivity"/>
+						</reflectivity>
+						<transparent>
+							<param ref="TransparentColor"/>
+						</transparent>
+						<transparency>
+							<param ref="Transparency"/>
+						</transparency>
+						<index_of_refraction>
+							<param ref="Index_Of_Refraction"/>
+						</index_of_refraction>
+					</phong>
+				</technique>
+			</profile_COMMON>
+		</effect>
+		<effect id="Effect1" name="_01_-_Default">
+			<profile_COMMON>
+				<newparam sid="Script">
+					<semantic>STANDARDSGLOBAL</semantic>
+					<float>0.8</float>
+				</newparam>
+				<newparam sid="EmissionColor">
+					<semantic>EMISSION</semantic>
+					<float4>0 0 0 1</float4>
+				</newparam>
+				<newparam sid="AmbientColor">
+					<float4>0.784314 0.784314 0.784314 1</float4>
+				</newparam>
+				<newparam sid="DiffuseColor">
+					<float4>0.784314 0.784314 0.784314 1</float4>
+				</newparam>
+				<newparam sid="EnvironmentColor">
+					<float4>1 1 1 1</float4>
+				</newparam>
+				<newparam sid="Reflectivity">
+					<float>0.5</float>
+				</newparam>
+				<newparam sid="SpecularColor">
+					<semantic>SPECULAR</semantic>
+					<float4>0.952941 0.952941 0.952941 1</float4>
+				</newparam>
+				<newparam sid="SpecularShininess">
+					<float>10</float>
+				</newparam>
+				<newparam sid="TransparentColor">
+					<float4>0 0 0 1</float4>
+				</newparam>
+				<newparam sid="Transparency">
+					<float>1</float>
+				</newparam>
+				<newparam sid="Index_Of_Refraction">
+					<float>1</float>
+				</newparam>
+				<technique sid="CommonProfile">
+					<phong>
+						<emission>
+							<param ref="EmissionColor"/>
+						</emission>
+						<ambient>
+							<param ref="AmbientColor"/>
+						</ambient>
+						<diffuse>
+							<param ref="DiffuseColor"/>
+						</diffuse>
+						<specular>
+							<param ref="SpecularColor"/>
+						</specular>
+						<shininess>
+							<param ref="SpecularShininess"/>
+						</shininess>
+						<reflective>
+							<param ref="EnvironmentColor"/>
+						</reflective>
+						<reflectivity>
+							<param ref="Reflectivity"/>
+						</reflectivity>
+						<transparent>
+							<param ref="TransparentColor"/>
+						</transparent>
+						<transparency>
+							<param ref="Transparency"/>
+						</transparency>
+						<index_of_refraction>
+							<param ref="Index_Of_Refraction"/>
+						</index_of_refraction>
+					</phong>
+				</technique>
+			</profile_COMMON>
+		</effect>
+	</library_effects>
+	<library_materials>
+		<material id="Box001_01%20-%20Default" name="Box001_01_-_Default">
+			<instance_effect url="#Effect1">
+				<setparam ref="Script">
+					<float>0.8</float>
+				</setparam>
+				<setparam ref="EmissionColor">
+					<float4>0 0 0 1</float4>
+				</setparam>
+				<setparam ref="AmbientColor">
+					<float4>0.784314 0.784314 0.784314 1</float4>
+				</setparam>
+				<setparam ref="DiffuseColor">
+					<float4>0.784314 0.784314 0.784314 1</float4>
+				</setparam>
+				<setparam ref="EnvironmentColor">
+					<float4>1 1 1 1</float4>
+				</setparam>
+				<setparam ref="Reflectivity">
+					<float>0.5</float>
+				</setparam>
+				<setparam ref="SpecularColor">
+					<float4>0.952941 0.952941 0.952941 1</float4>
+				</setparam>
+				<setparam ref="SpecularShininess">
+					<float>10</float>
+				</setparam>
+				<setparam ref="TransparentColor">
+					<float4>0 0 0 1</float4>
+				</setparam>
+				<setparam ref="Transparency">
+					<float>1</float>
+				</setparam>
+				<setparam ref="Index_Of_Refraction">
+					<float>1</float>
+				</setparam>
+				<setparam ref="LightCount">
+					<int>4</int>
+				</setparam>
+			</instance_effect>
+		</material>
+	</library_materials>
+	<library_geometries>
+		<geometry id="Box001" name="Box001">
+			<mesh>
+				<source id="Scene1" name="FXStream">
+					<float_array id="Scene1-array" count="78">-0.5 -0.5 -0.5 0.5 -0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 0.5 0.5 0.5 0.5 0.5 -0.5 -0.5 -0.5 0.5 -0.5 -0.5 0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 -0.5 0.5 -0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 0.5 0.5 0.5 -0.5 -0.5 0.5 -0.5 -0.5 0.5 0.5 -0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 -0.5 -0.5 0.5 -0.5 -0.5 -0.5 0.5 -0.5 -0.5 0.5 -0.5 0.5 -0.5</float_array>
+					<technique_common>
+						<accessor count="26" source="#Scene1-array" stride="3">
+							<param name="X" type="float"/>
+							<param name="Y" type="float"/>
+							<param name="Z" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene2" name="FXStream">
+					<float_array id="Scene2-array" count="78">1 0 1 0 0 1 1 1 1 0 1 1 0 0 1 1 0 1 0 1 1 1 1 1 0 0 1 1 0 1 1 1 1 1 1 1 0 1 1 0 0 1 1 0 1 0 1 1 0 0 1 1 0 1 1 1 1 1 1 1 0 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1</float_array>
+					<technique_common>
+						<accessor count="26" source="#Scene2-array" stride="3">
+							<param name="S" type="float"/>
+							<param name="T" type="float"/>
+							<param name="R" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene3" name="FXStream">
+					<float_array id="Scene3-array" count="78">1 0 1 0 0 1 1 1 1 0 1 1 0 0 1 1 0 1 0 1 1 1 1 1 0 0 1 1 0 1 1 1 1 1 1 1 0 1 1 0 0 1 1 0 1 0 1 1 0 0 1 1 0 1 1 1 1 1 1 1 0 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1</float_array>
+					<technique_common>
+						<accessor count="26" source="#Scene3-array" stride="3">
+							<param name="S" type="float"/>
+							<param name="T" type="float"/>
+							<param name="R" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene4" name="FXStream">
+					<float_array id="Scene4-array" count="78">1 0 1 0 0 1 1 1 1 0 1 1 0 0 1 1 0 1 0 1 1 1 1 1 0 0 1 1 0 1 1 1 1 1 1 1 0 1 1 0 0 1 1 0 1 0 1 1 0 0 1 1 0 1 1 1 1 1 1 1 0 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1</float_array>
+					<technique_common>
+						<accessor count="26" source="#Scene4-array" stride="3">
+							<param name="S" type="float"/>
+							<param name="T" type="float"/>
+							<param name="R" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene5" name="FXStream">
+					<float_array id="Scene5-array" count="78">1 0 1 0 0 1 1 1 1 0 1 1 0 0 1 1 0 1 0 1 1 1 1 1 0 0 1 1 0 1 1 1 1 1 1 1 0 1 1 0 0 1 1 0 1 0 1 1 0 0 1 1 0 1 1 1 1 1 1 1 0 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1</float_array>
+					<technique_common>
+						<accessor count="26" source="#Scene5-array" stride="3">
+							<param name="S" type="float"/>
+							<param name="T" type="float"/>
+							<param name="R" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene6" name="FXStream">
+					<float_array id="Scene6-array" count="78">1 0 1 0 0 1 1 1 1 0 1 1 0 0 1 1 0 1 0 1 1 1 1 1 0 0 1 1 0 1 1 1 1 1 1 1 0 1 1 0 0 1 1 0 1 0 1 1 0 0 1 1 0 1 1 1 1 1 1 1 0 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1</float_array>
+					<technique_common>
+						<accessor count="26" source="#Scene6-array" stride="3">
+							<param name="S" type="float"/>
+							<param name="T" type="float"/>
+							<param name="R" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Scene7" name="FXStream">
+					<float_array id="Scene7-array" count="78">1 0 1 0 0 1 1 1 1 0 1 1 0 0 1 1 0 1 0 1 1 1 1 1 0 0 1 1 0 1 1 1 1 1 1 1 0 1 1 0 0 1 1 0 1 0 1 1 0 0 1 1 0 1 1 1 1 1 1 1 0 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1</float_array>
+					<technique_common>
+						<accessor count="26" source="#Scene7-array" stride="3">
+							<param name="S" type="float"/>
+							<param name="T" type="float"/>
+							<param name="R" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<vertices id="Box001-Vertex-0">
+					<input semantic="POSITION" source="#Scene1"/>
+				</vertices>
+				<polygons count="2" material="01 - Default">
+					<input offset="0" semantic="VERTEX" source="#Box001-Vertex-0"/>
+					<input offset="1" semantic="TEXCOORD" source="#Scene2" set="0"/>
+					<p>0 0 2 2 3 3</p>
+					<p>3 3 1 1 0 0</p>
+				</polygons>
+				<polygons count="2" material="01 - Default">
+					<input offset="0" semantic="VERTEX" source="#Box001-Vertex-0"/>
+					<input offset="2" semantic="TEXCOORD" source="#Scene3" set="0"/>
+					<p>4 0 4 5 0 5 7 0 7</p>
+					<p>7 0 7 6 0 6 4 0 4</p>
+				</polygons>
+				<polygons count="2" material="01 - Default">
+					<input offset="0" semantic="VERTEX" source="#Box001-Vertex-0"/>
+					<input offset="3" semantic="TEXCOORD" source="#Scene4" set="0"/>
+					<p>8 0 0 8 9 0 0 9 10 0 0 10</p>
+					<p>11 0 0 11 12 0 0 12 13 0 0 13</p>
+				</polygons>
+				<polygons count="2" material="01 - Default">
+					<input offset="0" semantic="VERTEX" source="#Box001-Vertex-0"/>
+					<input offset="4" semantic="TEXCOORD" source="#Scene5" set="0"/>
+					<p>1 0 0 0 1 14 0 0 0 14 7 0 0 0 7</p>
+					<p>7 0 0 0 7 15 0 0 0 15 1 0 0 0 1</p>
+				</polygons>
+				<polygons count="2" material="01 - Default">
+					<input offset="0" semantic="VERTEX" source="#Box001-Vertex-0"/>
+					<input offset="5" semantic="TEXCOORD" source="#Scene6" set="0"/>
+					<p>16 0 0 0 0 16 17 0 0 0 0 17 18 0 0 0 0 18</p>
+					<p>19 0 0 0 0 19 20 0 0 0 0 20 21 0 0 0 0 21</p>
+				</polygons>
+				<polygons count="2" material="01 - Default">
+					<input offset="0" semantic="VERTEX" source="#Box001-Vertex-0"/>
+					<input offset="6" semantic="TEXCOORD" source="#Scene7" set="0"/>
+					<p>22 0 0 0 0 0 22 0 0 0 0 0 0 0 23 0 0 0 0 0 23</p>
+					<p>24 0 0 0 0 0 24 6 0 0 0 0 0 6 25 0 0 0 0 0 25</p>
+				</polygons>
+			</mesh>
+		</geometry>
+	</library_geometries>
+	<library_visual_scenes>
+		<visual_scene id="Scene" name="Scene">
+			<node id="Node" name="Node" layer="">
+				<matrix>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
+				<instance_geometry url="#Box001" sid="GeometryInstance" name="Box001">
+					<bind_material>
+						<technique_common>
+							<instance_material symbol="01 - Default" target="#Box001_01%20-%20Default"/>
+						</technique_common>
+					</bind_material>
+				</instance_geometry>
+			</node>
+			<extra type="evaluatescene_enables">
+				<technique profile="NVIDIA_FXCOMPOSER"/>
+			</extra>
+		</visual_scene>
+	</library_visual_scenes>
+	<scene>
+		<instance_visual_scene url="#Scene"/>
+	</scene>
+</COLLADA>

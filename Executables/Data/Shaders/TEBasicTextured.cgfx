@@ -1,0 +1,81 @@
+void mainVS(float4 position : ATTR0,
+			float3 normal 	: ATTR2,
+			float2 texCoord	: ATTR8,
+
+			out float4 oPosition : POSITION,
+			out float2 oTexCoord : TEXCOORD0,
+			uniform float4x4 viewProjection,
+			uniform float4x4 world)
+{
+	oPosition = mul(world, position); 
+	oPosition = mul(viewProjection, oPosition);
+	oTexCoord = texCoord;
+}
+
+void mainFS(float2 texCoord	: TEXCOORD0,
+			out float4 color 	: COLOR,
+			uniform sampler2D texSampler0)
+{
+	color = tex2D(texSampler0, texCoord);
+}
+
+
+float4x4 world : World;
+float4x4 viewProjection : ViewProjection;
+
+/*texture colorTexture  <
+    string ResourceName = "metalbox.tga";
+    string UIName =  "Diffuse Texture";
+    string ResourceType = "2D";
+>;*/
+
+sampler2D texSampler0 = sampler_state {
+	//texture = <colorTexture>;
+    generateMipMap = true;
+    MinFilter = LinearMipMapLinear;
+    MagFilter = Linear;
+    WrapS = Repeat;
+    WrapT = Repeat;
+}; 
+
+technique basic_textured_dx_40
+{
+	pass
+	{
+		FragmentProgram = compile ps_4_0 mainFS(texSampler0);
+		VertexProgram = compile vs_4_0 mainVS(viewProjection, world);
+		DepthTestEnable = true;
+		DepthMask = true;
+		//CullFaceEnable = false;
+		//BlendEnable = false;
+		//DepthFunc = LEqual;
+	}
+}
+
+technique basic_textured_ogl_40
+{
+	pass
+	{
+                FragmentProgram = compile fp40 mainFS(texSampler0);
+                VertexProgram = compile vp40 mainVS(viewProjection, world);
+		DepthTestEnable = true;
+		DepthMask = true;
+		//CullFaceEnable = false;
+		//BlendEnable = false;
+		//DepthFunc = LEqual;
+	}
+}
+
+technique basic_textured_ogl_arb1
+{
+        pass
+        {
+                FragmentProgram = compile arbfp1 mainFS(texSampler0);
+                VertexProgram = compile arbvp1 mainVS(viewProjection, world);
+                DepthTestEnable = true;
+                DepthMask = true;
+                //CullFaceEnable = false;
+                //BlendEnable = false;
+                //DepthFunc = LEqual;
+        }
+}

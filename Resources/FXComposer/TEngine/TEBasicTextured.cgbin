@@ -1,0 +1,27 @@
+!!ARBfp1.0
+OPTION NV_fragment_program2;
+# cgc version 2.0.0016, build date Jun  5 2008
+# command line args: -profile fp40 -I c:\users\t\documents\fx composer 2\shader library\hlsl\include -I c:\users\t\documents\fx composer 2\shader library\cgfx\include -I c:\users\t\documents\fx composer 2\shader library\hlsl -I c:\users\t\documents\fx composer 2\shader library\cgfx -I d:\progs\nvidia corporation\fx composer 2.5\media\hlsl\include -I d:\progs\nvidia corporation\fx composer 2.5\media\cgfx\include -I d:\coding\tengine\resources\fxcomposer\tengine
+# source file: d:\coding\tengine\resources\fxcomposer\tengine\TEBasicTextured.cgfx
+#vendor NVIDIA Corporation
+#version 2.0.0.16
+#profile fp40
+#program mainFS
+#semantic mainFS.texSampler0
+#semantic world : World
+#semantic viewProjection : ViewProjection
+#semantic colorTexture
+#semantic texSampler0
+#var float2 texCoord : $vin.TEXCOORD0 : TEX0 : 0 : 1
+#var float4 color : $vout.COLOR : COL : 1 : 1
+#var sampler2D texSampler0 :  : texunit 0 : 2 : 1
+#var float4x4 world : World : , 4 : -1 : 0
+#var float4x4 viewProjection : ViewProjection : , 4 : -1 : 0
+#var texture colorTexture :  :  : -1 : 0
+#var sampler2D texSampler0 :  :  : -1 : 0
+TEMP RC;
+TEMP HC;
+OUTPUT oCol = result.color;
+TEX   oCol, fragment.texcoord[0], texture[0], 2D;
+END
+# 1 instructions, 0 R-regs, 0 H-regs

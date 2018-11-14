@@ -1,0 +1,17 @@
+Debug*
+Release*
+ipch
+*.sdf
+vscmake
+*.opensdf
+Visual Studio 2010
+Visual Studio 2012
+build
+#*
+*~
+Executables/Debug*
+Executables/Release*
+Executables/FightSpace
+*.user
+vs2015
+Externals/assimp--3.0.1270-sdk/lib/ 

@@ -1,0 +1,32 @@
+{
+	"VertexBufferLayout" :
+	{
+		"Position" :
+		{
+			"type" : 0,
+			"count" : 3,
+			"offset" : 0
+		},
+		"Normal" :
+		{
+			"type" : 0,
+			"count" : 3,
+			"offset" : 12
+		},
+		"Texture" :
+		{
+			"type" : 0,
+			"count" : 2,
+			"offset" : 24
+		}
+	},
+	"Texture" :
+	{
+		"Unit" : 0,
+		"File" : "/Textures/test.png"
+	},
+	"VertexBuffer" : "/Meshes/Cube01/Cube01.vertexbuffer",
+	"IndexBuffer" : "/Meshes/Cube01/Cube01.vertexbuffer",
+	"Effect" : "/Shaders/TEBasicTextured.cgfx",
+	"Bounding" : "Sphere"
+}
