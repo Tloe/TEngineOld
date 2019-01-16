@@ -5,7 +5,7 @@
 #include <iostream>
 #include <assert.h>
 
-TE::Render::APITexture2D::APITexture2D( Texture& texture, CGparameter cgParameter )
+TE::Render::APITexture2D::APITexture2D( Texture& texture/*, CGparameter cgParameter*/ )
     : m_usageCount(1)
 {
 	texture.Prepare();
@@ -17,11 +17,11 @@ TE::Render::APITexture2D::APITexture2D( Texture& texture, CGparameter cgParamete
 	assert(glGetError() == GL_NO_ERROR);
 
 	//bind the texture to the cg texture parameter
-	cgGLSetTextureParameter(cgParameter, m_glTexture);
+	/* cgGLSetTextureParameter(cgParameter, m_glTexture); */
 	assert(glGetError() == GL_NO_ERROR);
 
 	//initialize the state specified for a sampler parameter
-	cgSetSamplerState(cgParameter);
+	/* cgSetSamplerState(cgParameter); */
 	assert(glGetError() == GL_NO_ERROR);
 
 	glTexImage2D(GL_TEXTURE_2D,
@@ -41,9 +41,9 @@ TE::Render::APITexture2D::~APITexture2D()
 
 }
 
-void TE::Render::APITexture2D::Enable(CGparameter cgParameter )
+void TE::Render::APITexture2D::Enable(/*CGparameter cgParameter */)
 {	
-	cgGLSetTextureParameter(cgParameter, m_glTexture);
+	/* cgGLSetTextureParameter(cgParameter, m_glTexture); */
 	assert(glGetError() == GL_NO_ERROR);
 }
 

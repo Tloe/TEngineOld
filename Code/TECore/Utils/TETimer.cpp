@@ -5,16 +5,7 @@
 
 TE::Time::Timer::Timer()
 	: m_isRunning(true)
-	, m_timeUnit(Units::Microseconds)
     , m_start(std::chrono::high_resolution_clock::now())
-{
-	m_update = m_start;
-}
-
-TE::Time::Timer::Timer( Units unit )
-	: m_isRunning(true)
-	, m_timeUnit(unit)
-	, m_start(std::chrono::high_resolution_clock::now())
 {
 	m_update = m_start;
 }

@@ -17,7 +17,7 @@ namespace TE
 		class APIEffect : public APIResource
 		{
 		public:
-			APIEffect(APIContext& context, CGcontext& cgContext, Effect& effect);
+			APIEffect(APIContext& context, /*CGcontext& cgContext,*/ Effect& effect);
 			~APIEffect();
 			void Enable(APIContext& context);
 			void Disable(APIContext& context);

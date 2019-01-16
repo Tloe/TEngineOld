@@ -3,11 +3,6 @@
 #include "TESystemTask.h"
 #include "TETime.h"
 
-namespace
-{
-    const U64 cleanupTimeout = TE::Time::Microseconds::Second * 5;
-}
-
 TE::Network::NetworkScene::NetworkScene(Event::EventManager &eventManager, NetworkManager & networkManager)
     : m_networkTask(*this)
     , m_networkManager(networkManager)
@@ -35,7 +30,7 @@ TE::Engine::SystemObjectSPtr TE::Network::NetworkScene::CreateSystemObject(const
 {
     if(objectType == "NetworkObject")
     {
-        auto networkObject = std::make_shared<NetworkObject>(objectId, m_networkManager.IsServer(), m_eventManager, m_networkManager.GetMessagehandler());
+        auto networkObject = std::make_shared<NetworkObject>(objectId, m_eventManager, m_networkManager.GetMessagehandler());
 
         m_networkManager.AddNetworkObject(objectId, networkObject);
 

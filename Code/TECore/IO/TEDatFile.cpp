@@ -5,20 +5,33 @@
 #include <TEDatPath.h>
 #include <TEFileIO.h>
 #include <iostream>
-//#include <xfunctional>
 #include <assert.h>
 #include "TEFile.h"
 
 TE::IO::DatFile::DatFile()
-	:
-	m_emptyFile(false)
+	: m_crypto(nullptr)
+    , m_emptyFile(false)
 {}
 
 TE::IO::DatFile::DatFile( Resources::CryptoUPtr& crypto )
-	:
-	m_crypto(std::move(crypto)),
-	m_emptyFile(false)
+	: m_crypto(std::move(crypto))
+	, m_emptyFile(false)
 {}
+
+TE::IO::DatFile::~DatFile()
+{
+	if (!m_datFile.IsOpen())
+	{
+		m_datFile.Open(m_filePath, std::ios::binary | std::ios::in | std::ios::out);
+	}
+	if (m_datFile.IsOpen())
+	{
+		if (m_datFile.GetFileSize() == 0 || m_fileIndexHash.empty())
+		{
+			remove(m_filePath.c_str());
+		}
+	}
+}
 
 bool TE::IO::DatFile::OpenFile( const std::string& filePath)
 {
@@ -199,21 +212,6 @@ bool TE::IO::DatFile::GetFileData( StringHash filehash, std::vector<U8>& dataOut
 bool TE::IO::DatFile::GetFileData( const std::string& filePath, std::vector<U8>& dataOut )
 {
 	return GetFileData(HashGenerator()(filePath), dataOut);
-}
-
-TE::IO::DatFile::~DatFile()
-{
-	if (!m_datFile.IsOpen())
-	{
-		m_datFile.Open(m_filePath, std::ios::binary | std::ios::in | std::ios::out);
-	}
-	if (m_datFile.IsOpen())
-	{
-		if (m_datFile.GetFileSize() == 0 || m_fileIndexHash.empty())
-		{
-			remove(m_filePath.c_str());
-		}
-	}
 }
 
 I32 TE::IO::DatFile::GetFolderContent( const DatPath& relativeDatPath, std::vector<std::string>& foldersAndFilse )

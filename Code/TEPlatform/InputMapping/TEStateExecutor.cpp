@@ -5,3 +5,8 @@ TE::InputMapping::StateExecutor::StateExecutor( const std::string & stateName )
 {
 
 }
+
+TE::InputMapping::StateExecutor::~StateExecutor()
+{
+
+};

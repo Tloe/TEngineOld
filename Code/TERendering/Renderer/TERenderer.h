@@ -106,7 +106,7 @@ namespace TE
             ShaderParameter<Math::Matrix4D<Real> > m_viewProjectionMatrix;
             ShaderParameter<Math::Matrix4D<Real> > m_modelMatrix;
 
-			CGcontext m_cgContext;
+			/* CGcontext m_cgContext; */
 		};
 	}
 }

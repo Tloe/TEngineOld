@@ -24,9 +24,9 @@ TE::Context::APIContext::~APIContext()
     XFree(m_xlibVisualInfo);
 }
 
-void TE::Context::APIContext::SetCGContext(CGcontext &cgContext)
+void TE::Context::APIContext::SetCGContext(/*CGcontext &cgContext*/)
 {
-    m_cgContext = cgContext;
+    /* m_cgContext = cgContext; */
 }
 
 void TE::Context::APIContext::OnOpenWindow()
@@ -40,9 +40,8 @@ void TE::Context::APIContext::OnOpenWindow()
                    GetWindowXID(),
                    m_glContext);
 
-    cgGLSetDebugMode(CG_FALSE);
-    cgGLRegisterStates(m_cgContext);
-    cgGLSetManageTextureParameters(m_cgContext, CG_TRUE);
+    /* cgGLRegisterStates(m_cgContext); */
+    /* cgGLSetManageTextureParameters(m_cgContext, CG_TRUE); */
 }
 
 void TE::Context::APIContext::OnCloseWindow()

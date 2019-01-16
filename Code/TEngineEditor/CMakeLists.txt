@@ -41,8 +41,7 @@ ${TEngine_SOURCE_DIR}/Code/TEngineEditor/
 ${tecore_dirs}
 ${tegraphicssystem_dirs}
 ${tengine_dirs}
-${CgGlLibPath}
-${CG_LIBARARY_PATH})
+${CgGlLibPath})
 
 #QT
 #FIND_PACKAGE(Qt4 REQUIRED)

@@ -9,16 +9,16 @@
 #include <assert.h>
 #include <list>
 
-void TECgErrorHandler(CGcontext cgContext, CGerror error, void *data)
-{
-    std::cout << "CG ERROR - string: " << std::endl;
-    std::cout << cgGetErrorString(error) << std::endl;
-	if (cgContext)
-	{
-        std::cout << "CG ERROR - last listing:" << cgGetLastListing(cgContext) << std::endl;
-	}
-        assert(false);
-}
+/* void TECgErrorHandler(CGcontext cgContext, CGerror error, void *data) */
+/* { */
+/*     std::cout << "CG ERROR - string: " << std::endl; */
+/*     std::cout << cgGetErrorString(error) << std::endl; */
+/* 	if (cgContext) */
+/* 	{ */
+/*         std::cout << "CG ERROR - last listing:" << cgGetLastListing(cgContext) << std::endl; */
+/* 	} */
+/*         assert(false); */
+/* } */
 
 TE::Render::Renderer::Renderer(TE::Platform::OSWinId osWinId, IO::FileIO& fileIO )
     : m_apiRenderer(osWinId, fileIO)
@@ -50,17 +50,17 @@ TE::Render::Renderer::~Renderer()
 
 void TE::Render::Renderer::Startup()
 {
-    cgSetErrorHandler(TECgErrorHandler, nullptr);
-	m_cgContext = cgCreateContext();
+    //cgSetErrorHandler(TECgErrorHandler, nullptr);
+	//m_cgContext = cgCreateContext();
 
-    m_apiRenderer.Initialize(m_cgContext);
+    //m_apiRenderer.Initialize(m_cgContext);
 }
 
 void TE::Render::Renderer::Shutdown()
 {
     m_apiRenderer.Cleanup();
 
-	cgDestroyContext(m_cgContext);
+	//cgDestroyContext(m_cgContext);
 }
 
 void TE::Render::Renderer::BeginFrame()
@@ -75,7 +75,7 @@ void TE::Render::Renderer::EndFrame()
 
 void TE::Render::Renderer::InitEffect( Effect& effect )
 {
-	effect.Initialize(m_cgContext);    
+	//effect.Initialize(m_cgContext);    
 }
 
 void TE::Render::Renderer::InitAPIMesh( const Mesh& mesh, const Effect& effect )
@@ -151,7 +151,7 @@ void TE::Render::Renderer::EnableAPIMesh( const Mesh& mesh )
 
 void TE::Render::Renderer::EnableAPITexture( const Texture& texture, Effect& effect )
 {
-    m_apiTextures.find(&texture)->second->Enable(effect.GetCGParamaeter("texSampler0"));
+    /* m_apiTextures.find(&texture)->second->Enable(effect.GetCGParamaeter("texSampler0")); */
 }
 
 void TE::Render::Renderer::SetClearColor( const ColorRGBA& clearColor )
@@ -173,12 +173,12 @@ void TE::Render::Renderer::DisableAPITexture( const Texture& texture )
 
 void TE::Render::Renderer::SetViewProjectionMatrix( const Math::Matrix4D<Real>& viewProjection, Effect& effect )
 {
-    m_viewProjectionMatrix.Update(effect.GetCGParamaeter("viewProjection"), viewProjection);
+    /* m_viewProjectionMatrix.Update(effect.GetCGParamaeter("viewProjection"), viewProjection); */
 }
 
 void TE::Render::Renderer::SetModelMatrix( const Math::Matrix4D<Real>& model, Effect& effect )
 {
-    m_modelMatrix.Update(effect.GetCGParamaeter("world"), model);
+    /* m_modelMatrix.Update(effect.GetCGParamaeter("world"), model); */
 }
 
 bool TE::Render::Renderer::SetNextPass( Effect& effect )

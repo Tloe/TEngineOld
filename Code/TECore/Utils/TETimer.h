@@ -14,7 +14,6 @@ namespace TE
 		{
 		public:
 			Timer();
-			Timer(Units unit);
 
 			void Restart();
 			void Stop();
@@ -37,7 +36,6 @@ namespace TE
 
 		private:
 			bool m_isRunning;
-			Units m_timeUnit;
 			std::chrono::time_point<std::chrono::steady_clock> m_start;
 			std::chrono::time_point<std::chrono::steady_clock> m_previousUpdate;
 			std::chrono::time_point<std::chrono::steady_clock> m_update;

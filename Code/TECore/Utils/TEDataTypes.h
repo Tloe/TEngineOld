@@ -3,6 +3,7 @@
 
 #include <string>
 #include <cstdint>
+#include <cmath>
 
 typedef std::int8_t I8;
 typedef std::int16_t I16;

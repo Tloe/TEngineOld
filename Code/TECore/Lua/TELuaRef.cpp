@@ -1,9 +1,12 @@
 #include "TELuaRef.h"
 
+#include <TELuaState.h>
+
 #include "lua.hpp"
 
 namespace
 {
+
 	class ReFDeleter
 	{
 	public:
@@ -49,3 +52,4 @@ void TE::Lua::TraverseRefs(State & state, const std::vector<LuaRef> & luaRefs)
 	for (auto & ref : luaRefs)
 		ref.Get();
 }
+		

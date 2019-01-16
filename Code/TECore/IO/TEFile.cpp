@@ -166,7 +166,8 @@ std::string TE::IO::FileExtentionFromPath( const std::string& filePath )
 {
 	size_t pos = filePath.find_last_of('.');
 	std::string fileExtention = filePath.substr(pos+1);
-	for (unsigned i = 0; i < fileExtention.size(); ++i) tolower(fileExtention[i]);
+	for (unsigned i = 0; i < fileExtention.size(); ++i)
+        fileExtention[i] = tolower(fileExtention[i]);
 
 	return fileExtention;
 }

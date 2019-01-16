@@ -1,4 +1,6 @@
 #include "TEValue.h"
+#include "TEVector3D.h"
+#include <TEQuaternion.h>
 
 TE::Core::Value::Value(Enum valueType)
     : m_valueType(valueType)

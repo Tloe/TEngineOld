@@ -14,9 +14,7 @@ namespace
 	{
 		const char * message = "No message set";
 		if (!lua_isnil(nativeState, -1))
-		{
 			message = lua_tostring(nativeState, -1);
-		}
 
 		lua_pushstring(nativeState, message);
 
@@ -37,7 +35,7 @@ namespace
 	}
 }
 
-TE::Lua::Variable::Variable(State & state, LuaRef keyRef, std::vector<LuaRef> & keyPath)
+TE::Lua::Variable::Variable(State & state, LuaRef keyRef, const std::vector<LuaRef> & keyPath)
 	: m_state(state)
 	, m_keyPath(keyPath)
 	, m_keyRef(keyRef)

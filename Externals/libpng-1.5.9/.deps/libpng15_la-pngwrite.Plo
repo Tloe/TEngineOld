@@ -1,0 +1,94 @@
+libpng15_la-pngwrite.lo: pngwrite.c pngpriv.h /usr/include/stdlib.h \
+  /usr/include/sys/cdefs.h /usr/include/sys/_null.h \
+  /usr/include/sys/_types.h /usr/include/machine/_types.h \
+  /usr/include/x86/_types.h /usr/include/machine/_limits.h \
+  /usr/include/x86/_limits.h /usr/include/stddef.h png.h pnglibconf.h \
+  /usr/include/setjmp.h /usr/include/machine/setjmp.h \
+  /usr/include/x86/setjmp.h /usr/include/time.h pngconf.h \
+  /usr/include/limits.h /usr/include/sys/limits.h \
+  /usr/include/sys/syslimits.h /usr/include/string.h \
+  /usr/include/stdio.h pnginfo.h pngstruct.h /usr/include/zlib.h \
+  /usr/include/zconf.h /usr/include/sys/types.h \
+  /usr/include/machine/endian.h /usr/include/x86/endian.h \
+  /usr/include/sys/_pthreadtypes.h /usr/include/sys/_stdint.h \
+  /usr/include/stdarg.h /usr/include/x86/stdarg.h \
+  /usr/include/sys/_stdarg.h config.h /usr/include/float.h \
+  /usr/include/x86/float.h /usr/include/math.h pngdebug.h
+
+pngpriv.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/x86/_types.h:
+
+/usr/include/machine/_limits.h:
+
+/usr/include/x86/_limits.h:
+
+/usr/include/stddef.h:
+
+png.h:
+
+pnglibconf.h:
+
+/usr/include/setjmp.h:
+
+/usr/include/machine/setjmp.h:
+
+/usr/include/x86/setjmp.h:
+
+/usr/include/time.h:
+
+pngconf.h:
+
+/usr/include/limits.h:
+
+/usr/include/sys/limits.h:
+
+/usr/include/sys/syslimits.h:
+
+/usr/include/string.h:
+
+/usr/include/stdio.h:
+
+pnginfo.h:
+
+pngstruct.h:
+
+/usr/include/zlib.h:
+
+/usr/include/zconf.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/x86/endian.h:
+
+/usr/include/sys/_pthreadtypes.h:
+
+/usr/include/sys/_stdint.h:
+
+/usr/include/stdarg.h:
+
+/usr/include/x86/stdarg.h:
+
+/usr/include/sys/_stdarg.h:
+
+config.h:
+
+/usr/include/float.h:
+
+/usr/include/x86/float.h:
+
+/usr/include/math.h:
+
+pngdebug.h:

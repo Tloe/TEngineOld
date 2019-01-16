@@ -3,13 +3,11 @@
 
 #include "TEVector3D.h"
 #include "TEQuaternion.h"
-#include "TETransformChange.h"
 #include "TESystemObject.h"
 #include "TEEventHandler.h"
 
 namespace TE
 {
-	namespace Engine { class SubjectVisitor; }
     namespace Event { class EventManager; }
 	namespace Event { class TranslationEvent; }
     namespace Event { class ScaleEvent; }
@@ -19,7 +17,6 @@ namespace TE
 	{
 		class TransformObject
 			: public Engine::SystemObject
-			, public Engine::TransformChange
 			, public Event::EventHandler
 		{
 		public:
@@ -43,15 +40,14 @@ namespace TE
             virtual void Initialize();
             virtual void Cleanup();
             virtual I32 GetObjectId() const;
-			virtual Bitmask64 GetDesiredSystemChanges();
+			
+            virtual Bitmask64 GetDesiredSystemChanges();
 			virtual Bitmask64 GetPotentialSystemChanges();
-			virtual Math::Vector3D<Real> GetPosition();
-			virtual Math::Vector3D<Real> GetScale();
-			virtual Math::Quaternion<Real> GetOrientation();
+            virtual Engine::Change::ChangeDataPtrVar GetChangeData(Bitmask64 changeBits); 
+
             //virtual void JSONDeserialize(const Json::Value& jsonValue);
             //virtual void JSONSerialize(Json::Value& jsonValue);
             virtual void OnSubjectChange( Subject* subject, Bitmask64 changeBits );
-			virtual void AcceptSubjectVisitor(Engine::SubjectVisitor & subjectVisitor);
             virtual void HandleEvent(Event::TranslationEvent &translationEvent);
             virtual void HandleEvent(Event::ScaleEvent &scaleEvent);
             virtual void HandleEvent(Event::OrientationEvent &orientationEvent);

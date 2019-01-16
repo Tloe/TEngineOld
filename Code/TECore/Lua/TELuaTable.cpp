@@ -5,9 +5,8 @@
 #include "lua.hpp"
 
 TE::Lua::Table::Table(I32 luaReference, State & luaState)
-	:
-	m_luaReference(luaReference),
-	m_state(luaState)
+	: m_state(luaState)
+    , m_luaReference(luaReference)
 {
 
 }

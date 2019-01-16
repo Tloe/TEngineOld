@@ -5,6 +5,8 @@
 
 #include <vector>
 
+#include <lua.hpp>
+
 namespace TE
 {
 	namespace Lua { class State; }
@@ -15,6 +17,7 @@ namespace TE
 		void LuaSwap(State & state, I32 index0, I32 index1);
 		void LuaSwap(State & state);
 		void CreateTableInRegistry(State & state, const std::string & name);
+        lua_State* StateToNative(State & state);
 
 		template <std::size_t... Is>
 		struct Indices {};

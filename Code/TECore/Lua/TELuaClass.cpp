@@ -1,9 +1,6 @@
 #include "TELuaClass.h"
+#include "TELuaState.h"
 
 #include <functional>
 #include <typeinfo>
 
-TE::Lua::BaseClass::~BaseClass()
-{
-
-}

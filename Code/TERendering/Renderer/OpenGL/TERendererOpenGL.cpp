@@ -25,11 +25,11 @@ TE::Render::APIRenderer::~APIRenderer()
 
 }
 
-void TE::Render::APIRenderer::Initialize(CGcontext& cgContext)
+void TE::Render::APIRenderer::Initialize(/*CGcontext& cgContext*/)
 {
 	assert(m_threadId == std::this_thread::get_id() && "Renderer can only be used in the same thread as it was initialized in");
 
-	m_apiContext.SetCGContext(cgContext);
+	//m_apiContext.SetCGContext(cgContext);
     m_apiContext.Initialize();
 	glewInit();
 	SetViewPort(0, 0, 640, 480);
@@ -120,7 +120,7 @@ TE::Render::APITexture2DUPtr TE::Render::APIRenderer::CreateAPITexture2D( Textur
 {
 	assert(m_threadId == std::this_thread::get_id() && "Renderer can only be used in the same thread as it was initialized in");
 
-    return std::make_unique<APITexture2D>(texture, effect.GetCGParamaeter("texSampler0"));
+    return std::make_unique<APITexture2D>(texture); 
 }
 
 TE::Platform::PlatformWindow &TE::Render::APIRenderer::GetPlatformWindow()

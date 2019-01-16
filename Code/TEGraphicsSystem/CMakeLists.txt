@@ -24,8 +24,7 @@ ${teplatform_dirs}
 ${terendering_dirs}
 ${tengine_dirs}
 ${external_luajit_include}
-${external_glew_include}
-${CG_INCLUDE_PATH})
+${external_glew_include})
 
 add_library(TEGraphicsSystem
 	${graphicssystem_headers}
@@ -39,11 +38,12 @@ if(WIN32)
 		TERendering
 		TEPlatform)
 elseif(UNIX)
+	find_package(X11 REQUIRED)
+    include_directories(SYSTEM ${X11_INCLUDE_DIR})
 	target_link_libraries(
 		TEGraphicsSystem
 		TECore
-		TERendering
-		${cg_libs})
+		TERendering)
 endif()
 
 if(MSVC)

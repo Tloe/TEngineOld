@@ -16,6 +16,8 @@ namespace TE
 			friend class InputMapper;
 
 			ActionExecutor(const std::string& actionName);
+            virtual ~ActionExecutor();
+
 			virtual void Execute() = 0;
 
 		private:

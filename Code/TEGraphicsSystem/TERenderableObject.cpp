@@ -4,10 +4,8 @@
 #include "TERenderer.h"
 #include "TEFileIO.h"
 #include "TEFile.h"
-#include "TETransformChange.h"
 #include "TEVariant.h"
 #include "TEValue.h"
-#include "TESubjectVisitors.h"
 
 TE::Graphics::RenderableObject::RenderableObject(I32 objectId, SceneGraph::SceneManager& sceneManager )
     : GraphicsObject(objectId, GraphicsObjectType::Renderable, sceneManager)
@@ -126,20 +124,19 @@ void TE::Graphics::RenderableObject::OnSubjectChange( Subject* subject, Bitmask6
 {
 	if (changeBits & Engine::Change::Transform::All)
 	{
-		Engine::ChangeVisitor<Engine::TransformChange> visitor;
-		subject->AcceptSubjectVisitor(visitor);
-
-		if (changeBits & Engine::Change::Transform::Position)
+        auto transformChange = Engine::GetChangeData<Engine::Change::TransformChange>(subject, changeBits);
+    
+        if (changeBits & Engine::Change::Transform::Position)
 		{
-            m_renderable.SetTranslation(visitor.GetChangeInterface()->GetPosition());
-		}
-		if (changeBits & Engine::Change::Transform::Orientation)
-		{
-			m_renderable.SetOrientation(visitor.GetChangeInterface()->GetOrientation());
+			m_renderable.SetTranslation(*transformChange.position);
 		}
 		if (changeBits & Engine::Change::Transform::Scale)
 		{
-			m_renderable.SetScale(visitor.GetChangeInterface()->GetScale());
+			m_renderable.SetScale(*transformChange.scale);
+		}
+		if (changeBits & Engine::Change::Transform::Orientation)
+		{
+			m_renderable.SetOrientation(*transformChange.orientation);
 		}
 
 		m_renderable.Update();

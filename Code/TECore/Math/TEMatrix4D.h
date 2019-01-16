@@ -137,7 +137,7 @@ namespace TE
 
 			Matrix4D<TReal>& operator =(const Matrix3D<TReal>& m)
 			{
-				m_data[0][0] = m.m_data[0,0];
+				m_data[0][0] = m.m_data[0][0];
 				m_data[0][1] = m.m_data[0][1];
 				m_data[0][2] = m.m_data[0][2];
 				m_data[1][0] = m.m_data[1][0];
@@ -658,6 +658,24 @@ namespace TE
 				m(3,2) == 0 &&
 				m(3,3) == 0;
 		}
+
+        template <> inline const TE::Math::Matrix4D<F32> TE::Math::Matrix4D<F32>::MATRIX4D_ZERO(0.0f, 0.0f, 0.0f, 0.0f,
+                     0.0f, 0.0f, 0.0f, 0.0f,
+                     0.0f, 0.0f, 0.0f, 0.0f,
+                     0.0f, 0.0f,0.0f, 0.0f);
+        template<> inline const TE::Math::Matrix4D<F64> TE::Math::Matrix4D<F64>::MATRIX4D_ZERO(0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0);
+
+        template<> inline const TE::Math::Matrix4D<F32> TE::Math::Matrix4D<F32>::MATRIX4D_IDENTITY(1.0f, 0.0f, 0.0f, 0.0f,
+                        0.0f, 1.0f, 0.0f, 0.0f,
+                        0.0f, 0.0f, 1.0f, 0.0f,
+                        0.0f, 0.0f, 0.0f, 1.0f);
+        template<> inline const TE::Math::Matrix4D<F64> TE::Math::Matrix4D<F64>::MATRIX4D_IDENTITY(1.0, 0.0, 0.0, 0.0,
+                        0.0, 1.0, 0.0, 0.0,
+                        0.0, 0.0, 1.0, 0.0,
+                        0.0, 0.0, 0.0, 1.0);
 	}
 }
 

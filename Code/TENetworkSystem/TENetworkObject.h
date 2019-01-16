@@ -4,10 +4,10 @@
 #include "TESystemObject.h"
 #include "TEVector3D.h"
 #include "TEQuaternion.h"
-#include "TETransformChange.h"
 #include "TEPacket.h"
 #include "TEEventHandler.h"
 #include "TECircularQue.h"
+#include "TEChangeData.h"
 
 namespace TE
 {
@@ -20,7 +20,6 @@ namespace TE
     {
         class NetworkObject
                 : public Engine::SystemObject
-                , public Engine::TransformChange
                 , public Event::EventHandler
         {
         public:
@@ -34,18 +33,18 @@ namespace TE
 				};
 			};
 
-            NetworkObject(I32 objectId, bool server, Event::EventManager & eventManager , MessageHandler & messageHandler);
+            NetworkObject(I32 objectId, Event::EventManager & eventManager , MessageHandler & messageHandler);
 
             virtual void SetValue(Core::Value & value);
             virtual void Initialize();
             virtual void Cleanup();
+
             virtual Bitmask64 GetDesiredSystemChanges();
             virtual Bitmask64 GetPotentialSystemChanges();
+            virtual Engine::Change::ChangeDataPtrVar GetChangeData(Bitmask64 changeBits);
+
             virtual void OnSubjectChange(Subject* subject, Bitmask64 changeBits);
-            virtual void AcceptSubjectVisitor(Engine::SubjectVisitor & subjectVisitor);
-            virtual Math::Vector3D<Real> GetPosition();
-            virtual Math::Vector3D<Real> GetScale();
-            virtual Math::Quaternion<Real> GetOrientation();
+
             virtual I32 GetObjectId() const;
             virtual Priority GetPriority() const;
             virtual void HandleEvent(Event::TranslationEvent &translationEvent);
@@ -62,7 +61,6 @@ namespace TE
             void RemoteAddForceEvent(Net::Packet & packet, U64 time);
 
         private:
-            bool m_server;
             I32 m_objectId;
             Math::Vector3D<Real> m_position;
             Math::Vector3D<Real> m_scale;

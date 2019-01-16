@@ -33,3 +33,8 @@ void TE::Lua::CreateTableInRegistry(State & state, const std::string & name)
 	lua_newtable(state());
 	lua_settable(state(), LUA_REGISTRYINDEX);
 }
+
+lua_State* TE::Lua::StateToNative(State & state)
+{
+    return state();
+}

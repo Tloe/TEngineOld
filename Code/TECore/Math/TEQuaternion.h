@@ -15,9 +15,9 @@
 
 namespace TE
 {
-	namespace Math { template <typename TReal> class Matrix4D; }
-	namespace Math { template <typename TReal> class Matrix3D; }
-	namespace Math { template<typename T> class Vector3D; }
+	namespace Math { template <typename Real> class Matrix4D; }
+	namespace Math { template <typename Real> class Matrix3D; }
+	namespace Math { template <typename Real> class Vector3D; }
 
 	namespace Math
 	{
@@ -659,6 +659,12 @@ namespace TE
 				pMult*v.y + vMult*q.y + crossMult*(q.z*v.x - q.x*v.z),
 				pMult*v.z + vMult*q.z + crossMult*(q.x*v.y - q.y*v.x) );
 		}
+
+        template <> inline  const TE::Math::Quaternion<F32> TE::Math::Quaternion<F32>::QUATERNION_IDENTITY = Quaternion<F32>{0.0f, 0.0f, 0.0f, 1.0};
+        template <> inline const TE::Math::Quaternion<F64> TE::Math::Quaternion<F64>::QUATERNION_IDENTITY = Quaternion<F64>{0.0, 0.0, 0.0, 1.0};
+
+        template <> inline const TE::Math::Quaternion<F32> TE::Math::Quaternion<F32>::QUATERNION_INVALID = Quaternion<F32>{0.0f, 0.0f, 0.0f, 0.0};
+        template <> inline const TE::Math::Quaternion<F64> TE::Math::Quaternion<F64>::QUATERNION_INVALID = Quaternion{0.0, 0.0, 0.0, 0.0};
 	}
 }
 

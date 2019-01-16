@@ -2,9 +2,6 @@
 #define TEVARIANT_H
 
 #include "TEDataTypes.h"
-#include "TEVector3D.h"
-#include "TEVector2D.h"
-#include "TEQuaternion.h"
 
 #include <vector>
 #include <map>

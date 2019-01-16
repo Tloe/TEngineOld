@@ -504,6 +504,20 @@ namespace TE
 				m(2,1) == 0 &&
 				m(2,2) == 0;
 		}
+        
+        template <> inline const TE::Math::Matrix3D<F32> TE::Math::Matrix3D<F32>::MATRIX3D_ZERO(0.0f, 0.0f, 0.0f,
+                                                                                         0.0f, 0.0f, 0.0f,
+                                                                                         0.0f, 0.0f, 0.0f);
+        template <> inline const TE::Math::Matrix3D<F64> TE::Math::Matrix3D<F64>::MATRIX3D_ZERO(0.0, 0.0, 0.0,
+                                                                                         0.0, 0.0, 0.0,
+                                                                                         0.0, 0.0, 0.0);
+
+        template <> inline const TE::Math::Matrix3D<F32> TE::Math::Matrix3D<F32>::MATRIX3D_IDENTITY(1.0f, 0.0f, 0.0f,
+                                                                                             0.0f, 1.0f, 0.0f,
+                                                                                             0.0f, 0.0f, 1.0f);
+        template <> inline const TE::Math::Matrix3D<F64> TE::Math::Matrix3D<F64>::MATRIX3D_IDENTITY(1.0, 0.0, 0.0,
+                                                                                             0.0, 1.0, 0.0,
+                                                                                             0.0, 0.0, 1.0);
 	}
 }
 

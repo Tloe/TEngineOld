@@ -4,7 +4,7 @@
 #include "TEDataTypes.h"
 #include "TEApiContextIncludes.h"
 
-#include <Cg/cg.h>
+/* #include <Cg/cg.h> */
 
 #include <memory>
 #include <thread>
@@ -37,7 +37,7 @@ namespace TE
             APIRenderer(IO::FileIO & fileIO);
 			~APIRenderer();
 						
-            void Initialize(CGcontext& cgContext);
+            void Initialize(/*CGcontext& cgContext*/);
             void Cleanup();
 
             void SetResolution(I32 width,

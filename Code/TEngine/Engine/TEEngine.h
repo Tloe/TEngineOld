@@ -102,7 +102,6 @@ namespace TE
 			Lua::State m_luaState;
 
             U64 m_maxFrameTime;
-			U64 m_currentTime;
             Time::Timer m_frameTimer;
 			U64 m_accumulatedFrameTime;
 			U64 m_accumulatedFrameRate;

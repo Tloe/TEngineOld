@@ -12,8 +12,8 @@ void TE::LUAInterface::SetupInterface(Engine::EngineRoot & engineRoot)
 		{ "SetData", SetDataEngineRoot },
 		{ NULL, NULL }
 	};
-
-	//luaL_newlib("",);
+	
+    //luaL_newlib("",);
 }
 
 static int TE::LUAInterface::SetDataEngineRoot(lua_State * luaState)

@@ -5,6 +5,9 @@
 
 namespace TE
 {
+    namespace Math { template <typename T> class Vector3D; }
+    namespace Math { template <typename T> class Quaternion; }
+
     namespace Core
     {
         class Value

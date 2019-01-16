@@ -10,7 +10,8 @@ namespace TE
 		class Crypto
 		{
 		public:
-			virtual void Encrypt(char& c) = 0;
+            virtual ~Crypto(){};
+            virtual void Encrypt(char& c) = 0;
 			virtual void Decrypt(char& c) = 0;
 		};
 
@@ -18,8 +19,7 @@ namespace TE
 		{
 		public:
 			explicit CeasarSipherCrypto(I32 shiftNumber)
-				:
-				m_shiftNumber(shiftNumber)
+				: m_shiftNumber(shiftNumber)
 			{
 			}
 			

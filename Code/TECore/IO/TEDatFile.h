@@ -25,16 +25,16 @@ namespace TE
 		typedef std::unordered_map<StringHash, SizeOffsetPair> DatFileIndexHashMap;
 		typedef std::pair<std::string, SizeOffsetPair> StringSizeOffsetPair;
 		typedef std::map<std::string, SizeOffsetPair> DatFileIndexStringMap;
-				
+
 		class DatFile
 		{
 		public:
 			DatFile();
 			DatFile(Resources::CryptoUPtr& crypto);
 			~DatFile();
-						
-			bool OpenFile(const std::string& filePath);
-			bool GetFileData(StringHash filehash, std::vector<U8>& dataOut);
+
+            bool OpenFile(const std::string& filePath);
+            bool GetFileData(StringHash filehash, std::vector<U8>& dataOut);
 			bool GetFileData(const std::string& filePath, std::vector<U8>& dataOut);
 
 			//Adding and removing folders should only be done in tools

@@ -1,8 +1,6 @@
 #include <TECameraObject.h>
 #include "TECamera.h"
 #include "TECameraNode.h"
-#include "TETransformChange.h"
-#include "TESubjectVisitors.h"
 #include "TEValue.h"
 
 TE::Graphics::CameraObject::CameraObject( I32 objectId, SceneGraph::SceneManager& sceneManager)
@@ -84,22 +82,21 @@ void TE::Graphics::CameraObject::OnSubjectChange( Subject* subject, Bitmask64 ch
 {
 	if (changeBits & Engine::Change::Transform::All)
 	{
-		Engine::ChangeVisitor<Engine::TransformChange> visitor;
-		subject->AcceptSubjectVisitor(visitor);
+        auto transformChange = Engine::GetChangeData<Engine::Change::TransformChange>(subject, changeBits);
 
-		if (changeBits & Engine::Change::Transform::Position)
+        if (changeBits & Engine::Change::Transform::Position)
 		{
-			m_cameraNode.SetTranslation(visitor.GetChangeInterface()->GetPosition());
-		}
-		if (changeBits & Engine::Change::Transform::Orientation)
-		{
-			m_cameraNode.SetOrientation(visitor.GetChangeInterface()->GetOrientation());
+			m_cameraNode.SetTranslation(*transformChange.position);
 		}
 		if (changeBits & Engine::Change::Transform::Scale)
 		{
-			m_cameraNode.SetScale(visitor.GetChangeInterface()->GetScale());
+			m_cameraNode.SetScale(*transformChange.scale);
 		}
-		
+		if (changeBits & Engine::Change::Transform::Orientation)
+		{
+			m_cameraNode.SetOrientation(*transformChange.orientation);
+		}
+
 		m_cameraNode.Update();
 	}
 }

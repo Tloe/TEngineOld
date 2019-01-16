@@ -21,8 +21,6 @@ TE::Engine::EngineRoot::EngineRoot(TE::IO::FileIO& fileIO, const std::string &in
     , m_changeSyncer(m_threadPool)
     , m_sceneHandler(m_changeSyncer, fileIO, m_systems, m_scheduler)
 	, m_luaState(fileIO)
-    , m_currentTime(0)
-    , m_frameTimer(Time::Units::Microseconds)
     , m_accumulatedFrameTime(0)
     , m_accumulatedFrameRate(0)
     , m_microsecondsPrFrame()
@@ -137,7 +135,7 @@ I32 func(float f)
 class MyClass 
 {
 public:
-	MyClass(I32 i) : m_i(i), m_j(2*i)
+	MyClass(I32 i) : m_j(2*i), m_i(i)
 	{
 
 	}

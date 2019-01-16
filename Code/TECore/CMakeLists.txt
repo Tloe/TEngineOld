@@ -85,15 +85,6 @@ ${TEngine_SOURCE_DIR}/Code/TECore/Math/TEVector2D.h
 ${TEngine_SOURCE_DIR}/Code/TECore/Math/TEVector3D.h)
 source_group(Math FILES ${math_headers})
 
-set(math_source
-${TEngine_SOURCE_DIR}/Code/TECore/Math/TEMathBase.cpp
-${TEngine_SOURCE_DIR}/Code/TECore/Math/TEMatrix3D.cpp
-${TEngine_SOURCE_DIR}/Code/TECore/Math/TEMatrix4D.cpp
-${TEngine_SOURCE_DIR}/Code/TECore/Math/TEVector2D.cpp
-${TEngine_SOURCE_DIR}/Code/TECore/Math/TEVector3D.cpp
-${TEngine_SOURCE_DIR}/Code/TECore/Math/TEQuaternion.cpp)
-source_group(Math FILES ${math_source})
-
 #TECore/Resources
 set(resources_headers
 ${TEngine_SOURCE_DIR}/Code/TECore/Resources/TEResource.h
@@ -205,7 +196,6 @@ ${intersection_source}
 ${images_headers}
 ${images_source}
 ${math_headers}
-${math_source}
 ${resources_headers}
 ${resources_source}
 ${Lua_headers}
@@ -222,9 +212,9 @@ ${network_headers}
 ${network_source})
 
 if(WIN32)
-    target_link_libraries(TECore ${winsock2_lib} ${external_luajit_lib})
+    target_link_libraries(TECore ${winsock2_lib} ${LUA_LIBRARIES})
 elseif(UNIX)
-    target_link_libraries(TECore ${libpng_lib} ${Boost_CHRONO_LIBRARY} ${external_luajit_lib})
+    target_link_libraries(TECore ${libpng_lib} ${Boost_CHRONO_LIBRARY} ${LUA_LIBRARIES})
 endif()
 
 if(MSVC)

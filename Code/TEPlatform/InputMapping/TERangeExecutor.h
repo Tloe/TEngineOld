@@ -16,8 +16,10 @@ namespace TE
 		public:
 			friend class InputMapper;
 
-			RangeExecutor(const std::string& rangeName);
-			virtual void Execute(F64 range) = 0;
+            RangeExecutor(const std::string& rangeName);
+            virtual ~RangeExecutor();
+
+            virtual void Execute(F64 range) = 0;
 
 		private:
 			Hash m_nameHash;

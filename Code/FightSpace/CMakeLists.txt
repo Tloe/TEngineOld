@@ -18,10 +18,10 @@ ${tetransformsystem_dirs}
 ${tenetworksystem_dirs}
 ${tegamesystem_dirs}
 ${external_glew_include}
-${CG_INCLUDE_PATH}
 ${external_luajit_include})
 
 add_executable(FightSpace ${main_headers} ${main_source})
+
 
 if(WIN32)
     set(directx_lib d3d11.lib)
@@ -35,12 +35,14 @@ if(WIN32)
         TETransformSystem
         TENetworkSystem
         TEGameSystem
-        ${cg_libs}
         ${libpng_lib}
         ${directx_lib}
         ${winsock2_lib}
         ${external_luajit_lib})
 elseif(UNIX)
+    find_package(Threads)
+	find_package(X11 REQUIRED)
+    include_directories(SYSTEM ${X11_INCLUDE_DIR})
     target_link_libraries(
         FightSpace
         TECore
@@ -52,11 +54,11 @@ elseif(UNIX)
         TENetworkSystem
         TEGameSystem
         ${external_luajit_lib}
-        ${cg_libs}
         ${libpng_lib}
         ${Boost_SYSTEM_LIBRARY}
-        -L/usr/lib64
-        -lXxf86vm)
+        ${X11_LIBRARIES}
+        ${X11_Xxf86vm_LIB}
+        ${CMAKE_THREAD_LIBS_INIT})
 endif()
 
 if(MSVC)

@@ -2,31 +2,19 @@
 #define TELUAREF_H
 
 #include "TEDataTypes.h"
-#include "TELuaState.h"
 #include "TELuaHelpers.h"
-#include "TELuaNative.h"
 
 #include <vector>
 #include <memory>
 
+#include <lua.hpp>
+
 namespace TE
 {
-	namespace Lua { class LuaRef; }
+    namespace Lua { class State; }
 
 	namespace Lua
 	{
-		namespace Detail
-		{
-			template <typename... Ts>
-			void RecursiveRefsFromT(TE::Lua::State & state, std::vector<TE::Lua::LuaRef> & refs) {}
-
-			template <typename T, typename... Ts>
-			void RecursiveRefsFromT(TE::Lua::State & state, std::vector<TE::Lua::LuaRef> & refs, T head, Ts... tail)
-			{
-				refs.emplace_back(TE::Lua::RefFromT(state, head));
-				RecursiveRefsFromT(state, refs, tail...);
-			}
-		}
 
 		class LuaRef
 		{
@@ -43,22 +31,37 @@ namespace TE
 
 		void TraverseRefs(State & state, const std::vector<LuaRef> & luaRefs);
 
-		template <typename T>
-		LuaRef RefFromT(State & state, T& value)
-		{
-			Push(state, value);
-			return LuaRef(state, luaL_ref(state(), LUA_REGISTRYINDEX));
-		}
+        template <typename T>
+        LuaRef RefFromT(State & state, T& value)
+        {
+            Push(state, value);
+            return LuaRef(state, luaL_ref(StateToNative(state), LUA_REGISTRYINDEX));
+        }
 
-		template <typename... Ts>
-		std::vector<TE::Lua::LuaRef> RefsFromTs(State & state, Ts&... values)
-		{
-			std::vector<LuaRef> luaRefs;
-			luaRefs.reserve(sizeof...(Ts));
+        namespace Detail
+        {
+            template <typename... Ts>
+            void RecursiveRefsFromT(TE::Lua::State & state, std::vector<TE::Lua::LuaRef> & refs) {}
 
-			Detail::RecursiveRefsFromT(state, luaRefs, values...);
-			return luaRefs;
-		}
+            template <typename T, typename... Ts>
+            void RecursiveRefsFromT(TE::Lua::State & state, std::vector<TE::Lua::LuaRef> & refs, T head, Ts... tail)
+            {
+                refs.emplace_back(TE::Lua::RefFromT(state, head));
+                RecursiveRefsFromT(state, refs, tail...);
+            }
+        }
+
+        template <typename... Ts>
+        std::vector<TE::Lua::LuaRef> RefsFromTs(State & state, Ts&... values)
+        {
+            std::vector<LuaRef> luaRefs;
+            luaRefs.reserve(sizeof...(Ts));
+
+            Detail::RecursiveRefsFromT(state, luaRefs, values...);
+            return luaRefs;
+        }
+
+
 	}
 }
 

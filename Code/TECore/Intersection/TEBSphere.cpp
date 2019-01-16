@@ -1,4 +1,5 @@
 #include <TEBSphere.h>
+#include <TEMathBase.h>
 #include <TEMatrix4D.h>
 #include "TEHelpers.h"
 #include <cstdlib>

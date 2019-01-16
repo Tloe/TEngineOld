@@ -14,6 +14,7 @@ namespace TE
 		class StateExecutor
 		{
 		public:
+            virtual ~StateExecutor();
 			friend class InputMapper;
 
 			StateExecutor(const std::string& stateName);

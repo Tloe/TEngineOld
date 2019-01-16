@@ -41,7 +41,7 @@ namespace TE
 			const SystemSceneUPtrMap& GetSystemScenes();
 			//virtual void JSONDeserialize( const Json::Value& jsonValue );
 			//virtual void JSONSerialize(Json::Value& jsonValue);
-            virtual void OnSubjectChange( Subject* subject, Bitmask64 changeBits );
+            virtual void OnSubjectChange(Subject* subject, Bitmask64 changeBits );
 
 		private:
             typedef std::unordered_map<I32, UniversalObject> UniversalObjectMap;

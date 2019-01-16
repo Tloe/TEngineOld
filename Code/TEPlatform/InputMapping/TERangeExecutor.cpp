@@ -5,3 +5,8 @@ TE::InputMapping::RangeExecutor::RangeExecutor( const std::string& rangeName )
 {
 
 }
+
+TE::InputMapping::RangeExecutor::~RangeExecutor()
+{
+
+}

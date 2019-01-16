@@ -23,6 +23,7 @@ namespace TE
 		class Image
 		{
 		public:
+            virtual ~Image() {};
 			virtual void Load(IO::FileIO& fileIO, const std::string& filePath) = 0;
 			virtual void Unload() = 0;
 			virtual bool IsLoaded() = 0;

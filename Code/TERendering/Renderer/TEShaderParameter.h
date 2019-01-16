@@ -3,7 +3,7 @@
 
 #include "TEMatrix4D.h"
 #include <TEDataTypes.h>
-#include "Cg/cg.h"
+/* #include "Cg/cg.h" */
 #include <string>
 
 namespace TE
@@ -13,8 +13,8 @@ namespace TE
 		class ShaderParameterSetter
 		{
 		public:
-			void SetParameter(const std::string& parameterName, CGparameter& cgParameter, const Math::Matrix4D<F32> matrix);
-			void SetParameter(const std::string& parameterName, CGparameter& cgParameter, const Math::Matrix4D<F64> matrix);
+			void SetParameter(const std::string& parameterName, /*CGparameter& cgParameter,*/ const Math::Matrix4D<F32> matrix);
+			void SetParameter(const std::string& parameterName, /*CGparameter& cgParameter,*/ const Math::Matrix4D<F64> matrix);
 		};
 
 		class ShaderParameterBase
@@ -27,8 +27,7 @@ namespace TE
 		{
 		public:
 			ShaderParameter(const std::string& parameterName)
-				:
-				m_parameterName(parameterName)
+				: m_parameterName(parameterName)
 			{}
 
 			~ShaderParameter()
@@ -39,16 +38,16 @@ namespace TE
 				return m_parameterName;
 			}
 
-			void Update(CGparameter& cgParameter, const T& parameter);
+			void Update(/*CGparameter& cgParameter, */const T& parameter);
 		private:
 			std::string m_parameterName;
 			ShaderParameterSetter m_parameterSetter;
 		};
 		
 		template<typename T>
-		void TE::Render::ShaderParameter<T>::Update( CGparameter& cgParameter, const T& parameter )
+		void TE::Render::ShaderParameter<T>::Update(/*CGparameter& cgParameter, */const T& parameter )
 		{
-			m_parameterSetter.SetParameter(m_parameterName, cgParameter, parameter);
+			m_parameterSetter.SetParameter(m_parameterName, parameter);
 		}
 
 	}

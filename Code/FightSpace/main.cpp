@@ -12,6 +12,8 @@
 #include "TERangeExecutor.h"
 #include "TEInputMapper.h"
 #include <TETranslationEvent.h>
+#include "TEValue.h"
+#include "TEVariant.h"
 #include "TEVector3D.h"
 #include "TEQuaternion.h"
 #include <TETransformObject.h>
@@ -20,8 +22,6 @@
 #include "TENetworkSystem.h"
 #include "TENetworkManager.h"
 #include "TEOrientationEvent.h"
-#include "TEValue.h"
-#include "TEVariant.h"
 #include "TEEnvironmentUpdateEvent.h"
 #include "TEGameSystem.h"
 

@@ -5,3 +5,8 @@ TE::InputMapping::ActionExecutor::ActionExecutor( const std::string& actionName 
 {
 
 }
+
+TE::InputMapping::ActionExecutor::~ActionExecutor()
+{
+
+}

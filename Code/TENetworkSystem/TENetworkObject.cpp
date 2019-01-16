@@ -7,7 +7,6 @@
 #include "TETranslationEvent.h"
 #include "TEScaleEvent.h"
 #include "TEOrientationEvent.h"
-#include "TESubjectVisitors.h"
 #include "TEValue.h"
 
 namespace
@@ -103,9 +102,8 @@ namespace
     }
 }
 
-TE::Network::NetworkObject::NetworkObject(I32 objectId, bool server, Event::EventManager & eventManager, MessageHandler &messageHandler)
-    : m_server(server)
-    , m_objectId(objectId)
+TE::Network::NetworkObject::NetworkObject(I32 objectId, Event::EventManager & eventManager, MessageHandler &messageHandler)
+    : m_objectId(objectId)
     , m_position(Math::Vector3D<F32>::VECTOR3D_ZERO)
     , m_scale(Math::Vector3D<F32>::VECTOR3D_ONE)
     , m_orientation(Math::Quaternion<F32>::QUATERNION_IDENTITY)
@@ -204,41 +202,39 @@ Bitmask64 TE::Network::NetworkObject::GetPotentialSystemChanges()
     return Engine::Change::Transform::All;
 }
 
+TE::Engine::Change::ChangeDataPtrVar TE::Network::NetworkObject::GetChangeData(Bitmask64 changeBits)
+{
+    static Engine::Change::TransformChange transformChange;
+
+    transformChange.position = (changeBits & Engine::Change::Transform::Position) ? &m_position : nullptr;
+    transformChange.scale = (changeBits & Engine::Change::Transform::Scale) ? &m_scale : nullptr;
+    transformChange.orientation = (changeBits & Engine::Change::Transform::Position) ? &m_orientation : nullptr;
+
+	return Engine::Change::ChangeDataPtrVar(transformChange);
+}
+
 void TE::Network::NetworkObject::OnSubjectChange(Subject *subject, Bitmask64 changeBits)
 {
-	Engine::ChangeVisitor<TransformChange> visitor;
-	subject->AcceptSubjectVisitor(visitor);
-
     if (changeBits & Engine::Change::Transform::Position)
     {
-        m_position = visitor.GetChangeInterface()->GetPosition();
-        m_positionUpdated = true;
-    }
-    if (changeBits & Engine::Change::Transform::Scale)
-    {
-        m_scale = visitor.GetChangeInterface()->GetScale();
-        m_scaleUpdated = true;
-    }
-    if (changeBits & Engine::Change::Transform::Orientation)
-    {
-        m_orientation = visitor.GetChangeInterface()->GetOrientation();
-        m_orientationUpdated = true;
-    }
-}
+        auto transformChange = Engine::GetChangeData<Engine::Change::TransformChange>(subject, changeBits);
 
-TE::Math::Vector3D<Real> TE::Network::NetworkObject::GetPosition()
-{
-    return m_position;
-}
-
-TE::Math::Vector3D<Real> TE::Network::NetworkObject::GetScale()
-{
-    return m_scale;
-}
-
-TE::Math::Quaternion<Real> TE::Network::NetworkObject::GetOrientation()
-{
-    return m_orientation;
+		if (changeBits & Engine::Change::Transform::Position)
+		{
+			m_position = *transformChange.position;
+            m_positionUpdated = true;
+		}
+		if (changeBits & Engine::Change::Transform::Scale)
+		{
+			m_scale = *transformChange.scale;
+            m_scaleUpdated = true;
+		}
+		if (changeBits & Engine::Change::Transform::Orientation)
+		{
+			m_orientation = *transformChange.orientation;
+            m_orientationUpdated = true;
+		}
+	}
 }
 
 I32 TE::Network::NetworkObject::GetObjectId() const
@@ -354,10 +350,4 @@ void TE::Network::NetworkObject::RemoteOrientationEvent(TE::Net::Packet &packet,
 
 void TE::Network::NetworkObject::RemoteAddForceEvent(TE::Net::Packet &packet, U64 time)
 {
-
-}
-
-void TE::Network::NetworkObject::AcceptSubjectVisitor( Engine::SubjectVisitor & subjectVisitor )
-{
-	subjectVisitor.Visit(*this);
 }

@@ -10,14 +10,13 @@
 #include <memory>
 #include <functional>
 
-#include <iostream>
+#include <lua.hpp>
 
 namespace TE
 {
 	namespace Core { class Variant; }
 	namespace Lua { class Table; }
 	namespace Lua { class Variable; }
-	namespace Lua { class BaseClass; }
 	namespace IO { class FileIO; }
 
     namespace Lua
@@ -49,7 +48,7 @@ namespace TE
 			
 
 			std::string StackOutputString();
-			void DebugStack() { std::cout << StackOutputString() << std::endl; }
+			void DebugStack();
 			void DEBUGPrintTable(Table & luaTable);
 
 			template <typename ClassT, typename... CTorArgs, typename... Members, size_t... N>
@@ -58,38 +57,36 @@ namespace TE
 			void AddCustomLoader(IO::FileIO & fileIO);
 			bool LoadBuffer(const char * buffer, size_t size, std::string name);
 			bool CallBuffer();
-				
 
 			std::unordered_map<std::string, std::unique_ptr<BaseClass>> m_classes;
 			std::unordered_map<std::string, std::unique_ptr<BaseFunction>> m_functions;
 			lua_State* m_nativeState;
         };
-		
-		template <typename Ret, typename... Args>
-		void State::Register(const std::string & name, std::function<Ret(Args...)> func)
-		{
-			m_functions[name] = std::unique_ptr<BaseFunction>(
-				new Function<RetCount<Ret>::Count, Ret, Args...>(*this, name, func)
-				);
-		}
+        
+        template <typename Ret, typename... Args>
+        void State::Register(const std::string & name, std::function<Ret(Args...)> func)
+        {
+            m_functions[name] = std::unique_ptr<BaseFunction>(
+                new Function<RetCount<Ret>::Count, Ret, Args...>(*this, name, func)
+                );
+        }
 
+        template <typename Ret, typename... Args>
+        void State::Register(const std::string & name, Ret(*func)(Args...))
+        {
+            m_functions[name] = std::unique_ptr<BaseFunction>(
+                new Function<RetCount<Ret>::Count, Ret, Args...>(*this, name, func)
+            );
+        }
 
-		template <typename Ret, typename... Args>
-		void State::Register(const std::string & name, Ret(*func)(Args...))
-		{
-			m_functions[name] = std::unique_ptr<BaseFunction>(
-				new Function<RetCount<Ret>::Count, Ret, Args...>(*this, name, func)
-				);
-		}
-		
-		template <typename ClassT, typename... CTorArgs, typename... Members, size_t... N>
-		void State::RegisterClass(const std::string & name, std::tuple<Members...> members, Indices<N...>)
-		{
-			m_classes.emplace(std::make_pair(name, std::make_unique<Class<ClassT, Constructor<ClassT, CTorArgs...>, Members...>>(*this,
-																											name,
-																									        std::get<N>(members)...)));
-		}
-	}
+        template <typename ClassT, typename... CTorArgs, typename... Members, size_t... N>
+        void State::RegisterClass(const std::string & name, std::tuple<Members...> members, Indices<N...>)
+        {
+            m_classes.emplace(std::make_pair(name, std::make_unique<Class<ClassT, Constructor<ClassT, CTorArgs...>, Members...>>(*this,
+                                                      name,
+                                                      std::get<N>(members)...)));
+        }
+    }
 }
 
 #endif

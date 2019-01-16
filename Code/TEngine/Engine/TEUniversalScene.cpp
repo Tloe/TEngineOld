@@ -1,8 +1,7 @@
 #include "TEUniversalScene.h"
 #include "TEEngine.h"
 #include "TESystem.h"
-#include "TESubjectVisitors.h"
-#include "TESceneChange.h"
+#include "TEChangeData.h"
 
 TE::Engine::UniversalScene::UniversalScene(const std::string& sceneFilePath,
                                            ChangeSyncer & changeSyncer,
@@ -124,12 +123,9 @@ void TE::Engine::UniversalScene::OnSubjectChange( Subject* subject, Bitmask64 ch
 	//Handle scene stuff here
 	if (changeBits & Change::Scene::All)
 	{
-		ChangeVisitor<SceneChange> visitor;
-		subject->AcceptSubjectVisitor(visitor);
-
 		if (changeBits & Change::Scene::CreateObject)
 		{
-			auto createObjectData = visitor.GetChangeInterface()->GetCreateObjectData();
+            auto createObjectData = GetChangeData<Change::CreateObjectData>(subject, Change::Scene::CreateObject);
 
             auto & universalObject = CreateUniversalObject(createObjectData.objectName);
 

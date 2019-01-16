@@ -109,6 +109,7 @@ void TE::Lua::State::RunDataBuffer(std::vector<U8> & dataBuffer, const std::stri
 		CallBuffer();
 }
 
+
 void TE::Lua::State::AddCustomLoader(IO::FileIO & fileIO)
 {
 	//get package package.loaders table
@@ -188,6 +189,12 @@ std::string TE::Lua::State::StackOutputString()
 	outputStream << "---------- " << std::endl;
 
 	return outputStream.str();
+}
+
+
+void TE::Lua::State::DebugStack()
+{
+    std::cout << StackOutputString() << std::endl;
 }
 
 void TE::Lua::State::DEBUGPrintTable(Table & luaTable)

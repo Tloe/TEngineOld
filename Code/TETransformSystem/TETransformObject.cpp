@@ -4,7 +4,6 @@
 #include "TETranslationEvent.h"
 #include "TEScaleEvent.h"
 #include "TEOrientationEvent.h"
-#include "TESubjectVisitors.h"
 #include "TEEventManager.h"
 
 TE::Transform::TransformObject::TransformObject(I32 objectId, Event::EventManager& eventManager)
@@ -102,21 +101,6 @@ void TE::Transform::TransformObject::JSONSerialize(Json::Value& jsonValue)
 }
 */
 
-TE::Math::Vector3D<Real> TE::Transform::TransformObject::GetPosition()
-{
-    return m_position;
-}
-
-TE::Math::Vector3D<Real> TE::Transform::TransformObject::GetScale()
-{
-	return m_scale;
-}
-
-TE::Math::Quaternion<Real> TE::Transform::TransformObject::GetOrientation()
-{
-	return m_orientation;
-}
-
 Bitmask64 TE::Transform::TransformObject::GetDesiredSystemChanges()
 {
 	return Engine::Change::Transform::All;
@@ -131,20 +115,19 @@ void TE::Transform::TransformObject::OnSubjectChange( Subject* subject, Bitmask6
 {
 	if (changeBits & Engine::Change::Transform::All)
 	{
-		Engine::ChangeVisitor<Engine::TransformChange> visitor;
-		subject->AcceptSubjectVisitor(visitor);
+        auto transformChange = Engine::GetChangeData<Engine::Change::TransformChange>(subject, changeBits);
 
-		if (changeBits & Engine::Change::Transform::Position)
+        if (changeBits & Engine::Change::Transform::Position)
 		{
-			m_position = visitor.GetChangeInterface()->GetPosition();
+			m_position = *transformChange.position;
 		}
 		if (changeBits & Engine::Change::Transform::Scale)
 		{
-			m_scale = visitor.GetChangeInterface()->GetScale();
+			m_scale = *transformChange.scale;
 		}
 		if (changeBits & Engine::Change::Transform::Orientation)
 		{
-			m_orientation = visitor.GetChangeInterface()->GetOrientation();
+			m_orientation = *transformChange.orientation;
 		}
 	}
 }
@@ -170,7 +153,13 @@ void TE::Transform::TransformObject::HandleEvent(TE::Event::OrientationEvent &or
     PostSubjectChanges(Engine::Change::Transform::Orientation);
 }
 
-void TE::Transform::TransformObject::AcceptSubjectVisitor( Engine::SubjectVisitor & subjectVisitor )
+TE::Engine::Change::ChangeDataPtrVar TE::Transform::TransformObject::GetChangeData(Bitmask64 changeBits)
 {
-	subjectVisitor.Visit(*this);
+    static Engine::Change::TransformChange transformChange;
+
+    transformChange.position = (changeBits & Engine::Change::Transform::Position) ? &m_position : nullptr;
+    transformChange.scale = (changeBits & Engine::Change::Transform::Scale) ? &m_scale : nullptr;
+    transformChange.orientation = (changeBits & Engine::Change::Transform::Position) ? &m_orientation : nullptr;
+
+    return Engine::Change::ChangeDataPtrVar(transformChange);
 }

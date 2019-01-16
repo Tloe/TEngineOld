@@ -21,12 +21,10 @@ source_group(Engine FILES ${engine_source})
 #TEngine/Change
 set(change_headers
 ${TEngine_SOURCE_DIR}/Code/TEngine/Engine/Change/TESubject.h
-${TEngine_SOURCE_DIR}/Code/TEngine/Engine/Change/TESubjectVisitors.h
 ${TEngine_SOURCE_DIR}/Code/TEngine/Engine/Change/TEObserver.h
 ${TEngine_SOURCE_DIR}/Code/TEngine/Engine/Change/TEChangeMasks.h
 ${TEngine_SOURCE_DIR}/Code/TEngine/Engine/Change/TEChangeSyncer.h
-${TEngine_SOURCE_DIR}/Code/TEngine/Engine/Change/TETransformChange.h
-${TEngine_SOURCE_DIR}/Code/TEngine/Engine/Change/TESceneChange.h)
+${TEngine_SOURCE_DIR}/Code/TEngine/Engine/Change/TEChangeData.h)
 source_group(Engine\\Change FILES ${change_headers})
 
 set(change_source
@@ -117,13 +115,16 @@ ${luainterface_headers}
 ${luainterface_source})
 
 if(WIN32)
-        target_link_libraries(TEngine
-                              TECore
-                              TEPlatform)
+    target_link_libraries(TEngine
+                          TECore
+                          TEPlatform)
 elseif(UNIX)
-	target_link_libraries(TEngine
-                              TECore
-                              TEPlatform)
+    find_package(X11 REQUIRED)
+    include_directories(SYSTEM ${X11_INCLUDE_DIR})
+    link_directories(${X11_LIBRARIES})
+    target_link_libraries(TEngine
+                          TECore
+                          TEPlatform)
 endif()
 
 if(MSVC)

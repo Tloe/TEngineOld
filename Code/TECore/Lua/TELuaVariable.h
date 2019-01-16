@@ -2,14 +2,15 @@
 #define TELUAVARIABLE_H
 
 #include "TEDataTypes.h"
-#include "TEVariant.h"
-#include "TELuaState.h"
+#include "TELuaNative.h"
 #include "TELuaRef.h"
 #include "TELuaStackReseter.h"
+#include "TELuaState.h"
+
+#include <lua.hpp>
 
 #include <vector>
 #include <string>
-
 
 #ifdef RegisterClass
 #undef RegisterClass
@@ -24,7 +25,7 @@ namespace TE
 		class Variable
 		{
 		public:
-			Variable(State & state, LuaRef keyRef, std::vector<LuaRef> & keyPath = std::vector<LuaRef>());
+			Variable(State & state, LuaRef keyRef, const std::vector<LuaRef> & keyPath = std::vector<LuaRef>());
 
 			Variable operator [] (const std::string & key) const;
 			Variable operator [] (const char * key) const;
@@ -60,13 +61,11 @@ namespace TE
 			void Store(T value) const;
 			std::string FieldName() const;
 
+			State & m_state;
+			std::vector<LuaRef> m_keyPath;
+			LuaRef m_keyRef;
 			mutable bool m_callTriggered;
 			std::vector<LuaRef> m_callArgs;
-			
-			LuaRef m_keyRef;
-			std::vector<LuaRef> m_keyPath;
-
-			State & m_state;
 		};
 
 		template <typename... Args>
@@ -99,7 +98,7 @@ namespace TE
 
 			m_keyRef.Push();
 			std::string name = ReadStack<std::string>(Id<std::string>{}, m_state);
-						
+
 			auto memberTuple = std::make_tuple(members...);
 			typename IndicesBuilder<sizeof...(Members)>::Type indices;
 

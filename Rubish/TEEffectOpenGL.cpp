@@ -1,7 +1,7 @@
 #include <TEEffectOpenGL.h>
 #include "TEEffect.h"
 
-TE::Render::APIEffect::APIEffect( APIContext& context, CGcontext& cgContext, Effect& effect )
+TE::Render::APIEffect::APIEffect( APIContext& context, /*CGcontext& cgContext,*/ Effect& effect )
 {
 
 }

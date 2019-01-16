@@ -73,21 +73,20 @@ if(MSVC)
 endif()
 
 if(UNIX)
- #       set_source_files_properties(
- #               ${winplatform_headers}
- #              ${winplatform_source}
- #             PROPERTIES HEADER_FILE_ONLY true)
+    set_source_files_properties(${winplatform_headers}
+                                ${winplatform_source}
+                                PROPERTIES HEADER_FILE_ONLY true)
  
-		set(library_files
-			${common_headers}
-			${inputmapping_headers}
-			${inputmapping_source}
-			${winplatform_headers}
-			${winplatform_source})
+    set(library_files
+        ${common_headers}
+        ${inputmapping_headers}
+        ${inputmapping_source}
+        ${linuxplatform_headers}
+        ${linuxplatform_source})
 
-        find_package(X11 REQUIRED)
-        include_directories(${X11_INCLUDE_DIR})
-        link_directories(${X11_LIBRARIES})
+    find_package(X11 REQUIRED)
+    include_directories(SYSTEM ${X11_INCLUDE_DIR})
+    link_directories(${X11_LIBRARIES})
 endif()
 
 add_library(TEPlatform

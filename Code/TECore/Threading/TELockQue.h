@@ -95,7 +95,7 @@ namespace TE
                 std::unique_lock<std::mutex> headLock(m_headMutex);
                 m_dataCondition.wait(headLock, [&] { return m_head.get() != GetTail(); });
 
-                return std::move(headLock);
+                return headLock;
             }
 
             NodeUPtr WaitPopHead()

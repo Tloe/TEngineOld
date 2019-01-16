@@ -26,8 +26,7 @@ ${tephysics_dirs}
 ${tegraphicssystem_dirs}
 ${tetransformsystem_dirs}
 ${tenetworksystem_dirs}
-${external_assimp_include}
-${CG_INCLUDE_PATH})
+${external_assimp_include})
 
 add_executable(Testing ${main_headers} ${main_source})
 

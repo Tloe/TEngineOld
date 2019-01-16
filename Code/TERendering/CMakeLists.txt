@@ -129,7 +129,6 @@ ${terendering_dirs}
 ${tecore_dirs}
 ${tengine_dirs}
 ${teplatform_dirs}
-${CG_INCLUDE_PATH}
 ${external_glew_include}
 ${TEngine_SOURCE_DIR}/Externals/OpenGL)
 
@@ -170,8 +169,7 @@ if(UNIX)
 		PROPERTIES HEADER_FILE_ONLY true)
 
 	find_package(X11 REQUIRED)
-	include_directories(${X11_INCLUDE_DIR})
-	#link_directories(${X11_LIBRARIES} ${CG_LIBARARY_PATH})
+    include_directories(SYSTEM ${X11_INCLUDE_DIR})
 endif()
 
 #OpenGL
@@ -204,15 +202,13 @@ if(WIN32)
 		TECore
 		TEPlatform
 		${glew_libraries}
-		${OPENGL_LIBRARIES}
-		${cg_libs})
+		${OPENGL_LIBRARIES})
 elseif(UNIX)
 	target_link_libraries(
 		TERendering
 		TECore
 		TEPlatform
-                ${glew_libraries}
-		${cg_libs}
+        ${glew_libraries}
 		${OPENGL_LIBRARIES})
 endif()
 

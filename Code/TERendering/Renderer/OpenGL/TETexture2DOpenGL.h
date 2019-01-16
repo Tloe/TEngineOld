@@ -5,7 +5,7 @@
 
 #include "TEOpenGL.h"
 
-#include "Cg/cg.h"
+/* #include "Cg/cg.h" */
 
 namespace TE
 {
@@ -16,9 +16,9 @@ namespace TE
 		class APITexture2D
 		{
 		public:
-			APITexture2D(Texture& texture, CGparameter cgParameter );
+            APITexture2D(Texture& texture/*, CGparameter cgParameter */);
 			~APITexture2D();
-			void Enable(CGparameter cgParameter);
+			void Enable(/*CGparameter cgParameter*/);
 			void Disable();
 
             U32 IncreaseUsageCount();

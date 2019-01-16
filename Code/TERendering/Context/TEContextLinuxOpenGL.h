@@ -19,7 +19,7 @@ namespace TE
             APIContext(IO::FileIO & fileIO, const std::string& windowName = "TEngine");
             ~APIContext();
 
-            void SetCGContext(CGcontext& cgContext);
+            void SetCGContext(/*CGcontext& cgContext*/);
             virtual void OnOpenWindow();
             virtual void OnCloseWindow();
             virtual XVisualInfo* GetVisualInfo();
@@ -29,7 +29,7 @@ namespace TE
             GLXContext m_glContext;
             XID m_xlibWindowXID;
             XVisualInfo* m_xlibVisualInfo;
-            CGcontext m_cgContext;
+            /* CGcontext m_cgContext; */
 		};
 	}
 }

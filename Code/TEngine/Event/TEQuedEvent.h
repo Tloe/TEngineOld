@@ -11,6 +11,8 @@ namespace TE
 		class QuedEventBase
 		{
 		public:
+            virtual ~QuedEventBase(){}
+
 			virtual void HandleEvent(EventHandler* eventHandler) = 0;
 			virtual const std::type_info* GetTypeInfo() = 0;
 		};

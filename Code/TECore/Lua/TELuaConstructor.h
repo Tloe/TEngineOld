@@ -2,7 +2,6 @@
 #define TELUACONSTRUCTOR_H
 
 #include "TELuaBaseFunction.h"
-#include "TELuaState.h"
 
 #include <string>
 

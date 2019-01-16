@@ -27,13 +27,19 @@ void TE::Engine::Subject::DetachObserver( Observer& observer )
 
 void TE::Engine::Subject::PostSubjectChanges( Bitmask64 changeBits )
 {
-	for (auto& itr : m_observerSubscriptions)
-	{
+    for (auto& itr : m_observerSubscriptions)
+    {
         if (itr.subscribeBits & changeBits)
-		{
+        {
             itr.observer->OnSubjectChange(this, changeBits);
-		}
-	}
+        }
+    }
+}
+
+TE::Engine::Change::ChangeDataPtrVar TE::Engine::Subject::GetChangeData(Bitmask64 changeBits)
+{
+    assert("Derrived can implement this");
+    return TE::Engine::Change::ChangeDataPtrVar();
 }
 
 TE::Engine::Subject::Priority TE::Engine::Subject::GetPriority() const
@@ -44,9 +50,4 @@ TE::Engine::Subject::Priority TE::Engine::Subject::GetPriority() const
 I32 TE::Engine::Subject::GetObjectId() const
 {
     return -1;
-}
-
-void TE::Engine::Subject::AcceptSubjectVisitor( SubjectVisitor & subjectVisitor )
-{
-	assert(false && "Subject needs to implemented this");
 }

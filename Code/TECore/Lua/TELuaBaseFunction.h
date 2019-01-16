@@ -1,8 +1,10 @@
 #ifndef TELUABASEFUNCTION_H
 #define TELUABASEFUNCTION_H
 
-#include "TELuaHelpers.h"
+#include "TELuaNative.h"
+
 #include <lua.hpp>
+
 #include <functional>
 
 namespace TE
@@ -33,7 +35,7 @@ namespace TE
 			virtual I32 Execute() = 0;
 		};
 
-		static int LuaDispatcher(lua_State * luaState)
+		static int inline LuaDispatcher(lua_State * luaState)
 		{
 			TE::Lua::BaseFunction *function = static_cast<TE::Lua::BaseFunction*>(lua_touserdata(luaState, lua_upvalueindex(1)));
 			return function->Execute();
