@@ -1,0 +1,18 @@
+target_sources(TEngine
+    PUBLIC
+        TEEventVisitor.h
+        TEResolutionEvent.h
+        TEAddForceEvent.h
+        TETranslationEvent.h
+        TEScaleEvent.h
+        TEOrientationEvent.h
+        TEEnvironmentUpdateEvent.h
+    PRIVATE
+        TEEventVisitor.cpp
+        TEResolutionEvent.cpp
+        TEAddForceEvent.cpp
+        TETranslationEvent.cpp
+        TEScaleEvent.cpp
+        TEOrientationEvent.cpp
+        TEEnvironmentUpdateEvent.cpp
+)

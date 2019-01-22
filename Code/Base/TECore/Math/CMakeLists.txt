@@ -1,0 +1,11 @@
+target_sources(TECore
+    PUBLIC
+        TEHelpers.h
+        TEMathBase.h
+        TEMatrix3D.h
+        TEMatrix4D.h
+        TEQuaternion.h
+        TETransform.h
+        TEVector2D.h
+        TEVector3D.h
+)

@@ -1,0 +1,28 @@
+target_sources(TERendering
+    PUBLIC
+        TESceneManager.h
+        TEAlphaBlending.h
+        TECamera.h
+        TECameraNode.h
+        TECullState.h
+        TEFogState.h
+        TEGlobalState.h
+        TELight.h
+        TELightNode.h
+        TEMaterialState.h
+        TENode.h
+        TERenderable.h
+        TESpatial.h
+        TEWireframe.h
+        TEZBufferState.h
+    PRIVATE
+        TESceneManager.cpp
+        TECamera.cpp
+        TECameraNode.cpp
+        TEGlobalState.cpp
+        TELight.cpp
+        TELightNode.cpp
+        TENode.cpp
+        TERenderable.cpp
+        TESpatial.cpp
+)

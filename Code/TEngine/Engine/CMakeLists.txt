@@ -1,0 +1,19 @@
+add_subdirectory(Change)
+add_subdirectory(Systems)
+
+target_sources(TEngine
+    PUBLIC
+        TEEngine.h
+        TEUniversalScene.h
+        TEUniversalObject.h
+        TEScheduler.h
+        TEEnvironment.h
+        TESceneHandler.h
+    PRIVATE
+        TEEngine.cpp
+        TEUniversalScene.cpp
+        TEUniversalObject.cpp
+        TEScheduler.cpp
+        TEEnvironment.cpp
+        TESceneHandler.cpp
+)

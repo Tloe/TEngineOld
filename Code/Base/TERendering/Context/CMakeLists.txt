@@ -1,0 +1,20 @@
+if(UNIX)
+    target_sources(TERendering
+        PUBLIC
+            TEApiContextIncludes.h
+            TEContextLinuxOpenGL.h
+        PRIVATE
+            TEContextLinuxOpenGL.cpp
+    )
+elseif(WIN32)
+    target_sources(TERendering
+        PUBLIC
+            TEApiContextIncludes.h
+            TEContextWinDX11.h
+            TEContextWinOpenGL.h
+        PRIVATE
+            TEContextWinOpenGL.cpp
+            TEContextWinDX11.cpp
+    )
+endif()
+

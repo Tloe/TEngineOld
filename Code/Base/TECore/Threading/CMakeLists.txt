@@ -1,0 +1,13 @@
+target_sources(TECore
+    PUBLIC
+        TELockQue.h
+        TEThreadPool.h
+        TEWorkStealingQue.h
+        TEFunctionWrapper.h
+        TEThreadJoiner.h
+        TEFutureJoiner.h
+    PRIVATE
+        TEThreadPool.cpp
+        TEWorkStealingQue.cpp
+        TEFunctionWrapper.cpp
+)

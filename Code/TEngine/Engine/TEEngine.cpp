@@ -1,5 +1,5 @@
 #include "TEEngine.h"
-#include "TEPlatformWindowIncludes.h"
+/* #include "TEPlatformWindowIncludes.h" */
 #include "TESystem.h"
 #include "TEFileIO.h"
 #include "TEEventManager.h"
@@ -8,7 +8,7 @@
 
 #include "TELuaTable.h"
 #include "TELuaVariable.h"
-#include "TEState.h"
+/* #include "TEState.h" */
 
 #include <assert.h>
 #include <algorithm>

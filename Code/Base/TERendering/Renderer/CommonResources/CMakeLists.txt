@@ -1,0 +1,11 @@
+target_sources(TERendering
+    PUBLIC
+        TEMesh.h
+        TEMeshStructs.h
+        TETexture.h
+        TEEffect.h
+    PRIVATE
+        TEMesh.cpp
+        TETexture.cpp
+        TEEffect.cpp
+)

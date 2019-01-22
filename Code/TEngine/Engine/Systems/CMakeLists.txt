@@ -1,0 +1,12 @@
+target_sources(TEngine
+    PUBLIC
+        TESystemTask.h
+        TESystem.h
+        TESystemScene.h
+        TESystemObject.h
+    PRIVATE
+        TESystemTask.cpp
+        TESystemObject.cpp
+        TESystem.cpp
+        TESystemScene.cpp
+)

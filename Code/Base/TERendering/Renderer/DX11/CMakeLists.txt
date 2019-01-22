@@ -1,0 +1,16 @@
+target_sources(TERendering
+    PUBLIC
+        TEVertexBufferDX11.h
+        TEIndexBufferDX11.h
+        TEVertexBufferLayoutDX11.h
+        TEMappingDX11.h
+        TERendererDX11.h
+        TETexture2DDX11.h
+    PRIVATE
+        TEVertexBufferDX11.cpp
+        TEIndexBufferDX11.cpp
+        TERendererDX11.cpp
+        TEMappingDX11.cpp
+        TEVertexBufferLayoutDX11.cpp
+        TETexture2DDX11.cpp
+)

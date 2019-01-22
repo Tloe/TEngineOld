@@ -1,16 +1,4 @@
-#TEngine
-
-subdirs(Testing
-	FightSpace
-	TEngineEditor
-	TECore
-	TEPhysics
-	TEPlatform
-	TERendering	
-	TEngine
-        TENetworkSystem
-	TEPhysicsSystem
-	TEGraphicsSystem
-	TETransformSystem
-        TEGameSystem)
-
+add_subdirectory(Base)
+add_subdirectory(TEngine)
+add_subdirectory(Executables)
+add_subdirectory(ThreadedSystems)

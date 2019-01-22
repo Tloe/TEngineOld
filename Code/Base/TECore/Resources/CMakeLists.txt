@@ -1,0 +1,9 @@
+target_sources(TECore
+    PUBLIC
+        TEResource.h
+        TEResourceHandle.h
+        TEResourceManager.h
+        TECrypto.h
+    PRIVATE
+        TEResource.cpp
+)

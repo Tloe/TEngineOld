@@ -1,0 +1,18 @@
+target_sources(TECore
+    PUBLIC
+        TEFileIO.h
+        TEDatFile.h
+        TEDatPath.h
+        TEFileSystemIO.h
+        TEDatFileIO.h
+        TEFile.h
+        TEJson.h
+    PRIVATE
+        TEFileIO.cpp
+        TEDatPath.cpp
+        TEDatFile.cpp
+        TEFileSystemIO.cpp
+        TEDatFileIO.cpp
+        TEFile.cpp
+        TEJson.cpp
+)

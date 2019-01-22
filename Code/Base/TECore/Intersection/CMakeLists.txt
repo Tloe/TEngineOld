@@ -1,0 +1,26 @@
+target_sources(TECore
+    PUBLIC
+        TEBSphere.h
+        TECollider.h
+        TEColliderVisitor.h
+        TESphereObbCollider.h
+        TESpherePlaneCollider.h
+        TESphereSphereCollider.h
+        TEContactSet.h
+        TEIntersectionConfig.h
+        TEObb.h
+        TEObbObbCollider.h
+        TEObbPlaneCollider.h
+        TEPlane.h
+    PRIVATE
+        TEBSphere.cpp
+        TEColliderVisitor.cpp
+        TESphereObbCollider.cpp
+        TESpherePlaneCollider.cpp
+        TESphereSphereCollider.cpp
+        TEObb.cpp
+        TEObbObbCollider.cpp
+        TEObbPlaneCollider.cpp
+        TEPlane.cpp
+        TEIntersectionConfig.cpp
+)

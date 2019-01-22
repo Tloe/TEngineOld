@@ -1,0 +1,20 @@
+target_sources(TEPlatform
+    PUBLIC
+        TEInputContext.h
+        TEInputMapper.h
+        TEActionExecutor.h
+        TEStateExecutor.h
+        TERangeExecutor.h
+        TEAction.h
+        TEState.h
+        TERange.h
+        TEInput.h
+    PRIVATE
+        TEInputContext.cpp
+        TEInputMapper.cpp
+        TEActionExecutor.cpp
+        TEStateExecutor.cpp
+        TERangeExecutor.cpp
+        TERange.cpp
+        TEInput.cpp
+)

@@ -1,0 +1,17 @@
+target_sources(TERendering
+    PUBLIC
+        TEOpenGL.h
+        TEVertexBufferOpenGL.h
+        TEIndexBufferOpenGL.h
+        TEVertexBufferLayoutOpenGL.h
+        TEMappingOpenGL.h
+        TERendererOpenGL.h
+        TETexture2DOpenGL.h
+    PRIVATE
+        TERendererOpenGL.cpp
+        TEMappingOpenGL.cpp
+        TEVertexBufferOpenGL.cpp
+        TEIndexBufferOpenGL.cpp
+        TETexture2DOpenGL.cpp
+        TEVertexBufferLayoutOpenGL.cpp
+)
