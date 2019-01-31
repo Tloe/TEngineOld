@@ -37,8 +37,7 @@ target_include_directories(TEPlatform
     PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}
         InputMapping
-        ${platform_SUBDIR}
-)
+        ${platform_SUBDIR})
 
 target_link_libraries(TEPlatform PUBLIC ${platform_LIBRARIES} TECore)
 target_include_directories(TEPlatform SYSTEM PUBLIC ${platform_INCLUDES})

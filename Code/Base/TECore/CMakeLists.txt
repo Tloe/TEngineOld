@@ -41,10 +41,17 @@ add_subdirectory(Threading)
 add_subdirectory(Utils)
 
 if(WIN32)
-    target_link_libraries(TECore ${winsock2_lib} ${LUA_LIBRARIES})
+    target_link_libraries(TECore ${LUA_LIBRARIES})
 elseif(UNIX)
     find_package(Threads)
-    target_link_libraries(TECore PUBLIC ${libpng_lib} ${Boost_CHRONO_LIBRARY} ${external_luajit_lib} ${CMAKE_THREAD_LIBS_INIT})
+    target_link_libraries(TECore
+        PUBLIC
+            ${CMAKE_THREAD_LIBS_INIT} 
+            ${CONAN_LIBS_LUAJIT}
+            ${CONAN_LIBS_ENET}
+            ${CONAN_LIBS_LIBPNG}
+            ${CONAN_LIBS_ZLIB})
+
 endif()
 
 target_include_directories(TECore
@@ -58,11 +65,10 @@ target_include_directories(TECore
         Resources
         Threading
         Utils
-        ${external_luajit_include}
     PRIVATE
-        ${ENET_INCLUDE}
-        ${LIBPNG_INCLUDE}
-)
+        ${CONAN_INCLUDE_DIRS_LUAJIT}
+        ${CONAN_INCLUDE_DIRS_ENET}
+        ${CONAN_INCLUDE_DIRS_LIBPNG})
 
 if(MSVC)
 	set_target_properties(TECore PROPERTIES FOLDER "0. TELibs")

@@ -1,78 +1,11 @@
-#TEngine
-
 cmake_minimum_required(VERSION 3.13)
-
-cmake_policy(SET CMP0043 NEW)
-
 project(TEngine)
-
-# set(tecore_dirs
-# ${TEngine_SOURCE_DIR}/Code/TECore/Events/
-# ${TEngine_SOURCE_DIR}/Code/TECore/Intersection/
-# ${TEngine_SOURCE_DIR}/Code/TECore/Math/
-# ${TEngine_SOURCE_DIR}/Code/TECore/Network/
-# ${TEngine_SOURCE_DIR}/Code/TECore/Resources/
-# ${TEngine_SOURCE_DIR}/Code/TECore/IO/
-# ${TEngine_SOURCE_DIR}/Code/TECore/Images/
-# ${TEngine_SOURCE_DIR}/Code/TECore/Lua/
-# ${TEngine_SOURCE_DIR}/Code/TECore/Utils/
-# ${TEngine_SOURCE_DIR}/Code/TECore/Threading/)
-
-# set(terendering_dirs
-# ${TEngine_SOURCE_DIR}/Code/TERendering/Renderer/CommonResources
-# ${TEngine_SOURCE_DIR}/Code/TERendering/Renderer/DX11
-# ${TEngine_SOURCE_DIR}/Code/TERendering/Renderer/OpenGL
-# ${TEngine_SOURCE_DIR}/Code/TERendering/Renderer
-# ${TEngine_SOURCE_DIR}/Code/TERendering/Resources
-# ${TEngine_SOURCE_DIR}/Code/TERendering/SceneGraph
-# ${TEngine_SOURCE_DIR}/Code/TERendering/Context)
-
-# set(tephysics_dirs
-# ${TEngine_SOURCE_DIR}/Code/TEPhysics/Collision
-# ${TEngine_SOURCE_DIR}/Code/TEPhysics/Physics)
-
-# set(tengine_dirs
-# ${TEngine_SOURCE_DIR}/Code/TEngine/Engine
-# ${TEngine_SOURCE_DIR}/Code/TEngine/Engine/Change
-# ${TEngine_SOURCE_DIR}/Code/TEngine/Engine/Systems
-# ${TEngine_SOURCE_DIR}/Code/TEngine/Event
-# ${TEngine_SOURCE_DIR}/Code/TEngine/Event/Events
-# ${TEngine_SOURCE_DIR}/Code/TEngine/LuaInterface)
-
-# set(tetransformsystem_dirs
-# ${TEngine_SOURCE_DIR}/Code/TETransformSystem
-# )
-
-# set(tegraphicssystem_dirs
-# ${TEngine_SOURCE_DIR}/Code/TEGraphicsSystem
-# )
-
-# set(tephysicssystem_dirs
-# ${TEngine_SOURCE_DIR}/Code/TEPhysicsSystem
-# )
-
-# set(tegamesystem_dirs
-# ${TEngine_SOURCE_DIR}/Code/TEGameSystem)
-
-# set(teplatform_dirs
-# ${TEngine_SOURCE_DIR}/Code/TEPlatform
-# ${TEngine_SOURCE_DIR}/Code/TEPlatform/InputMapping
-# ${TEngine_SOURCE_DIR}/Code/TEPlatform/Win
-# ${TEngine_SOURCE_DIR}/Code/TEPlatform/Linux
-# )
-
-# set(tenetworksystem_dirs
-# ${TEngine_SOURCE_DIR}/Code/TENetworkSystem)
 
 #TODO! use new property!
 set(EXECUTABLE_OUTPUT_PATH "${TEngine_SOURCE_DIR}/Executables")
 
-#Base system
-
-##Engine framework
-
-##Threaded systems
-
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
 
 #if(MSVC)
 #	set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -124,17 +57,7 @@ set(EXECUTABLE_OUTPUT_PATH "${TEngine_SOURCE_DIR}/Executables")
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/Utils/CMake)
 
-set(ENET_INCLUDE ${TEngine_SOURCE_DIR}/Externals/enet-1.3.0/include)
-set(external_assimp_include ${TEngine_SOURCE_DIR}/Externals/assimp--3.0.1270-sdk/include)
-set(LIBPNG_INCLUDE ${TEngine_SOURCE_DIR}/Externals/libpng-1.5.9)
-set(external_luajit_include ${TEngine_SOURCE_DIR}/Externals/LuaJIT-2.0.5/src)
-
-#set(winsock2_lib "ws2_32.lib")
 if(WIN32)
-    set(external_luajit_lib ${TEngine_SOURCE_DIR}/Externals/LuaJIT-2.0.4/src/lua51.lib)
-    set(libpng_lib ${TEngine_SOURCE_DIR}/Externals/libpng-1.5.9/projects/vstudio/Release/libpng15.lib)
-    set(external_assimp_lib_R ${TEngine_SOURCE_DIR}/Externals/assimp--3.0.1270-sdk/lib/assimp_release-st_win32/assimp.lib)
-    set(external_assimp_lib_D ${TEngine_SOURCE_DIR}/Externals/assimp--3.0.1270-sdk/lib/assimp_debug-st_win32/assimp.lib)
     add_definitions(-D TE_WINDOWS)
     add_definitions(-D _WIN32_WINDOWS)
     add_definitions(-D WIN32_LEAN_AND_MEAN)
@@ -142,10 +65,6 @@ if(WIN32)
     add_definitions(-D _CRT_SECURE_NO_WARNINGS)
     add_definitions(-D NOMINMAX)
 elseif(UNIX)
-    set(libpng_lib ${TEngine_SOURCE_DIR}/Externals/libpng-1.5.9/build/lib/libpng15.so)
-    set(external_assimp_lib ${TEngine_SOURCE_DIR}/Externals/assimp--3.0.1270-sdk/build/code/libassimp.so)
-    set(external_luajit_lib ${TEngine_SOURCE_DIR}/Externals/LuaJIT-2.0.5/src/libluajit.so)
-
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-long-long -pedantic -std=c++17 -ferror-limit=0")
     add_definitions(-DTE_LINUX -DTE_OPENGL)
 endif()
