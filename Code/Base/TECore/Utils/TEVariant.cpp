@@ -1,5 +1,6 @@
 #include <TEVariant.h>
 #include <cstring>
+#include <assert.h>
 
 TE::Core::Variant::Variant()
     : m_variantType(VariantType::NotSet)

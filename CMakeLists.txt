@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 project(TEngine)
 
-#TODO! use new property!
-set(EXECUTABLE_OUTPUT_PATH "${TEngine_SOURCE_DIR}/Executables")
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${TEngine_SOURCE_DIR}/Executables")
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()

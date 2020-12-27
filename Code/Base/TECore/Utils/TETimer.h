@@ -36,9 +36,9 @@ namespace TE
 
 		private:
 			bool m_isRunning;
-			std::chrono::time_point<std::chrono::steady_clock> m_start;
-			std::chrono::time_point<std::chrono::steady_clock> m_previousUpdate;
-			std::chrono::time_point<std::chrono::steady_clock> m_update;
+			std::chrono::time_point<std::chrono::high_resolution_clock> m_start;
+			std::chrono::time_point<std::chrono::high_resolution_clock> m_previousUpdate;
+			std::chrono::time_point<std::chrono::high_resolution_clock> m_update;
 			
 		};
 

@@ -18,6 +18,9 @@ target_link_libraries(FightSpace
         TENetworkSystem
         TEGameSystem)
 
+set_target_properties(FightSpace
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${TEngine_SOURCE_DIR}/Executables")
 # if(WIN32)
 #     set(directx_lib d3d11.lib)
 #     target_link_libraries(

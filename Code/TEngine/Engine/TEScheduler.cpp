@@ -4,6 +4,7 @@
 #include "TEThreadPool.h"
 #include "TEFutureJoiner.h"
 
+#include <functional>
 #include <assert.h>
 #include <chrono>
 

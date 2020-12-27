@@ -110,9 +110,9 @@ void TE::Intersection::EigenSphere( BSphere &bsphere, const F32 *vertexData, uns
 	//Find component with largest magnitude eigenvalue(largest spread)
 	TE::Math::Vector3D<Real> e;
 	I32 maxc = 0;
-	F32 maxf, maxe = abs(m(0,0));
-	if ((maxf = abs(m(1,1))) > maxe) maxc = 1, maxe = maxf;
-	if ((maxf = abs(m(2,2))) > maxe) maxc = 2, maxe = maxf;
+	F32 maxf, maxe = std::abs(m(0,0));
+	if ((maxf = std::abs(m(1,1))) > maxe) maxc = 1, maxe = maxf;
+	if ((maxf = std::abs(m(2,2))) > maxe) maxc = 2, maxe = maxf;
 	e[0] = v(0,maxc);
 	e[1] = v(1,maxc);
 	e[2] = v(2,maxc);

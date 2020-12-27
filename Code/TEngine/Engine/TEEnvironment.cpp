@@ -2,6 +2,7 @@
 #include "TEEnvironmentUpdateEvent.h"
 #include "TEEventManager.h"
 
+#include <assert.h>
 #include <algorithm>
 
 TE::Engine::Environment::Environment(TE::Event::EventManager &eventManager)

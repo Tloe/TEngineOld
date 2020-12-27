@@ -10,10 +10,13 @@ Currently working on cleaning things up.
 Dependencies are handled with conan so it needs to be installed. To configure and build dependencies:
 
 '''
-conan config install conanremotes.zip
 mkdir build
 cd build
-conan install .. --build missing
+export CC=clang
+export CXX=clang
+conan install .. -s compiler=clang -s compiler.version=10.0.1 -s compiler.libcxx=libstdc++ --build=missing
+cmake ..
+make
 '''
 
 Theres a bug with building GLEW on FreeBSD so the conan glew install will fail theres a temporary

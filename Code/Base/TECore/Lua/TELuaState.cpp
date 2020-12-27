@@ -10,6 +10,7 @@
 #include <sstream>
 #include <iostream>
 #include <vector>
+#include <assert.h>
 
 namespace
 {
@@ -42,7 +43,7 @@ namespace
 		return 1;
 	}
 }
-	
+
 TE::Lua::State::State(IO::FileIO & fileIO)
 	: m_nativeState(luaL_newstate())
 {
@@ -96,6 +97,8 @@ void TE::Lua::State::RunFile(IO::FileIO & fileIO, const std::string & filePath)
 	StackReseter stackReseter(*this);
 	std::vector<U8> fileData;
 	fileIO.LoadFile(filePath, fileData);
+    
+    std::cout << "FILEPATH: " << filePath <<std::endl;
 
 	assert(fileData.size());
 

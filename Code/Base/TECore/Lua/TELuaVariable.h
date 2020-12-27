@@ -11,6 +11,7 @@
 
 #include <vector>
 #include <string>
+#include <tuple>
 
 #ifdef RegisterClass
 #undef RegisterClass

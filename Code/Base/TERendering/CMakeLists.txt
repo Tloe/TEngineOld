@@ -29,7 +29,6 @@ add_library(TERendering "")
 
 
 find_package(OpenGL REQUIRED)
-find_package(GLEW REQUIRED)
 
 add_subdirectory(Context)
 add_subdirectory(Renderer)
@@ -45,8 +44,7 @@ target_include_directories(TERendering
         SceneGraph
     PRIVATE
         ${OPENGL_INCLUDE_DIR}
-        ${GLEW_INLCUDE_DIR}
-)
+        ${CONAN_INCLUDE_DIRS_GLEW})
 
 target_link_libraries(TERendering
     PUBLIC
@@ -54,7 +52,7 @@ target_link_libraries(TERendering
         TEPlatform
         ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES}
-)
+        ${CONAN_LIBS_GLEW})
 
 if(MSVC)
 	# add_dependencies(TERendering ExcludeFilesFromTERendering)

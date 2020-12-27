@@ -4,12 +4,13 @@
 #include "TELuaBaseFunction.h"
 
 #include <string>
+#include <tuple>
 
 #include "lua.hpp"
 
 namespace TE
 {
-	namespace Lua { class State; }
+    namespace Lua { class State; }
 
 	namespace Lua
 	{
@@ -38,16 +39,16 @@ namespace TE
 				  lua_setmetatable(nativeState, -2);
 			  })
 		{
-			lua_pushlightuserdata(m_state(), (void *)static_cast<BaseFunction *>(this));
-			lua_pushcclosure(m_state(), LuaDispatcher, 1);
-			lua_setfield(m_state(), -2, "new");
+			lua_pushlightuserdata(StateToNative(m_state), (void *)static_cast<BaseFunction *>(this));
+			lua_pushcclosure(StateToNative(m_state), LuaDispatcher, 1);
+			lua_setfield(StateToNative(m_state), -2, "new");
 		}
 
 		template <typename ClassT, typename... Args>
 		I32 Constructor<ClassT, Args...>::Execute()
 		{
 			std::tuple<Args...> variableArgs = GetArgs<Args...>(m_state);
-			auto functionArgs = std::tuple_cat(std::make_tuple(m_state()), variableArgs);
+			auto functionArgs = std::tuple_cat(std::make_tuple(StateToNative(m_state)), variableArgs);
 			Lift(m_constructor, functionArgs);
 
 			return 1;

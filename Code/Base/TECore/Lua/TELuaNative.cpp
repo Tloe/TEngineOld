@@ -4,6 +4,7 @@
 
 #include <string>
 #include <cassert>
+#include <tuple>
 
 #include <lua.hpp>
 

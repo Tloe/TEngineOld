@@ -17,6 +17,7 @@ namespace TE
 	namespace Core { class Variant; }
 	namespace Lua { class Table; }
 	namespace Lua { class Variable; }
+	namespace Lua { class State; }
 	namespace IO { class FileIO; }
 
     namespace Lua

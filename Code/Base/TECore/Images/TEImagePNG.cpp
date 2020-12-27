@@ -4,6 +4,7 @@
 #include <iostream>
 #include <assert.h>
 #include <png.h>
+#include <cstring>
 
 struct PNGData
 {

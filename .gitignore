@@ -14,4 +14,3 @@ Executables/Release*
 Executables/FightSpace
 *.user
 vs2015
-Externals/assimp--3.0.1270-sdk/lib/ 
