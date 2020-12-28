@@ -8,11 +8,6 @@ stages:
   - build_docker_images
   - build
 
-before_script:
-   - Set-Variable -Name "time" -Value (date -Format "%H:%m")
-   - echo ${time}
-   - echo "started by ${GITLAB_USER_NAME}"
-
 build_ubuntu_image:
   stage: build_docker_images
   image: docker:latest
