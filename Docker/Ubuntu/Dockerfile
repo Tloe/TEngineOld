@@ -1,0 +1,13 @@
+FROM ubuntu:latest
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+    apt-get install -y cmake python3-pip libgl-dev pkg-config libglu1-mesa-dev libxxf86vm-dev lsb-release wget software-properties-common && \
+    bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" && \
+    apt-get install -y libc++-11-dev libc++abi-11-dev  && \
+    ln -s /usr/bin/clang-11 /usr/bin/clang && \
+    ln -s /usr/bin/clang++-11 /usr/bin/clang++ && \
+    pip3 install conan
+
+
