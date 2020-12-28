@@ -10,8 +10,10 @@ stages:
 
 build_ubuntu_image:
   only:
+    refs:
+      - master
     changes:
-      - Docker/Ubuntu/**/*
+      - Docker/Ubuntu/*
   stage: build_docker_images
   image: docker:latest
   services:
