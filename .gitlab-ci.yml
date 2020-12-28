@@ -9,6 +9,8 @@ stages:
   - build
 
 build_ubuntu_image:
+  only:
+    - changes: Docker/Ubuntu/**/*
   stage: build_docker_images
   image: docker:latest
   services:
@@ -29,13 +31,13 @@ build_ubuntu_image:
 #   - cmake ../
 #   - make
 
-build_linux:
+build_ubuntu:
   image: registry.gitlab.com/tloe/tengine:ubuntu
   services: 
     - docker:dind
   stage: build
   script:
-    - echo "Building on linux"
+    - echo "Building in ubuntu image"
     - mkdir build
     - cd build
     - export CC=clang
