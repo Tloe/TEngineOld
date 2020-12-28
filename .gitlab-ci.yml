@@ -10,7 +10,8 @@ stages:
 
 build_ubuntu_image:
   only:
-    - changes: Docker/Ubuntu/**/*
+    changes:
+      - Docker/Ubuntu/**/*
   stage: build_docker_images
   image: docker:latest
   services:
