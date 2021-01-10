@@ -1,16 +1,11 @@
-Debug*
-Release*
-ipch
-*.sdf
-vscmake
-*.opensdf
-Visual Studio 2010
-Visual Studio 2012
-build
 #*
 *~
+
 Executables/Debug*
 Executables/Release*
 Executables/FightSpace
-*.user
-vs2015
+
+.vs
+
+out
+build
