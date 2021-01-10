@@ -340,7 +340,7 @@ I32 TE::IO::ReadDatIndexString( File& file, DatFileIndexStringMap& fileIndex )
 	return indexOffset;	
 }
 
-void TE::IO::WriteDatIndex( File& file, DatFileIndexStringMap& fileIndex, I32 offset )
+void TE::IO::WriteDatIndex( File& file, DatFileIndexStringMap& fileIndex, U32 offset )
 {
 	std::vector<std::pair<std::string, SizeOffsetPair> > stringIndexSorted;
 	SortedIndex(stringIndexSorted, fileIndex);
@@ -362,8 +362,8 @@ void TE::IO::WriteDatIndex( File& file, DatFileIndexStringMap& fileIndex, I32 of
 		file.WriteData(reinterpret_cast<U8*>(&data[0]), data.size());
 	}
 
-	file.WriteData(reinterpret_cast<U8*>(&offset), static_cast<I32>(sizeof(I32)));
-	I32 numLines = fileIndex.size();
-	file.WriteData(reinterpret_cast<U8*>(&numLines), static_cast<I32>(sizeof(I32)));
+	file.WriteData(reinterpret_cast<U8*>(&offset), static_cast<I32>(sizeof(U8)));
+	auto numLines = fileIndex.size();
+	file.WriteData(reinterpret_cast<U8*>(&numLines), static_cast<I32>(sizeof(U8)));
 }
 

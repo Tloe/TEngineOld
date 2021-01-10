@@ -29,7 +29,7 @@ namespace TE
 			//virtual void JSONDeserialize( const Json::Value& jsonValue );
 			//virtual void JSONSerialize( Json::Value& jsonValue );
 			
-			void MapInput(Enum inputType, bool pressed, bool previouslyPressed);
+			void MapInput(InputType inputType, bool pressed, bool previouslyPressed);
 			void MapRangeInput(RangeInput rangeInput, F64 rawValue);
 
 			void Dispatch();
@@ -51,8 +51,8 @@ namespace TE
 			typedef std::unordered_map<std::string, InputContext> InputContextMap;
 			typedef std::list<InputContext*> InputcontextPtrList;
 
-			bool MapAction(Hash inputType);
-			void MapState(Hash inputType, bool pressed);
+			bool MapAction(InputType inputType);
+			void MapState(InputType inputType, bool pressed);
 
             IO::FileIO & m_fileIO;
 			ActionExecutorMap m_actionExecutors;

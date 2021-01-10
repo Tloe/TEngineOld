@@ -46,7 +46,7 @@ namespace TE
 			void SetWindowTitle(const std::string & title);
 
 		private:
-			typedef std::unordered_map<I32, Enum> PlatformEngineInputMap;
+			typedef std::unordered_map<LRESULT, InputMapping::InputType> PlatformEngineInputMap;
 
 			virtual void OnOpenWindow() = 0;
 			virtual void OnCloseWindow() = 0;
@@ -73,7 +73,7 @@ namespace TE
 			bool m_externalWindow;
 			std::atomic<bool> m_setResolutionCalled;
 			std::atomic<bool> m_quitMessageReceived;
-			HWND m_hWnd;
+			_Notnull_ HWND m_hWnd;
 			HDC m_hdc;
 			HINSTANCE m_hInstance;
 			DWORD m_dwWindowStyle;

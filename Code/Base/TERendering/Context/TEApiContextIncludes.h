@@ -1,9 +1,9 @@
-#if TE_DX11
-    #include <TEContextWinDX11.h>
-#elif TE_OPENGL
-    #if TE_WINDOWS
-        #include <TEContextWinOpenGL.h>
-    #elif TE_LINUX
-        #include <TEContextLinuxOpenGL.h>
-    #endif
+#if TE_Linux
+#   include <TEContextLinuxOpenGL.h>
+#elif TE_WINDOWS
+#   if TE_OPENGL
+#       include <TEContextWinOpenGL.h>
+#   elif TE_DX11
+#       include <TEContextWinDX11.h>
+#   endif
 #endif

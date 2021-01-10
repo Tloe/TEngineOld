@@ -23,9 +23,9 @@ TE::Context::APIContext::~APIContext()
 
 }
 
-void TE::Context::APIContext::SetCGContext(CGcontext& cgContext)
+void TE::Context::APIContext::SetCGContext(/*CGcontext& cgContext*/)
 {
-	m_cgContext = cgContext;
+	//m_cgContext = cgContext;
 }
 
 void TE::Context::APIContext::OnOpenWindow()
@@ -54,9 +54,9 @@ void TE::Context::APIContext::OnOpenWindow()
 	assert(wglMakeCurrent( m_hdc, m_hrcs[0]));
 	assert(glGetError() == GL_NO_ERROR);
 
-	cgGLSetDebugMode(CG_FALSE);
+	/*cgGLSetDebugMode(CG_FALSE);
 	cgGLRegisterStates(m_cgContext);
-	cgGLSetManageTextureParameters(m_cgContext, CG_TRUE);
+	cgGLSetManageTextureParameters(m_cgContext, CG_TRUE);*/
 }
 
 void TE::Context::APIContext::OnCloseWindow()

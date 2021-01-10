@@ -4,8 +4,6 @@
 #include "TEWinWindow.h"
 #include "TEDataTypes.h"
 
-#include "Cg/cg.h"
-
 #include <d3d11.h>
 #include <d3dcommon.h>
 #include <dxgi.h>
@@ -26,7 +24,7 @@ namespace TE
 			virtual void SetResolution(bool fullscreen, I32 width, I32 height, I32 colorBits, I32 positionX, I32 positionY);
 			void BeginFrame();
 			void EndFrame();
-			void SetCGContext(CGcontext& cgContext);
+			void SetCGContext(/*CGcontext& cgContext*/);
 
 			ID3D11Device1* GetDevice();
 			ID3D11DeviceContext1* GetDeviceContext();
@@ -42,7 +40,7 @@ namespace TE
 			void CreateDepthStencilBufferAndView();
 			void CreateRasterizerState();
 
-			CGcontext m_cgContext;
+			//CGcontext m_cgContext;
 			D3D_FEATURE_LEVEL m_d3dFeatureLevel;
 			ID3D11Device1* m_d3dDevice;
 			ID3D11DeviceContext1* m_d3dDeviceContext;

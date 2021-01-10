@@ -71,7 +71,7 @@ void TE::Intersection::BSphereFromVertexData( BSphere &bsphere, const F32 *verte
 
 }
 
-void TE::Intersection::RitterEigenSphere( BSphere &bsphere, const F32 *vertexData, unsigned vDataCount )
+void TE::Intersection::RitterEigenSphere( BSphere &bsphere, const F32 *vertexData, U32 vDataCount )
 {
 	EigenSphere(bsphere, vertexData, vDataCount);
 
@@ -99,7 +99,7 @@ void TE::Intersection::BSphereFromBSphereAndPoint( BSphere &bsphere, Math::Vecto
 	}
 }
 
-void TE::Intersection::EigenSphere( BSphere &bsphere, const F32 *vertexData, unsigned vDataCount )
+void TE::Intersection::EigenSphere( BSphere &bsphere, const F32 *vertexData, U32 vDataCount )
 {
 	TE::Math::Matrix4D<Real> m,v;
 

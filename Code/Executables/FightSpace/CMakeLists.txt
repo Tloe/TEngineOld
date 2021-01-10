@@ -16,11 +16,25 @@ target_link_libraries(FightSpace
         TEGraphicsSystem
         TETransformSystem
         TENetworkSystem
-        TEGameSystem)
+        TEGameSystem
+        ${CONAN_LIBS})
 
-set_target_properties(FightSpace
-    PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${TEngine_SOURCE_DIR}/Executables")
+if(MSVC)
+    set_target_properties(FightSpace
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY_DEBUG
+        "${TEngine_SOURCE_DIR}/Executables")
+    set_target_properties(FightSpace
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY
+        "${TEngine_SOURCE_DIR}/Executables")
+else()
+    set_target_properties(FightSpace
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY
+        "${TEngine_SOURCE_DIR}/Executables")
+endif()
+
 # if(WIN32)
 #     set(directx_lib d3d11.lib)
 #     target_link_libraries(

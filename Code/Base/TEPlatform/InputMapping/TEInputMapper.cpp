@@ -2,6 +2,7 @@
 #include "TEInput.h"
 #include "TEFile.h"
 #include "TEFileIO.h"
+#include "TEAction.h"
 
 TE::InputMapping::InputMapper::InputMapper(IO::FileIO & fileIO)
     : m_fileIO(fileIO)
@@ -34,7 +35,7 @@ void TE::InputMapping::InputMapper::JSONSerialize( Json::Value& jsonValue )
 	
 }
 */
-void TE::InputMapping::InputMapper::MapInput(Enum inputType, bool pressed, bool previouslyPressed)
+void TE::InputMapping::InputMapper::MapInput(InputType inputType, bool pressed, bool previouslyPressed)
 {
 	if (pressed && !previouslyPressed)
 	{
@@ -58,7 +59,7 @@ void TE::InputMapping::InputMapper::MapRangeInput(RangeInput rangeInput, F64 raw
 	}
 }
 
-bool TE::InputMapping::InputMapper::MapAction( Hash inputType )
+bool TE::InputMapping::InputMapper::MapAction( InputType inputType )
 {
 	Action action;
 	for (auto & itr : m_inputContexts)
@@ -73,7 +74,7 @@ bool TE::InputMapping::InputMapper::MapAction( Hash inputType )
 	return false;
 }
 
-void TE::InputMapping::InputMapper::MapState( Hash inputType, bool pressed )
+void TE::InputMapping::InputMapper::MapState( InputType inputType, bool pressed )
 {
 	State state;
 	for (auto & itr : m_inputContexts)

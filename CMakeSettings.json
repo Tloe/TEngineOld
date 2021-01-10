@@ -1,0 +1,92 @@
+﻿{
+  "configurations": [
+    {
+      "name": "x64_0_OpenGL_Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": "",
+      "variables": [
+        {
+          "name": "CONAN_CMD",
+          "value": "C:/Program Files/Conan/conan/conan.exe",
+          "type": "FILEPATH"
+        },
+        {
+          "name": "Config_API",
+          "value": "OpenGL"
+        }
+      ]
+    },
+    {
+      "name": "x64_1_OpenGL_Release",
+      "generator": "Ninja",
+      "configurationType": "RelWithDebInfo",
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": "",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
+      "variables": [
+        {
+          "name": "CONAN_CMD",
+          "value": "C:/Program Files/Conan/conan/conan.exe",
+          "type": "FILEPATH"
+        },
+        {
+          "name": "Config_API",
+          "value": "OpenGL"
+        }
+      ]
+    },
+    {
+      "name": "x64_2_DirectX_Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": "",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
+      "variables": [
+        {
+          "name": "CONAN_CMD",
+          "value": "C:/Program Files/Conan/conan/conan.exe",
+          "type": "FILEPATH"
+        },
+        {
+          "name": "Config_API",
+          "value": "DirectX"
+        }
+      ]
+    },
+    {
+      "name": "x64_3_DirectX_Release",
+      "generator": "Ninja",
+      "configurationType": "RelWithDebInfo",
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": "",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
+      "variables": [
+        {
+          "name": "CONAN_CMD",
+          "value": "C:/Program Files/Conan/conan/conan.exe",
+          "type": "FILEPATH"
+        },
+        {
+          "name": "Config_API",
+          "value": "DirectX"
+        }
+      ]
+    }
+  ]
+}

@@ -24,7 +24,7 @@ namespace TE
 			 *	\Param		unsigned vDataCount
 			 *	\return		void
 			 */	
-			static void covarianceMatrixOfPts(Matrix4D<Real> &cov, const Real *vertexData, unsigned vDataCount);
+			static void covarianceMatrixOfPts(Matrix4D<Real> &cov, const Real *vertexData, U64 dataCount);
 	
 			/**
 			 *  \brief		calculates covariance matrix from triangles. (NOT WORKING PROPERLY)
@@ -178,7 +178,7 @@ namespace TE
 
 
 		template<typename Real>
-		void TE::Math::Helpers<Real>::covarianceMatrixOfPts( TE::Math::Matrix4D<Real> &cov, const Real *vertexData, unsigned vDataCount )
+		void TE::Math::Helpers<Real>::covarianceMatrixOfPts( TE::Math::Matrix4D<Real> &cov, const Real *vertexData, U64 vDataCount )
 		{
 			cov.SetIdentity();
 			I32 numPts = vDataCount / 3;

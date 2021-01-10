@@ -2,6 +2,7 @@
 #define TEACTION_H
 
 #include "TEDataTypes.h"
+#include "TEInput.h"
 
 namespace TE
 {
@@ -11,8 +12,8 @@ namespace TE
 		{
 			std::string name;
 			Hash nameHash;
-			Enum defaultKey;
-			Enum userKey;
+			TE::InputMapping::InputType defaultKey;
+			TE::InputMapping::InputType userKey;
 		};
 	}
 }

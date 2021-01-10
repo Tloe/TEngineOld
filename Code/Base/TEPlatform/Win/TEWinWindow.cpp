@@ -55,6 +55,7 @@ void TE::Platform::PlatformWindow::LoadInputFile(const std::string &filePath)
 
 void TE::Platform::PlatformWindow::SetupPlatformInputMap()
 {
+	m_platformTEInputMap.insert(std::make_pair(0, InputMapping::InputType::Default));
 	m_platformTEInputMap.insert(std::make_pair(0, InputMapping::InputType::Key0));
 	m_platformTEInputMap.insert(std::make_pair(1, InputMapping::InputType::Key1));
 	m_platformTEInputMap.insert(std::make_pair(2, InputMapping::InputType::Key2));
@@ -147,7 +148,7 @@ void TE::Platform::PlatformWindow::Initialize()
 {
 	if (!m_externalWindow)
 	{
-		m_hInstance = (HINSTANCE)GetWindowLong(NULL,GWL_HINSTANCE);
+		m_hInstance = (HINSTANCE)GetWindowLongPtr(NULL,GWLP_HINSTANCE);
 
 		WNDCLASSEX wcex  = {};
 
@@ -363,7 +364,7 @@ LRESULT CALLBACK TE::Platform::PlatformWindow::WndProc( HWND hWnd, U32 message, 
 
 LRESULT TE::Platform::PlatformWindow::DoWndProc( HWND hWnd, U32 message, WPARAM wParam, LPARAM lParam )
 {
-    static I32 previouseMousePos[] = { 0,0 };
+    static I64 previouseMousePos[] = { 0,0 };
 
 	PAINTSTRUCT ps;
 	HDC hdc;
@@ -391,15 +392,15 @@ LRESULT TE::Platform::PlatformWindow::DoWndProc( HWND hWnd, U32 message, WPARAM 
 		break;
 	case WM_CHAR:
 		{
-			char ascii = wParam;
+			char ascii = static_cast<char>(wParam);
 
 			m_asciiInput.push_back(ascii);
 		}
 		break;
 	case WM_MOUSEMOVE:
 		{
-			I32 x = LOWORD(lParam);
-			I32 y = HIWORD(lParam);
+			I64 x = LOWORD(lParam);
+			I64 y = HIWORD(lParam);
 
 			F64 normalizedX = static_cast<F64>(x) / m_width;
 			F64 normalizedY = static_cast<F64>(y) / m_height;
@@ -424,7 +425,7 @@ LRESULT TE::Platform::PlatformWindow::DoWndProc( HWND hWnd, U32 message, WPARAM 
 			PlatformEngineInputMap::iterator findItr = m_platformTEInputMap.find(wParam);
 			if (findItr != m_platformTEInputMap.end())
 			{
-				bool previouslyPressed = ((lParam & (1 << 31)) != 0);
+				bool previouslyPressed = ((lParam & static_cast<U32>(1) << 31) != 0);
                 bool pressed = true;
                 m_inputMapper.MapInput(findItr->second, pressed, previouslyPressed);
 			}
@@ -435,7 +436,7 @@ LRESULT TE::Platform::PlatformWindow::DoWndProc( HWND hWnd, U32 message, WPARAM 
 			PlatformEngineInputMap::iterator findItr = m_platformTEInputMap.find(wParam);
 			if (findItr != m_platformTEInputMap.end())
 			{
-                bool previouslyPressed = ((lParam & (1 << 31)) != 0);
+                bool previouslyPressed = ((lParam & (static_cast<U32>(1) << 31)) != 0);
                 bool pressed = false;
                 m_inputMapper.MapInput(findItr->second, pressed, previouslyPressed);
 			}

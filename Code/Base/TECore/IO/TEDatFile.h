@@ -46,7 +46,7 @@ namespace TE
 		private:
 			DatFileIndexStringMap m_fileIndexString;
 			DatFileIndexHashMap m_fileIndexHash;
-			I32 m_indexOffset;
+			U32 m_indexOffset;
 			File m_datFile;
 			std::string m_filePath;
 			Resources::CryptoUPtr m_crypto;
@@ -59,13 +59,13 @@ namespace TE
 
 		I32 ReadDatIndexHash(File& file, DatFileIndexHashMap& fileIndex);
 		I32 ReadDatIndexString(File& file, DatFileIndexStringMap& fileIndex);
-		void WriteDatIndex(File& file, DatFileIndexStringMap& fileIndex, I32 offset);
+		void WriteDatIndex(File& file, DatFileIndexStringMap& fileIndex, U32 offset);
 		template<typename KeyT, typename MapT>
-		void SortedIndex(std::vector<std::pair<KeyT, SizeOffsetPair> >& sorted, MapT& map)
+		void SortedIndex(std::vector<std::pair<KeyT, SizeOffsetPair>>& sorted, MapT& map)
 		{
 			sorted.insert(sorted.end(), map.begin(), map.end());
 
-			struct SortByOffset : public std::binary_function<std::pair<KeyT, SizeOffsetPair>,
+			/*struct SortByOffset : public std::binary_function<std::pair<KeyT, SizeOffsetPair>,
 														 std::pair<KeyT, SizeOffsetPair>,
 														 bool>
 			{
@@ -74,8 +74,12 @@ namespace TE
 				{
 					return lhs.second.second < rhs.second.second;
 				}
-			};
-			sort(sorted.begin(), sorted.end(), SortByOffset());
+			};*/
+			sort(sorted.begin(), sorted.end(),
+				[](auto& lhs, auto& rhs) -> bool
+				{
+					return lhs.second.second < rhs.second.second;
+				});
 		}
 	}
 }

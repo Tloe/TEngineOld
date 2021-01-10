@@ -27,12 +27,12 @@ namespace TE
 			//virtual void JSONDeserialize( const Json::Value& jsonValue );
 			//virtual void JSONSerialize( Json::Value& jsonValue );
 
-			bool MapAction(Hash inputType, Action & action);
-			bool MapState(Hash inputType, State & state);
+			bool MapAction(InputType inputType, Action & action);
+			bool MapState(InputType inputType, State & state);
 			bool MapAxisToRange(RangeInput rangeInput, Range & range);
 		private:
-			typedef std::unordered_map<Hash, const Action> ActionMap;
-			typedef std::unordered_map<Hash, const State> StateMap;
+			typedef std::unordered_map<InputType, const Action> ActionMap;
+			typedef std::unordered_map<InputType, const State> StateMap;
             typedef std::map<RangeInput, const Range> RangeMap;
 
 			ActionMap m_actions;

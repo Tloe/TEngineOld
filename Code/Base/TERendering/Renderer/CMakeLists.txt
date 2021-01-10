@@ -10,6 +10,7 @@ target_sources(TERendering
 )
 
 add_subdirectory(CommonResources)
+
 add_subdirectory(OpenGL)
 if(WIN32)
     add_subdirectory(DX11)

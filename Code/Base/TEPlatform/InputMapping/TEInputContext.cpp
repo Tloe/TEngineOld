@@ -62,7 +62,7 @@ void TE::InputMapping::InputContext::JSONSerialize( Json::Value& jsonValue )
 }
 */
 
-bool TE::InputMapping::InputContext::MapAction( Hash inputType, Action & action )
+bool TE::InputMapping::InputContext::MapAction( InputType inputType, Action & action )
 {
     const auto & findItr = m_actions.find(inputType);
 
@@ -73,7 +73,7 @@ bool TE::InputMapping::InputContext::MapAction( Hash inputType, Action & action 
 	return true;
 }
 
-bool TE::InputMapping::InputContext::MapState( Hash inputType, State & state)
+bool TE::InputMapping::InputContext::MapState( InputType inputType, State & state)
 {
     const auto & findItr = m_states.find(inputType);
 

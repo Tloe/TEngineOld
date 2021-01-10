@@ -21,9 +21,9 @@ namespace TE
 		void BSphereFromVertexData(BSphere &bsphere, const F32 *vertexData, unsigned vDataCount);
 		Real Size(const BSphere &bsphere);
 		
-		void RitterEigenSphere(BSphere &bsphere, const F32 *vertexData, unsigned vDataCount);
+		void RitterEigenSphere(BSphere &bsphere, const F32 *vertexData, U32 vDataCount);
 		void BSphereFromBSphereAndPoint(BSphere &bsphere, Math::Vector3D<Real> &p);
-		void EigenSphere(BSphere &bsphere, const F32 *vertexData, unsigned vDataCount);
+		void EigenSphere(BSphere &bsphere, const F32 *vertexData, U32 vDataCount);
 		void Grow(BSphere &bsphere0, const BSphere& bsphere1);
 	}
 }

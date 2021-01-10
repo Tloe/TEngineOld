@@ -104,7 +104,7 @@ namespace
 		"Ascii"
 	};
 
-	void FillMapInputTypeEnumMap(std::unordered_map<std::string, Enum>& inputTypeEnums)
+	void FillMapInputTypeEnumMap(std::unordered_map<std::string, TE::InputMapping::InputType>& inputTypeEnums)
 	{
 		inputTypeEnums.insert(std::make_pair("Key0", TE::InputMapping::InputType::Key0));
 		inputTypeEnums.insert(std::make_pair("Key1", TE::InputMapping::InputType::Key1));
@@ -219,16 +219,14 @@ TE::InputMapping::RangeInput TE::InputMapping::RangeInputFromString( const std::
 	return RangeInput::MouseDeltaX;
 }
 
-std::string TE::InputMapping::InputType::ToString( Enum inputType )
+std::string TE::InputMapping::ToString( TE::InputMapping::InputType inputType )
 {
-    assert(inputType < Count);
-
-	return ::inputTypeStrs[inputType];
+	return ::inputTypeStrs[static_cast<U32>(inputType)];
 }
 
-Enum TE::InputMapping::InputType::FromString( const std::string& inputType )
+TE::InputMapping::InputType TE::InputMapping::FromString( const std::string& inputType )
 {
-	static std::unordered_map<std::string, Enum> inputTypeEnums;
+	static std::unordered_map<std::string, TE::InputMapping::InputType> inputTypeEnums;
 
 	if (inputTypeEnums.empty())
 		::FillMapInputTypeEnumMap(inputTypeEnums);

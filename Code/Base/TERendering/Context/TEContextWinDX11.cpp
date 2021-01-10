@@ -1,7 +1,6 @@
 #include <TEContextWinDX11.h>
 #include "TEMathBase.h"
 #include <TEDataTypes.h>
-#include <Cg/cgD3D11.h>
 #include <dxgi1_2.h>
 #include <d3d11.h>
 #include <TEPlatformWindowIncludes.h>
@@ -26,9 +25,9 @@ TE::Context::APIContext::~APIContext()
 
 }
 
-void TE::Context::APIContext::SetCGContext(CGcontext& cgContext)
+void TE::Context::APIContext::SetCGContext(/*CGcontext& cgContext*/)
 {
-	m_cgContext = cgContext;
+	//m_cgContext = cgContext;
 }
 
 void TE::Context::APIContext::OnOpenWindow()
@@ -45,11 +44,11 @@ void TE::Context::APIContext::OnOpenWindow()
 
 	CreateRasterizerState();
 
-	HRESULT hr = cgD3D11SetDevice(m_cgContext, m_d3dDevice);
+	/*HRESULT hr = cgD3D11SetDevice(m_cgContext, m_d3dDevice);
 	if( hr != S_OK )
 		exit(1);
 	cgD3D11RegisterStates(m_cgContext);
-	cgD3D11SetManageTextureParameters(m_cgContext, CG_TRUE);
+	cgD3D11SetManageTextureParameters(m_cgContext, CG_TRUE);*/
 }
 
 void TE::Context::APIContext::OnCloseWindow()

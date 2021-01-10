@@ -1,20 +1,24 @@
+target_sources(TERendering PUBLIC TEApiContextIncludes.h)
+
 if(UNIX)
     target_sources(TERendering
         PUBLIC
-            TEApiContextIncludes.h
             TEContextLinuxOpenGL.h
         PRIVATE
-            TEContextLinuxOpenGL.cpp
-    )
+            TEContextLinuxOpenGL.cpp)
 elseif(WIN32)
-    target_sources(TERendering
+    if(Config_API STREQUAL "OpenGL")
+        target_sources(TERendering
         PUBLIC
-            TEApiContextIncludes.h
-            TEContextWinDX11.h
             TEContextWinOpenGL.h
         PRIVATE
-            TEContextWinOpenGL.cpp
-            TEContextWinDX11.cpp
-    )
+            TEContextWinOpenGL.cpp)
+    elseif(Config_API STREQUAL "DirectX")
+        target_sources(TERendering
+        PUBLIC
+            TEContextWinDX11.h
+        PRIVATE
+            TEContextWinDX11.cpp)
+    endif()
 endif()
 

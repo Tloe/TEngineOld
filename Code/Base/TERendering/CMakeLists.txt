@@ -34,7 +34,15 @@ add_subdirectory(Context)
 add_subdirectory(Renderer)
 add_subdirectory(SceneGraph)
 
-target_include_directories(TERendering
+target_link_libraries(TERendering
+    PUBLIC
+        ${GLEW_LIBRARIES}
+        ${OPENGL_LIBRARIES}
+        ${CONAN_LIBS_GLEW}
+        TECore
+        TEPlatform)
+
+ target_include_directories(TERendering
     PUBLIC
         Context
         Renderer
@@ -45,14 +53,6 @@ target_include_directories(TERendering
     PRIVATE
         ${OPENGL_INCLUDE_DIR}
         ${CONAN_INCLUDE_DIRS_GLEW})
-
-target_link_libraries(TERendering
-    PUBLIC
-        TECore
-        TEPlatform
-        ${GLEW_LIBRARIES}
-        ${OPENGL_LIBRARIES}
-        ${CONAN_LIBS_GLEW})
 
 if(MSVC)
 	# add_dependencies(TERendering ExcludeFilesFromTERendering)
