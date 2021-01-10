@@ -27,8 +27,9 @@ namespace
         U64 status;
     };
 
-    void SetupMapping(std::unordered_map<I32, Enum> & map)
+    void SetupMapping(std::unordered_map<I32, TE::InputMapping::InputType> & map)
     {
+        map.insert(std::make_pair(XK_0, TE::InputMapping::InputType::Default));
         map.insert(std::make_pair(XK_0, TE::InputMapping::InputType::Key0));
         map.insert(std::make_pair(XK_1, TE::InputMapping::InputType::Key1));
         map.insert(std::make_pair(XK_2, TE::InputMapping::InputType::Key2));
@@ -399,7 +400,7 @@ bool TE::Platform::PlatformWindow::MessageLoop()
     bool quitMessageReceived = false;
 
     static I32 previousMousePos[] = { 0,0 };
-    static bool previousKeyState[InputMapping::InputType::Count] = { false };
+    static bool previousKeyState[static_cast<U32>(InputMapping::InputType::Count)] = { false };
 
     m_asciiInput.clear();
 
@@ -460,8 +461,8 @@ bool TE::Platform::PlatformWindow::MessageLoop()
                 if (findItr != m_platformTEngineMapping.end())
                 {
                     bool pressed = true;
-                    m_inputMapper.MapInput(findItr->second, pressed, previousKeyState[findItr->second]);
-                    previousKeyState[findItr->second] = true;
+                    m_inputMapper.MapInput(findItr->second, pressed, previousKeyState[static_cast<U32>(findItr->second)]);
+                    previousKeyState[static_cast<U32>(findItr->second)] = true;
                 }
             }
             break;
@@ -471,8 +472,8 @@ bool TE::Platform::PlatformWindow::MessageLoop()
                 if (findItr != m_platformTEngineMapping.end())
                 {
                     bool pressed = false;
-                    m_inputMapper.MapInput(findItr->second, pressed, previousKeyState[findItr->second]);
-                    previousKeyState[findItr->second] = false;
+                    m_inputMapper.MapInput(findItr->second, pressed, previousKeyState[static_cast<U32>(findItr->second)]);
+                    previousKeyState[static_cast<U32>(findItr->second)] = false;
                 }
             }
             break;

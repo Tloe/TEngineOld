@@ -1,4 +1,4 @@
-#if TE_Linux
+#if TE_LINUX
 #   include <TEContextLinuxOpenGL.h>
 #elif TE_WINDOWS
 #   if TE_OPENGL

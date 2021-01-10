@@ -17,7 +17,8 @@ target_link_libraries(FightSpace
         TETransformSystem
         TENetworkSystem
         TEGameSystem
-        ${CONAN_LIBS})
+        ${CONAN_LIBS}
+        dl)
 
 if(MSVC)
     set_target_properties(FightSpace

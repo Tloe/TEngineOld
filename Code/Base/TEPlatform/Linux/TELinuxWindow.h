@@ -67,7 +67,7 @@ namespace TE
             Display* GetDisplay();
 
         private:
-            typedef std::unordered_map<I32, Enum> PlatformEngineInputMap;
+            typedef std::unordered_map<I32, InputMapping::InputType> PlatformEngineInputMap;
 
             virtual void OnOpenWindow() = 0;
             virtual void OnCloseWindow() = 0;

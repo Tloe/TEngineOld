@@ -45,6 +45,6 @@ build_ubuntu:
     - export CXX=clang++
     - conan export ../luajit.py
 #    - conan config install ../remotes.txt 
-    - conan install .. -s compiler=clang -s compiler.version=11 -s compiler.libcxx=libc++ --build=missing
+#    - conan install .. -s compiler=clang -s compiler.version=11 -s compiler.libcxx=libc++ --build=missing
     - cmake ../
     - make 

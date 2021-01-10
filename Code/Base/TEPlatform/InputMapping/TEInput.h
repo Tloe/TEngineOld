@@ -132,7 +132,8 @@ namespace TE
 			MouseLDoubleClick,
 			MouseMDoubleClick,
 			MouseRDoubleClick,
-			Ascii
+			Ascii,
+      Count
 		};
 
 		std::string ToString(InputType inputType);
