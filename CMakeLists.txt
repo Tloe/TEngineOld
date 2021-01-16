@@ -3,32 +3,20 @@ project(TEngine)
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
 
-if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
-   message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
-   file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.15/conan.cmake"
-                 "${CMAKE_BINARY_DIR}/conan.cmake" 
-                 TLS_VERIFY ON)
-endif()
-
-include(${CMAKE_BINARY_DIR}/conan.cmake)
-
 if(MSVC)
+    if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
+       message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
+       file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.15/conan.cmake"
+                     "${CMAKE_BINARY_DIR}/conan.cmake" 
+                     TLS_VERIFY ON)
+    endif()
+
+    include(${CMAKE_BINARY_DIR}/conan.cmake)
+
     conan_cmake_run(CONANFILE conanfile.txt
                     BASIC_SETUP CMAKE_TARGETS
                     BUILD missing)
-else()
-    conan_cmake_run(CONANFILE conanfile.txt
-                    BUILD_TYPE "Debug"
-                    BASIC_SETUP CMAKE_TARGETS
-                    SETTINGS compiler.libcxx=libc++
-                    SETTINGS compiler.cppstd=20
-                    BUILD missing)
-endif()
 
-#include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-#conan_basic_setup()
-
-if(MSVC)
     add_compile_definitions(-D TE_WINDOWS)
     add_compile_definitions(-D _WIN32_WINDOWS)
     add_compile_definitions(-D WIN32_LEAN_AND_MEAN)
@@ -42,7 +30,9 @@ if(MSVC)
     endif()
     add_compile_options("/std:c++17")
 elseif(UNIX)
-    #    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-long-long -pedantic -std=c++20 -stdlib=libc++ -ferror-limit=0")
+    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+    conan_basic_setup()
+
     add_compile_options(-Wall -Wno-long-long -pedantic -std=c++20 -stdlib=libc++ -ferror-limit=0)
     add_compile_definitions(TE_LINUX TE_OPENGL)
 endif()
