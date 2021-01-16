@@ -42,17 +42,13 @@ build_ubuntu:
     - cmake ../
     - make 
 
-
-
-variables:
-  msbuild: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild.exe'
-
+#When working on vs: open cmake folder -> select config -> generate cmake -> Change view in solution explorer to cmake -> Select target to build
 build_windows:
    extends:
    - .shared_windows_runners
    stage: build
    script:
-   - call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
+   - call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
    - choco install conan cmake
    - mkdir build
    - cd build
