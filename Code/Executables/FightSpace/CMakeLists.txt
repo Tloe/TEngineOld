@@ -10,15 +10,15 @@ target_include_directories(FightSpace
     PUBLIC
         ${CMAKE_CURRENT_LIST_DIR})
 
-
 target_link_libraries(FightSpace
     PUBLIC
         TEGraphicsSystem
         TETransformSystem
         TENetworkSystem
         TEGameSystem
-        ${CONAN_LIBS}
-        dl)
+        ${CONAN_LIBS})
+
+message("${CONAN_LIBS}")
 
 if(MSVC)
     set_target_properties(FightSpace
@@ -27,7 +27,7 @@ if(MSVC)
         "${TEngine_SOURCE_DIR}/Executables")
     set_target_properties(FightSpace
         PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY
+        RUNTIME_OUTPUT_DIRECTORY_RELEASE
         "${TEngine_SOURCE_DIR}/Executables")
 else()
     set_target_properties(FightSpace

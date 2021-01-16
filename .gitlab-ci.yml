@@ -39,12 +39,13 @@ build_ubuntu:
   stage: build
   script:
     - echo "Building in ubuntu image"
+    - cp Utils/CMake/profiles/* ~/.conan/profiles/
+    - conan export Utils/CMake/luajit/luajit.py
     - mkdir build
     - cd build
     - export CC=clang
     - export CXX=clang++
-    - conan export ../luajit.py
 #    - conan config install ../remotes.txt 
-#    - conan install .. -s compiler=clang -s compiler.version=11 -s compiler.libcxx=libc++ --build=missing
+    - conan install .. --profile tengine_release --build=missing
     - cmake ../
     - make 

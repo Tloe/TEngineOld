@@ -21,6 +21,10 @@ class LuajitConan(ConanFile):
             with tools.chdir("LuaJIT-2.0.5"):
                 self.run('make')
 
+    def configure(self):
+        if not self.settings.os == "Windows":
+            del self.settings.compiler.libcxx
+
     def package(self):
         ljs = "LuaJIT-2.0.5/src"
         if self.settings.os == "Windows":
@@ -41,3 +45,4 @@ class LuajitConan(ConanFile):
             self.cpp_info.libs = ["lua51"]
         else:
             self.cpp_info.libs = ["luajit"]
+            self.cpp_info.libs.extend(["m", "dl"])

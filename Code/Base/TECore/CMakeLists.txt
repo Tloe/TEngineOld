@@ -49,7 +49,8 @@ elseif(UNIX)
             ${CMAKE_THREAD_LIBS_INIT} 
             ${CONAN_LIBS_LUAJIT}
             ${CONAN_LIBS_ENET}
-            ${CONAN_LIBS_LIBPNG})
+            ${CONAN_LIBS_LIBPNG}
+            ${CONAN_LIBS_ZLIB})
 
 endif()
 
