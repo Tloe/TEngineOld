@@ -22,15 +22,15 @@ build_ubuntu_image:
     - docker build -t registry.gitlab.com/tloe/tengine:ubuntu .
     - docker push registry.gitlab.com/tloe/tengine:ubuntu
 
-# build_windows:
-#   extends:
-#   - .shared_windows_runners
-#   stage: build
-#   script:
-#   - echo "running scripts in the build job"
-#   - cd build
-#   - cmake ../
-#   - make
+build_windows:
+   extends:
+   - .shared_windows_runners
+   stage: build
+   script:
+   - echo "running scripts in the build job"
+   - cd build
+   - cmake ../
+   - make
 
 build_ubuntu:
   image: registry.gitlab.com/tloe/tengine:ubuntu
