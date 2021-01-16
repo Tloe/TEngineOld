@@ -17,6 +17,9 @@ if(MSVC)
                     BASIC_SETUP CMAKE_TARGETS
                     BUILD missing)
 
+    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+    conan_basic_setup()
+
     add_compile_definitions(-D TE_WINDOWS)
     add_compile_definitions(-D _WIN32_WINDOWS)
     add_compile_definitions(-D WIN32_LEAN_AND_MEAN)

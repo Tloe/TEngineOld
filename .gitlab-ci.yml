@@ -22,15 +22,7 @@ build_ubuntu_image:
     - docker build -t registry.gitlab.com/tloe/tengine:ubuntu .
     - docker push registry.gitlab.com/tloe/tengine:ubuntu
 
-build_windows:
-   extends:
-   - .shared_windows_runners
-   stage: build
-   script:
-   - echo "running scripts in the build job"
-   - cd build
-   - cmake ../
-   - make
+
 
 build_ubuntu:
   image: registry.gitlab.com/tloe/tengine:ubuntu
@@ -38,7 +30,6 @@ build_ubuntu:
     - docker:dind
   stage: build
   script:
-    - echo "Building in ubuntu image"
     - mkdir -p ~/.conan/profiles
     - cp Utils/CMake/profiles/* ~/.conan/profiles/
     - conan export Utils/CMake/luajit/luajit.py
@@ -50,3 +41,20 @@ build_ubuntu:
     - conan install .. --profile tengine_release --build=missing
     - cmake ../
     - make 
+
+
+
+variables:
+  msbuild: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild.exe'
+
+build_windows:
+   extends:
+   - .shared_windows_runners
+   stage: build
+   script:
+   - call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
+   - choco install conan cmake
+   - mkdir build
+   - cd build
+   - cmake -G "Ninja" -DCMAKE_BUILD_TYPE:STRING="Debug" -DCONAN_CMD:FILEPATH="conan.exe" -DConfig_API:STRING="OpenGL" -DCMAKE_C_COMPILER:FILEPATH="cl.exe" -DCMAKE_CXX_COMPILER:FILEPATH="cl.exe" -DCMAKE_MAKE_PROGRAM="ninja.exe" ../
+   - ninja
