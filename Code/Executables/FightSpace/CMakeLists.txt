@@ -18,8 +18,6 @@ target_link_libraries(FightSpace
         TEGameSystem
         ${CONAN_LIBS})
 
-message("${CONAN_LIBS}")
-
 if(MSVC)
     set_target_properties(FightSpace
         PROPERTIES

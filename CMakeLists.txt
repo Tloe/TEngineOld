@@ -3,11 +3,31 @@ project(TEngine)
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
 
-      
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
+if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
+   message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
+   file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.15/conan.cmake"
+                 "${CMAKE_BINARY_DIR}/conan.cmake" 
+                 TLS_VERIFY ON)
+endif()
 
-message("${CONAN_PKG_LIBS} ${CONAN_SYSTEM_LIBS} ${CONAN_FRAMEWORKS_FOUND}")
+include(${CMAKE_BINARY_DIR}/conan.cmake)
+
+if(MSVC)
+    conan_cmake_run(CONANFILE conanfile.txt
+                    BASIC_SETUP CMAKE_TARGETS
+                    BUILD missing)
+else()
+    conan_cmake_run(CONANFILE conanfile.txt
+                    BUILD_TYPE "Debug"
+                    BASIC_SETUP CMAKE_TARGETS
+                    SETTINGS compiler.libcxx=libc++
+                    SETTINGS compiler.cppstd=20
+                    BUILD missing)
+endif()
+
+#include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+#conan_basic_setup()
+
 if(MSVC)
     add_compile_definitions(-D TE_WINDOWS)
     add_compile_definitions(-D _WIN32_WINDOWS)
