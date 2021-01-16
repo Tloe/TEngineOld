@@ -48,10 +48,7 @@ build_windows:
    - .shared_windows_runners
    stage: build
    script:
-   - cd Utils\vs\
-   - buildenv.bat
-   - cd ..
-   - cd ..
+   - Utils\vs\buildenv.bat
    - choco install conan cmake
    - mkdir build
    - cd build
