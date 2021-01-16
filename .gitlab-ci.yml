@@ -48,7 +48,7 @@ build_windows:
    - .shared_windows_runners
    stage: build
    script:
-   - call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
+   - C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvarsall.bat x86_amd64
    - choco install conan cmake
    - mkdir build
    - cd build
