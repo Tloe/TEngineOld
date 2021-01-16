@@ -49,7 +49,7 @@ build_windows:
    stage: build
    script:
    - Utils\vs\buildenv.bat
-   - choco install conan cmake
+   - choco install -y conan cmake
    - mkdir build
    - cd build
    - cmake -G "Ninja" -DCMAKE_BUILD_TYPE:STRING="Debug" -DCONAN_CMD:FILEPATH="conan.exe" -DConfig_API:STRING="OpenGL" -DCMAKE_C_COMPILER:FILEPATH="cl.exe" -DCMAKE_CXX_COMPILER:FILEPATH="cl.exe" -DCMAKE_MAKE_PROGRAM="ninja.exe" ..
