@@ -52,8 +52,8 @@ build_windows:
    - $env:Path += ';C:\Program Files\CMake\bin'
    - $env:Path += ';C:\Program Files\ninja'
    - Utils\vs\buildenv.bat
-   # - Get-ChildItem -Path 'C:\Program Files (x86)\' -Recurse -ErrorAction SilentlyContinue cl.exe # find file
+   - Get-ChildItem -Path 'C:\Program Files (x86)\' -Recurse -ErrorAction SilentlyContinue ninja.exe # find file
    - mkdir build
    - cd build
-   - cmake -G "Ninja" -DCMAKE_BUILD_TYPE:STRING="Debug" -DCONAN_CMD:FILEPATH="conan.exe" -DConfig_API:STRING="OpenGL" -DCMAKE_C_COMPILER:FILEPATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.26.28801\bin\Hostx86\x64\cl.exe" -DCMAKE_CXX_COMPILER:FILEPATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.26.28801\bin\Hostx86\x64\cl.exe" -DCMAKE_MAKE_PROGRAM="ninja.exe" ..
+   - cmake -G "Ninja" -DCMAKE_BUILD_TYPE:STRING="Debug" -DCONAN_CMD:FILEPATH="conan.exe" -DConfig_API:STRING="OpenGL" -DCMAKE_C_COMPILER:FILEPATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.26.28801\bin\Hostx64\x64\cl.exe" -DCMAKE_CXX_COMPILER:FILEPATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.26.28801\bin\Hostx64\x64\cl.exe" -DCMAKE_MAKE_PROGRAM="ninja.exe" ..
    - ninja
