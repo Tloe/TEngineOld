@@ -49,9 +49,11 @@ build_windows:
    stage: build
    script:
    - Utils\vs\buildenv.bat
-   - choco install -y conan cmake ninja visualstudio2019-workload-vctools
+   - choco install -y conan cmake ninja visualstudio2019community
    - $env:Path += ';C:\Program Files\CMake\bin'
    - $env:Path += ';C:\Program Files\ninja'
+   - cd 'C:\Program Files (x86)\Microsoft Visual Studio\2019\'
+   - tree
    - mkdir build
    - cd build
    - cmake -G "Ninja" -DCMAKE_BUILD_TYPE:STRING="Debug" -DCONAN_CMD:FILEPATH="conan.exe" -DConfig_API:STRING="OpenGL" -DCMAKE_C_COMPILER:FILEPATH="cl.exe" -DCMAKE_CXX_COMPILER:FILEPATH="cl.exe" -DCMAKE_MAKE_PROGRAM="ninja.exe" ..
