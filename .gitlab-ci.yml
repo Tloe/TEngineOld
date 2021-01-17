@@ -48,9 +48,10 @@ build_windows:
    - .shared_windows_runners
    stage: build
    script:
-   - choco install -y conan cmake ninja choco #visualstudio2019-workload-vctools #visualstudio2019community
+   - choco install -y conan cmake ninja #visualstudio2019-workload-vctools #visualstudio2019community
    - $env:Path += ';C:\Program Files\CMake\bin'
    - $env:Path += ';C:\Program Files\ninja'
+   - $env:Path += ';C:\Program Files (x86)\'
    - Utils\vs\buildenv.bat
    - Get-ChildItem -Path 'C:\Program Files (x86)\' -Recurse -ErrorAction SilentlyContinue rc.exe # find file
    - mkdir build
