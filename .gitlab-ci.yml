@@ -37,8 +37,7 @@ build_ubuntu:
     - export CXX=clang++
 #    - conan config install ../remotes.txt 
     - conan install .. --profile tengine_release --build=missing
-    - cmake ../
-    - make 
+    - conan build .. 
 
 #When working on vs: open cmake folder -> select config -> generate cmake -> Change view in solution explorer to cmake -> Select target to build
 build_windows:

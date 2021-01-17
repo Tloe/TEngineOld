@@ -34,7 +34,7 @@ if(MSVC)
     add_compile_options("/std:c++17")
 elseif(UNIX)
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-    conan_basic_setup()
+    conan_basic_setup(NO_OUTPUT_DIRS)
 
     add_compile_options(-Wall -Wno-long-long -pedantic -std=c++20 -stdlib=libc++ -ferror-limit=0)
     add_compile_definitions(TE_LINUX TE_OPENGL)
