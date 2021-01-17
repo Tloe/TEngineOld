@@ -22,8 +22,6 @@ build_ubuntu_image:
     - docker build -t registry.gitlab.com/tloe/tengine:ubuntu .
     - docker push registry.gitlab.com/tloe/tengine:ubuntu
 
-
-
 build_ubuntu:
   image: registry.gitlab.com/tloe/tengine:ubuntu
   services: 
@@ -51,9 +49,9 @@ build_windows:
    - choco install -y conan cmake ninja #visualstudio2019-workload-vctools #visualstudio2019community
    - $env:Path += ';C:\Program Files\CMake\bin'
    - $env:Path += ';C:\Program Files\ninja'
-   - $env:Path += ';C:\Program Files (x86)\'
+   - $env:Path += ';C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x64'
    - Utils\vs\buildenv.bat
-   - Get-ChildItem -Path 'C:\Program Files (x86)\' -Recurse -ErrorAction SilentlyContinue rc.exe # find file
+     #- Get-ChildItem -Path 'C:\Program Files (x86)\' -Recurse -ErrorAction SilentlyContinue rc.exe # find file
    - mkdir build
    - cd build
    - cmake -G "Ninja" -DCMAKE_BUILD_TYPE:STRING="Debug" -DCONAN_CMD:FILEPATH="conan.exe" -DConfig_API:STRING="OpenGL" -DCMAKE_C_COMPILER:FILEPATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.26.28801\bin\Hostx64\x64\cl.exe" -DCMAKE_CXX_COMPILER:FILEPATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.26.28801\bin\Hostx64\x64\cl.exe" -DCMAKE_MAKE_PROGRAM="ninja.exe" ..
