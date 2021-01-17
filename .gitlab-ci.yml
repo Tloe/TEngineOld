@@ -48,10 +48,11 @@ build_windows:
    - .shared_windows_runners
    stage: build
    script:
-   - Utils\vs\buildenv.bat
    - choco install -y conan cmake ninja visualstudio2019community
    - $env:Path += ';C:\Program Files\CMake\bin'
    - $env:Path += ';C:\Program Files\ninja'
+   - Utils\vs\buildenv.bat
+   - Get-ChildItem -Path 'C:\Program Files (x86)\' -Recurse -ErrorAction SilentlyContinue cl.exe
    # - cd 'C:\Program Files (x86)\Microsoft Visual Studio\2019\'
    # - tree
    - mkdir build
