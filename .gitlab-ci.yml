@@ -28,33 +28,21 @@ build_ubuntu:
     - docker:dind
   stage: build
   script:
-    #- mkdir -p ~/.conan/profiles
-    #- cp Utils/CMake/profiles/* ~/.conan/profiles/
     - mkdir build
     - cd build
     - conan export ../Utils/Conan/Luajit/luajit.py
     - export CC=clang
     - export CXX=clang++
-#    - conan config install ../remotes.txt 
     - conan install .. --profile ../Utils/Conan/Profiles/Linux/TEngineRelease -g cmake --build=missing
     - conan build .. 
 
-#When working on vs: open cmake folder -> select config -> generate cmake -> Change view in solution explorer to cmake -> Select target to build
 build_windows:
    extends:
    - .shared_windows_runners
    stage: build
    script:
-   #- choco install -y conan cmake ninja #visualstudio2019-workload-vctools #visualstudio2019community
-   #- $env:Path += ';C:\Program Files\ninja'
-   #- $env:Path += ';C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x64'
-   #- Utils\vs\buildenv.bat
-   - choco install -y python # cmake #conan cmake ninja #visualstudio2019-workload-vctools #visualstudio2019community
+   - choco install -y python
    - $env:Path += ';C:\Python39;C:\Python39\Scripts'
-     #   - $env:Path += ';C:\Program Files\CMake\bin'
-     #   - Get-ChildItem -Path C:\ -Include python*.exe -Recurse -ErrorAction SilentlyContinue # find file
-   - python --version
-   - cmake --version
    - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
    - py get-pip.py
    - pip install conan
@@ -63,5 +51,14 @@ build_windows:
    - conan export ../Utils/Conan/Luajit/luajit.py
    - conan install .. --profile ..\Utils\Conan\Profiles\Msvc\TEngineRelease_gitlab -g cmake_multi --build=missing
    - conan build ..
+
+
+
+
+     #- choco install -y conan cmake ninja #visualstudio2019-workload-vctools #visualstudio2019community
+   #- $env:Path += ';C:\Program Files\ninja'
+   #   - $env:Path += ';C:\Program Files\CMake\bin'
+   #- $env:Path += ';C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x64'
+   #- Utils\vs\buildenv.bat
+   #   - Get-ChildItem -Path C:\ -Include python*.exe -Recurse -ErrorAction SilentlyContinue # find file
    #- cmake -G "Ninja" -DCMAKE_BUILD_TYPE:STRING="Debug" -DCONAN_CMD:FILEPATH="conan.exe" -DConfig_API:STRING="OpenGL" -DCMAKE_C_COMPILER:FILEPATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.26.28801\bin\Hostx64\x64\cl.exe" -DCMAKE_CXX_COMPILER:FILEPATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.26.28801\bin\Hostx64\x64\cl.exe" -DCMAKE_MAKE_PROGRAM="ninja.exe" ..
-   #- ninja
