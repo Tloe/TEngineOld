@@ -52,6 +52,7 @@ build_windows:
    #- Utils\vs\buildenv.bat
      #- Get-ChildItem -Path 'C:\Program Files (x86)\' -Recurse -ErrorAction SilentlyContinue rc.exe # find file
    - choco install -y python #conan cmake ninja #visualstudio2019-workload-vctools #visualstudio2019community
+   - python --version
    - choco install -y pip 
    - pip install conan cmake
    - mkdir build
