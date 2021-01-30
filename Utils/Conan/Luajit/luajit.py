@@ -1,4 +1,5 @@
 from conans import ConanFile, tools
+from conans.tools import os_info, vcvars
 
 class LuajitConan(ConanFile):
     name = "luajit"
@@ -14,15 +15,16 @@ class LuajitConan(ConanFile):
         tools.get("https://luajit.org/download/LuaJIT-2.0.5.tar.gz")
 
     def build(self):
-        if self.settings.os == "Windows":
+        if os_info.is_windows:
             with tools.chdir("LuaJIT-2.0.5/src"):
-                self.run("msvcbuild static")
+                with vcvars(self):
+                    self.run("msvcbuild static")
         else:
             with tools.chdir("LuaJIT-2.0.5"):
                 self.run('make')
 
     def configure(self):
-        if not self.settings.os == "Windows":
+        if not os_info.is_windows:
             del self.settings.compiler.libcxx
 
     def package(self):

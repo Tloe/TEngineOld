@@ -1,24 +1,30 @@
-target_sources(TERendering PUBLIC TEApiContextIncludes.h)
+set(HEADERS 
+    TEApiContextIncludes.h
+    TEContextLinuxOpenGL.h
+    TEContextWinOpenGL.h
+    TEContextWinDX11.h)
+set(SOURCES
+    TEContextLinuxOpenGL.cpp
+    TEContextWinOpenGL.cpp
+    TEContextWinDX11.cpp)
+
+target_sources(TERendering PUBLIC ${HEADERS} PRIVATE ${SOURCES} CMakeLists.txt)
 
 if(UNIX)
-    target_sources(TERendering
-        PUBLIC
-            TEContextLinuxOpenGL.h
-        PRIVATE
-            TEContextLinuxOpenGL.cpp)
+    set_source_files_properties(TEContextWinOpenGL.cpp TEContextWinDX11.cpp
+                                DIRECTORY ${TARGET_ROOT}
+                                PROPERTIES HEADER_FILE_ONLY TRUE)    
 elseif(WIN32)
-    if(Config_API STREQUAL "OpenGL")
-        target_sources(TERendering
-        PUBLIC
-            TEContextWinOpenGL.h
-        PRIVATE
-            TEContextWinOpenGL.cpp)
-    elseif(Config_API STREQUAL "DirectX")
-        target_sources(TERendering
-        PUBLIC
-            TEContextWinDX11.h
-        PRIVATE
-            TEContextWinDX11.cpp)
+    if(API_OPENGL)
+        set_source_files_properties(TEContextLinuxOpenGL.cpp TEContextWinDX11.cpp
+                                    DIRECTORY ${TARGET_ROOT}
+                                    PROPERTIES HEADER_FILE_ONLY true)
+    elseif(API_DIRECTX)
+        message("WIN32-DIRECTX")
+        set_source_files_properties(TEContextLinuxOpenGL.cpp TEContextWinDX11.cpp
+                                    DIRECTORY ${TARGET_ROOT}
+                                    PROPERTIES HEADER_FILE_ONLY true)
     endif()
 endif()
-
+    
+target_sourcegroup_add()

@@ -1,4 +1,8 @@
-from conans import ConanFile, CMake, tools
+from conans import ConanFile
+from conan.tools.cmake import CMake, CMakeToolchain, CMakeDeps
+#from conan.tools.microsoft import visual
+from conans.tools import os_info, vcvars
+import os, shutil
 
 class TEngine(ConanFile):
     name = "tengine"
@@ -10,18 +14,27 @@ class TEngine(ConanFile):
     requires = "assimp/5.0.1","enet/1.3.17","libpng/1.6.37","glew/2.1.0","luajit/2.0.5"
     options = {"shared": [True, False]}
     default_options = {"shared": False}
-    generators = "cmake"
-
-    def configure(self):
-        print("---CONFIGURE---")
-
-    def build(self):
-        print("---BUILD---")
-        if self.settings.os == "Windows":
-            cmake = CMake(self, append_vcvars=True)
+       
+    def _config_cmake(self):
+        if os_info.is_windows:
+            cmake = CMake(self)
+            with vcvars(self):
+                cmake.configure()
         else:
             cmake = CMake(self)
-        cmake.configure()
-        cmake.build()
+            cmake.configure()
+        return cmake
 
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.generate()
+        deps = CMakeDeps(self)
+        deps.generate
 
+    def build(self):
+        cmake = self._config_cmake()
+        if os_info.is_windows:
+            with vcvars(self):
+                cmake.build()
+        else:
+            cmake.build()

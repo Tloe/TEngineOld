@@ -1,11 +1,12 @@
+set(HEADERS
+    TEEventManager.h
+    TEEventHandler.h
+    TEQuedEvent.h)
+set(SOURCES
+    TEEventManager.cpp
+    TEEventHandler.cpp)
+target_sources(TEngine PUBLIC ${HEADERS} PRIVATE ${SOURCES} CMakeLists.txt)
+
 add_subdirectory(Events)
 
-target_sources(TEngine
-    PUBLIC
-        TEEventManager.h
-        TEEventHandler.h
-        TEQuedEvent.h
-    PRIVATE
-        TEEventManager.cpp
-        TEEventHandler.cpp
-)
+target_sourcegroup_add()

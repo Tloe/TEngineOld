@@ -1,0 +1,31 @@
+macro(target_sourcegroup_init)
+    set(TARGET_FILES "")
+    set(TARGET_ROOT ${CMAKE_CURRENT_LIST_DIR})
+endmacro()
+
+macro(target_sourcegroup_done)
+    set(TARGET_FILES ${TARGET_FILES} ${LOCAL_TARGET_FILES})
+    source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}"
+        PREFIX ""
+        FILES ${TARGET_FILES})
+endmacro()
+
+macro(target_sourcegroup_add)
+    set(LOCAL_TARGET_FILES "")
+    if(HEADERS OR SOURCES)
+        set(FILES "${HEADERS};${SOURCES}")
+        foreach(FILE ${FILES})
+            _get_relative_path(RELATIVE ${FILE})
+            set(LOCAL_TARGET_FILES ${LOCAL_TARGET_FILES} "${RELATIVE}/${FILE}")
+        endforeach()
+        set(LOCAL_TARGET_FILES ${LOCAL_TARGET_FILES} "${RELATIVE}/CMakeLists.txt")
+    endif()
+    set(TARGET_FILES ${TARGET_FILES} ${LOCAL_TARGET_FILES} PARENT_SCOPE)
+endmacro()
+
+function(_get_relative_path OUT FILE)
+    get_filename_component(ABSOLUTE_PATH ${FILE} ABSOLUTE)
+    get_filename_component(PARENT_DIR ${ABSOLUTE_PATH} DIRECTORY)
+    string(REPLACE "${TARGET_ROOT}/" "" RELATIVE_FOLDER "${PARENT_DIR}")
+    set(${OUT} ${RELATIVE_FOLDER} PARENT_SCOPE)
+endfunction()

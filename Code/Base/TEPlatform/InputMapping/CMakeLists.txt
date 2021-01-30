@@ -1,20 +1,22 @@
-target_sources(TEPlatform
-    PUBLIC
-        TEInputContext.h
-        TEInputMapper.h
-        TEActionExecutor.h
-        TEStateExecutor.h
-        TERangeExecutor.h
-        TEAction.h
-        TEState.h
-        TERange.h
-        TEInput.h
-    PRIVATE
-        TEInputContext.cpp
-        TEInputMapper.cpp
-        TEActionExecutor.cpp
-        TEStateExecutor.cpp
-        TERangeExecutor.cpp
-        TERange.cpp
-        TEInput.cpp
-)
+set(HEADERS
+    TEInputContext.h
+    TEInputMapper.h
+    TEActionExecutor.h
+    TEStateExecutor.h
+    TERangeExecutor.h
+    TEAction.h
+    TEState.h
+    TERange.h
+    TEInput.h)
+set(SOURCES
+    TEInputContext.cpp
+    TEInputMapper.cpp
+    TEActionExecutor.cpp
+    TEStateExecutor.cpp
+    TERangeExecutor.cpp
+    TERange.cpp
+    TEInput.cpp)
+
+target_sources(TEPlatform PUBLIC ${HEADERS} PRIVATE ${SOURCES} CMakeLists.txt)
+
+target_sourcegroup_add()

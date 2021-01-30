@@ -6,6 +6,6 @@ Executables/Release*
 Executables/FightSpace*
 
 .vs
+.vscode
 
-out
 build

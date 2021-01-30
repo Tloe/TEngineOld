@@ -1,8 +1,12 @@
 add_library(TEngine "")
 
+target_sourcegroup_init()
+
 add_subdirectory(Engine)
 add_subdirectory(Event)
 add_subdirectory(LuaInterface)
+
+target_sourcegroup_done()
 
 target_link_libraries(TEngine PUBLIC TECore)
 

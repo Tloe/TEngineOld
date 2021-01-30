@@ -1,29 +1,26 @@
-#function(add_source_by_config_regex _target _encapsulation _regex)
-#    foreach(_config IN LISTS CMAKE_CONFIGURATION_TYPES CMAKE_BUILD_TYPE)
-#        if (_config MATCHES "${_regex}")
-#            target_sources(${_target} ${_encapsulation} $<$<CONFIG:${_config}>:${ARGN}>)
-#        endif()
-#    endforeach()
-#endfunction()
+set(HEADERS
+    TERendererOpenGL.h    
+    TEOpenGL.h
+    TEVertexBufferOpenGL.h
+    TEIndexBufferOpenGL.h
+    TEVertexBufferLayoutOpenGL.h
+    TEMappingOpenGL.h
+    TETexture2DOpenGL.h)
 
-if(UNIX OR Config_API STREQUAL "OpenGL")
-    target_sources(TERendering
-        PUBLIC
-            TEOpenGL.h
-            TEVertexBufferOpenGL.h
-            TEIndexBufferOpenGL.h
-            TEVertexBufferLayoutOpenGL.h
-            TEMappingOpenGL.h
-            TERendererOpenGL.h
-            TETexture2DOpenGL.h
-        PRIVATE
-            TERendererOpenGL.cpp
-            TEMappingOpenGL.cpp
-            TEVertexBufferOpenGL.cpp
-            TEIndexBufferOpenGL.cpp
-            TETexture2DOpenGL.cpp
-            TEVertexBufferLayoutOpenGL.cpp
-    )
-    message("OpenGL files added!")
+set(SOURCES
+    TERendererOpenGL.cpp
+    TEMappingOpenGL.cpp
+    TEVertexBufferOpenGL.cpp
+    TEIndexBufferOpenGL.cpp
+    TETexture2DOpenGL.cpp
+    TEVertexBufferLayoutOpenGL.cpp)
+
+target_sources(TERendering PUBLIC ${HEADERS} PRIVATE ${SOURCES} CMakeLists.txt)
+
+if(API_DIRECTX)
+    set_source_files_properties(${SOURCES}
+                                DIRECTORY ${TARGET_ROOT}
+                                PROPERTIES HEADER_FILE_ONLY true)
 endif()
 
+target_sourcegroup_add()
