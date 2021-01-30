@@ -1,6 +1,5 @@
 from conans import ConanFile
 from conan.tools.cmake import CMake, CMakeToolchain, CMakeDeps
-#from conan.tools.microsoft import visual
 from conans.tools import os_info, vcvars
 import os, shutil
 
