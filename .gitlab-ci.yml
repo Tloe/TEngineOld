@@ -51,12 +51,12 @@ build_windows:
    #- $env:Path += ';C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x64'
    #- Utils\vs\buildenv.bat
    - choco install -y python #conan cmake ninja #visualstudio2019-workload-vctools #visualstudio2019community
-   - python --version
-   - python pip
+   - Get-ChildItem -Path C:\ -Include python*.exe -Recurse -ErrorAction SilentlyContinue # find file
    - cd c:\Users\
    - ls
    - dir
-     #- Get-ChildItem -Path C:\ -Include python*.exe -Recurse -ErrorAction SilentlyContinue # find file
+     #- python --version
+     #- python pip
      #   - choco install -y pip 
    - pip install conan cmake
    - mkdir build
