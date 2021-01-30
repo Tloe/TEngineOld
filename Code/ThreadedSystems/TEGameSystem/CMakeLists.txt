@@ -26,6 +26,4 @@ target_include_directories(TEGameSystem
 
 target_link_libraries(TEGameSystem PRIVATE TEngine)
 
-if(MSVC)
-        set_target_properties(TEGameSystem PROPERTIES FOLDER "2. TEngine Systems")
-endif()
+set_target_properties(TEGameSystem PROPERTIES FOLDER "2. TEngine Systems")

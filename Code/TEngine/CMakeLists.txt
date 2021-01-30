@@ -1,4 +1,4 @@
-add_library(TEngine "")
+add_library(TEngine)
 
 target_sourcegroup_init()
 
@@ -19,6 +19,4 @@ target_include_directories(TEngine
         Event/Events
         LuaInterface)
 
-if(MSVC)
-	set_target_properties(TEngine PROPERTIES FOLDER "1. TEngine framework")
-endif()
+set_target_properties(TEngine PROPERTIES FOLDER "1. TEngine framework")

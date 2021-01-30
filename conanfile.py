@@ -14,7 +14,7 @@ class TEngine(ConanFile):
     requires = "assimp/5.0.1","enet/1.3.17","libpng/1.6.37","glew/2.1.0","luajit/2.0.5"
     options = {"shared": [True, False]}
     default_options = {"shared": False}
-       
+
     def _config_cmake(self):
         if os_info.is_windows:
             cmake = CMake(self)
@@ -29,7 +29,7 @@ class TEngine(ConanFile):
         tc = CMakeToolchain(self)
         tc.generate()
         deps = CMakeDeps(self)
-        deps.generate
+        deps.generate()
 
     def build(self):
         cmake = self._config_cmake()

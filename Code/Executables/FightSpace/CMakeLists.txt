@@ -1,4 +1,4 @@
-add_executable(FightSpace "")
+add_executable(FightSpace)
 
 set(HEADERS
     main.h)
@@ -41,6 +41,4 @@ else()
         "${TEngine_SOURCE_DIR}/Executables")
 endif()
 
-if(MSVC)
-	set_target_properties(FightSpace PROPERTIES FOLDER "4. Applications")
-endif()
+set_target_properties(FightSpace PROPERTIES FOLDER "4. Applications")

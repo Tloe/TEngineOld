@@ -14,19 +14,15 @@ add_subdirectory(Utils)
 
 target_sourcegroup_done()
 
-if(WIN32)
-    target_link_libraries(TECore
-        PUBLIC
-            CONAN_PKG::luajit
-            CONAN_PKG::libpng
-            CONAN_PKG::enet)
-elseif(UNIX)
-    #find_package(Threads)
-    target_link_libraries(TECore
-        PUBLIC
-            luajit::luajit)
-
-endif()
+set (THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+target_link_libraries(TECore
+  PUBLIC
+    CONAN_PKG::luajit
+    CONAN_PKG::libpng
+    CONAN_PKG::enet
+  PRIVATE
+    ${CMAKE_THREAD_LIBS_INIT})
 
 target_include_directories(TECore
     PUBLIC
@@ -40,6 +36,4 @@ target_include_directories(TECore
         Threading
         Utils)
 
-if(MSVC)
-	set_target_properties(TECore PROPERTIES FOLDER "0. TELibs")
-endif()
+set_target_properties(TECore PROPERTIES FOLDER "0. TELibs")

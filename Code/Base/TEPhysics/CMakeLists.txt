@@ -14,6 +14,4 @@ target_include_directories(TEPhysics
         Collision
         Physics)
 
-if(MSVC)
-	set_target_properties(TEPhysics PROPERTIES FOLDER "0. TELibs")
-endif()
+set_target_properties(TEPhysics PROPERTIES FOLDER "0. TELibs")

@@ -27,6 +27,4 @@ target_include_directories(TEGraphicsSystem
 
 target_link_libraries(TEGraphicsSystem PUBLIC TERendering PRIVATE TEngine)
 
-if(MSVC)
-	set_target_properties(TEGraphicsSystem PROPERTIES FOLDER "2. TEngine Systems")
-endif()
+set_target_properties(TEGraphicsSystem PROPERTIES FOLDER "2. TEngine Systems")

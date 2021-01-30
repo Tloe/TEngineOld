@@ -28,6 +28,4 @@ target_include_directories(TENetworkSystem
 
 target_link_libraries(TENetworkSystem PRIVATE TEngine)
 
-if(MSVC)
-    set_target_properties(TENetworkSystem PROPERTIES FOLDER "2. TEngine Systems")
-endif()
+set_target_properties(TENetworkSystem PROPERTIES FOLDER "2. TEngine Systems")

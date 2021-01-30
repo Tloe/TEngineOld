@@ -21,6 +21,4 @@ target_include_directories(TETransformSystem
 
 target_link_libraries(TETransformSystem PRIVATE TEngine)
 
-if(MSVC)
-	set_target_properties(TETransformSystem PROPERTIES FOLDER "2. TEngine Systems")
-endif()
+set_target_properties(TETransformSystem PROPERTIES FOLDER "2. TEngine Systems")

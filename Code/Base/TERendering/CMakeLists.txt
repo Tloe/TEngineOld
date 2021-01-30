@@ -25,6 +25,4 @@ target_link_libraries(TERendering
         Renderer/OpenGL
         SceneGraph)
 
-if(MSVC)
-	set_target_properties(TERendering PROPERTIES FOLDER "0. TELibs")
-endif()
+set_target_properties(TERendering PROPERTIES FOLDER "0. TELibs")

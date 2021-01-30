@@ -11,24 +11,12 @@ if((NOT API_OPENGL AND NOT API_DIRECTX) OR (API_OPENGL AND API_DIRECTX))
     message(FATAL_ERROR "API_OPENGL and API_DIRECTX cannot both be ON or OFF")
 endif()
 
-#set(CMAKE_FIND_PACKAGE_PREFER_CONFIG ON)
+#### END API Options
+
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 if(MSVC)
-    # if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
-    #     message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
-    #     file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.15/conan.cmake"
-    #                   "${CMAKE_BINARY_DIR}/conan.cmake" 
-    #                   TLS_VERIFY ON)
-    # endif()
-
-#    include(${CMAKE_BINARY_DIR}/conan.cmake)
-
-#    conan_cmake_run(CONANFILE conanfile.py
-#                    BASIC_SETUP CMAKE_TARGETS
-#                    BUILD missing)
-
     include(${CMAKE_BINARY_DIR}/conanbuildinfo_multi.cmake)
     conan_basic_setup(TARGETS)
 
@@ -46,7 +34,7 @@ if(MSVC)
     add_compile_options("/std:c++17")
 elseif(UNIX)
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-    conan_basic_setup(NO_OUTPUT_DIRS)
+    conan_basic_setup(TARGETS)
 
     add_compile_options(-Wall -Wno-long-long -pedantic -std=c++20 -stdlib=libc++ -ferror-limit=0)
     add_compile_definitions(TE_LINUX TE_OPENGL)

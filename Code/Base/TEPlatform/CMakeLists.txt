@@ -33,6 +33,4 @@ target_include_directories(TEPlatform
         Linux
         Win)
 
-if(MSVC)
-	set_target_properties(TEPlatform PROPERTIES FOLDER "0. TELibs")
-endif()
+set_target_properties(TEPlatform PROPERTIES FOLDER "0. TELibs")

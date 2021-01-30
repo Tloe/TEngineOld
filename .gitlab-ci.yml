@@ -36,7 +36,7 @@ build_ubuntu:
     - export CC=clang
     - export CXX=clang++
 #    - conan config install ../remotes.txt 
-    - conan install .. --profile ../Utils/Conan/Profiles/Linux/TEngineRelease --build=missing
+    - conan install .. --profile ../Utils/Conan/Profiles/Linux/TEngineRelease -g cmake --build=missing
     - conan build .. 
 
 #When working on vs: open cmake folder -> select config -> generate cmake -> Change view in solution explorer to cmake -> Select target to build
@@ -51,7 +51,8 @@ build_windows:
    #- $env:Path += ';C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x64'
    #- Utils\vs\buildenv.bat
      #- Get-ChildItem -Path 'C:\Program Files (x86)\' -Recurse -ErrorAction SilentlyContinue rc.exe # find file
-   - choco install -y python pip #conan cmake ninja #visualstudio2019-workload-vctools #visualstudio2019community
+   - choco install -y python #conan cmake ninja #visualstudio2019-workload-vctools #visualstudio2019community
+   - choco install -y pip 
    - pip install conan cmake
    - mkdir build
    - cd build

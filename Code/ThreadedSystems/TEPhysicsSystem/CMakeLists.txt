@@ -17,6 +17,4 @@ target_include_directories(TEPhysicsSystem
 
 target_link_libraries(TEPhysicsSystem PRIVATE TEngine)
 
-if(MSVC)
-	set_target_properties(TEPhysicsSystem PROPERTIES FOLDER "2. TEngine Systems")
-endif()
+set_target_properties(TEPhysicsSystem PROPERTIES FOLDER "2. TEngine Systems")

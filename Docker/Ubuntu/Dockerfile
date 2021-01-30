@@ -12,7 +12,6 @@ RUN apt-get update && \
     apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main' && \
     apt-get update && \
     apt-get install -y cmake && \
-    cmake --version && \
     pip3 install conan
 
 
