@@ -42,19 +42,19 @@ namespace TE
     };
 
     template <typename ResourceT>
-    TE::Resources::ResourceManager<ResourceT>::ResourceManager(IO::FileIO& fileIO) :
+    ResourceManager<ResourceT>::ResourceManager(IO::FileIO& fileIO) :
       m_fileIO(fileIO)
     {
 
     }
 
     template <typename ResourceT>
-    TE::Resources::ResourceManager<ResourceT>::~ResourceManager()
+    ResourceManager<ResourceT>::~ResourceManager()
     {
     }
 
     template <typename ResourceT>
-    ResourceHandle<ResourceT> TE::Resources::ResourceManager<ResourceT>::AddResource(ResourceT & resource, bool lazyLoad)
+    ResourceHandle<ResourceT> ResourceManager<ResourceT>::AddResource(ResourceT & resource, bool lazyLoad)
     {
             assert(m_resources.find(resource.GetFilePath()) == m_resources.end());
 
@@ -69,7 +69,7 @@ namespace TE
     }
 
     template <typename ResourceT>
-    ResourceHandle<ResourceT> TE::Resources::ResourceManager<ResourceT>::GetResourceHandle( const std::string& filePath )
+    ResourceHandle<ResourceT> ResourceManager<ResourceT>::GetResourceHandle( const std::string& filePath )
     {
             assert(m_resources.find(filePath) != m_resources.end());
       
@@ -84,7 +84,7 @@ namespace TE
         }
 
         template <typename ResourceT>
-        void TE::Resources::ResourceManager<ResourceT>::RemoveResource(const std::string & filePath)
+        void ResourceManager<ResourceT>::RemoveResource(const std::string & filePath)
         {
             auto itr = m_resources.find(filePath);
 
@@ -97,13 +97,13 @@ namespace TE
         }
 
     template <typename ResourceT>
-        bool TE::Resources::ResourceManager<ResourceT>::IsRegistered(const std::string & filePath)
+        bool ResourceManager<ResourceT>::IsRegistered(const std::string & filePath)
     {
             return m_resources.find(filePath) != m_resources.end();
     }
 
     template <typename ResourceT>
-    void TE::Resources::ResourceManager<ResourceT>::Clear()
+    void ResourceManager<ResourceT>::Clear()
     {
       for (auto& itr : m_resources)
       {
@@ -114,7 +114,7 @@ namespace TE
     }
 
     template <typename ResourceT>
-    void TE::Resources::ResourceManager<ResourceT>::CleanupNoneReferenced()
+    void ResourceManager<ResourceT>::CleanupNoneReferenced()
     {
             //TODO: loop through all and unload those with zero reference count
     }

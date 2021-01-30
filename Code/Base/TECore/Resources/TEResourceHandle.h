@@ -5,8 +5,8 @@
 
 namespace TE
 {
-	namespace Resources
-	{
+  namespace Resources
+  {
         template <typename ResourceT>
         class ResourceHandle
         {
@@ -30,28 +30,28 @@ namespace TE
         };
 
         template <typename ResourceT>
-        TE::Resources::ResourceHandle<ResourceT>::ResourceHandle()
+        ResourceHandle<ResourceT>::ResourceHandle()
             : m_resource(nullptr)
         {
 
         }
 
         template <typename ResourceT>
-        TE::Resources::ResourceHandle<ResourceT>::ResourceHandle( ResourceT& resource )
+        ResourceHandle<ResourceT>::ResourceHandle( ResourceT& resource )
             : m_resource(&resource)
         {
             ++m_resource->m_referenceCount;
         }
 
         template <typename ResourceT>
-        TE::Resources::ResourceHandle<ResourceT>::ResourceHandle( const ResourceHandle& other )
+        ResourceHandle<ResourceT>::ResourceHandle( const ResourceHandle& other )
             : m_resource(other.m_resource)
         {
             ++m_resource->m_referenceCount;
         }
 
         template <typename ResourceT>
-        TE::Resources::ResourceHandle<ResourceT>& TE::Resources::ResourceHandle<ResourceT>::operator=(const ResourceHandle& rhs)
+        ResourceHandle<ResourceT>& TE::Resources::ResourceHandle<ResourceT>::operator=(const ResourceHandle& rhs)
         {
             Reset();
 
@@ -62,19 +62,19 @@ namespace TE
         }
 
         template <typename ResourceT>
-        TE::Resources::ResourceHandle<ResourceT>::~ResourceHandle()
+        ResourceHandle<ResourceT>::~ResourceHandle()
         {
             Reset();
         }
 
         template <typename ResourceT>
-        void TE::Resources::ResourceHandle<ResourceT>::Reset()
+        void ResourceHandle<ResourceT>::Reset()
         {
             if(m_resource) --m_resource->m_referenceCount;
 
             m_resource = nullptr;
         }
-	}
+  }
 }
 
 #endif
