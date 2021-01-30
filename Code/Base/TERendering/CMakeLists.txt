@@ -11,9 +11,9 @@ target_sourcegroup_done()
 target_link_libraries(TERendering
     PUBLIC
         TEPlatform
+        CONAN_PKG::glew
     PRIVATE
         TECore
-        CONAN_PKG::glew
         CONAN_PKG::opengl)
 
  target_include_directories(TERendering
