@@ -54,6 +54,7 @@ build_windows:
    - $env:Path += ';C:\Program Files\CMake\bin'
      #   - Get-ChildItem -Path C:\ -Include python*.exe -Recurse -ErrorAction SilentlyContinue # find file
    - python --version
+   - cmake --version
    - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
    - py get-pip.py
    - pip install conan
