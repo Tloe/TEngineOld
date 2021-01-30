@@ -53,12 +53,8 @@ build_windows:
    - choco install -y python #conan cmake ninja #visualstudio2019-workload-vctools #visualstudio2019community
    - $env:Path += ';C:\Python39'
      #   - Get-ChildItem -Path C:\ -Include python*.exe -Recurse -ErrorAction SilentlyContinue # find file
-   - cd c:\Python39
-   - ls
-   - cd
    - python --version
-   - python pip
-     #   - choco install -y pip 
+   - choco install -y pip 
    - pip install conan cmake
    - mkdir build
    - cd build
