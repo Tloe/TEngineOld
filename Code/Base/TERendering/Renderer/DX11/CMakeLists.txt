@@ -14,7 +14,6 @@ set(SOURCES
     TEVertexBufferLayoutDX11.cpp
     TETexture2DDX11.cpp)
 
-
 target_sources(TERendering PUBLIC ${HEADERS} PRIVATE ${SOURCES} CMakeLists.txt)
 
 if(API_OPENGL)
