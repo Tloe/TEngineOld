@@ -7,7 +7,7 @@ import os, shutil
 class TEngine(ConanFile):
     name = "tengine"
     version = "0.1"
-    license = "<Put the package license here>"
+    license = "Copyright (c) Terje Loe 2012-2021. Commercial. All rights reserved, may not be used without a valid license."
     url = "<!-- <Package recipe repository url here, for issues about the package> -->"
     description = "Game engine"
     settings = "os", "compiler", "build_type", "arch"
