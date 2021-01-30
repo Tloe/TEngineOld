@@ -54,7 +54,8 @@ build_windows:
    - $env:Path += ';C:\Python39'
      #   - Get-ChildItem -Path C:\ -Include python*.exe -Recurse -ErrorAction SilentlyContinue # find file
    - python --version
-   - choco install -y pip 
+   - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+   - py get-pip.py
    - pip install conan cmake
    - mkdir build
    - cd build
