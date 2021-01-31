@@ -41,15 +41,16 @@ build_windows:
    - .shared_windows_runners
    stage: build
    script:
-   - choco install -y python
+   - choco install -y python cmake
    - $env:Path += ';C:\Python39;C:\Python39\Scripts'
+   - $env:Path += ';C:\Program Files\CMake\bin'
    - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
    - py get-pip.py
    - pip install conan
    - mkdir build
    - cd build
    - conan export ../Utils/Conan/Luajit/luajit.py
-   - conan install .. --profile ..\Utils\Conan\Profiles\Msvc\TEngineRelease_gitlab -g cmake_multi --build=missing
+   - conan install .. --profile ..\Utils\Conan\Profiles\Msvc\TEngineRelease -g cmake_multi --build=missing
    - conan build ..
 
 

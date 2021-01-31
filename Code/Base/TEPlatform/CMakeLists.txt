@@ -21,11 +21,6 @@ add_subdirectory(Win)
 target_sourcegroup_add()
 target_sourcegroup_done()
 
-if(MSVC)
-    message("UPDATE")
-    set_source_files_properties(Linux/TELinuxWindow.h Linux/TELinuxWindow.cpp PROPERTIES HEADER_FILE_ONLY TRUE)
-endif()
-
 target_link_libraries(TEPlatform
     PRIVATE
         ${PLATFORM_LIBRARIES}
