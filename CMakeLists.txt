@@ -1,6 +1,6 @@
 include(Utils/CMake/sourcegroup.cmake)
 
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.19)
 project(TEngine)
 
 ##### API Options

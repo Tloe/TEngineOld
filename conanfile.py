@@ -1,6 +1,6 @@
 from conans import ConanFile
 from conan.tools.cmake import CMake, CMakeToolchain, CMakeDeps
-from conans.tools import os_info, vcvars
+from conans.tools import os_info, vcvars, which
 import os, shutil
 
 class TEngine(ConanFile):
@@ -32,8 +32,6 @@ class TEngine(ConanFile):
         
     def build(self):
         cmake = self._config_cmake()
-        print("CMAKE PROGRAM")
-        print(shutil.which(cmake._cmake_program))
         if os_info.is_windows:
             with vcvars(self):
                 cmake.build()
