@@ -46,8 +46,6 @@ build_windows:
    - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
    - py get-pip.py
    - pip install conan
-   - $env:Path
-   - Get-Command cmake | Select-Object -ExpandProperty Definition
    - mkdir build
    - cd build
    - conan export ../Utils/Conan/Luajit/luajit.py

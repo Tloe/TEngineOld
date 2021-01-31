@@ -17,8 +17,7 @@ class TEngine(ConanFile):
     def _config_cmake(self):
         if os_info.is_windows:
             cmake = CMake(self)
-            with vcvars(self):
-                cmake.configure()
+            cmake.configure()
         else:
             cmake = CMake(self)
             cmake.configure()
@@ -33,7 +32,6 @@ class TEngine(ConanFile):
     def build(self):
         cmake = self._config_cmake()
         if os_info.is_windows:
-            with vcvars(self):
-                cmake.build()
+            cmake.build()
         else:
             cmake.build()
