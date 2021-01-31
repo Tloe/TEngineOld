@@ -20,10 +20,10 @@ target_link_libraries(FightSpace
         TEGraphicsSystem
         TETransformSystem
         TENetworkSystem
-        TEGameSystem
-        CONAN_PKG::libpng
-        CONAN_PKG::luajit
-        CONAN_PKG::glew)
+        TEGameSystem)
+#        CONAN_PKG::libpng
+#        CONAN_PKG::luajit
+#        CONAN_PKG::glew)
 
 if(MSVC)
     set_target_properties(FightSpace

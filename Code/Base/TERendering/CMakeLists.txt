@@ -12,9 +12,9 @@ target_link_libraries(TERendering
     PUBLIC
         TEPlatform
         CONAN_PKG::glew
+        CONAN_PKG::opengl
     PRIVATE
-        TECore
-        CONAN_PKG::opengl)
+        TECore)
 
  target_include_directories(TERendering
     PUBLIC
