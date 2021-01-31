@@ -17,9 +17,9 @@ set(SOURCES
 
 target_sources(TEGraphicsSystem PUBLIC ${HEADERS} PRIVATE ${SOURCES})
 
-target_sourcegroup_init()
-target_sourcegroup_add()
-target_sourcegroup_done()
+tengine_sourcegroup_init()
+tengine_sourcegroup_add()
+tengine_sourcegroup_done()
 
 target_include_directories(TEGraphicsSystem
     PUBLIC

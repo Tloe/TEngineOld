@@ -1,12 +1,12 @@
 add_library(TERendering)
 
-target_sourcegroup_init()
+tengine_sourcegroup_init()
 
 add_subdirectory(Context)
 add_subdirectory(Renderer)
 add_subdirectory(SceneGraph)
 
-target_sourcegroup_done()
+tengine_sourcegroup_done()
 
 target_link_libraries(TERendering
     PUBLIC

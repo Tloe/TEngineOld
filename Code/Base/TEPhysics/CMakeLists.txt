@@ -1,11 +1,11 @@
 add_library(TEPhysics)
 
-target_sourcegroup_init()
+tengine_sourcegroup_init()
 
 add_subdirectory(Collision)
 add_subdirectory(Physics)
 
-target_sourcegroup_done()
+tengine_sourcegroup_done()
 
 target_link_libraries(TEPhysics PRIVATE TECore)
 

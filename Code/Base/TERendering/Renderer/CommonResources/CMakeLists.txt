@@ -11,4 +11,4 @@ set(SOURCES
 
 target_sources(TERendering PUBLIC ${HEADERS} PRIVATE ${SOURCES} CMakeLists.txt)
 
-target_sourcegroup_add()
+tengine_sourcegroup_add()

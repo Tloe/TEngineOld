@@ -7,9 +7,9 @@ set(SOURCES
 
 target_sources(TEPhysicsSystem PUBLIC ${HEADERS} PRIVATE ${SOURCES})
 
-target_sourcegroup_init()
-target_sourcegroup_add()
-target_sourcegroup_done()
+tengine_sourcegroup_init()
+tengine_sourcegroup_add()
+tengine_sourcegroup_done()
 
 target_include_directories(TEPhysicsSystem
     PUBLIC

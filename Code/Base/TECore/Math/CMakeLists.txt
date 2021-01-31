@@ -10,4 +10,4 @@ set(HEADERS
 
 target_sources(TECore PUBLIC ${HEADERS} PRIVATE CMakeLists.txt)
 
-target_sourcegroup_add()
+tengine_sourcegroup_add()

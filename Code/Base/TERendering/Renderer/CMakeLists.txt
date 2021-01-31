@@ -15,4 +15,4 @@ if(WIN32)
     add_subdirectory(DX11)
 endif()
 
-target_sourcegroup_add()
+tengine_sourcegroup_add()

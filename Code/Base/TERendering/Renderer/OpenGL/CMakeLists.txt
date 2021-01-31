@@ -23,4 +23,4 @@ if(API_DIRECTX)
                                 PROPERTIES HEADER_FILE_ONLY true)
 endif()
 
-target_sourcegroup_add()
+tengine_sourcegroup_add()

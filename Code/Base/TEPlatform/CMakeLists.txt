@@ -1,6 +1,6 @@
 add_library(TEPlatform)
 
-target_sourcegroup_init()
+tengine_sourcegroup_init()
 
 set(HEADERS TEPlatformWindowIncludes.h)
 
@@ -12,14 +12,14 @@ if(UNIX)
     set(PLATFORM_LIBRARIES ${X11_LIBRARIES} ${X11_Xxf86vm_LIB})
 endif()
 
-target_sourcegroup_init()
+tengine_sourcegroup_init()
 
 add_subdirectory(InputMapping)
 add_subdirectory(Linux)
 add_subdirectory(Win)
 
-target_sourcegroup_add()
-target_sourcegroup_done()
+tengine_sourcegroup_add()
+tengine_sourcegroup_done()
 
 target_link_libraries(TEPlatform
     PRIVATE

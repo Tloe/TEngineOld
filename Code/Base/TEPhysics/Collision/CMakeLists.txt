@@ -10,4 +10,4 @@ set(SOURCES
         TEContactGenerator.cpp)
 target_sources(TEPhysics PUBLIC ${HEADERS} PRIVATE ${SOURCES} CMakeLists.txt)
 
-target_sourcegroup_add()
+tengine_sourcegroup_add()

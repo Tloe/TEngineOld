@@ -1,6 +1,6 @@
 add_library(TECore)
 
-target_sourcegroup_init()
+tengine_sourcegroup_init()
 
 add_subdirectory(Images)
 add_subdirectory(Intersection)
@@ -12,7 +12,7 @@ add_subdirectory(Resources)
 add_subdirectory(Threading)
 add_subdirectory(Utils)
 
-target_sourcegroup_done()
+tengine_sourcegroup_done()
 
 set (THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)

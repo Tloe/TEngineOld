@@ -27,4 +27,4 @@ elseif(WIN32)
     endif()
 endif()
     
-target_sourcegroup_add()
+tengine_sourcegroup_add()

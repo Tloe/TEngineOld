@@ -1,16 +1,16 @@
-macro(target_sourcegroup_init)
+macro(tengine_sourcegroup_init)
     set(TARGET_FILES "")
     set(TARGET_ROOT ${CMAKE_CURRENT_LIST_DIR})
 endmacro()
 
-macro(target_sourcegroup_done)
+macro(tengine_sourcegroup_done)
     set(TARGET_FILES ${TARGET_FILES} ${LOCAL_TARGET_FILES})
     source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}"
         PREFIX ""
         FILES ${TARGET_FILES})
 endmacro()
 
-macro(target_sourcegroup_add)
+macro(tengine_sourcegroup_add)
     set(LOCAL_TARGET_FILES "")
     if(HEADERS OR SOURCES)
         set(FILES "${HEADERS};${SOURCES}")
