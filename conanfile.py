@@ -29,9 +29,11 @@ class TEngine(ConanFile):
         tc.generate()
         deps = CMakeDeps(self)
         deps.generate()
-
+        
     def build(self):
         cmake = self._config_cmake()
+        print("CMAKE PROGRAM")
+        print(shutil.which(cmake._cmake_program))
         if os_info.is_windows:
             with vcvars(self):
                 cmake.build()
