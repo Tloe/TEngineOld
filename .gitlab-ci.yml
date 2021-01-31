@@ -41,7 +41,6 @@ build_windows:
    - .shared_windows_runners
    stage: build
    script:
-   - Get-Command cmake | Select-Object -ExpandProperty Definition
    - choco install -y python
    - $env:Path += ';C:\Python39;C:\Python39\Scripts'
    - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
