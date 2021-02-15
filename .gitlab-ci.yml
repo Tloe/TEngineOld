@@ -40,7 +40,7 @@ build_windows:
   #   extends:
   # - .shared_windows_runners
    tags:
-     - windows-runner
+     - tengine-windows
    stage: build
    script:
    - choco install -y python cmake
