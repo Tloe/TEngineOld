@@ -19,7 +19,7 @@ build_ubuntu_image:
   script:
     - cd Utils/Docker
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t registry.gitlab.com/tloe/tengine:ubuntu Ubuntu
+    - docker build -t registry.gitlab.com/tloe/tengine:ubuntu .
     - docker push registry.gitlab.com/tloe/tengine:ubuntu
 
 build_ubuntu:
@@ -37,8 +37,10 @@ build_ubuntu:
     - conan build .. 
 
 build_windows:
-   extends:
-   - .shared_windows_runners
+  #   extends:
+  # - .shared_windows_runners
+   tags:
+     - windows-runner
    stage: build
    script:
    - choco install -y python cmake
@@ -52,8 +54,6 @@ build_windows:
    - conan export ../Utils/Conan/Luajit/luajit.py
    - conan install .. --profile ..\Utils\Conan\Profiles\Msvc\TEngineRelease -g cmake_multi --build=missing
    - conan build ..
-
-
 
 
      #- choco install -y conan cmake ninja #visualstudio2019-workload-vctools #visualstudio2019community
