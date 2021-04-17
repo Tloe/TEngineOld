@@ -27,7 +27,7 @@ build_windows_image:
     changes:
       - Utils/Docker/Ubuntu
   stage: build_docker_images
-  image: docker:latest\
+  image: docker:latest
   services:
     - docker:dind
   script:
