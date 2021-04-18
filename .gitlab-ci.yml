@@ -26,6 +26,8 @@ build_windows_image:
   # only:
   #   changes:
   #     - Utils/Docker/Windows10
+  tags:
+    - tengine-windows
   stage: build_docker_images
   image: docker:latest
   services:
