@@ -1,8 +1,8 @@
-# .shared_windows_runners:
-#   tags:
-#   - shared-windows
-#   - windows
-#   - windows-1809
+.shared_windows_runners:
+  tags:
+  - shared-windows
+  - windows
+  - windows-1809
 
 stages:
   - build_docker_images
