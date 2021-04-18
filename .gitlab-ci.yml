@@ -26,6 +26,8 @@ build_windows_image:
   # only:
   #   changes:
   #     - Utils/Docker/Windows10
+  extends:
+    - .shared_windows_runners
   tags:
     - tengine-windows
   stage: build_docker_images
