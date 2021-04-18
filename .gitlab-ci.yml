@@ -23,9 +23,9 @@ build_ubuntu_image:
     - docker push registry.gitlab.com/tloe/tengine:ubuntu
 
 build_windows_image:
-  only:
-    changes:
-      - Utils/Docker/Ubuntu
+  # only:
+  #   changes:
+  #     - Utils/Docker/Windows10
   stage: build_docker_images
   image: docker:latest
   services:
@@ -53,21 +53,22 @@ build_ubuntu:
 build_windows:
   #   extends:
   # - .shared_windows_runners
-   tags:
-     - tengine-windows
-   stage: build
-   script:
-   - choco install -y python cmake
-   - $env:Path += ';C:\Python39;C:\Python39\Scripts'
-   - $env:Path += ';C:\Program Files\CMake\bin'
-   - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-   - py get-pip.py
-   - pip install conan
-   - mkdir build
-   - cd build
-   - conan export ../Utils/Conan/Luajit/luajit.py
-   - conan install .. --profile ..\Utils\Conan\Profiles\Msvc\TEngineRelease -g cmake_multi --build=missing
-   - conan build ..
+  image: registry.gitlab.com/tloe/tengine:windows10
+  tags:
+    - tengine-windows
+  stage: build
+  script:
+    - choco install -y python cmake
+    - $env:Path += ';C:\Python39;C:\Python39\Scripts'
+    - $env:Path += ';C:\Program Files\CMake\bin'
+    - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+    - py get-pip.py
+    - pip install conan
+    - mkdir build
+    - cd build
+    - conan export ../Utils/Conan/Luajit/luajit.py
+    - conan install .. --profile ..\Utils\Conan\Profiles\Msvc\TEngineRelease -g cmake_multi --build=missing
+    - conan build ..
 
 
      #- choco install -y conan cmake ninja #visualstudio2019-workload-vctools #visualstudio2019community
