@@ -19,7 +19,10 @@ ADD https://aka.ms/vs/16/release/vs_buildtools.exe C:\TEMP\vs_buildtools.exe
     # --remove Microsoft.VisualStudio.Component.Windows81SDK `
  # || IF "%ERRORLEVEL%"=="3010" EXIT 0
 RUN (C:\TEMP\vs_buildtools.exe --quiet --wait --norestart --nocache `
-     --installPath C:\BuildTools || `
+     --installPath C:\BuildTools `
+     --add Microsoft.Component.MSBuild `
+     --add Microsoft.VisualStudio.Component.VC.CMake.Project `
+     --add Microsoft.VisualStudio.Workload.CoreEditor || `
   IF "%ERRORLEVEL%"=="3010" EXIT 0) && `
   @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && `
   SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin" && `
