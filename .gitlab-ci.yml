@@ -23,9 +23,11 @@ build_ubuntu_image:
     - docker push registry.gitlab.com/tloe/tengine:ubuntu
 
 build_windows_image:
-  # only:
-  #   changes:
-  #     - Utils/Docker/Windows10
+  tags:
+    - tengine-windows
+  only:
+    changes:
+      - Utils/Docker/Windows10
   extends:
     - .shared_windows_runners
   # tags:
@@ -53,8 +55,6 @@ build_ubuntu:
     - conan build .. 
 
 build_windows:
-  #   extends:
-  # - .shared_windows_runners
   image: registry.gitlab.com/tloe/tengine:windows10
   tags:
     - tengine-windows
