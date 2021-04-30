@@ -25,9 +25,9 @@ build_ubuntu_image:
 build_windows_image:
   tags:
     - tengine-windows
-  only:
-    changes:
-      - Utils/Docker/Windows10
+  # only:
+  #   changes:
+  #     - Utils/Docker/Windows10
   extends:
     - .shared_windows_runners
   # tags:
