@@ -23,8 +23,8 @@ build_ubuntu_image:
     - docker push registry.gitlab.com/tloe/tengine:ubuntu
 
 build_windows_image:
-  tags:
-    - tengine-windows
+  # tags:
+  #   - tengine-windows
   # only:
   #   changes:
   #     - Utils/Docker/Windows10
