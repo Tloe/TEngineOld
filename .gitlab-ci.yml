@@ -55,7 +55,7 @@ build_ubuntu:
     - conan build .. 
 
 build_windows:
-  image: registry.gitlab.com/tloe/tengine:windows10
+  # image: registry.gitlab.com/tloe/tengine:windows10
   tags:
     - tengine-windows
   stage: build
