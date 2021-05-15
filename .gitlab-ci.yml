@@ -1,8 +1,8 @@
-.shared_windows_runners:
-  tags:
-  - shared-windows
-  - windows
-  - windows-1809
+# .shared_windows_runners:
+#   tags:
+#   - shared-windows
+#   - windows
+#   - windows-1809
 
 stages:
   - build_docker_images
@@ -60,9 +60,8 @@ build_windows:
     - tengine-windows
   stage: build
   script:
-    - ls
     # - $env:Path += ';C:\Python39;C:\Python39\Scripts'
-    # - $env:Path += ';C:\Program Files\CMake\bin'
+    - $env:Path += ';C:\Program Files\CMake\bin'
     # - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     # - py get-pip.py
     # - pip install conan
