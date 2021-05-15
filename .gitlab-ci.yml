@@ -65,6 +65,7 @@ build_windows:
     # - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     # - py get-pip.py
     # - pip install conan
+    - $env:Path += ';C:\Users\Terje\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\Scripts'
     - mkdir build
     - cd build
     - conan export ../Utils/Conan/Luajit/luajit.py
