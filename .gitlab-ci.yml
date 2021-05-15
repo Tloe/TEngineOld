@@ -22,23 +22,23 @@ build_ubuntu_image:
     - docker build -t registry.gitlab.com/tloe/tengine:ubuntu .
     - docker push registry.gitlab.com/tloe/tengine:ubuntu
 
-build_windows_image:
-  # tags:
-  #   - tengine-windows
-  # only:
-  #   changes:
-  #     - Utils/Docker/Windows10
-  extends:
-    - .shared_windows_runners
-  # tags:
-  #   - tengine-windows
-  stage: build_docker_images
-  image: docker:latest
-  script:
-    - cd Utils/Docker/Windows10
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t registry.gitlab.com/tloe/tengine:windows10 .
-    - docker push registry.gitlab.com/tloe/tengine:windows10
+# build_windows_image:
+#   # tags:
+#   #   - tengine-windows
+#   # only:
+#   #   changes:
+#   #     - Utils/Docker/Windows10
+#   extends:
+#     - .shared_windows_runners
+#   # tags:
+#   #   - tengine-windows
+#   stage: build_docker_images
+#   image: docker:latest
+#   script:
+#     - cd Utils/Docker/Windows10
+#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#     - docker build -t registry.gitlab.com/tloe/tengine:windows10 .
+#     - docker push registry.gitlab.com/tloe/tengine:windows10
 
 build_ubuntu:
   image: registry.gitlab.com/tloe/tengine:ubuntu
