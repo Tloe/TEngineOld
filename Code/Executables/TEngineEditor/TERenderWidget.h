@@ -3,17 +3,14 @@
 
 #include <QtGui>
 
-class TEngineRenderWidget : public QWidget
-{
-public:
-	TEngineRenderWidget(QWidget *parent);
-	QPaintEngine* paintEngine () const;
+class TEngineRenderWidget : public QWidget {
+  public:
+    TEngineRenderWidget(QWidget *parent);
+    QPaintEngine *paintEngine() const;
 
-	virtual void resizeEvent( QResizeEvent * );
+    virtual void resizeEvent(QResizeEvent *);
 
-private:
-
-
+  private:
 };
 
 #endif

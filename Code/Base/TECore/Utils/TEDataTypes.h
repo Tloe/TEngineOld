@@ -1,9 +1,9 @@
 #ifndef TEDATATYPES_H
 #define TEDATATYPES_H
 
-#include <string>
-#include <cstdint>
 #include <cmath>
+#include <cstdint>
+#include <string>
 
 typedef std::int8_t I8;
 typedef std::int16_t I16;
@@ -26,42 +26,37 @@ typedef U64 Bitmask64;
 
 typedef std::size_t Hash;
 
-namespace TE
-{
-	struct HashGenerator
-	{
-		Hash operator()(const std::string& filePath)
-		{
-			return s_hasher(filePath);
-		}
-		static std::hash<std::string> s_hasher;
-	};
+namespace TE {
+    struct HashGenerator {
+        Hash operator()(const std::string &filePath) {
+            return s_hasher(filePath);
+        }
+        static std::hash<std::string> s_hasher;
+    };
 }
 
-namespace TYPES
-{
-	enum
-	{
-		I8,
-		I16,
-		I32,
-		I64,
+namespace TYPES {
+    enum {
+        I8,
+        I16,
+        I32,
+        I64,
 
-		U8,
-		U16,
-		U32,
-		U64,
-		
-		F32,
-		F64,
+        U8,
+        U16,
+        U32,
+        U64,
 
-		ID,
-		Enum,
-		Real,
-		Bitmask,
+        F32,
+        F64,
 
-		Hash
-	};
+        ID,
+        Enum,
+        Real,
+        Bitmask,
+
+        Hash
+    };
 }
 
 #endif

@@ -4,18 +4,15 @@
 #include "TEDataTypes.h"
 #include "TEInput.h"
 
-namespace TE
-{
-	namespace InputMapping
-	{
-		struct Action
-		{
-			std::string name;
-			Hash nameHash;
-			TE::InputMapping::InputType defaultKey;
-			TE::InputMapping::InputType userKey;
-		};
-	}
+namespace TE {
+namespace InputMapping {
+    struct Action {
+        std::string name;
+        Hash nameHash;
+        TE::InputMapping::InputType defaultKey;
+        TE::InputMapping::InputType userKey;
+    };
+}
 }
 
 #endif

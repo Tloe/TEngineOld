@@ -4,56 +4,52 @@
 #include "TEDataTypes.h"
 #include "TELuaHelpers.h"
 
-#include <vector>
 #include <memory>
+#include <vector>
 
 #include <lua.hpp>
 
-namespace TE
-{
-    namespace Lua { class State; }
+namespace TE {
+    namespace Lua {
+        class State;
+    }
 
-	namespace Lua
-	{
+    namespace Lua {
 
-		class LuaRef
-		{
-		public:
-			LuaRef(State & state, I32 nativeRef);
-			LuaRef(State & state);
+        class LuaRef {
+          public:
+            LuaRef(State &state, I32 nativeRef);
+            LuaRef(State &state);
 
-			void Push() const;
-			void Get() const;
-		private:
-			State & m_state;
-			std::shared_ptr<I32> m_nativeRef;
-		};
+            void Push() const;
+            void Get() const;
 
-		void TraverseRefs(State & state, const std::vector<LuaRef> & luaRefs);
+          private:
+            State &m_state;
+            std::shared_ptr<I32> m_nativeRef;
+        };
+
+        void TraverseRefs(State &state, const std::vector<LuaRef> &luaRefs);
 
         template <typename T>
-        LuaRef RefFromT(State & state, T& value)
-        {
+        LuaRef RefFromT(State &state, T &value) {
             Push(state, value);
             return LuaRef(state, luaL_ref(StateToNative(state), LUA_REGISTRYINDEX));
         }
 
-        namespace Detail
-        {
+        namespace Detail {
             template <typename... Ts>
-            void RecursiveRefsFromT(TE::Lua::State & state, std::vector<TE::Lua::LuaRef> & refs) {}
+            void RecursiveRefsFromT(TE::Lua::State &state, std::vector<TE::Lua::LuaRef> &refs) {}
 
             template <typename T, typename... Ts>
-            void RecursiveRefsFromT(TE::Lua::State & state, std::vector<TE::Lua::LuaRef> & refs, T head, Ts... tail)
-            {
+            void RecursiveRefsFromT(TE::Lua::State &state, std::vector<TE::Lua::LuaRef> &refs, T head, Ts... tail) {
                 refs.emplace_back(TE::Lua::RefFromT(state, head));
                 RecursiveRefsFromT(state, refs, tail...);
             }
         }
 
         template <typename... Ts>
-        std::vector<TE::Lua::LuaRef> RefsFromTs(State & state, Ts&... values)
-        {
+        std::vector<TE::Lua::LuaRef> RefsFromTs(State &state, Ts &...values) {
             std::vector<LuaRef> luaRefs;
             luaRefs.reserve(sizeof...(Ts));
 
@@ -61,8 +57,7 @@ namespace TE
             return luaRefs;
         }
 
-
-	}
+    }
 }
 
 #endif

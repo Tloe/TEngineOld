@@ -1,25 +1,20 @@
-#include <TECameraObject.h>
 #include "TECamera.h"
 #include "TECameraNode.h"
 #include "TEValue.h"
+#include <TECameraObject.h>
 
-TE::Graphics::CameraObject::CameraObject( I32 objectId, SceneGraph::SceneManager& sceneManager)
-    : GraphicsObject(objectId, GraphicsObjectType::Camera, sceneManager)
-    , m_sceneManager(sceneManager)
-    , m_cameraNode(m_camera)
-{
-
+TE::Graphics::CameraObject::CameraObject(I32 objectId, SceneGraph::SceneManager &sceneManager)
+    : GraphicsObject(objectId, GraphicsObjectType::Camera, sceneManager),
+      m_sceneManager(sceneManager),
+      m_cameraNode(m_camera) {
 }
 
-void TE::Graphics::CameraObject::SetValue(Core::Value & value)
-{
-    switch(value.GetValueType())
-    {
+void TE::Graphics::CameraObject::SetValue(Core::Value &value) {
+    switch (value.GetValueType()) {
     case Values::Frustrum:
-        if(value.GetI32() == FrustrumType::FromFov)
-        {
-            F32 fov = value.GetF32();
-            F32 aspectRatio = value.GetF32();
+        if (value.GetI32() == FrustrumType::FromFov) {
+            F32 fov          = value.GetF32();
+            F32 aspectRatio  = value.GetF32();
             F32 directionMin = value.GetF32();
             F32 directionMax = value.GetF32();
 
@@ -27,7 +22,7 @@ void TE::Graphics::CameraObject::SetValue(Core::Value & value)
         }
         break;
     case Values::ActiveCamera:
-        if(value.GetBool())
+        if (value.GetBool())
             GetSceneManager().SetActiveCamera(m_camera);
         break;
     case Values::Parrent:
@@ -36,20 +31,18 @@ void TE::Graphics::CameraObject::SetValue(Core::Value & value)
     }
 }
 
-void TE::Graphics::CameraObject::Initialize()
-{
+void TE::Graphics::CameraObject::Initialize() {
 }
 
-void TE::Graphics::CameraObject::Cleanup()
-{
+void TE::Graphics::CameraObject::Cleanup() {
 }
 
 /*void TE::Graphics::CameraObject::JSONDeserialize( const Json::Value& jsonValue )
 {
     Core::Value value(Values::Frustrum);
 
-	if (jsonValue["Frustrum"]["Type"] == FrustrumType::FromFov)
-	{
+        if (jsonValue["Frustrum"]["Type"] == FrustrumType::FromFov)
+        {
         F32 fov = static_cast<F32>(jsonValue["Frustrum"]["Fov"].asDouble());
         F32 aspectRatio = static_cast<F32>(jsonValue["Frustrum"]["AspectRatio"].asDouble());
         F32 directionMin = static_cast<F32>(jsonValue["Frustrum"]["DirMin"].asDouble());
@@ -62,7 +55,7 @@ void TE::Graphics::CameraObject::Cleanup()
         value.AddF32(directionMax);
 
         SetValue(value);
-	}
+        }
 
     value.Reset(Values::ActiveCamera);
     value.AddBool(jsonValue["ActiveCamera"].asBool());
@@ -78,25 +71,20 @@ void TE::Graphics::CameraObject::JSONSerialize(Json::Value& jsonValue)
 
 }
 */
-void TE::Graphics::CameraObject::OnSubjectChange( Subject* subject, Bitmask64 changeBits )
-{
-	if (changeBits & Engine::Change::Transform::All)
-	{
+void TE::Graphics::CameraObject::OnSubjectChange(Subject *subject, Bitmask64 changeBits) {
+    if (changeBits & Engine::Change::Transform::All) {
         auto transformChange = Engine::GetChangeData<Engine::Change::TransformChange>(subject, changeBits);
 
-        if (changeBits & Engine::Change::Transform::Position)
-		{
-			m_cameraNode.SetTranslation(*transformChange.position);
-		}
-		if (changeBits & Engine::Change::Transform::Scale)
-		{
-			m_cameraNode.SetScale(*transformChange.scale);
-		}
-		if (changeBits & Engine::Change::Transform::Orientation)
-		{
-			m_cameraNode.SetOrientation(*transformChange.orientation);
-		}
+        if (changeBits & Engine::Change::Transform::Position) {
+            m_cameraNode.SetTranslation(*transformChange.position);
+        }
+        if (changeBits & Engine::Change::Transform::Scale) {
+            m_cameraNode.SetScale(*transformChange.scale);
+        }
+        if (changeBits & Engine::Change::Transform::Orientation) {
+            m_cameraNode.SetOrientation(*transformChange.orientation);
+        }
 
-		m_cameraNode.Update();
-	}
+        m_cameraNode.Update();
+    }
 }

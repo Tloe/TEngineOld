@@ -3,23 +3,23 @@
 
 #include "TEConnection.h"
 
-namespace TE
-{
-	namespace Net { class Packet;}
+namespace TE {
+    namespace Net {
+        class Packet;
+    }
 
-	namespace Net
-	{
-		class Client
-		{
-		public:
-			Client();
-			~Client();
+    namespace Net {
+        class Client {
+          public:
+            Client();
+            ~Client();
 
-			void SendPacket(Packet& packet);
-		private:
-			//Connection m_connection;
-		};
-	}
+            void SendPacket(Packet &packet);
+
+          private:
+            // Connection m_connection;
+        };
+    }
 }
 
 #endif

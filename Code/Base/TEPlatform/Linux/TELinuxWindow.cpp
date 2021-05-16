@@ -2,24 +2,21 @@
 #include "TEInput.h"
 #include "TEInputMapper.h"
 
+#include <X11/keysymdef.h>
 #include <assert.h>
 #include <iostream>
-#include <X11/keysymdef.h>
 
-namespace
-{
-    int XErrorHandlerFunction(Display *dsp, XErrorEvent *error)
-    {
-      char errorstring[128];
-      XGetErrorText(dsp, error->error_code, errorstring, 128);
+namespace {
+    int XErrorHandlerFunction(Display *dsp, XErrorEvent *error) {
+        char errorstring[128];
+        XGetErrorText(dsp, error->error_code, errorstring, 128);
 
-      //LOG FATAL
-      std::cout << "ack!fatal: X error--" << errorstring << std::endl;
-      exit(-1);
+        // LOG FATAL
+        std::cout << "ack!fatal: X error--" << errorstring << std::endl;
+        exit(-1);
     }
 
-    struct Hints
-    {
+    struct Hints {
         U64 flags;
         U64 functions;
         U64 decorations;
@@ -27,8 +24,7 @@ namespace
         U64 status;
     };
 
-    void SetupMapping(std::unordered_map<I32, TE::InputMapping::InputType> & map)
-    {
+    void SetupMapping(std::unordered_map<I32, TE::InputMapping::InputType> &map) {
         map.insert(std::make_pair(XK_0, TE::InputMapping::InputType::Default));
         map.insert(std::make_pair(XK_0, TE::InputMapping::InputType::Key0));
         map.insert(std::make_pair(XK_1, TE::InputMapping::InputType::Key1));
@@ -86,7 +82,7 @@ namespace
         map.insert(std::make_pair(XK_Escape, TE::InputMapping::InputType::KeyEscape));
         map.insert(std::make_pair(XK_BackSpace, TE::InputMapping::InputType::KeyBackspace));
         map.insert(std::make_pair(XK_Tab, TE::InputMapping::InputType::KeyTab));
-        //map.insert(std::make_pair(VK_SEPARATOR, TE::InputMapping::InputType::KeySeperator)); Whats this?
+        // map.insert(std::make_pair(VK_SEPARATOR, TE::InputMapping::InputType::KeySeperator)); Whats this?
         map.insert(std::make_pair(XK_Caps_Lock, TE::InputMapping::InputType::KeyCapslock));
         map.insert(std::make_pair(XK_Up, TE::InputMapping::InputType::KeyUp));
         map.insert(std::make_pair(XK_Down, TE::InputMapping::InputType::KeyDown));
@@ -113,77 +109,69 @@ namespace
         map.insert(std::make_pair(XK_period, TE::InputMapping::InputType::KeyPeriod));
         map.insert(std::make_pair(XK_slash, TE::InputMapping::InputType::KeySlashQuest));
         map.insert(std::make_pair(XK_asciitilde, TE::InputMapping::InputType::KeyTilde));
-        //map.insert(std::make_pair(X, TE::InputMapping::InputType::MouseLButton));
-        //map.insert(std::make_pair(VK_MBUTTON, TE::InputMapping::InputType::MouseRButton));
-        //map.insert(std::make_pair(VK_RBUTTON, TE::InputMapping::InputType::MouseRButton));
+        // map.insert(std::make_pair(X, TE::InputMapping::InputType::MouseLButton));
+        // map.insert(std::make_pair(VK_MBUTTON, TE::InputMapping::InputType::MouseRButton));
+        // map.insert(std::make_pair(VK_RBUTTON, TE::InputMapping::InputType::MouseRButton));
     }
 }
 
-TE::Platform::PlatformWindow::PlatformWindow( XID windowXID,
-                                              IO::FileIO & fileIO,
-                                              const std::string & windowTitle )
-    : m_fullscreen(false)
-    , m_width(640)
-    , m_height(480)
-    , m_externalWindow(true)
-    , m_windowTitle(windowTitle)
-    , m_colorBits(32)
-    , m_setResolutionCalled(false)
-    , m_pointerMode(PointerMode::Free)
-    , m_inputMapper(fileIO)
-{
+TE::Platform::PlatformWindow::PlatformWindow(XID windowXID,
+                                             IO::FileIO &fileIO,
+                                             const std::string &windowTitle)
+    : m_fullscreen(false),
+      m_width(640),
+      m_height(480),
+      m_externalWindow(true),
+      m_windowTitle(windowTitle),
+      m_colorBits(32),
+      m_setResolutionCalled(false),
+      m_pointerMode(PointerMode::Free),
+      m_inputMapper(fileIO) {
     XSetErrorHandler(::XErrorHandlerFunction);
     ::SetupMapping(m_platformTEngineMapping);
 }
 
 TE::Platform::PlatformWindow::PlatformWindow(IO::FileIO &fileIO,
-                                             const std::string & windowTitle)
-    : m_fullscreen(false)
-    , m_width(640)
-    , m_height(480)
-    , m_externalWindow(false)
-    , m_windowTitle(windowTitle)
-    , m_colorBits(32)
-    , m_setResolutionCalled(false)
-    , m_pointerMode(PointerMode::Free)
-    , m_inputMapper(fileIO)
-{
+                                             const std::string &windowTitle)
+    : m_fullscreen(false),
+      m_width(640),
+      m_height(480),
+      m_externalWindow(false),
+      m_windowTitle(windowTitle),
+      m_colorBits(32),
+      m_setResolutionCalled(false),
+      m_pointerMode(PointerMode::Free),
+      m_inputMapper(fileIO) {
     XSetErrorHandler(::XErrorHandlerFunction);
     ::SetupMapping(m_platformTEngineMapping);
 }
 
-TE::Platform::PlatformWindow::~PlatformWindow()
-{
-
+TE::Platform::PlatformWindow::~PlatformWindow() {
 }
 
-void TE::Platform::PlatformWindow::LoadInputFile(const std::string &filePath)
-{
+void TE::Platform::PlatformWindow::LoadInputFile(const std::string &filePath) {
     m_inputMapper.LoadInputFile(filePath);
 }
 
-void TE::Platform::PlatformWindow::Initialize()
-{
-    if (!m_externalWindow)
-    {
+void TE::Platform::PlatformWindow::Initialize() {
+    if (!m_externalWindow) {
         m_xlibDisplay = XOpenDisplay(nullptr);
-        if (!m_xlibDisplay)
-        {
-            //LOG FATAL ERROR
+        if (!m_xlibDisplay) {
+            // LOG FATAL ERROR
             std::exit(0);
         }
 
         m_xlibRootWindowID = DefaultRootWindow(m_xlibDisplay);
 
         Colormap cmap;
-        XVisualInfo * visualInfo = GetVisualInfo();
-        cmap = XCreateColormap(m_xlibDisplay,
-                               m_xlibRootWindowID,
-                               visualInfo->visual,
-                               AllocNone);
+        XVisualInfo *visualInfo = GetVisualInfo();
+        cmap                    = XCreateColormap(m_xlibDisplay,
+                                                  m_xlibRootWindowID,
+                                                  visualInfo->visual,
+                                                  AllocNone);
 
         XSetWindowAttributes swa;
-        swa.colormap = cmap;
+        swa.colormap   = cmap;
         swa.event_mask = KeyPressMask |
                          KeyReleaseMask |
                          ButtonPressMask |
@@ -217,11 +205,10 @@ void TE::Platform::PlatformWindow::Initialize()
     SetResolution(false, m_width, m_height, 32, -1, -1);
 }
 
-void TE::Platform::PlatformWindow::Cleanup()
-{
+void TE::Platform::PlatformWindow::Cleanup() {
     OnCloseWindow();
 
-    if(m_fullscreen)
+    if (m_fullscreen)
         SwitchToWindowed();
 
     XUngrabPointer(m_xlibDisplay, CurrentTime);
@@ -230,45 +217,36 @@ void TE::Platform::PlatformWindow::Cleanup()
     XCloseDisplay(m_xlibDisplay);
 }
 
-TE::InputMapping::InputMapper &TE::Platform::PlatformWindow::GetInputMapper()
-{
+TE::InputMapping::InputMapper &TE::Platform::PlatformWindow::GetInputMapper() {
     return m_inputMapper;
 }
 
-void TE::Platform::PlatformWindow::SetResolution(bool fullscreen, I32 width, I32 height, I32 colorBits , I32 positionX, I32 positionY)
-{
-    m_width = width;
-    m_height = height;
+void TE::Platform::PlatformWindow::SetResolution(bool fullscreen, I32 width, I32 height, I32 colorBits, I32 positionX, I32 positionY) {
+    m_width     = width;
+    m_height    = height;
     m_colorBits = colorBits;
     m_positionX = positionX;
     m_positionY = positionY;
 
-    if(!m_externalWindow)
-    {
+    if (!m_externalWindow) {
         I32 x;
         I32 y;
 
-        if (fullscreen)
-        {
+        if (fullscreen) {
             x = y = 0;
 
-            if(!m_fullscreen)
+            if (!m_fullscreen)
                 SwitchToFullscreen();
-        }
-        else
-        {
-            if(positionX == -1 || positionY == -1)
-            {
+        } else {
+            if (positionX == -1 || positionY == -1) {
                 x = (GetScreenWidth() - width) / 2;
                 y = (GetScreenHeight() - height) / 2;
-            }
-            else
-            {
+            } else {
                 x = positionX;
                 y = positionY;
             }
 
-            if(m_fullscreen)
+            if (m_fullscreen)
                 SwitchToWindowed();
         }
         XMoveResizeWindow(m_xlibDisplay,
@@ -285,34 +263,30 @@ void TE::Platform::PlatformWindow::SetResolution(bool fullscreen, I32 width, I32
     m_setResolutionCalled = true;
 }
 
-void TE::Platform::PlatformWindow::SetSize(I32 width, I32 height)
-{
-    m_width = width;
+void TE::Platform::PlatformWindow::SetSize(I32 width, I32 height) {
+    m_width  = width;
     m_height = height;
-    if(m_xlibDisplay)
+    if (m_xlibDisplay)
         SetResolution(false, m_width, m_height, 32, m_positionX, m_positionY);
 }
 
-void TE::Platform::PlatformWindow::SetPosition(I32 x, I32 y)
-{
+void TE::Platform::PlatformWindow::SetPosition(I32 x, I32 y) {
     m_positionX = x;
     m_positionY = y;
-    if(m_xlibDisplay)
+    if (m_xlibDisplay)
         SetResolution(false, m_width, m_height, 32, m_positionX, m_positionY);
 }
 
-void TE::Platform::PlatformWindow::SetFullscreen(bool fullscreen)
-{
+void TE::Platform::PlatformWindow::SetFullscreen(bool fullscreen) {
     m_fullscreen = fullscreen;
-    if(m_xlibDisplay)
+    if (m_xlibDisplay)
         SetResolution(false, m_width, m_height, 32, m_positionX, m_positionY);
 }
 
-void TE::Platform::PlatformWindow::SwitchToFullscreen()
-{
+void TE::Platform::PlatformWindow::SwitchToFullscreen() {
     Hints hints;
-    hints.flags = 2;
-    hints.decorations = false;
+    hints.flags             = 2;
+    hints.decorations       = false;
     Atom borderlessProperty = XInternAtom(m_xlibDisplay,
                                           "_MOTIF_WM_HINTS",
                                           true);
@@ -322,7 +296,7 @@ void TE::Platform::PlatformWindow::SwitchToFullscreen()
                     borderlessProperty,
                     32,
                     PropModeReplace,
-                    reinterpret_cast<U8*>(&hints),
+                    reinterpret_cast<U8 *>(&hints),
                     5);
 
     I32 screen = DefaultScreen(m_xlibDisplay);
@@ -331,10 +305,9 @@ void TE::Platform::PlatformWindow::SwitchToFullscreen()
     XF86VidModeGetAllModeLines(m_xlibDisplay, screen, &numModes, &modes);
     m_desktopMode = *modes[0];
 
-    I32 selected = 0;
-    for(I32 i = 0; i < numModes; ++i)
-    {
-        if(modes[i]->hdisplay == m_width && modes[i]->vdisplay == m_height)
+    I32 selected  = 0;
+    for (I32 i = 0; i < numModes; ++i) {
+        if (modes[i]->hdisplay == m_width && modes[i]->vdisplay == m_height)
             selected = i;
     }
 
@@ -350,11 +323,10 @@ void TE::Platform::PlatformWindow::SwitchToFullscreen()
     m_fullscreen = true;
 }
 
-void TE::Platform::PlatformWindow::SwitchToWindowed()
-{
+void TE::Platform::PlatformWindow::SwitchToWindowed() {
     Hints hints;
-    hints.flags = 2;
-    hints.decorations = true;
+    hints.flags             = 2;
+    hints.decorations       = true;
     Atom borderlessProperty = XInternAtom(m_xlibDisplay,
                                           "_MOTIF_WM_HINTS",
                                           true);
@@ -364,7 +336,7 @@ void TE::Platform::PlatformWindow::SwitchToWindowed()
                     borderlessProperty,
                     32,
                     PropModeReplace,
-                    reinterpret_cast<U8*>(&hints),
+                    reinterpret_cast<U8 *>(&hints),
                     5);
     I32 screen = DefaultScreen(m_xlibDisplay);
     XF86VidModeSwitchToMode(m_xlibDisplay, screen, &m_desktopMode);
@@ -373,122 +345,97 @@ void TE::Platform::PlatformWindow::SwitchToWindowed()
     m_fullscreen = false;
 }
 
-I32 TE::Platform::PlatformWindow::GetWindowWidth()
-{
+I32 TE::Platform::PlatformWindow::GetWindowWidth() {
     return m_width;
 }
 
-I32 TE::Platform::PlatformWindow::GetWindowHeight()
-{
+I32 TE::Platform::PlatformWindow::GetWindowHeight() {
     return m_height;
 }
 
-I32 TE::Platform::PlatformWindow::GetScreenWidth()
-{
+I32 TE::Platform::PlatformWindow::GetScreenWidth() {
     int screen = DefaultScreen(m_xlibDisplay);
     return XDisplayWidth(m_xlibDisplay, screen);
 }
 
-I32 TE::Platform::PlatformWindow::GetScreenHeight()
-{
+I32 TE::Platform::PlatformWindow::GetScreenHeight() {
     int screen = DefaultScreen(m_xlibDisplay);
     return XDisplayHeight(m_xlibDisplay, screen);
 }
 
-bool TE::Platform::PlatformWindow::MessageLoop()
-{
-    bool quitMessageReceived = false;
+bool TE::Platform::PlatformWindow::MessageLoop() {
+    bool quitMessageReceived                                                       = false;
 
-    static I32 previousMousePos[] = { 0,0 };
-    static bool previousKeyState[static_cast<U32>(InputMapping::InputType::Count)] = { false };
+    static I32 previousMousePos[]                                                  = {0, 0};
+    static bool previousKeyState[static_cast<U32>(InputMapping::InputType::Count)] = {false};
 
     m_asciiInput.clear();
 
-    while(XPending(m_xlibDisplay))
-    {
+    while (XPending(m_xlibDisplay)) {
         XNextEvent(m_xlibDisplay, &m_xlibEvent);
-        switch(m_xlibEvent.type)
-        {
-        case ConfigureNotify:
-            {
-                SetPointerPosition(m_width / 2, m_height / 2);
-            }
-            break;
+        switch (m_xlibEvent.type) {
+        case ConfigureNotify: {
+            SetPointerPosition(m_width / 2, m_height / 2);
+        } break;
         case EnterNotify:
             m_previousMousePosValid = false;
             break;
-        case ClientMessage:
-            {
-                if(static_cast<Atom>(m_xlibEvent.xclient.data.l[0]) == m_xlibwmDeleteAtom)
-                {
-                    quitMessageReceived = true;
-                }
+        case ClientMessage: {
+            if (static_cast<Atom>(m_xlibEvent.xclient.data.l[0]) == m_xlibwmDeleteAtom) {
+                quitMessageReceived = true;
             }
-            break;
-        case MotionNotify:
-            {
-                I32 x = m_xlibEvent.xmotion.x;
-                I32 y = m_xlibEvent.xmotion.y;
+        } break;
+        case MotionNotify: {
+            I32 x = m_xlibEvent.xmotion.x;
+            I32 y = m_xlibEvent.xmotion.y;
 
-                if(!m_previousMousePosValid)
-                {
-                    previousMousePos[0] = x;
-                    previousMousePos[1] = y;
-                    m_previousMousePosValid = true;
-                }
-
-                F64 normalizedX = static_cast<F64>(x) / m_width;
-                F64 normalizedY = static_cast<F64>(y) / m_height;
-
-                F64 normalizedDeltaX = static_cast<F64>(previousMousePos[0] - x) / m_width;
-                F64 normalizedDeltaY = static_cast<F64>(previousMousePos[1] - y) / m_height;
-
-                assert(normalizedDeltaX > -1.0 && normalizedDeltaX < 1.0 && "Oops, looks like this needs some debugging");
-                assert(normalizedDeltaY > -1.0 && normalizedDeltaY < 1.0 && "Oops, looks like this needs some debugging");
-
-                m_inputMapper.MapRangeInput(InputMapping::RangeInput::MouseX, normalizedX);
-                m_inputMapper.MapRangeInput(InputMapping::RangeInput::MouseY, normalizedY);
-                m_inputMapper.MapRangeInput(InputMapping::RangeInput::MouseDeltaX, normalizedDeltaX);
-                m_inputMapper.MapRangeInput(InputMapping::RangeInput::MouseDeltaY, normalizedDeltaY);
-
-                previousMousePos[0] = x;
-                previousMousePos[1] = y;
+            if (!m_previousMousePosValid) {
+                previousMousePos[0]     = x;
+                previousMousePos[1]     = y;
+                m_previousMousePosValid = true;
             }
-            break;
-        case KeyPress:
-            {
-                auto findItr = m_platformTEngineMapping.find(XLookupKeysym(&m_xlibEvent.xkey, 0));
-                if (findItr != m_platformTEngineMapping.end())
-                {
-                    bool pressed = true;
-                    m_inputMapper.MapInput(findItr->second, pressed, previousKeyState[static_cast<U32>(findItr->second)]);
-                    previousKeyState[static_cast<U32>(findItr->second)] = true;
-                }
-            }
-            break;
-        case KeyRelease:
-            {
-                auto findItr = m_platformTEngineMapping.find(XLookupKeysym(&m_xlibEvent.xkey, 0));
-                if (findItr != m_platformTEngineMapping.end())
-                {
-                    bool pressed = false;
-                    m_inputMapper.MapInput(findItr->second, pressed, previousKeyState[static_cast<U32>(findItr->second)]);
-                    previousKeyState[static_cast<U32>(findItr->second)] = false;
-                }
-            }
-            break;
-        case ButtonPress:
-            {
 
-            }
-            break;
-        case ButtonRelease:
-            {
+            F64 normalizedX      = static_cast<F64>(x) / m_width;
+            F64 normalizedY      = static_cast<F64>(y) / m_height;
 
+            F64 normalizedDeltaX = static_cast<F64>(previousMousePos[0] - x) / m_width;
+            F64 normalizedDeltaY = static_cast<F64>(previousMousePos[1] - y) / m_height;
+
+            assert(normalizedDeltaX > -1.0 && normalizedDeltaX < 1.0 && "Oops, looks like this needs some debugging");
+            assert(normalizedDeltaY > -1.0 && normalizedDeltaY < 1.0 && "Oops, looks like this needs some debugging");
+
+            m_inputMapper.MapRangeInput(InputMapping::RangeInput::MouseX, normalizedX);
+            m_inputMapper.MapRangeInput(InputMapping::RangeInput::MouseY, normalizedY);
+            m_inputMapper.MapRangeInput(InputMapping::RangeInput::MouseDeltaX, normalizedDeltaX);
+            m_inputMapper.MapRangeInput(InputMapping::RangeInput::MouseDeltaY, normalizedDeltaY);
+
+            previousMousePos[0] = x;
+            previousMousePos[1] = y;
+        } break;
+        case KeyPress: {
+            auto findItr = m_platformTEngineMapping.find(XLookupKeysym(&m_xlibEvent.xkey, 0));
+            if (findItr != m_platformTEngineMapping.end()) {
+                bool pressed = true;
+                m_inputMapper.MapInput(findItr->second, pressed, previousKeyState[static_cast<U32>(findItr->second)]);
+                previousKeyState[static_cast<U32>(findItr->second)] = true;
             }
-            break;
+        } break;
+        case KeyRelease: {
+            auto findItr = m_platformTEngineMapping.find(XLookupKeysym(&m_xlibEvent.xkey, 0));
+            if (findItr != m_platformTEngineMapping.end()) {
+                bool pressed = false;
+                m_inputMapper.MapInput(findItr->second, pressed, previousKeyState[static_cast<U32>(findItr->second)]);
+                previousKeyState[static_cast<U32>(findItr->second)] = false;
+            }
+        } break;
+        case ButtonPress: {
+
+        } break;
+        case ButtonRelease: {
+
+        } break;
         default:
-            //not handled
+            // not handled
             break;
         }
     }
@@ -498,28 +445,23 @@ bool TE::Platform::PlatformWindow::MessageLoop()
     return quitMessageReceived;
 }
 
-void TE::Platform::PlatformWindow::SetWindowTitle(const std::string &title)
-{
+void TE::Platform::PlatformWindow::SetWindowTitle(const std::string &title) {
     m_windowTitle = title;
-    if(m_xlibDisplay)
+    if (m_xlibDisplay)
         XStoreName(m_xlibDisplay, m_xlibWindowID, m_windowTitle.c_str());
 }
 
-bool TE::Platform::PlatformWindow::IsFullscreen()
-{
+bool TE::Platform::PlatformWindow::IsFullscreen() {
     return m_fullscreen;
 }
 
-std::vector<char> TE::Platform::PlatformWindow::GetAsciiInput()
-{
+std::vector<char> TE::Platform::PlatformWindow::GetAsciiInput() {
     return m_asciiInput;
 }
 
-void TE::Platform::PlatformWindow::SetPointerMode(TE::Platform::PointerMode pointerMode)
-{
+void TE::Platform::PlatformWindow::SetPointerMode(TE::Platform::PointerMode pointerMode) {
     m_pointerMode = pointerMode;
-    if(m_pointerMode == PointerMode::Grabbed)
-    {
+    if (m_pointerMode == PointerMode::Grabbed) {
         XGrabPointer(m_xlibDisplay,
                      m_xlibWindowID,
                      true,
@@ -533,8 +475,7 @@ void TE::Platform::PlatformWindow::SetPointerMode(TE::Platform::PointerMode poin
     }
 }
 
-void TE::Platform::PlatformWindow::SetPointerPosition(I32 x, I32 y)
-{
+void TE::Platform::PlatformWindow::SetPointerPosition(I32 x, I32 y) {
     XWarpPointer(m_xlibDisplay,
                  0,
                  m_xlibWindowID,
@@ -544,18 +485,17 @@ void TE::Platform::PlatformWindow::SetPointerPosition(I32 x, I32 y)
                  0,
                  x,
                  y);
-    while(XCheckTypedWindowEvent(m_xlibDisplay,
-                                 m_xlibWindowID,
-                                 MotionNotify,
-                                 &m_xlibEvent));
+    while (XCheckTypedWindowEvent(m_xlibDisplay,
+                                  m_xlibWindowID,
+                                  MotionNotify,
+                                  &m_xlibEvent))
+        ;
 }
 
-XID TE::Platform::PlatformWindow::GetWindowXID()
-{
+XID TE::Platform::PlatformWindow::GetWindowXID() {
     return m_xlibWindowID;
 }
 
-Display *TE::Platform::PlatformWindow::GetDisplay()
-{
+Display *TE::Platform::PlatformWindow::GetDisplay() {
     return m_xlibDisplay;
 }

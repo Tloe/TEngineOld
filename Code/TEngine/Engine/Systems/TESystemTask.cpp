@@ -1,6 +1,4 @@
 #include <TESystemTask.h>
 
-TE::Engine::SystemTask::~SystemTask()
-{
-
+TE::Engine::SystemTask::~SystemTask() {
 }

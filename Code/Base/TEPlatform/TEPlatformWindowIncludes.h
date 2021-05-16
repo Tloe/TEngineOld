@@ -1,5 +1,5 @@
 #ifdef TE_WINDOWS
-	#include <TEWinWindow.h>
+#include <TEWinWindow.h>
 #elif TE_LINUX
-	#include <TELinuxWindow.h>
+#include <TELinuxWindow.h>
 #endif

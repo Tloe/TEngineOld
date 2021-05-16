@@ -1,27 +1,25 @@
 #ifndef TENETWORKMANAGER_H
 #define TENETWORKMANAGER_H
 
-#include "TEMessageHandler.h"
-#include "TEReliableConnection.h"
-#include "TEFlowControl.h"
-#include "TESocket.h"
-#include "TEPacket.h"
 #include "TEEventHandler.h"
+#include "TEFlowControl.h"
+#include "TEMessageHandler.h"
+#include "TEPacket.h"
+#include "TEReliableConnection.h"
+#include "TESocket.h"
 
-#include <map>
 #include <list>
+#include <map>
 
-namespace TE
-{
-    namespace Event { class EnvironmentUpdateEvent; }
+namespace TE {
+    namespace Event {
+        class EnvironmentUpdateEvent;
+    }
 
-
-    namespace Network
-    {
-        class NetworkManager : public Event::EventHandler
-        {
-        public:
-            typedef void (*MessageCallback)(Net::Packet&);
+    namespace Network {
+        class NetworkManager : public Event::EventHandler {
+          public:
+            typedef void (*MessageCallback)(Net::Packet &);
 
             NetworkManager();
             ~NetworkManager();
@@ -29,7 +27,7 @@ namespace TE
             virtual void HandleEvent(Event::EnvironmentUpdateEvent &environmentUpdateEvent);
 
             void SetServerMode(bool value);
-            void SetPort(const std::string & port);
+            void SetPort(const std::string &port);
             void SetIpFamily(Net::IPFamily ipFamily);
 
             void Initialize();
@@ -44,10 +42,10 @@ namespace TE
             void AddMessageCallback(I32 packetId, MessageCallback messageCallback);
             void MapConnectionToObjectId(I32 connectionId, I32 objectId);
 
-            MessageHandler& GetMessagehandler();
-        private:
-            struct ConnectionData
-            {
+            MessageHandler &GetMessagehandler();
+
+          private:
+            struct ConnectionData {
                 U64 timeSinceLastPacket;
                 I32 framesUntilNextPacket;
                 Net::ReliableConnection connection;
@@ -55,7 +53,7 @@ namespace TE
             };
             typedef std::map<U32, ConnectionData> ConnectionMap;
 
-            void ReceiveQue(U32 connectionId, Net::Connection & connection, U64 time);
+            void ReceiveQue(U32 connectionId, Net::Connection &connection, U64 time);
             void CheckAcks(U32 connectionId, Net::ReliableConnection &connection);
             void SendQue(U32 connectionId, ConnectionData &connectionData, U64 deltaTime);
             void QueSent(ConnectionData &connectionData);

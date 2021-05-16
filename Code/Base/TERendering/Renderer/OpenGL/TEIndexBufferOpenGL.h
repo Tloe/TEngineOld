@@ -4,30 +4,29 @@
 #include "TEDataTypes.h"
 #include "TEOpenGL.h"
 
-namespace TE
-{
-	namespace Render { class Mesh; }
+namespace TE {
+    namespace Render {
+        class Mesh;
+    }
 
-	namespace Render
-	{
-		class APIIndexBuffer
-		{
-		public:
-			APIIndexBuffer(const Mesh& mesh);
-			~APIIndexBuffer();
+    namespace Render {
+        class APIIndexBuffer {
+          public:
+            APIIndexBuffer(const Mesh &mesh);
+            ~APIIndexBuffer();
 
-			void Enable();
-			void Disable();
+            void Enable();
+            void Disable();
 
             U32 IncreaseUsageCount();
             U32 DecreaseUsageCount();
 
-		private:
+          private:
             U32 m_usageCount;
-			const Mesh& m_mesh;
-			GLuint m_glIBO;
-		};
-	}
+            const Mesh &m_mesh;
+            GLuint m_glIBO;
+        };
+    }
 }
 
 #endif

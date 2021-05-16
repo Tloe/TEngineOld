@@ -14,4 +14,3 @@ void TE::Detail::RemoveFunction(State & state, std::string & name)
     lua_setglobal(state(), m_name.c_str());
 }
 */
-

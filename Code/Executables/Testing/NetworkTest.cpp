@@ -1,81 +1,73 @@
 #include "NetworkTest.h"
-#include <string>
-#include "TEDataTypes.h"
 #include "TEAddress.h"
-#include <iostream>
-#include "TESocket.h"
-#include "TEReliableConnection.h"
+#include "TEDataTypes.h"
 #include "TEFlowControl.h"
 #include "TEPacket.h"
-#include "TETimer.h"
 #include "TERandomNumberGenerators.h"
+#include "TEReliableConnection.h"
+#include "TESocket.h"
+#include "TETimer.h"
+#include <iostream>
+#include <string>
 
-int NetworkTestMain()
-{
-	const std::string serverPort = "4444";
+int NetworkTestMain() {
+    const std::string serverPort  = "4444";
     const std::string clientPort1 = "4445";
     const std::string clientPort2 = "4446";
 
-    const U64 deltaTime = 33333ULL;
+    const U64 deltaTime           = 33333ULL;
 
-	const bool printAcks = false;
+    const bool printAcks          = false;
 
-	enum Mode
-	{
-		Client,
-		Server
-	};
+    enum Mode {
+        Client,
+        Server
+    };
 
-	Mode mode = Server;
+    Mode mode = Server;
     TE::Net::Address address;
 
-	std::cout << "Server or client? (s/c)" << std::endl;
+    std::cout << "Server or client? (s/c)" << std::endl;
     char c = ' ';
-	while (c != 's' && c != 'c')
-	{
-		std::cin >> c;
-	}
+    while (c != 's' && c != 'c') {
+        std::cin >> c;
+    }
     char cn = ' ';
-    if(c == 'c')
-    {
+    if (c == 'c') {
         mode = Client;
         std::cout << "Client 1 or 2? (1/2)" << std::endl;
-        while (cn != '1' && cn != '2')
-        {
+        while (cn != '1' && cn != '2') {
             std::cin >> cn;
         }
     }
 
-    if (!TE::Net::InitializeSockets())
-	{
-		std::cout << "failed to initialize sockets" << std::endl;
-		return 1;
-	}
+    if (!TE::Net::InitializeSockets()) {
+        std::cout << "failed to initialize sockets" << std::endl;
+        return 1;
+    }
     TE::Net::Socket socket(4032);
-    const std::string port = (mode == Server) ? serverPort :
-                             (cn == '1') ? clientPort1 : clientPort2;
+    const std::string port = (mode == Server) ? serverPort : (cn == '1') ? clientPort1
+                                                                         : clientPort2;
     std::cout << port << std::endl;
     assert(socket.Open(port, TE::Net::IPFamily::IPv4));
 
-	if (c == 'c' )
-	{
-		mode = Client;
+    if (c == 'c') {
+        mode = Client;
         TE::Net::Address address;
         address.SetAddress("127.0.0.1", serverPort, TE::Net::IPFamily::IPv4);
 
         TE::Net::ReliableConnection connection(socket,
-                                                   address,
-                                                   TE::Time::Microseconds::Second * 10,
-                                                   TE::Net::Connection::Mode::Client);
+                                               address,
+                                               TE::Time::Microseconds::Second * 10,
+                                               TE::Net::Connection::Mode::Client);
 
-        while( true )
-        {
+        while (true) {
             socket.Update();
             connection.Update(deltaTime);
 
             TE::Net::Packet clientPacket;
             clientPacket.BeginPacket(TE::Net::PacketType::Packet);
-            if(cn == '1')
+            if (cn == '1')
                 clientPacket.WriteString("client1 -> Server packet");
             else
                 clientPacket.WriteString("client2 -> Server packet");
@@ -84,8 +76,7 @@ int NetworkTestMain()
             connection.SendPacket(clientPacket);
 
             TE::Net::Packet incomingPacket;
-            while(connection.ReceivePacket(incomingPacket))
-            {
+            while (connection.ReceivePacket(incomingPacket)) {
                 incomingPacket.StartReading();
                 std::string str;
                 incomingPacket.ReadString(str);
@@ -98,31 +89,26 @@ int NetworkTestMain()
                 message.ReadU32(count);
                 F32 f;
                 message.ReadF32(f);
-                std::cout << str << " count: " << count << " float: "<< f;
-                //std::cout << str << " rtt: " << connection.GetReliabilityControl().GetRoundTripTime() << std::endl;
+                std::cout << str << " count: " << count << " float: " << f;
+                // std::cout << str << " rtt: " << connection.GetReliabilityControl().GetRoundTripTime() << std::endl;
             }
 
             std::cout << std::endl;
             TE::Time::Wait(deltaTime, TE::Time::Units::Microseconds);
         }
-	}
-    else
-    {
+    } else {
         std::vector<TE::Net::ReliableConnection> connections;
-        while( true )
-        {
+        while (true) {
             socket.Update();
-            for(auto & connection : connections)
+            for (auto &connection : connections)
                 connection.Update(deltaTime);
 
             TE::Net::Address newAddress;
-            while(socket.HasIncomingConnection(newAddress))
-            {
+            while (socket.HasIncomingConnection(newAddress)) {
                 connections.push_back(TE::Net::ReliableConnection(socket, newAddress, TE::Time::Microseconds::Second * 10, TE::Net::Connection::Mode::Server));
             }
 
-            if(!connections.empty())
-            {
+            if (!connections.empty()) {
 
                 TE::Net::Packet broadcastPacket;
                 broadcastPacket.BeginPacket(TE::Net::PacketType::Packet);
@@ -132,7 +118,7 @@ int NetworkTestMain()
                 message.BeginPacket();
                 static U32 countn = 0;
                 message.WriteU32(countn);
-                F32 f = TE::Utils::RandomF32Generator(0.0f,0.1f)();
+                F32 f = TE::Utils::RandomF32Generator(0.0f, 0.1f)();
                 std::cout << "count: " << countn++ << " float " << f;
                 message.WriteF32(f);
                 message.EndPacket();
@@ -140,9 +126,8 @@ int NetworkTestMain()
                 broadcastPacket.EndPacket();
 
                 I32 count = 0;
-                for(auto & connection : connections)
-                {
-                    if(count++ == 0)
+                for (auto &connection : connections) {
+                    if (count++ == 0)
                         std::cout << " - 1 - ";
                     else
                         std::cout << " - 2 -";
@@ -151,20 +136,18 @@ int NetworkTestMain()
             }
 
             I32 count = 0;
-            for(auto & connection : connections)
-            {
-                if(count++ == 0)
+            for (auto &connection : connections) {
+                if (count++ == 0)
                     std::cout << " - 1 - ";
                 else
                     std::cout << " - 2 - ";
                 TE::Net::Packet incomingPacket;
-                while(connection.ReceivePacket(incomingPacket))
-                {
+                while (connection.ReceivePacket(incomingPacket)) {
 
                     incomingPacket.StartReading();
                     std::string str;
                     incomingPacket.ReadString(str);
-                    //std::cout << str << " rtt: " << connection.GetReliabilityControl().GetRoundTripTime() << std::endl;
+                    // std::cout << str << " rtt: " << connection.GetReliabilityControl().GetRoundTripTime() << std::endl;
                 }
             }
 
@@ -173,64 +156,63 @@ int NetworkTestMain()
         }
     }
 
-
     /*TE::Net::ReliableConnection connection(socket, TE::Time::Microseconds::Second * 10);
 
     if (!connection.Initialize(port, TE::Net::IPFamily::IPv4))
-	{
-		std::cout << "could not start connection on port " << port << std::endl;
-		return 1;
-	}
+        {
+                std::cout << "could not start connection on port " << port << std::endl;
+                return 1;
+        }
 
-	if (mode == Client)
-		connection.Connect(address);
-	else
-		connection.Listen();
+        if (mode == Client)
+                connection.Connect(address);
+        else
+                connection.Listen();
 
-	bool connected = false;
-	U64 sendAccumulator = 0;
-	U64 statsAccumulator = 0;
+        bool connected = false;
+        U64 sendAccumulator = 0;
+        U64 statsAccumulator = 0;
 
     TE::Net::FlowControl flowControl;
 
-	while (true)
-	{
-		// update flow control
+        while (true)
+        {
+                // update flow control
 
-		if (connection.IsConnected())
-		{
-			flowControl.Update(deltaTime, connection.GetReliabilityControll().GetRoundTripTime());
-		}
+                if (connection.IsConnected())
+                {
+                        flowControl.Update(deltaTime, connection.GetReliabilityControll().GetRoundTripTime());
+                }
 
-		const U32 sendRate = flowControl.GetSendRate();
+                const U32 sendRate = flowControl.GetSendRate();
 
-		// detect changes in connection state
+                // detect changes in connection state
 
         if ( mode == Server && connected && !connection.IsConnected() )
-		{
-			flowControl.Reset();
-			std::cout << "reset flow control" << std::endl;
-			connected = false;
-		}
+                {
+                        flowControl.Reset();
+                        std::cout << "reset flow control" << std::endl;
+                        connected = false;
+                }
 
-		if ( !connected && connection.IsConnected() )
-		{
-			std::cout << "client connected to server" << std::endl;
-			connected = true;
-		}
+                if ( !connected && connection.IsConnected() )
+                {
+                        std::cout << "client connected to server" << std::endl;
+                        connected = true;
+                }
 
-		if ( !connected && connection.ConnectFailed() )
-		{
-			std::cout << "connection failed" << std::endl;
-			break;
-		}
+                if ( !connected && connection.ConnectFailed() )
+                {
+                        std::cout << "connection failed" << std::endl;
+                        break;
+                }
 
-		// send and receive packets
+                // send and receive packets
 
-		sendAccumulator += deltaTime;
+                sendAccumulator += deltaTime;
 
-		while ( sendAccumulator > TE::Time::Microseconds::Second / sendRate )
-		{
+                while ( sendAccumulator > TE::Time::Microseconds::Second / sendRate )
+                {
             std::string messageData0("Hello,");
             std::string messageData1(" world!");
 
@@ -250,16 +232,16 @@ int NetworkTestMain()
             packet.WriteU32(messageNum);
             packet.WriteBinaryPacket(message0);
             packet.WriteBinaryPacket(message1);
-			packet.EndPacket();
-			connection.SendPacket(packet);
-			sendAccumulator -= TE::Time::Microseconds::Second / sendRate;
-		}
+                        packet.EndPacket();
+                        connection.SendPacket(packet);
+                        sendAccumulator -= TE::Time::Microseconds::Second / sendRate;
+                }
 
-		while ( true )
-		{
+                while ( true )
+                {
             TE::Net::Packet packet;
-			if(!connection.ReceivePacket(packet))
-				break;
+                        if(!connection.ReceivePacket(packet))
+                                break;
 
             packet.StartReading();
             U32 numMessages;
@@ -275,60 +257,59 @@ int NetworkTestMain()
                 std::cout << str;
             }
             std::cout << std::endl;
-		}
+                }
 
-		// show packets that were acked this frame
+                // show packets that were acked this frame
 
-		if(printAcks)
-		{
-			std::vector<U32> acks = connection.GetReliabilityControll().GetAcks();
-			if ( acks.size() > 0 )
-			{
-				std::cout << "acks: ";
-				for (auto itr : acks)
-				{
-					std::cout << itr << " ";
-				}
-				std::cout << std::endl;
-			}
-		}
-		// update connection
+                if(printAcks)
+                {
+                        std::vector<U32> acks = connection.GetReliabilityControll().GetAcks();
+                        if ( acks.size() > 0 )
+                        {
+                                std::cout << "acks: ";
+                                for (auto itr : acks)
+                                {
+                                        std::cout << itr << " ";
+                                }
+                                std::cout << std::endl;
+                        }
+                }
+                // update connection
 
-		connection.Update(33333ULL);
+                connection.Update(33333ULL);
 
-		// show connection stats
+                // show connection stats
 
-		statsAccumulator += deltaTime;
+                statsAccumulator += deltaTime;
 
-		while ( statsAccumulator >= 250000ULL && connection.IsConnected() )
-		{
-			U64 rtt = connection.GetReliabilityControll().GetRoundTripTime();
+                while ( statsAccumulator >= 250000ULL && connection.IsConnected() )
+                {
+                        U64 rtt = connection.GetReliabilityControll().GetRoundTripTime();
 
-			U32 sent_packets = connection.GetReliabilityControll().GetSentPackets();
-			U32 acked_packets = connection.GetReliabilityControll().GetAckedPackets();
-			U32 lost_packets = connection.GetReliabilityControll().GetLostPackets();
+                        U32 sent_packets = connection.GetReliabilityControll().GetSentPackets();
+                        U32 acked_packets = connection.GetReliabilityControll().GetAckedPackets();
+                        U32 lost_packets = connection.GetReliabilityControll().GetLostPackets();
 
-			F32 sent_bandwidth = connection.GetReliabilityControll().GetSentBandwidth_kbit();
-			F32 acked_bandwidth = connection.GetReliabilityControll().GetAckedBandwidth_kbit();
+                        F32 sent_bandwidth = connection.GetReliabilityControll().GetSentBandwidth_kbit();
+                        F32 acked_bandwidth = connection.GetReliabilityControll().GetAckedBandwidth_kbit();
 
             //std::cout << "rtt " << rtt << std::endl;
-			//std::cout << "sent " << sent_packets << std::endl;
-			//std::cout << "acked " << acked_packets << ", lost " 
-			//	<< lost_packets << "(" 
-			//	<<  ((sent_packets > 0) ? (float) lost_packets / (float) sent_packets * 100.0f : 0) 
-			//	<< ")" << std::endl;
+                        //std::cout << "sent " << sent_packets << std::endl;
+                        //std::cout << "acked " << acked_packets << ", lost "
+                        //	<< lost_packets << "("
+                        //	<<  ((sent_packets > 0) ? (float) lost_packets / (float) sent_packets * 100.0f : 0)
+                        //	<< ")" << std::endl;
             //std::cout << "sent bandwidth = " << sent_bandwidth << "kbps" << std::endl;
             //std::cout << "acked bandwith = " << acked_bandwidth << "kbps" << std::endl << std::endl;
 
-			statsAccumulator -= 250000ULL;
-		}
+                        statsAccumulator -= 250000ULL;
+                }
 
-		TE::Time::Wait(deltaTime, TE::Time::Units::Microseconds);
-	}
+                TE::Time::Wait(deltaTime, TE::Time::Units::Microseconds);
+        }
 */
     socket.Close();
     TE::Net::CleanupSockets();
 
-	return 0;
+    return 0;
 }
-

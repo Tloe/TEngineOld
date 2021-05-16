@@ -1,32 +1,27 @@
 #ifndef TEFUTUREJOINER_H
 #define TEFUTUREJOINER_H
 
-#include <vector>
 #include <future>
+#include <vector>
 
-namespace TE
-{
-    namespace Threading
-    {
-        template<typename R>
-        class FutureJoiner
-        {
-        public:
-            explicit FutureJoiner(std::vector<std::future<R> > & futures)
-                : m_futures(futures)
-            {}
+namespace TE {
+namespace Threading {
+    template <typename R>
+    class FutureJoiner {
+      public:
+        explicit FutureJoiner(std::vector<std::future<R>> &futures)
+            : m_futures(futures) {}
 
-            ~FutureJoiner()
-            {
-                for(auto & future : m_futures)
-                {
-                    future.wait();
-                }
+        ~FutureJoiner() {
+            for (auto &future : m_futures) {
+                future.wait();
             }
-        private:
-            std::vector<std::future<R> > & m_futures;
-        };
-    }
+        }
+
+      private:
+        std::vector<std::future<R>> &m_futures;
+    };
+}
 }
 
 #endif

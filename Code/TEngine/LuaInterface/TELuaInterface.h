@@ -3,17 +3,17 @@
 
 #include "lua.hpp"
 
-namespace TE
-{
-  namespace Engine { class EngineRoot; }
+namespace TE {
+    namespace Engine {
+        class EngineRoot;
+    }
 
-  namespace LUAInterface
-  {
-    extern Engine::EngineRoot * engineRoot;
+    namespace LUAInterface {
+        extern Engine::EngineRoot *engineRoot;
 
-    void SetupInterface(Engine::EngineRoot & engineRoot);
-    static int SetDataEngineRoot(lua_State * luaState);
-  }
+        void SetupInterface(Engine::EngineRoot &engineRoot);
+        static int SetDataEngineRoot(lua_State *luaState);
+    }
 }
 
 #endif

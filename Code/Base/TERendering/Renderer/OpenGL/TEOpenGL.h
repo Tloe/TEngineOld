@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 /* #include "Cg/cgGL.h" */
 #ifdef TE_LINUX
-    #include "GL/glx.h"
+#include "GL/glx.h"
 #endif
 
 #endif
