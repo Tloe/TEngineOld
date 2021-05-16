@@ -3,6 +3,8 @@ include(Utils/CMake/sourcegroup.cmake)
 cmake_minimum_required(VERSION 3.19)
 project(TEngine)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
+
 ##### API Options
 option(API_OPENGL "Build with opengl suport" ON)
 option(API_DIRECTX "Build with directx suport" OFF)
