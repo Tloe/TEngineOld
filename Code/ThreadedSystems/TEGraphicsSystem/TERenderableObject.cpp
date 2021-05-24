@@ -7,13 +7,12 @@
 #include "TEValue.h"
 #include "TEVariant.h"
 
-TE::Graphics::RenderableObject::RenderableObject(I32 objectId, SceneGraph::SceneManager &sceneManager)
+TE::Graphics::RenderableObject::RenderableObject(I32 objectId,
+                                                 SceneGraph::SceneManager &sceneManager)
     : GraphicsObject(objectId, GraphicsObjectType::Renderable, sceneManager),
-      m_sceneManager(sceneManager) {
-}
+      m_sceneManager(sceneManager) {}
 
-TE::Graphics::RenderableObject::~RenderableObject() {
-}
+TE::Graphics::RenderableObject::~RenderableObject() {}
 
 void TE::Graphics::RenderableObject::SetValue(Core::Value &value) {
     switch (value.GetValueType()) {
@@ -38,9 +37,9 @@ void TE::Graphics::RenderableObject::SetValue(Core::Value &value) {
             // TODO: This will calculate bounding with all float values in the vertex buffer
             //		(including coords, normals,++)
             auto meshHandle = m_renderable.GetMesh();
-            BSphereFromVertexData(bounding,
-                                  reinterpret_cast<const F32 *>(meshHandle->GetVertexBufferDataPtr()),
-                                  meshHandle->GetVertexBufferInfo().dataElementCount);
+            BSphereFromVertexData(
+                bounding, reinterpret_cast<const F32 *>(meshHandle->GetVertexBufferDataPtr()),
+                meshHandle->GetVertexBufferInfo().dataElementCount);
             m_renderable.SetBounding(bounding);
         }
         break;
@@ -52,13 +51,9 @@ void TE::Graphics::RenderableObject::SetValue(Core::Value &value) {
     }
 }
 
-void TE::Graphics::RenderableObject::Initialize() {
-    m_sceneManager.InitRenderable(m_renderable);
-}
+void TE::Graphics::RenderableObject::Initialize() { m_sceneManager.InitRenderable(m_renderable); }
 
-void TE::Graphics::RenderableObject::Cleanup() {
-    m_sceneManager.CleanupRenderable(m_renderable);
-}
+void TE::Graphics::RenderableObject::Cleanup() { m_sceneManager.CleanupRenderable(m_renderable); }
 
 /*
 void TE::Graphics::RenderableObject::JSONDeserialize( const Json::Value& jsonValue )
@@ -108,7 +103,8 @@ void TE::Graphics::RenderableObject::JSONSerialize(Json::Value& jsonValue)
 
 void TE::Graphics::RenderableObject::OnSubjectChange(Subject *subject, Bitmask64 changeBits) {
     if (changeBits & Engine::Change::Transform::All) {
-        auto transformChange = Engine::GetChangeData<Engine::Change::TransformChange>(subject, changeBits);
+        auto transformChange =
+            Engine::GetChangeData<Engine::Change::TransformChange>(subject, changeBits);
 
         if (changeBits & Engine::Change::Transform::Position) {
             m_renderable.SetTranslation(*transformChange.position);

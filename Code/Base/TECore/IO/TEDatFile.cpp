@@ -8,9 +8,7 @@
 #include <iostream>
 #include <sstream>
 
-TE::IO::DatFile::DatFile()
-    : m_crypto(nullptr),
-      m_emptyFile(false) {}
+TE::IO::DatFile::DatFile() : m_crypto(nullptr), m_emptyFile(false) {}
 
 TE::IO::DatFile::DatFile(Resources::CryptoUPtr &crypto)
     : m_crypto(std::move(crypto)),
@@ -45,7 +43,8 @@ bool TE::IO::DatFile::OpenFile(const std::string &filePath) {
         }
     } else {
         // File does not exist, create it
-        m_datFile.Open(m_filePath, std::ios::binary | std::ios::in | std::ios::out | std::ios::trunc);
+        m_datFile.Open(m_filePath,
+                       std::ios::binary | std::ios::in | std::ios::out | std::ios::trunc);
         if (!m_datFile.IsOpen()) {
             std::clog << "Could not open file";
             return false;
@@ -183,7 +182,8 @@ bool TE::IO::DatFile::GetFileData(const std::string &filePath, std::vector<U8> &
     return GetFileData(HashGenerator()(filePath), dataOut);
 }
 
-I32 TE::IO::DatFile::GetFolderContent(const DatPath &relativeDatPath, std::vector<std::string> &foldersAndFilse) {
+I32 TE::IO::DatFile::GetFolderContent(const DatPath &relativeDatPath,
+                                      std::vector<std::string> &foldersAndFilse) {
     if (m_fileIndexString.empty() && !m_emptyFile)
         ActivateIndexStringMap();
 
@@ -225,13 +225,15 @@ void TE::IO::DatFile::UpdateIndexOffsets() {
     m_fileIndexHash.clear();
     I32 currentOffset = 0;
     for (unsigned i = 0; i < stringIndexSorted.size(); ++i) {
-        if (!(stringIndexSorted[i].second.first == 0 && stringIndexSorted[i].second.first == stringIndexSorted[i].second.second)) {
+        if (!(stringIndexSorted[i].second.first == 0 &&
+              stringIndexSorted[i].second.first == stringIndexSorted[i].second.second)) {
             // offset and file size is 0; path is file, update offset
             stringIndexSorted[i].second.second = currentOffset;
             hashIndexSorted[i].second.second   = currentOffset;
             currentOffset += stringIndexSorted[i].second.first;
         }
-        m_fileIndexString.insert(std::make_pair(stringIndexSorted[i].first, stringIndexSorted[i].second));
+        m_fileIndexString.insert(
+            std::make_pair(stringIndexSorted[i].first, stringIndexSorted[i].second));
         m_fileIndexHash.insert(std::make_pair(hashIndexSorted[i].first, hashIndexSorted[i].second));
     }
 
@@ -263,8 +265,7 @@ I32 TE::IO::ReadDatIndexHash(File &file, DatFileIndexHashMap &fileIndex) {
         StringHash hash = HashGenerator()(line.substr(0, splitPos));
 
         I32 fileSize    = atoi(line.substr(splitPos + 1).c_str());
-        fileIndex.insert(std::make_pair(hash,
-                                        std::make_pair(fileSize, currentOffset)));
+        fileIndex.insert(std::make_pair(hash, std::make_pair(fileSize, currentOffset)));
         currentOffset += fileSize;
     }
 
@@ -291,8 +292,8 @@ I32 TE::IO::ReadDatIndexString(File &file, DatFileIndexStringMap &fileIndex) {
         splitPos     = line.find_last_of(' ');
 
         I32 fileSize = atoi(line.substr(splitPos + 1).c_str());
-        fileIndex.insert(std::make_pair(line.substr(0, splitPos),
-                                        std::make_pair(fileSize, currentOffset)));
+        fileIndex.insert(
+            std::make_pair(line.substr(0, splitPos), std::make_pair(fileSize, currentOffset)));
         currentOffset += fileSize;
     }
 
@@ -303,16 +304,14 @@ void TE::IO::WriteDatIndex(File &file, DatFileIndexStringMap &fileIndex, U32 off
     std::vector<std::pair<std::string, SizeOffsetPair>> stringIndexSorted;
     SortedIndex(stringIndexSorted, fileIndex);
 
-    std::vector<std::pair<std::string, SizeOffsetPair>>::iterator currentItr = stringIndexSorted.begin();
+    std::vector<std::pair<std::string, SizeOffsetPair>>::iterator currentItr =
+        stringIndexSorted.begin();
 
     file.SetWriteOffset(offset);
 
     for (; currentItr != stringIndexSorted.end(); ++currentItr) {
         std::stringstream stringstr;
-        stringstr << currentItr->first
-                  << " "
-                  << currentItr->second.first
-                  << "\n";
+        stringstr << currentItr->first << " " << currentItr->second.first << "\n";
 
         std::string str(stringstr.str());
         std::vector<char> data(str.begin(), str.end());

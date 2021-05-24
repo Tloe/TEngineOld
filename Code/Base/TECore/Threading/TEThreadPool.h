@@ -14,8 +14,7 @@
 #include <thread>
 #include <vector>
 
-namespace TE {
-namespace Threading {
+namespace TE::Threading {
     class ThreadPool {
       public:
         ThreadPool(U32 threadCount = std::thread::hardware_concurrency() - 1);
@@ -38,8 +37,10 @@ namespace Threading {
         }
 
         template <typename FunctionType>
-        std::vector<std::future<typename std::result_of<FunctionType()>::type>> SubmitToAllThreads(FunctionType function) {
-            assert(AllLocalWorkQuesEmpty() && "This should only be called in main thread while other threads are not running");
+        std::vector<std::future<typename std::result_of<FunctionType()>::type>>
+        SubmitToAllThreads(FunctionType function) {
+            assert(AllLocalWorkQuesEmpty() &&
+                   "This should only be called in main thread while other threads are not running");
 
             typedef typename std::result_of<FunctionType()>::type ResultType;
 
@@ -79,7 +80,6 @@ namespace Threading {
         static thread_local U32 m_localThreadIndex;
         static thread_local WorkStealingQue *m_localWorkQuePtr;
     };
-}
 }
 
 #endif

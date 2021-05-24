@@ -8,8 +8,7 @@
 #include <string>
 #include <vector>
 
-namespace TE {
-namespace IO {
+namespace TE::IO {
     class File {
       public:
         File();
@@ -37,7 +36,6 @@ namespace IO {
     std::string FileExtentionFromPath(const std::string &filePath);
     std::string FileNameFromFullPath(const std::string &filePath);
     std::string FolderPathFromFilePath(const std::string &filePath);
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 
 namespace {
     namespace PacketChanges {
-        enum {
-            Position    = (1 << 0),
-            Scale       = (1 << 1),
-            Orientation = (1 << 2)
-        };
+        enum { Position = (1 << 0), Scale = (1 << 1), Orientation = (1 << 2) };
     }
 
     U8 GetPacketChangeMask(bool positionUpdated, bool scaleUpdated, bool orientationUpdated) {
@@ -31,14 +27,16 @@ namespace {
     }
 
     inline I8 MostRecentCircular(I8 s1, I8 s2, I8 maxSequenceNo = 99) {
-        if (((s1 > s2) && (s1 - s2 <= maxSequenceNo / 2)) || ((s2 > s1) && (s2 - s1 > maxSequenceNo / 2)))
+        if (((s1 > s2) && (s1 - s2 <= maxSequenceNo / 2)) ||
+            ((s2 > s1) && (s2 - s1 > maxSequenceNo / 2)))
             return s1;
 
         return s2;
     }
 
     inline bool IsMoreRecentCircular(I8 s1, I8 s2, I8 maxSequenceNo = 99) {
-        return ((s1 > s2) && (s1 - s2 <= maxSequenceNo / 2)) || ((s2 > s1) && (s2 - s1 > maxSequenceNo / 2));
+        return ((s1 > s2) && (s1 - s2 <= maxSequenceNo / 2)) ||
+               ((s2 > s1) && (s2 - s1 > maxSequenceNo / 2));
     }
 
     U32 ReadCircular100Index(TE::Net::Packet &packet) {
@@ -69,10 +67,11 @@ namespace {
         }
     }
 
-    Bitmask UpdateOrientation(TE::Math::Quaternion<F32> &orientation,
-                              TE::Net::Packet &packet,
-                              TE::Utils::CircularQue<TE::Math::Quaternion<F32>, 100> &storedRotations,
-                              U32 startRotationIndex) {
+    Bitmask
+    UpdateOrientation(TE::Math::Quaternion<F32> &orientation,
+                      TE::Net::Packet &packet,
+                      TE::Utils::CircularQue<TE::Math::Quaternion<F32>, 100> &storedRotations,
+                      U32 startRotationIndex) {
         if (!IsMoreRecentCircular(storedRotations.GetHeadIndex(), startRotationIndex)) {
             orientation = ReadQuaternion(packet);
             storedRotations.PopToIndex(startRotationIndex);
@@ -88,7 +87,9 @@ namespace {
     }
 }
 
-TE::Network::NetworkObject::NetworkObject(I32 objectId, Event::EventManager &eventManager, MessageHandler &messageHandler)
+TE::Network::NetworkObject::NetworkObject(I32 objectId,
+                                          Event::EventManager &eventManager,
+                                          MessageHandler &messageHandler)
     : m_objectId(objectId),
       m_position(Math::Vector3D<F32>::VECTOR3D_ZERO),
       m_scale(Math::Vector3D<F32>::VECTOR3D_ONE),
@@ -96,8 +97,7 @@ TE::Network::NetworkObject::NetworkObject(I32 objectId, Event::EventManager &eve
       m_messageHandler(messageHandler),
       m_eventManager(eventManager),
       m_lastProcessedTranslation(0),
-      m_lastProcessedRotation(0) {
-}
+      m_lastProcessedRotation(0) {}
 
 void TE::Network::NetworkObject::HandleEvent(TE::Event::TranslationEvent &event) {
     // Subscribed only on client
@@ -158,11 +158,9 @@ void TE::Network::NetworkObject::SetValue(Core::Value &value) {
     }
 }
 
-void TE::Network::NetworkObject::Initialize() {
-}
+void TE::Network::NetworkObject::Initialize() {}
 
-void TE::Network::NetworkObject::Cleanup() {
-}
+void TE::Network::NetworkObject::Cleanup() {}
 
 Bitmask64 TE::Network::NetworkObject::GetDesiredSystemChanges() {
     return Engine::Change::Transform::All;
@@ -172,19 +170,23 @@ Bitmask64 TE::Network::NetworkObject::GetPotentialSystemChanges() {
     return Engine::Change::Transform::All;
 }
 
-TE::Engine::Change::ChangeDataPtrVar TE::Network::NetworkObject::GetChangeData(Bitmask64 changeBits) {
+TE::Engine::Change::ChangeDataPtrVar
+TE::Network::NetworkObject::GetChangeData(Bitmask64 changeBits) {
     static Engine::Change::TransformChange transformChange;
 
-    transformChange.position    = (changeBits & Engine::Change::Transform::Position) ? &m_position : nullptr;
-    transformChange.scale       = (changeBits & Engine::Change::Transform::Scale) ? &m_scale : nullptr;
-    transformChange.orientation = (changeBits & Engine::Change::Transform::Position) ? &m_orientation : nullptr;
+    transformChange.position =
+        (changeBits & Engine::Change::Transform::Position) ? &m_position : nullptr;
+    transformChange.scale = (changeBits & Engine::Change::Transform::Scale) ? &m_scale : nullptr;
+    transformChange.orientation =
+        (changeBits & Engine::Change::Transform::Position) ? &m_orientation : nullptr;
 
     return Engine::Change::ChangeDataPtrVar(transformChange);
 }
 
 void TE::Network::NetworkObject::OnSubjectChange(Subject *subject, Bitmask64 changeBits) {
     if (changeBits & Engine::Change::Transform::Position) {
-        auto transformChange = Engine::GetChangeData<Engine::Change::TransformChange>(subject, changeBits);
+        auto transformChange =
+            Engine::GetChangeData<Engine::Change::TransformChange>(subject, changeBits);
 
         if (changeBits & Engine::Change::Transform::Position) {
             m_position        = *transformChange.position;
@@ -201,9 +203,7 @@ void TE::Network::NetworkObject::OnSubjectChange(Subject *subject, Bitmask64 cha
     }
 }
 
-I32 TE::Network::NetworkObject::GetObjectId() const {
-    return m_objectId;
-}
+I32 TE::Network::NetworkObject::GetObjectId() const { return m_objectId; }
 
 TE::Engine::Subject::Priority TE::Network::NetworkObject::GetPriority() const {
     return Priority::Level4;
@@ -243,10 +243,8 @@ void TE::Network::NetworkObject::RemoteObjectUpdate(TE::Net::Packet &packet) {
     if (updatedMask & PacketChanges::Position) {
         U32 startTranslationIndex = ReadCircular100Index(packet);
 
-        changeMask |= UpdatePosition(m_position,
-                                     packet,
-                                     m_storedTranslations,
-                                     startTranslationIndex);
+        changeMask |=
+            UpdatePosition(m_position, packet, m_storedTranslations, startTranslationIndex);
     }
     if (updatedMask & PacketChanges::Scale) {
         m_scale = ReadVector(packet);
@@ -255,10 +253,8 @@ void TE::Network::NetworkObject::RemoteObjectUpdate(TE::Net::Packet &packet) {
     if (updatedMask & PacketChanges::Orientation) {
         U32 startOrientationIndex = ReadCircular100Index(packet);
 
-        changeMask |= UpdateOrientation(m_orientation,
-                                        packet,
-                                        m_storedRotations,
-                                        startOrientationIndex);
+        changeMask |=
+            UpdateOrientation(m_orientation, packet, m_storedRotations, startOrientationIndex);
     }
 
     if (changeMask != Engine::Change::NotSet) {
@@ -299,5 +295,4 @@ void TE::Network::NetworkObject::RemoteOrientationEvent(TE::Net::Packet &packet,
     PostSubjectChanges(Engine::Change::Transform::Orientation);
 }
 
-void TE::Network::NetworkObject::RemoteAddForceEvent(TE::Net::Packet &packet, U64 time) {
-}
+void TE::Network::NetworkObject::RemoteAddForceEvent(TE::Net::Packet &packet, U64 time) {}

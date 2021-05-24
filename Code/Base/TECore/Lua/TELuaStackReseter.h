@@ -3,27 +3,23 @@
 
 #include "TEDataTypes.h"
 
-namespace TE {
-    namespace Lua {
-        class State;
-    }
+namespace TE::Lua {
+  class State;
 
-    namespace Lua {
-        class StackReseter {
-          public:
-            StackReseter(StackReseter &)  = delete;
-            StackReseter(StackReseter &&) = delete;
-            StackReseter &operator=(StackReseter const &) = delete;
-            StackReseter &operator=(StackReseter &&) = delete;
+  class StackReseter {
+  public:
+    StackReseter(StackReseter &)  = delete;
+    StackReseter(StackReseter &&) = delete;
+    StackReseter &operator=(StackReseter const &) = delete;
+    StackReseter &operator=(StackReseter &&) = delete;
 
-            explicit StackReseter(State &state);
-            ~StackReseter();
+    explicit StackReseter(State &state);
+    ~StackReseter();
 
-          private:
-            State &m_state;
-            I32 m_savedStackTop;
-        };
-    }
+  private:
+    State &m_state;
+    I32 m_savedStackTop;
+  };
 }
 
 #endif

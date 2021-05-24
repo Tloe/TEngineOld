@@ -3,13 +3,11 @@
 
 #include <TESystemObject.h>
 
-namespace TE {
-namespace Engine {
-    class PhysicsObject : public SystemObject {
-      public:
-      private:
-    };
-}
+namespace TE::Engine {
+  class PhysicsObject : public SystemObject {
+  public:
+  private:
+  };
 }
 
 #endif

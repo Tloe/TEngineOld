@@ -34,14 +34,17 @@ namespace {
         if (lst.empty()) {
             lst.push_back(p);
         } else {
-            if (!TE::Net::SequenceNumberMoreRecent(p.sequenceNumber, lst.front().sequenceNumber, maxSequenceNumber)) {
+            if (!TE::Net::SequenceNumberMoreRecent(p.sequenceNumber, lst.front().sequenceNumber,
+                                                   maxSequenceNumber)) {
                 lst.push_front(p);
-            } else if (TE::Net::SequenceNumberMoreRecent(p.sequenceNumber, lst.back().sequenceNumber, maxSequenceNumber)) {
+            } else if (TE::Net::SequenceNumberMoreRecent(
+                           p.sequenceNumber, lst.back().sequenceNumber, maxSequenceNumber)) {
                 lst.push_back(p);
             } else {
                 for (auto itr = lst.begin(); itr != lst.end(); ++itr) {
                     assert(itr->sequenceNumber != p.sequenceNumber);
-                    if (TE::Net::SequenceNumberMoreRecent(itr->sequenceNumber, p.sequenceNumber, maxSequenceNumber)) {
+                    if (TE::Net::SequenceNumberMoreRecent(itr->sequenceNumber, p.sequenceNumber,
+                                                          maxSequenceNumber)) {
                         lst.insert(itr, p);
                         break;
                     }
@@ -111,10 +114,12 @@ U32 TE::Net::ReliabilityControl::GenerateAckBits() {
 
     for (auto &itr : m_receivedQueue) {
         if (itr.sequenceNumber == m_remoteSequenceNumber ||
-            Net::SequenceNumberMoreRecent(itr.sequenceNumber, m_remoteSequenceNumber, m_maxSequenceNumber)) {
+            Net::SequenceNumberMoreRecent(itr.sequenceNumber, m_remoteSequenceNumber,
+                                          m_maxSequenceNumber)) {
             break;
         }
-        I32 bit_index = ::BitIndexForSequence(itr.sequenceNumber, m_remoteSequenceNumber, m_maxSequenceNumber);
+        I32 bit_index =
+            ::BitIndexForSequence(itr.sequenceNumber, m_remoteSequenceNumber, m_maxSequenceNumber);
 
         if (bit_index <= 31)
             ackBits |= 1 << bit_index;
@@ -157,45 +162,25 @@ void TE::Net::ReliabilityControl::Update(U64 deltaTime) {
     UpdateStats();
 }
 
-U32 TE::Net::ReliabilityControl::GetLocalSequence() const {
-    return m_localSequenceNumber;
-}
+U32 TE::Net::ReliabilityControl::GetLocalSequence() const { return m_localSequenceNumber; }
 
-U32 TE::Net::ReliabilityControl::GetRemoteSequence() const {
-    return m_remoteSequenceNumber;
-}
+U32 TE::Net::ReliabilityControl::GetRemoteSequence() const { return m_remoteSequenceNumber; }
 
-U32 TE::Net::ReliabilityControl::GetSentPackets() const {
-    return m_sentPackets;
-}
+U32 TE::Net::ReliabilityControl::GetSentPackets() const { return m_sentPackets; }
 
-U32 TE::Net::ReliabilityControl::GetReceivedPackets() const {
-    return m_recvPackets;
-}
+U32 TE::Net::ReliabilityControl::GetReceivedPackets() const { return m_recvPackets; }
 
-U32 TE::Net::ReliabilityControl::GetLostPackets() const {
-    return m_lostPackets;
-}
+U32 TE::Net::ReliabilityControl::GetLostPackets() const { return m_lostPackets; }
 
-U32 TE::Net::ReliabilityControl::GetAckedPackets() const {
-    return m_ackedPackets;
-}
+U32 TE::Net::ReliabilityControl::GetAckedPackets() const { return m_ackedPackets; }
 
-F32 TE::Net::ReliabilityControl::GetSentBandwidth_kbit() const {
-    return m_sentBandwidth;
-}
+F32 TE::Net::ReliabilityControl::GetSentBandwidth_kbit() const { return m_sentBandwidth; }
 
-F32 TE::Net::ReliabilityControl::GetAckedBandwidth_kbit() const {
-    return m_ackedBandwidth;
-}
+F32 TE::Net::ReliabilityControl::GetAckedBandwidth_kbit() const { return m_ackedBandwidth; }
 
-U64 TE::Net::ReliabilityControl::GetRoundTripTime() const {
-    return m_rtt;
-}
+U64 TE::Net::ReliabilityControl::GetRoundTripTime() const { return m_rtt; }
 
-std::vector<U32> &TE::Net::ReliabilityControl::GetAcks() {
-    return m_acks;
-}
+std::vector<U32> &TE::Net::ReliabilityControl::GetAcks() { return m_acks; }
 
 void TE::Net::ReliabilityControl::AdvanceQueueTime(U64 deltaTime) {
     for (auto &itr : m_sentQueue)
@@ -226,7 +211,9 @@ void TE::Net::ReliabilityControl::UpdateQueues() {
         else
             minimumSequenceNo = m_maxSequenceNumber - (34 - latestSequenceNo);
 
-        while (m_receivedQueue.size() && !SequenceNumberMoreRecent(m_receivedQueue.front().sequenceNumber, minimumSequenceNo, m_maxSequenceNumber)) {
+        while (m_receivedQueue.size() &&
+               !SequenceNumberMoreRecent(m_receivedQueue.front().sequenceNumber, minimumSequenceNo,
+                                         m_maxSequenceNumber)) {
             m_receivedQueue.pop_front();
         }
     }
@@ -235,7 +222,8 @@ void TE::Net::ReliabilityControl::UpdateQueues() {
         m_ackedQueue.pop_front();
     }
 
-    while (m_pendingAckQueue.size() && m_pendingAckQueue.front().time > m_rttMaximum + timeEpsilon) {
+    while (m_pendingAckQueue.size() &&
+           m_pendingAckQueue.front().time > m_rttMaximum + timeEpsilon) {
         m_pendingAckQueue.pop_front();
         m_lostPackets++;
     }

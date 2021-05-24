@@ -4,12 +4,10 @@
 #include <thread>
 #include <vector>
 
-namespace TE {
-namespace Threading {
+namespace TE::Threading {
     class ThreadJoiner {
       public:
-        ThreadJoiner(std::vector<std::thread> &threads)
-            : m_threads(threads) {}
+        ThreadJoiner(std::vector<std::thread> &threads) : m_threads(threads) {}
 
         ~ThreadJoiner() {
             for (auto &thread : m_threads) {
@@ -21,7 +19,6 @@ namespace Threading {
       private:
         std::vector<std::thread> &m_threads;
     };
-}
 }
 
 #endif

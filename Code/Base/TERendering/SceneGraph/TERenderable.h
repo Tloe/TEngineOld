@@ -13,42 +13,39 @@
 #include <map>
 #include <vector>
 
-namespace TE {
-    namespace SceneGraph {
-        class Camera;
-    }
+namespace TE::SceneGraph {
+  class Camera;
 
-    namespace SceneGraph {
-        class Renderable : public Spatial {
-          public:
-            typedef std::vector<Resources::ResourceHandle<Render::Texture>> TextureVec;
+  class Renderable : public Spatial {
+  public:
+    using TextureVec = std::vector<Resources::ResourceHandle<Render::Texture>>;
 
-            Renderable();
+    Renderable();
 
-            virtual void GetRenderListNoCull(RenderablePtrList &renderList);
-            virtual void GetRenderListNoSort(RenderablePtrList &renderList, Camera &camera);
+    virtual void GetRenderListNoCull(RenderablePtrList &renderList);
+    virtual void GetRenderListNoSort(RenderablePtrList &renderList, Camera &camera);
 
-            void SetMesh(Resources::ResourceHandle<Render::Mesh> &resourceHandle);
-            void SetEffect(Resources::ResourceHandle<Render::Effect> &resourceHandle);
-            void AddTexture(Resources::ResourceHandle<Render::Texture> &resourceHandle);
+    void SetMesh(Resources::ResourceHandle<Render::Mesh> &resourceHandle);
+    void SetEffect(Resources::ResourceHandle<Render::Effect> &resourceHandle);
+    void AddTexture(Resources::ResourceHandle<Render::Texture> &resourceHandle);
 
-            const Resources::ResourceHandle<Render::Mesh> &GetMesh();
-            const Resources::ResourceHandle<Render::Effect> &GetEffect();
-            const TextureVec &GetTextures();
+    const Resources::ResourceHandle<Render::Mesh> &GetMesh();
+    const Resources::ResourceHandle<Render::Effect> &GetEffect();
+    const TextureVec &GetTextures();
 
-          protected:
-            // virtual void UpdateRenderStateLocal(std::stack< Memory::Pointer0< GlobalState > >* stateStack, std::vector<LightPtr>* lightStack);
-          private:
-            virtual void UpdateWorldBound();
+  protected:
+    // virtual void UpdateRenderStateLocal(std::stack< Memory::Pointer0< GlobalState > >*
+    // stateStack, std::vector<LightPtr>* lightStack);
+  private:
+    virtual void UpdateWorldBound();
 
-            Resources::ResourceHandle<Render::Mesh> m_mesh;
-            Resources::ResourceHandle<Render::Effect> m_effect;
-            TextureVec m_textures;
+    Resources::ResourceHandle<Render::Mesh> m_mesh;
+    Resources::ResourceHandle<Render::Effect> m_effect;
+    TextureVec m_textures;
 
-            // Memory::Pointer0<GlobalState> m_localStates[GlobalState::STATE_COUNT];
-            // std::vector<LightPtr> m_lights;
-        };
-    }
+    // Memory::Pointer0<GlobalState> m_localStates[GlobalState::STATE_COUNT];
+    // std::vector<LightPtr> m_lights;
+  };
 }
 
 #endif

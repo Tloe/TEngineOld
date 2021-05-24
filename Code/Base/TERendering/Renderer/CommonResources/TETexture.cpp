@@ -4,17 +4,13 @@
 #include "TEImagePNG.h"
 #include <TETexture.h>
 
-TE::Render::Texture::Texture(const std::string &filePath)
-    : Resource(filePath) {
-}
+TE::Render::Texture::Texture(const std::string &filePath) : Resource(filePath) {}
 
 TE::Render::Texture::Texture(const Texture &&other)
     : Resource(other.GetFilePath()),
-      m_image(std::move(other.m_image)) {
-}
+      m_image(std::move(other.m_image)) {}
 
-TE::Render::Texture::~Texture() {
-}
+TE::Render::Texture::~Texture() {}
 
 TE::Render::Texture &TE::Render::Texture::operator=(const Texture &rhs) {
     m_image = std::move(rhs.m_image);
@@ -31,17 +27,10 @@ void TE::Render::Texture::Load(IO::FileIO &fileIO) {
     }
 }
 
-TE::Images::Image &TE::Render::Texture::GetImage() {
-    return *m_image;
-}
+TE::Images::Image &TE::Render::Texture::GetImage() { return *m_image; }
 
-void TE::Render::Texture::Prepare() {
-    m_image->Prepare();
-}
+void TE::Render::Texture::Prepare() { m_image->Prepare(); }
 
-bool TE::Render::Texture::IsLoaded() const {
-    return m_image->IsLoaded();
-}
+bool TE::Render::Texture::IsLoaded() const { return m_image->IsLoaded(); }
 
-void TE::Render::Texture::Unload() {
-}
+void TE::Render::Texture::Unload() {}

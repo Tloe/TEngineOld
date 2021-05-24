@@ -4,15 +4,12 @@
 #include <algorithm>
 #include <iostream>
 
-TE::AssetImporter::AssetImporter() {
-}
+TE::AssetImporter::AssetImporter() {}
 
 bool TE::AssetImporter::OpenFile(const std::string &filePath) {
-    m_assimpScene = m_assimpImporter.ReadFile(filePath,
-                                              aiProcess_CalcTangentSpace |
-                                                  aiProcess_Triangulate |
-                                                  aiProcess_JoinIdenticalVertices |
-                                                  aiProcess_SortByPType);
+    m_assimpScene = m_assimpImporter.ReadFile(
+        filePath, aiProcess_CalcTangentSpace | aiProcess_Triangulate |
+                      aiProcess_JoinIdenticalVertices | aiProcess_SortByPType);
 
     if (!m_assimpScene)
         return false;
@@ -23,8 +20,7 @@ bool TE::AssetImporter::OpenFile(const std::string &filePath) {
 
 void TE::AssetImporter::GetMesheNames(std::vector<std::string> &meshNames) {
     meshNames.reserve(m_meshIndexMap.size());
-    for (MeshNodeMap::iterator itr = m_meshIndexMap.begin();
-         itr != m_meshIndexMap.end(); ++itr) {
+    for (MeshNodeMap::iterator itr = m_meshIndexMap.begin(); itr != m_meshIndexMap.end(); ++itr) {
         meshNames.push_back(itr->first);
     }
 }
@@ -57,8 +53,7 @@ void TE::AssetImporter::FillMeshIndexMap(std::list<MeshNode> &meshes) {
         for (unsigned i = 0; i < meshName.size(); ++i)
             meshName[i] = tolower(meshName[i]);
 
-        if (meshName.find("obb") != 0 &&
-            meshName.find("bsphere") != 0 &&
+        if (meshName.find("obb") != 0 && meshName.find("bsphere") != 0 &&
             meshName.find("plane") != 0) {
             m_meshIndexMap.insert(std::make_pair(itr->meshName, *itr));
             itr = meshes.erase(itr);
@@ -71,8 +66,7 @@ void TE::AssetImporter::FillMeshIndexMap(std::list<MeshNode> &meshes) {
 void TE::AssetImporter::FillMeshBoundingVolumeContainers(std::list<MeshNode> &meshes) {
     std::string meshName;
     std::list<MeshNode>::iterator itr;
-    for (itr = meshes.begin();
-         itr != meshes.end(); ++itr) {
+    for (itr = meshes.begin(); itr != meshes.end(); ++itr) {
         meshName = itr->meshName;
         for (unsigned i = 0; i < meshName.size(); ++i)
             meshName[i] = tolower(meshName[i]);
@@ -107,11 +101,15 @@ TE::Intersection::BSphere TE::AssetImporter::GetBShere(const std::string &meshNa
 
     TE::Intersection::BSphere bsphere;
     if (meshFindItr != m_meshIndexMap.end()) {
-        BSphereMeshIndexSet::iterator boundMeshFindItr = m_bsphereSet.find(meshFindItr->second.index);
+        BSphereMeshIndexSet::iterator boundMeshFindItr =
+            m_bsphereSet.find(meshFindItr->second.index);
         if (boundMeshFindItr != m_bsphereSet.end()) {
-            BSphereFromVertexData(bsphere, &m_assimpScene->mMeshes[*boundMeshFindItr]->mVertices->x, m_assimpScene->mMeshes[*boundMeshFindItr]->mNumVertices);
+            BSphereFromVertexData(bsphere, &m_assimpScene->mMeshes[*boundMeshFindItr]->mVertices->x,
+                                  m_assimpScene->mMeshes[*boundMeshFindItr]->mNumVertices);
         } else {
-            BSphereFromVertexData(bsphere, &m_assimpScene->mMeshes[meshFindItr->second.index]->mVertices->x, m_assimpScene->mMeshes[meshFindItr->second.index]->mNumVertices);
+            BSphereFromVertexData(bsphere,
+                                  &m_assimpScene->mMeshes[meshFindItr->second.index]->mVertices->x,
+                                  m_assimpScene->mMeshes[meshFindItr->second.index]->mNumVertices);
         }
     }
 
@@ -125,24 +123,28 @@ TE::Intersection::Obb TE::AssetImporter::GetObb(const std::string &meshName) {
     if (meshFindItr != m_meshIndexMap.end()) {
         ObbMeshIndexSet::iterator boundMeshFindItr = m_obbSet.find(meshFindItr->second.index);
         if (boundMeshFindItr != m_obbSet.end()) {
-            ObbFromVertexData(obb, &m_assimpScene->mMeshes[*boundMeshFindItr]->mVertices->x, m_assimpScene->mMeshes[*boundMeshFindItr]->mNumVertices);
+            ObbFromVertexData(obb, &m_assimpScene->mMeshes[*boundMeshFindItr]->mVertices->x,
+                              m_assimpScene->mMeshes[*boundMeshFindItr]->mNumVertices);
         } else {
-            ObbFromVertexData(obb, &m_assimpScene->mMeshes[meshFindItr->second.index]->mVertices->x, m_assimpScene->mMeshes[meshFindItr->second.index]->mNumVertices);
+            ObbFromVertexData(obb, &m_assimpScene->mMeshes[meshFindItr->second.index]->mVertices->x,
+                              m_assimpScene->mMeshes[meshFindItr->second.index]->mNumVertices);
         }
     }
 
     return obb;
 }
 
-void TE::AssetImporter::GetVertexBuffer(const std::string &meshName, I32 vertexBufferFlags, std::vector<U8> &data, Render::VertexBufferInfo &vertexBufferInfo) {
+void TE::AssetImporter::GetVertexBuffer(const std::string &meshName,
+                                        I32 vertexBufferFlags,
+                                        std::vector<U8> &data,
+                                        Render::VertexBufferInfo &vertexBufferInfo) {
     std::vector<F32> buffer;
     assert(m_meshIndexMap.find(meshName) != m_meshIndexMap.end() && "meshName not found!");
     aiMesh *pMesh = m_assimpScene->mMeshes[m_meshIndexMap[meshName].index];
 
     for (unsigned i = 0; i < pMesh->mNumVertices; ++i) {
         if (vertexBufferFlags & VERTEXBUFFER_POSITION) {
-            Math::Vector3D<F32> vertice(pMesh->mVertices[i].x,
-                                        pMesh->mVertices[i].y,
+            Math::Vector3D<F32> vertice(pMesh->mVertices[i].x, pMesh->mVertices[i].y,
                                         pMesh->mVertices[i].z);
             vertice = vertice * m_meshIndexMap[meshName].transform;
             buffer.push_back(vertice.x);
@@ -187,7 +189,9 @@ void TE::AssetImporter::GetVertexBuffer(const std::string &meshName, I32 vertexB
     GetLayoutElements(meshName, vertexBufferFlags, vertexBufferInfo.layoutElements);
 }
 
-void TE::AssetImporter::GetIndexBuffer(const std::string &meshName, std::vector<U8> &data, Render::IndexBufferInfo &indexBufferInfo) {
+void TE::AssetImporter::GetIndexBuffer(const std::string &meshName,
+                                       std::vector<U8> &data,
+                                       Render::IndexBufferInfo &indexBufferInfo) {
     int si = sizeof(I16);
     std::vector<I16> buffer;
     assert(m_meshIndexMap.find(meshName) != m_meshIndexMap.end() && "meshName not found!");
@@ -206,7 +210,10 @@ void TE::AssetImporter::GetIndexBuffer(const std::string &meshName, std::vector<
     indexBufferInfo.dataElementSize  = sizeof(I16);
 }
 
-TE::Render::Mesh TE::AssetImporter::GetMesh(const std::string &meshName, I32 vertexBufferFlags, Enum vertexBufferUsage, Enum indexBufferUsage) {
+TE::Render::Mesh TE::AssetImporter::GetMesh(const std::string &meshName,
+                                            I32 vertexBufferFlags,
+                                            Enum vertexBufferUsage,
+                                            Enum indexBufferUsage) {
     std::vector<U8> vertexBuffer;
     TE::Render::VertexBufferInfo vertexBufferInfo;
     GetVertexBuffer(meshName, vertexBufferFlags, vertexBuffer, vertexBufferInfo);
@@ -217,10 +224,14 @@ TE::Render::Mesh TE::AssetImporter::GetMesh(const std::string &meshName, I32 ver
     GetIndexBuffer(meshName, indexBuffer, indexBufferInfo);
     indexBufferInfo.usage = indexBufferUsage;
 
-    return TE::Render::Mesh("/" + meshName, vertexBufferInfo, vertexBuffer, indexBufferInfo, indexBuffer);
+    return TE::Render::Mesh("/" + meshName, vertexBufferInfo, vertexBuffer, indexBufferInfo,
+                            indexBuffer);
 }
 
-void TE::AssetImporter::GetLayoutElements(const std::string &meshName, I32 vertexBufferFlags, std::vector<Render::VertexBufferInfo::LayoutElement> &layoutElements) {
+void TE::AssetImporter::GetLayoutElements(
+    const std::string &meshName,
+    I32 vertexBufferFlags,
+    std::vector<Render::VertexBufferInfo::LayoutElement> &layoutElements) {
     U32 byteOffset = 0;
     if (vertexBufferFlags & VERTEXBUFFER_POSITION) {
         TE::Render::VertexBufferInfo::LayoutElement layoutElement;

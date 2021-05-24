@@ -7,35 +7,32 @@
 
 struct ID3D11Buffer;
 
-namespace TE {
-    namespace Context {
-        class APIContext;
-    }
-    namespace Render {
-        class Mesh;
-    }
+namespace TE::Context {
+  class APIContext;
+}
 
-    namespace Render {
-        class APIIndexBuffer {
-          public:
-            APIIndexBuffer(Context::APIContext &context, const Mesh &mesh);
-            ~APIIndexBuffer();
+namespace TE::Render {
+  class Mesh;
 
-            void Enable();
-            void Disable();
+  class APIIndexBuffer {
+  public:
+    APIIndexBuffer(Context::APIContext &context, const Mesh &mesh);
+    ~APIIndexBuffer();
 
-            U32 IncreaseUsageCount();
-            U32 DecreaseUsageCount();
+    void Enable();
+    void Disable();
 
-          private:
-            U32 m_usageCount;
-            const Mesh &m_mesh;
-            ID3D11Buffer *m_D3DindexBuffer;
-            TE::Context::APIContext &m_apiContext;
-        };
+    U32 IncreaseUsageCount();
+    U32 DecreaseUsageCount();
 
-        typedef std::unique_ptr<APIIndexBuffer> APIIndexBufferUPtr;
-    }
+  private:
+    U32 m_usageCount;
+    const Mesh &m_mesh;
+    ID3D11Buffer *m_D3DindexBuffer;
+    TE::Context::APIContext &m_apiContext;
+  };
+
+  typedef std::unique_ptr<APIIndexBuffer> APIIndexBufferUPtr;
 }
 
 #endif

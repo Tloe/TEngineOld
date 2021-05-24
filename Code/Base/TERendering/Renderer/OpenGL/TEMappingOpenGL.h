@@ -5,8 +5,7 @@
 
 #include <string>
 
-namespace TE {
-namespace Render {
+namespace TE::Render {
     class APIMapping {
       public:
         static const GLuint s_dataType[];
@@ -15,7 +14,6 @@ namespace Render {
         static const GLuint s_semantics[];
         static const GLuint s_colorType[];
     };
-}
 }
 
 #endif

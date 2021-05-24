@@ -1,4 +1,3 @@
 #include <TESystemScene.h>
 
-TE::Engine::SystemScene::~SystemScene() {
-}
+TE::Engine::SystemScene::~SystemScene() {}

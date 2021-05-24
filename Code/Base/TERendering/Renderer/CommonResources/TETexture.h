@@ -6,8 +6,7 @@
 #include <string>
 #include <unordered_map>
 
-namespace TE {
-namespace Render {
+namespace TE::Render {
     class Texture : public Resources::Resource {
       public:
         Texture(const std::string &filePath);
@@ -24,7 +23,6 @@ namespace Render {
       private:
         mutable Images::ImageUPtr m_image;
     };
-}
 }
 
 #endif

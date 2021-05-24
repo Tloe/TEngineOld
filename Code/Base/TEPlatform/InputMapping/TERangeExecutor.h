@@ -6,8 +6,7 @@
 #include <memory>
 #include <string>
 
-namespace TE {
-namespace InputMapping {
+namespace TE::InputMapping {
     class RangeExecutor {
       public:
         friend class InputMapper;
@@ -21,8 +20,7 @@ namespace InputMapping {
         Hash m_nameHash;
     };
 
-    typedef std::unique_ptr<RangeExecutor> RangeExecutorUPtr;
-}
+    using RangeExecutorUPtr = std::unique_ptr<RangeExecutor>;
 }
 
 #endif

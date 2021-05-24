@@ -4,19 +4,17 @@
 #include <cstdlib>
 #include <iostream>
 
-TE::Context::APIContext::APIContext(Platform::OSWinId osWinId, IO::FileIO &fileIO, const std::string &windowName)
+TE::Context::APIContext::APIContext(Platform::OSWinId osWinId,
+                                    IO::FileIO &fileIO,
+                                    const std::string &windowName)
     : PlatformWindow(osWinId, fileIO, windowName),
-      m_xlibVisualInfo(nullptr) {
-}
+      m_xlibVisualInfo(nullptr) {}
 
 TE::Context::APIContext::APIContext(IO::FileIO &fileIO, const std::string &windowName)
     : PlatformWindow(fileIO, windowName),
-      m_xlibVisualInfo(nullptr) {
-}
+      m_xlibVisualInfo(nullptr) {}
 
-TE::Context::APIContext::~APIContext() {
-    XFree(m_xlibVisualInfo);
-}
+TE::Context::APIContext::~APIContext() { XFree(m_xlibVisualInfo); }
 
 void TE::Context::APIContext::SetCGContext(/*CGcontext &cgContext*/) {
     /* m_cgContext = cgContext; */
@@ -24,13 +22,8 @@ void TE::Context::APIContext::SetCGContext(/*CGcontext &cgContext*/) {
 
 void TE::Context::APIContext::OnOpenWindow() {
     m_xlibWindowXID = GetWindowXID();
-    m_glContext     = glXCreateContext(GetDisplay(),
-                                       GetVisualInfo(),
-                                       nullptr,
-                                       GL_TRUE);
-    glXMakeCurrent(GetDisplay(),
-                   GetWindowXID(),
-                   m_glContext);
+    m_glContext     = glXCreateContext(GetDisplay(), GetVisualInfo(), nullptr, GL_TRUE);
+    glXMakeCurrent(GetDisplay(), GetWindowXID(), m_glContext);
 
     /* cgGLRegisterStates(m_cgContext); */
     /* cgGLSetManageTextureParameters(m_cgContext, CG_TRUE); */
@@ -57,9 +50,6 @@ XVisualInfo *TE::Context::APIContext::GetVisualInfo() {
     return m_xlibVisualInfo;
 }
 
-void TE::Context::APIContext::BeginFrame() {
-}
+void TE::Context::APIContext::BeginFrame() {}
 
-void TE::Context::APIContext::EndFrame() {
-    glXSwapBuffers(GetDisplay(), m_xlibWindowXID);
-}
+void TE::Context::APIContext::EndFrame() { glXSwapBuffers(GetDisplay(), m_xlibWindowXID); }

@@ -3,8 +3,7 @@
 
 #include "TEDataTypes.h"
 
-namespace TE {
-namespace Net {
+namespace TE::Net {
     class FlowControl {
       public:
         FlowControl();
@@ -14,17 +13,13 @@ namespace Net {
         U32 GetSendRate();
 
       private:
-        enum class Mode {
-            Good,
-            Bad
-        };
+        enum class Mode { Good, Bad };
 
         Mode mode;
         U64 m_penaltyTime;
         U64 m_goodConditionsTime;
         U64 m_penaltyReductionAccumulator;
     };
-}
 }
 
 #endif

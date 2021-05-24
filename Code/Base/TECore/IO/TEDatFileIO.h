@@ -4,8 +4,7 @@
 #include "TEDatFile.h"
 #include "TEFileIO.h"
 
-namespace TE {
-namespace IO {
+namespace TE { namespace IO {
     class DatFileIO : public FileIO {
       public:
         DatFileIO(const std::string &datFilePath);
@@ -20,7 +19,6 @@ namespace IO {
         std::string m_datFilePath;
         IO::DatFile m_datFile;
     };
-}
-}
+}}
 
 #endif

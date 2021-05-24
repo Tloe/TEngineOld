@@ -28,8 +28,7 @@ TE::Render::APIVertexBuffer::APIVertexBuffer(TE::Context::APIContext &apiContext
     apiContext.GetDevice()->CreateBuffer(&bd, &subData, &m_D3DvertexBuffer);
 }
 
-TE::Render::APIVertexBuffer::~APIVertexBuffer() {
-}
+TE::Render::APIVertexBuffer::~APIVertexBuffer() {}
 
 void TE::Render::APIVertexBuffer::Enable() {
     const VertexBufferInfo &bufferInfo = m_mesh.GetVertexBufferInfo();
@@ -37,17 +36,13 @@ void TE::Render::APIVertexBuffer::Enable() {
     U32 stride                         = bufferInfo.dataElementSize * 8;
     U32 offset                         = 0;
     m_apiContext.GetDeviceContext()->IASetVertexBuffers(0, 1, &m_D3DvertexBuffer, &stride, &offset);
-    D3D11_PRIMITIVE_TOPOLOGY primitiveTopology = APIMapping::s_primitiveType[bufferInfo.primitiveType];
+    D3D11_PRIMITIVE_TOPOLOGY primitiveTopology =
+        APIMapping::s_primitiveType[bufferInfo.primitiveType];
     m_apiContext.GetDeviceContext()->IASetPrimitiveTopology(primitiveTopology);
 }
 
-void TE::Render::APIVertexBuffer::Disable() {
-}
+void TE::Render::APIVertexBuffer::Disable() {}
 
-U32 TE::Render::APIVertexBuffer::IncreaseUsageCount() {
-    return ++m_usageCount;
-}
+U32 TE::Render::APIVertexBuffer::IncreaseUsageCount() { return ++m_usageCount; }
 
-U32 TE::Render::APIVertexBuffer::DecreaseUsageCount() {
-    return --m_usageCount;
-}
+U32 TE::Render::APIVertexBuffer::DecreaseUsageCount() { return --m_usageCount; }

@@ -15,8 +15,7 @@
 #include <memory>
 #include <unordered_map>
 
-namespace TE {
-namespace InputMapping {
+namespace TE::InputMapping {
     class InputContext // : public IO::JsonSerializer
     {
       public:
@@ -38,7 +37,6 @@ namespace InputMapping {
         StateMap m_states;
         RangeMap m_ranges;
     };
-}
 }
 
 #endif

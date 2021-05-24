@@ -1,9 +1,7 @@
 #include "TEPacketQue.h"
 #include "TEPacket.h"
 
-void TE::Net::PacketQue::Add(const Packet &packet) {
-    m_packets.push_back(packet);
-}
+void TE::Net::PacketQue::Add(const Packet &packet) { m_packets.push_back(packet); }
 
 void TE::Net::PacketQue::Pack(Packet &packet) {
     packet.BeginPacket(PacketType::Packet);
@@ -27,10 +25,6 @@ void TE::Net::PacketQue::Unpack(Packet &packet) {
     }
 }
 
-void TE::Net::PacketQue::Clear() {
-    m_packets.clear();
-}
+void TE::Net::PacketQue::Clear() { m_packets.clear(); }
 
-std::vector<TE::Net::Packet> &TE::Net::PacketQue::GetPackets() {
-    return m_packets;
-}
+std::vector<TE::Net::Packet> &TE::Net::PacketQue::GetPackets() { return m_packets; }

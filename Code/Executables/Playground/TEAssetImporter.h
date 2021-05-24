@@ -35,7 +35,10 @@ namespace TE {
         void GetMesheNames(std::vector<std::string> &mesheNames);
         TE::Intersection::BSphere GetBShere(const std::string &meshName);
         TE::Intersection::Obb GetObb(const std::string &meshName);
-        Render::Mesh GetMesh(const std::string &meshName, I32 vertexBufferFlags, Enum vertexBufferUsage, Enum indexBufferUsage);
+        Render::Mesh GetMesh(const std::string &meshName,
+                             I32 vertexBufferFlags,
+                             Enum vertexBufferUsage,
+                             Enum indexBufferUsage);
 
       private:
         struct MeshNode {
@@ -48,9 +51,17 @@ namespace TE {
         typedef std::set<unsigned> BSphereMeshIndexSet;
         typedef std::set<unsigned> ObbMeshIndexSet;
 
-        void GetVertexBuffer(const std::string &meshName, I32 flags, std::vector<U8> &data, Render::VertexBufferInfo &vertexBufferInfo);
-        void GetIndexBuffer(const std::string &meshName, std::vector<U8> &data, Render::IndexBufferInfo &indexBufferInfo);
-        void GetLayoutElements(const std::string &meshName, I32 vertexBufferFlags, std::vector<Render::VertexBufferInfo::LayoutElement> &layoutElements);
+        void GetVertexBuffer(const std::string &meshName,
+                             I32 flags,
+                             std::vector<U8> &data,
+                             Render::VertexBufferInfo &vertexBufferInfo);
+        void GetIndexBuffer(const std::string &meshName,
+                            std::vector<U8> &data,
+                            Render::IndexBufferInfo &indexBufferInfo);
+        void
+        GetLayoutElements(const std::string &meshName,
+                          I32 vertexBufferFlags,
+                          std::vector<Render::VertexBufferInfo::LayoutElement> &layoutElements);
         void SetupMeshIndexMaps(aiNode *assimpNode);
         void RecurseGatherMeshes(aiNode *assimpNode, std::list<MeshNode> &meshes);
         void FillMeshIndexMap(std::list<MeshNode> &meshes);

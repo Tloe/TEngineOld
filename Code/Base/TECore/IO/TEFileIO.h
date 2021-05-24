@@ -7,8 +7,7 @@
 #include <string>
 #include <vector>
 
-namespace TE {
-namespace IO {
+namespace TE::IO {
     class FileIO {
       public:
         virtual ~FileIO();
@@ -21,7 +20,6 @@ namespace IO {
 
     void WriteU32ToU8Vector(U32 u32val, std::vector<U8> &data);
     void ReadU32FromU8Array(U32 &u32val, const U8 *data);
-}
 }
 
 #endif

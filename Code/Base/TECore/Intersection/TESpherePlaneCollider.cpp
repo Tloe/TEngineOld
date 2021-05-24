@@ -3,7 +3,11 @@
 #include <TEPlane.h>
 #include <TESpherePlaneCollider.h>
 
-bool TE::Intersection::SpherePlaneCollider::Collide(const BSphere &bsphere, const Plane &plane, bool coarse, bool symetric, ContactSet *contacts /*= NULL*/) {
+bool TE::Intersection::SpherePlaneCollider::Collide(const BSphere &bsphere,
+                                                    const Plane &plane,
+                                                    bool coarse,
+                                                    bool symetric,
+                                                    ContactSet *contacts /*= NULL*/) {
     F32 dist        = Dot(bsphere.m_center, plane.m_normal) - Dot(plane.m_normal, plane.m_center);
 
     bool intersects = Math::Base<Real>::Abs(dist) <= bsphere.m_radius;

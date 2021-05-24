@@ -7,26 +7,25 @@
 #include <list>
 #include <string>
 
-namespace TE {
-    namespace Event {
-        class EventManager;
-    }
+namespace TE::Event {
+  class EventManager;
+}
 
-    namespace Transform {
-        class TransformScene : public Engine::SystemScene {
-          public:
-            TransformScene(Event::EventManager &eventManager);
-            virtual ~TransformScene();
+namespace TE::Transform {
+  class TransformScene : public Engine::SystemScene {
+  public:
+    TransformScene(Event::EventManager &eventManager);
+    virtual ~TransformScene();
 
-            virtual void Initialize();
-            virtual void Cleanup();
-            virtual Engine::SystemTask *GetSystemTask();
-            virtual Engine::SystemObjectSPtr CreateSystemObject(const std::string &objectType, I32 objectId);
+    virtual void Initialize();
+    virtual void Cleanup();
+    virtual Engine::SystemTask *GetSystemTask();
+    virtual Engine::SystemObjectSPtr CreateSystemObject(const std::string &objectType,
+                                                        I32 objectId);
 
-          private:
-            Event::EventManager &m_eventManager;
-        };
-    }
+  private:
+    Event::EventManager &m_eventManager;
+  };
 }
 
 #endif

@@ -6,25 +6,21 @@
 
 #include <string>
 
-namespace TE {
-    namespace Event {
-        class EventHandler;
-    }
+namespace TE::Event {
+  class EventHandler;
 
-    namespace Event {
-        class EnvironmentUpdateEvent : public EventVisitor {
-          public:
-            EnvironmentUpdateEvent(const std::string &name, Core::Variant &value);
-            EnvironmentUpdateEvent(const std::string &name, Core::Variant value);
-            virtual void VisitEventHandler(EventHandler &eventHandler);
-            std::string &GetName();
-            Core::Variant &GetValue();
+  class EnvironmentUpdateEvent : public EventVisitor {
+  public:
+    EnvironmentUpdateEvent(const std::string &name, Core::Variant &value);
+    EnvironmentUpdateEvent(const std::string &name, Core::Variant value);
+    virtual void VisitEventHandler(EventHandler &eventHandler);
+    std::string &GetName();
+    Core::Variant &GetValue();
 
-          private:
-            std::string m_name;
-            Core::Variant m_value;
-        };
-    }
+  private:
+    std::string m_name;
+    Core::Variant m_value;
+  };
 }
 
 #endif

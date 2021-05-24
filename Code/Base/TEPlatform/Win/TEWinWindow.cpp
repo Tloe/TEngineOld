@@ -5,7 +5,8 @@
 #include <assert.h>
 #include <iostream>
 
-std::unordered_map<HWND, TE::Platform::PlatformWindow *> TE::Platform::PlatformWindow::s_hwndPlatformWindowMap;
+std::unordered_map<HWND, TE::Platform::PlatformWindow *>
+    TE::Platform::PlatformWindow::s_hwndPlatformWindowMap;
 
 TE::Platform::PlatformWindow::PlatformWindow(HWND hwnd,
                                              IO::FileIO &fileIO,
@@ -25,8 +26,7 @@ TE::Platform::PlatformWindow::PlatformWindow(HWND hwnd,
     SetupPlatformInputMap();
 }
 
-TE::Platform::PlatformWindow::PlatformWindow(IO::FileIO &fileIO,
-                                             const std::string &windowTitle)
+TE::Platform::PlatformWindow::PlatformWindow(IO::FileIO &fileIO, const std::string &windowTitle)
     : m_inputMapper(fileIO),
       m_dwWindowStyle(WS_OVERLAPPEDWINDOW),
       m_externalWindow(false),
@@ -41,8 +41,7 @@ TE::Platform::PlatformWindow::PlatformWindow(IO::FileIO &fileIO,
     SetupPlatformInputMap();
 }
 
-TE::Platform::PlatformWindow::~PlatformWindow() {
-}
+TE::Platform::PlatformWindow::~PlatformWindow() {}
 
 void TE::Platform::PlatformWindow::LoadInputFile(const std::string &filePath) {
     m_inputMapper.LoadInputFile(filePath);
@@ -98,7 +97,8 @@ void TE::Platform::PlatformWindow::SetupPlatformInputMap() {
     m_platformTEInputMap.insert(std::make_pair(VK_F10, InputMapping::InputType::KeyF10));
     m_platformTEInputMap.insert(std::make_pair(VK_F11, InputMapping::InputType::KeyF11));
     m_platformTEInputMap.insert(std::make_pair(VK_F12, InputMapping::InputType::KeyF12));
-    m_platformTEInputMap.insert(std::make_pair(VK_CONTROL, InputMapping::InputType::KeyControlLeft));
+    m_platformTEInputMap.insert(
+        std::make_pair(VK_CONTROL, InputMapping::InputType::KeyControlLeft));
     m_platformTEInputMap.insert(std::make_pair(VK_MENU, InputMapping::InputType::KeyAltLeft));
     m_platformTEInputMap.insert(std::make_pair(VK_SHIFT, InputMapping::InputType::KeyShiftLeft));
     m_platformTEInputMap.insert(std::make_pair(VK_SPACE, InputMapping::InputType::KeySpace));
@@ -106,7 +106,8 @@ void TE::Platform::PlatformWindow::SetupPlatformInputMap() {
     m_platformTEInputMap.insert(std::make_pair(VK_ESCAPE, InputMapping::InputType::KeyEscape));
     m_platformTEInputMap.insert(std::make_pair(VK_BACK, InputMapping::InputType::KeyBackspace));
     m_platformTEInputMap.insert(std::make_pair(VK_TAB, InputMapping::InputType::KeyTab));
-    m_platformTEInputMap.insert(std::make_pair(VK_SEPARATOR, InputMapping::InputType::KeySeperator));
+    m_platformTEInputMap.insert(
+        std::make_pair(VK_SEPARATOR, InputMapping::InputType::KeySeperator));
     m_platformTEInputMap.insert(std::make_pair(VK_CAPITAL, InputMapping::InputType::KeyCapslock));
     m_platformTEInputMap.insert(std::make_pair(VK_UP, InputMapping::InputType::KeyUp));
     m_platformTEInputMap.insert(std::make_pair(VK_DOWN, InputMapping::InputType::KeyDown));
@@ -166,22 +167,16 @@ void TE::Platform::PlatformWindow::Initialize() {
         I32 width  = m_width;
         I32 height = m_height;
 
-        RECT rc =
-            {
-                posx, posy,
-                posx + width,
-                posy + height};
+        RECT rc    = {posx, posy, posx + width, posy + height};
 
         AdjustWindowRect(&rc, m_dwWindowStyle, false);
 
-        m_hWnd = CreateWindow(
-            m_windowTitle.c_str(),
-            m_windowTitle.c_str(),
-            m_dwWindowStyle | WS_CAPTION | WS_SYSMENU, //| WS_MINIMIZEBOX | WS_MAXIMIZEBOX,
-            // WS_OVERLAPPEDWINDOW,
-            CW_USEDEFAULT, CW_USEDEFAULT,
-            rc.right - rc.left, rc.bottom - rc.top,
-            NULL, NULL, m_hInstance, NULL);
+        m_hWnd = CreateWindow(m_windowTitle.c_str(), m_windowTitle.c_str(),
+                              m_dwWindowStyle | WS_CAPTION |
+                                  WS_SYSMENU, //| WS_MINIMIZEBOX | WS_MAXIMIZEBOX,
+                              // WS_OVERLAPPEDWINDOW,
+                              CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top,
+                              NULL, NULL, m_hInstance, NULL);
 
         if (!m_hWnd)
             // LOG FATAL ERROR
@@ -211,7 +206,12 @@ void TE::Platform::PlatformWindow::Cleanup() {
     DestroyWindow(m_hWnd);
 }
 
-void TE::Platform::PlatformWindow::SetResolution(bool fullscreen, I32 width, I32 height, I32 colorBits, I32 positionX, I32 positionY) {
+void TE::Platform::PlatformWindow::SetResolution(bool fullscreen,
+                                                 I32 width,
+                                                 I32 height,
+                                                 I32 colorBits,
+                                                 I32 positionX,
+                                                 I32 positionY) {
     m_width     = width;
     m_height    = height;
     m_colorBits = colorBits;
@@ -231,11 +231,7 @@ void TE::Platform::PlatformWindow::SetResolution(bool fullscreen, I32 width, I32
                 m_y = positionY;
             }
 
-            RECT rc =
-                {
-                    m_x, m_y,
-                    m_x + m_width,
-                    m_y + m_height};
+            RECT rc = {m_x, m_y, m_x + m_width, m_y + m_height};
 
             AdjustWindowRect(&rc, m_dwWindowStyle, false);
 
@@ -256,7 +252,7 @@ void TE::Platform::PlatformWindow::SwitchToFullscreen() {
     dmScreenSettings.dmPelsHeight = m_height;
     dmScreenSettings.dmBitsPerPel = m_colorBits;
     // dmScreenSettings.dmFields=DM_BITSPERPEL|DM_PELSWIDTH|DM_PELSHEIGHT;
-    dmScreenSettings.dmFields     = DM_PELSWIDTH | DM_PELSHEIGHT | DM_BITSPERPEL | DM_DISPLAYFREQUENCY;
+    dmScreenSettings.dmFields = DM_PELSWIDTH | DM_PELSHEIGHT | DM_BITSPERPEL | DM_DISPLAYFREQUENCY;
 
     if (ChangeDisplaySettings(&dmScreenSettings, CDS_FULLSCREEN) == DISP_CHANGE_SUCCESSFUL) {
         SetWindowLong(m_hWnd, GWL_STYLE, WS_POPUP);
@@ -277,21 +273,13 @@ void TE::Platform::PlatformWindow::SwitchToWindowed() {
     m_fullscreen = false;
 }
 
-I32 TE::Platform::PlatformWindow::GetWindowWidth() {
-    return m_width;
-}
+I32 TE::Platform::PlatformWindow::GetWindowWidth() { return m_width; }
 
-I32 TE::Platform::PlatformWindow::GetWindowHeight() {
-    return m_height;
-}
+I32 TE::Platform::PlatformWindow::GetWindowHeight() { return m_height; }
 
-I32 TE::Platform::PlatformWindow::GetScreenWidth() {
-    return GetSystemMetrics(SM_CXSCREEN);
-}
+I32 TE::Platform::PlatformWindow::GetScreenWidth() { return GetSystemMetrics(SM_CXSCREEN); }
 
-I32 TE::Platform::PlatformWindow::GetScreenHeight() {
-    return GetSystemMetrics(SM_CYSCREEN);
-}
+I32 TE::Platform::PlatformWindow::GetScreenHeight() { return GetSystemMetrics(SM_CYSCREEN); }
 
 bool TE::Platform::PlatformWindow::MessageLoop() {
     bool quitMessageReceived = false;
@@ -314,11 +302,12 @@ bool TE::Platform::PlatformWindow::MessageLoop() {
     return quitMessageReceived;
 }
 
-HWND TE::Platform::PlatformWindow::GetHWND() {
-    return m_hWnd;
-}
+HWND TE::Platform::PlatformWindow::GetHWND() { return m_hWnd; }
 
-LRESULT CALLBACK TE::Platform::PlatformWindow::WndProc(HWND hWnd, U32 message, WPARAM wParam, LPARAM lParam) {
+LRESULT CALLBACK TE::Platform::PlatformWindow::WndProc(HWND hWnd,
+                                                       U32 message,
+                                                       WPARAM wParam,
+                                                       LPARAM lParam) {
     std::unordered_map<HWND, PlatformWindow *>::iterator itr = s_hwndPlatformWindowMap.find(hWnd);
     if (itr != s_hwndPlatformWindowMap.end()) {
         return (*itr->second).DoWndProc(hWnd, message, wParam, lParam);
@@ -326,7 +315,8 @@ LRESULT CALLBACK TE::Platform::PlatformWindow::WndProc(HWND hWnd, U32 message, W
     return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
-LRESULT TE::Platform::PlatformWindow::DoWndProc(HWND hWnd, U32 message, WPARAM wParam, LPARAM lParam) {
+LRESULT
+TE::Platform::PlatformWindow::DoWndProc(HWND hWnd, U32 message, WPARAM wParam, LPARAM lParam) {
     static I64 previouseMousePos[] = {0, 0};
 
     PAINTSTRUCT ps;
@@ -364,8 +354,10 @@ LRESULT TE::Platform::PlatformWindow::DoWndProc(HWND hWnd, U32 message, WPARAM w
         F64 normalizedDeltaX = static_cast<F64>(previouseMousePos[0] - x) / m_width;
         F64 normalizedDeltaY = static_cast<F64>(previouseMousePos[1] - y) / m_height;
 
-        assert(normalizedDeltaX > -1.0 && normalizedDeltaX < 1.0 && "Oops, looks like this needs some debugging");
-        assert(normalizedDeltaY > -1.0 && normalizedDeltaY < 1.0 && "Oops, looks like this needs some debugging");
+        assert(normalizedDeltaX > -1.0 && normalizedDeltaX < 1.0 &&
+               "Oops, looks like this needs some debugging");
+        assert(normalizedDeltaY > -1.0 && normalizedDeltaY < 1.0 &&
+               "Oops, looks like this needs some debugging");
 
         m_inputMapper.MapRangeInput(InputMapping::RangeInput::MouseX, normalizedX);
         m_inputMapper.MapRangeInput(InputMapping::RangeInput::MouseY, normalizedY);
@@ -515,9 +507,7 @@ bool TE::Platform::PlatformWindow::PullNextPlatformMousePos( PlatformMousePos& m
 }
 */
 
-std::vector<char> TE::Platform::PlatformWindow::GetAsciiInput() {
-    return m_asciiInput;
-}
+std::vector<char> TE::Platform::PlatformWindow::GetAsciiInput() { return m_asciiInput; }
 
 void TE::Platform::PlatformWindow::SetWindowTitle(const std::string &title) {
     m_windowTitle = title;

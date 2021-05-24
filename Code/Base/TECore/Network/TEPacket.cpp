@@ -9,22 +9,19 @@
 #include <string.h>
 
 namespace {
-    const U32 packetReadIndex = TE::Net::PacketHeader::BitCount::PacketSize +
-                                TE::Net::PacketHeader::BitCount::PacketType +
-                                TE::Net::PacketHeader::BitCount::PacketId +
-                                TE::Net::PacketHeader::BitCount::SequenceNo +
-                                TE::Net::PacketHeader::BitCount::Ack +
-                                TE::Net::PacketHeader::BitCount::AckBits;
+    const U32 packetReadIndex =
+        TE::Net::PacketHeader::BitCount::PacketSize + TE::Net::PacketHeader::BitCount::PacketType +
+        TE::Net::PacketHeader::BitCount::PacketId + TE::Net::PacketHeader::BitCount::SequenceNo +
+        TE::Net::PacketHeader::BitCount::Ack + TE::Net::PacketHeader::BitCount::AckBits;
 
     const U32 messageReadIndex = TE::Net::PacketHeader::BitCount::PacketSize +
                                  TE::Net::PacketHeader::BitCount::PacketType +
                                  TE::Net::PacketHeader::BitCount::MessageType;
 
-    const U32 packetHeaderSize = TE::Net::PacketHeader::ByteCount::PacketSize +
-                                 TE::Net::PacketHeader::ByteCount::PacketId +
-                                 TE::Net::PacketHeader::ByteCount::SequenceNo +
-                                 TE::Net::PacketHeader::ByteCount::Ack +
-                                 TE::Net::PacketHeader::ByteCount::AckBits;
+    const U32 packetHeaderSize =
+        TE::Net::PacketHeader::ByteCount::PacketSize + TE::Net::PacketHeader::ByteCount::PacketId +
+        TE::Net::PacketHeader::ByteCount::SequenceNo + TE::Net::PacketHeader::ByteCount::Ack +
+        TE::Net::PacketHeader::ByteCount::AckBits;
     const U32 messageHeaderSize = TE::Net::PacketHeader::ByteCount::PacketSize;
 }
 
@@ -32,12 +29,9 @@ TE::Net::Packet::Packet()
     : m_bitIndex(0),
       m_maxBitIndex(0),
       m_packetStarted(false),
-      m_packetEnded(false) {
-}
+      m_packetEnded(false) {}
 
-TE::Net::Packet::Packet(U8 *buffer, U32 size) {
-    SetPacketBuffer(buffer, size);
-}
+TE::Net::Packet::Packet(U8 *buffer, U32 size) { SetPacketBuffer(buffer, size); }
 
 void TE::Net::Packet::WriteMessageType(I32 value) {
     assert(GetPacketType() == PacketType::Message);
@@ -158,9 +152,7 @@ Enum TE::Net::Packet::GetPacketType() {
     return isPacket ? PacketType::Packet : PacketType::Message;
 }
 
-I32 TE::Net::Packet::GetBitIndex() const {
-    return m_bitIndex;
-}
+I32 TE::Net::Packet::GetBitIndex() const { return m_bitIndex; }
 
 void TE::Net::Packet::SetBitIndex(I32 value) {
     if (value < 0 || (value + 7) / 8 > static_cast<I32>(m_buffer.size())) {
@@ -170,9 +162,7 @@ void TE::Net::Packet::SetBitIndex(I32 value) {
     m_bitIndex = value;
 }
 
-I32 TE::Net::Packet::GetMaxBitIndex() const {
-    return m_maxBitIndex;
-}
+I32 TE::Net::Packet::GetMaxBitIndex() const { return m_maxBitIndex; }
 
 void TE::Net::Packet::SetMaxBitIndex(I32 value) {
     if (value < 0 || (value + 7) / 8 > static_cast<I32>(m_buffer.size())) {
@@ -182,14 +172,13 @@ void TE::Net::Packet::SetMaxBitIndex(I32 value) {
 }
 
 U32 TE::Net::Packet::GetHeaderSize() {
-    static U32 headerSize = (GetPacketType() == PacketType::Packet) ? ::packetHeaderSize : ::messageHeaderSize;
+    static U32 headerSize =
+        (GetPacketType() == PacketType::Packet) ? ::packetHeaderSize : ::messageHeaderSize;
 
     return headerSize;
 }
 
-I32 TE::Net::Packet::GetLength() const {
-    return static_cast<I32>(m_buffer.size());
-}
+I32 TE::Net::Packet::GetLength() const { return static_cast<I32>(m_buffer.size()); }
 
 const char *TE::Net::Packet::GetBuffer() const {
     return reinterpret_cast<const char *>(&m_buffer[0]);
@@ -209,9 +198,7 @@ std::string TE::Net::Packet::Trace() const {
     return s;
 }
 
-void TE::Net::Packet::RoundUpToByte() {
-    m_bitIndex = (m_bitIndex + 7) / 8 * 8;
-}
+void TE::Net::Packet::RoundUpToByte() { m_bitIndex = (m_bitIndex + 7) / 8 * 8; }
 
 void TE::Net::Packet::ReadLength() {
     I32 oldBitIndex = m_bitIndex;
@@ -272,7 +259,8 @@ void TE::Net::Packet::WriteU8(U8 value) {
 
 void TE::Net::Packet::WriteI8(I8 value) {
     WriteU8(value);
-    /* Shift on signed are undefined behaviour and implementation dependent.. leaving just to be sure fix is working.
+    /* Shift on signed are undefined behaviour and implementation dependent.. leaving just to be
+    sure fix is working.
 
      ExpandBuffer(8);
         I32 offset = m_bitIndex % 8;
@@ -298,12 +286,9 @@ void TE::Net::Packet::WriteU16(U16 value) {
 
 void TE::Net::Packet::WriteI16(I16 value) {
     WriteU16(value);
-    /* Shift on signed are undefined behaviour and implementation dependent.. leaving just to be sure fix is working.
-        ExpandBuffer(16);
-        I32 offset = m_bitIndex % 8;
-        m_buffer[m_bitIndex / 8] |= value >> (8 + offset);
-        m_buffer[m_bitIndex / 8 + 1] |= value >> offset;
-        if (offset != 0)
+    /* Shift on signed are undefined behaviour and implementation dependent.. leaving just to be
+    sure fix is working. ExpandBuffer(16); I32 offset = m_bitIndex % 8; m_buffer[m_bitIndex / 8] |=
+    value >> (8 + offset); m_buffer[m_bitIndex / 8 + 1] |= value >> offset; if (offset != 0)
         {
                 m_buffer[m_bitIndex / 8 + 2] |= value << (8 - offset);
         }
@@ -342,11 +327,9 @@ bool TE::Net::Packet::ReadU32(U32 &value) {
 
 void TE::Net::Packet::WriteI32(I32 value) {
     WriteU32(value);
-    /* Shift on signed are undefined behaviour and implementation dependent.. leaving just to be sure fix is working.
-        ExpandBuffer(32);
-        I32 offset = m_bitIndex % 8;
-        m_buffer[m_bitIndex / 8] |= value >> (24 + offset);
-        m_buffer[m_bitIndex / 8 + 1] |= value >> (16 + offset);
+    /* Shift on signed are undefined behaviour and implementation dependent.. leaving just to be
+    sure fix is working. ExpandBuffer(32); I32 offset = m_bitIndex % 8; m_buffer[m_bitIndex / 8] |=
+    value >> (24 + offset); m_buffer[m_bitIndex / 8 + 1] |= value >> (16 + offset);
         m_buffer[m_bitIndex / 8 + 2] |= value >> (8 + offset);
         m_buffer[m_bitIndex / 8 + 3] |= value >> offset;
         if (offset != 0)
@@ -417,9 +400,7 @@ void TE::Net::Packet::WriteI32(I32 value, I32 bits) {
     m_bitIndex += bits;
 }
 
-void TE::Net::Packet::WriteF32(F32 value) {
-    WriteU32(*reinterpret_cast<U32 *>(&value));
-}
+void TE::Net::Packet::WriteF32(F32 value) { WriteU32(*reinterpret_cast<U32 *>(&value)); }
 
 void TE::Net::Packet::WriteF64(F64 value) {
     U32 *ints = reinterpret_cast<U32 *>(&value);
@@ -441,16 +422,15 @@ void TE::Net::Packet::WriteDynamicU32(U32 value, I32 bits) {
     WriteU32(value, shift >= 32 ? 32 : shift);
 }
 
-void TE::Net::Packet::WriteDynamicU32(U32 value) {
-    WriteDynamicU32(value, 4);
-}
+void TE::Net::Packet::WriteDynamicU32(U32 value) { WriteDynamicU32(value, 4); }
 
 void TE::Net::Packet::WriteDynamicI32(I32 value, I32 bits) {
     if (bits < 1 || bits > 32)
         throw std::out_of_range("bits must be in the range (0, 32].");
     I32 shift = bits;
     // Stop when our value can fit inside
-    for (; shift < 32 && (value < -(0x1 << (shift - 1)) || value >= 0x1 << (shift - 1)); shift += bits) {
+    for (; shift < 32 && (value < -(0x1 << (shift - 1)) || value >= 0x1 << (shift - 1));
+         shift += bits) {
         WriteBool(true); // Write a 1 for a continuation bit signifying one more interval is needed
     }
     if (shift < 32) {
@@ -459,9 +439,7 @@ void TE::Net::Packet::WriteDynamicI32(I32 value, I32 bits) {
     WriteI32(value, shift >= 32 ? 32 : shift);
 }
 
-void TE::Net::Packet::WriteDynamicI32(I32 value) {
-    WriteDynamicI32(value, 4);
-}
+void TE::Net::Packet::WriteDynamicI32(I32 value) { WriteDynamicI32(value, 4); }
 
 void TE::Net::Packet::WriteCustomResolutionF32(F32 value, F32 min, F32 max, I32 bitResolution) {
     if (bitResolution < 1 || bitResolution > 31)
@@ -472,9 +450,14 @@ void TE::Net::Packet::WriteCustomResolutionF32(F32 value, F32 min, F32 max, I32 
         throw std::out_of_range("The value must be on the interval [min, max]");
     U32 uValue;
     if (min < 0 && max > 0) {
-        uValue = value == 0 ? 0 : static_cast<U32>((value - min) / (max - min) * static_cast<F32>((0x1 << bitResolution) - 2) + 0.5) + 1;
+        uValue = value == 0 ? 0
+                            : static_cast<U32>((value - min) / (max - min) *
+                                                   static_cast<F32>((0x1 << bitResolution) - 2) +
+                                               0.5) +
+                                  1;
     } else {
-        uValue = static_cast<U32>((value - min) / (max - min) * static_cast<F32>((0x1 << bitResolution) - 1) + 0.5);
+        uValue = static_cast<U32>(
+            (value - min) / (max - min) * static_cast<F32>((0x1 << bitResolution) - 1) + 0.5);
     }
     WriteU32(uValue, bitResolution);
 }
@@ -488,9 +471,14 @@ void TE::Net::Packet::WriteCustomResolutionF64(F64 value, F64 min, F64 max, I32 
         throw std::out_of_range("The value must be on the interval [min, max]");
     U32 uValue;
     if (min < 0 && max > 0) {
-        uValue = value == 0 ? 0 : static_cast<U32>((value - min) / (max - min) * static_cast<F64>((0x1 << bitResolution) - 2) + 0.5) + 1;
+        uValue = value == 0 ? 0
+                            : static_cast<U32>((value - min) / (max - min) *
+                                                   static_cast<F64>((0x1 << bitResolution) - 2) +
+                                               0.5) +
+                                  1;
     } else {
-        uValue = static_cast<U32>((value - min) / (max - min) * static_cast<F64>((0x1 << bitResolution) - 1) + 0.5);
+        uValue = static_cast<U32>(
+            (value - min) / (max - min) * static_cast<F64>((0x1 << bitResolution) - 1) + 0.5);
     }
     WriteU32(uValue, bitResolution);
 }
@@ -505,9 +493,7 @@ void TE::Net::Packet::WriteString(const std::string &value, I32 bits) {
     }
 }
 
-void TE::Net::Packet::WriteString(const std::string &value) {
-    WriteString(value, 4);
-}
+void TE::Net::Packet::WriteString(const std::string &value) { WriteString(value, 4); }
 
 void TE::Net::Packet::WriteBinaryPacket(const Packet &value) {
     I32 valueBitIndex    = 0;
@@ -536,9 +522,7 @@ void TE::Net::Packet::WriteBinaryPacket(const Packet &value) {
 
 // Read Methods
 
-bool TE::Net::Packet::ReadEventID(U32 &value) {
-    return ReadDynamicU32(value, 6);
-}
+bool TE::Net::Packet::ReadEventID(U32 &value) { return ReadDynamicU32(value, 6); }
 
 bool TE::Net::Packet::ReadBool(bool &value) {
     value = false;
@@ -724,9 +708,7 @@ bool TE::Net::Packet::ReadDynamicU32(U32 &value, I32 bits) {
     return ReadU32(value, valueBitCount >= 32 ? 32 : valueBitCount);
 }
 
-bool TE::Net::Packet::ReadDynamicU32(U32 &value) {
-    return ReadDynamicU32(value, 4);
-}
+bool TE::Net::Packet::ReadDynamicU32(U32 &value) { return ReadDynamicU32(value, 4); }
 
 bool TE::Net::Packet::ReadDynamicI32(I32 &value, I32 bits) {
     if (bits < 1 || bits > 32)
@@ -743,9 +725,7 @@ bool TE::Net::Packet::ReadDynamicI32(I32 &value, I32 bits) {
     return ReadI32(value, valueBitCount >= 32 ? 32 : valueBitCount);
 }
 
-bool TE::Net::Packet::ReadDynamicI32(I32 &value) {
-    return ReadDynamicI32(value, 4);
-}
+bool TE::Net::Packet::ReadDynamicI32(I32 &value) { return ReadDynamicI32(value, 4); }
 
 bool TE::Net::Packet::ReadCustomResolutionF32(F32 &value, F32 min, F32 max, I32 bitResolution) {
     if (bitResolution < 1 || bitResolution > 31)
@@ -757,7 +737,9 @@ bool TE::Net::Packet::ReadCustomResolutionF32(F32 &value, F32 min, F32 max, I32 
     if (!ReadU32(uValue, bitResolution))
         return false;
     if (min < 0 && max > 0) {
-        value = uValue == 0 ? 0 : (uValue - 1) / static_cast<F32>((0x1 << bitResolution) - 2) * (max - min) + min;
+        value = uValue == 0
+                  ? 0
+                  : (uValue - 1) / static_cast<F32>((0x1 << bitResolution) - 2) * (max - min) + min;
     } else {
         value = uValue / static_cast<F32>((0x1 << bitResolution) - 1) * (max - min) + min;
     }
@@ -774,7 +756,9 @@ bool TE::Net::Packet::ReadCustomResolutionF64(F64 &value, F64 min, F64 max, I32 
     if (!ReadU32(uValue, bitResolution))
         return false;
     if (min < 0 && max > 0) {
-        value = uValue == 0 ? 0 : (uValue - 1) / static_cast<F64>((0x1 << bitResolution) - 2) * (max - min) + min;
+        value = uValue == 0
+                  ? 0
+                  : (uValue - 1) / static_cast<F64>((0x1 << bitResolution) - 2) * (max - min) + min;
     } else {
         value = uValue / static_cast<F64>((0x1 << bitResolution) - 1) * (max - min) + min;
     }
@@ -797,9 +781,7 @@ bool TE::Net::Packet::ReadString(std::string &value, I32 bits) {
     return true;
 }
 
-bool TE::Net::Packet::ReadString(std::string &value) {
-    return ReadString(value, 4);
-}
+bool TE::Net::Packet::ReadString(std::string &value) { return ReadString(value, 4); }
 
 bool TE::Net::Packet::ReadBinaryPacket(TE::Net::Packet &value) {
     U32 valueMaxBitIndex;
@@ -834,14 +816,13 @@ void TE::Net::Packet::ExpandBuffer(I32 bits) {
 }
 
 void TE::Net::Packet::StartReading() {
-    U32 readIndex = (GetPacketType() == PacketType::Packet) ? ::packetReadIndex : ::messageReadIndex;
+    U32 readIndex =
+        (GetPacketType() == PacketType::Packet) ? ::packetReadIndex : ::messageReadIndex;
 
     SetBitIndex(readIndex);
 }
 
-bool TE::Net::Packet::IsStartedAndEnded() {
-    return m_packetStarted && m_packetEnded;
-}
+bool TE::Net::Packet::IsStartedAndEnded() { return m_packetStarted && m_packetEnded; }
 
 void TE::Net::Packet::Reset32Bits() {
     ExpandBuffer(32);

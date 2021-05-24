@@ -5,8 +5,7 @@
 #include <iostream>
 #include <string>
 
-TE::IO::File::File() {
-}
+TE::IO::File::File() {}
 
 TE::IO::File::File(std::unique_ptr<std::fstream> fstream, const std::string &filePath)
     : m_file(std::move(fstream)),
@@ -16,10 +15,11 @@ TE::IO::File::File(std::unique_ptr<std::fstream> fstream, const std::string &fil
 
 TE::IO::File::File(const std::string &filePath, const std::fstream::ios_base::openmode openMode)
     : m_file(new std::fstream(filePath, openMode)),
-      m_filePath(filePath) {
-}
+      m_filePath(filePath) {}
 
-void TE::IO::File::ReadData(std::vector<U8> &data, std::streamoff offset /*= -1*/, I32 size /*= 0*/) {
+void TE::IO::File::ReadData(std::vector<U8> &data,
+                            std::streamoff offset /*= -1*/,
+                            I32 size /*= 0*/) {
     if (size == 0) {
         I32 oldOffset = static_cast<I32>(m_file->tellg());
         m_file->seekg(0, std::ios::end);
@@ -66,7 +66,9 @@ void TE::IO::File::WriteData(const U8 *data, I32 size, std::streamoff offset /*=
     m_file->write(reinterpret_cast<const char *>(data), size);
 }
 
-void TE::IO::File::RemoveFileData(const std::string &filePath, std::streamoff offset, I32 deleteSize /*= 0*/) {
+void TE::IO::File::RemoveFileData(const std::string &filePath,
+                                  std::streamoff offset,
+                                  I32 deleteSize /*= 0*/) {
     std::ofstream tempFile("!temp!", std::ios::out | std::ios::binary | std::ios::trunc);
 
     m_file->seekg(0, std::ios::end);
@@ -112,37 +114,28 @@ void TE::IO::File::RemoveFileData(const std::string &filePath, std::streamoff of
     m_file->open(filePath, std::ios::binary | std::ios::in | std::ios::out);
 }
 
-TE::IO::File::~File() {
-    m_file->close();
-}
+TE::IO::File::~File() { m_file->close(); }
 
-void TE::IO::File::Open(const std::string &filePath, const std::fstream::ios_base::openmode openMode) {
+void TE::IO::File::Open(const std::string &filePath,
+                        const std::fstream::ios_base::openmode openMode) {
     if (m_file)
         m_file->close();
 
     m_file.reset(new std::fstream(filePath, openMode));
 }
 
-bool TE::IO::File::IsOpen() {
-    return m_file && m_file->is_open();
-}
+bool TE::IO::File::IsOpen() { return m_file && m_file->is_open(); }
 
 std::streamoff TE::IO::File::GetFileSize() {
     m_file->seekg(0, std::ios::end);
     return m_file->tellg();
 }
 
-void TE::IO::File::SetReadOffset(std::streamoff offset) {
-    m_file->seekg(offset, std::ios::beg);
-}
+void TE::IO::File::SetReadOffset(std::streamoff offset) { m_file->seekg(offset, std::ios::beg); }
 
-void TE::IO::File::ReadLine(std::string &line) {
-    getline(*m_file, line);
-}
+void TE::IO::File::ReadLine(std::string &line) { getline(*m_file, line); }
 
-void TE::IO::File::SetWriteOffset(std::streamoff offset) {
-    m_file->seekp(offset, std::ios::beg);
-}
+void TE::IO::File::SetWriteOffset(std::streamoff offset) { m_file->seekp(offset, std::ios::beg); }
 
 std::string TE::IO::FileExtentionFromPath(const std::string &filePath) {
     size_t pos                = filePath.find_last_of('.');

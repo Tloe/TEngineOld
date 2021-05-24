@@ -8,16 +8,13 @@
 TE::Context::APIContext::APIContext(OSWinId osWinId,
                                     IO::FileIO &fileIO,
                                     const std::string &windowName /*= "TEngine"*/)
-    : PlatformWindow(osWinId, fileIO, windowName) {
-}
+    : PlatformWindow(osWinId, fileIO, windowName) {}
 
 TE::Context::APIContext::APIContext(IO::FileIO &fileIO,
                                     const std::string &windowName /*= "TEngine"*/)
-    : PlatformWindow(fileIO, windowName) {
-}
+    : PlatformWindow(fileIO, windowName) {}
 
-TE::Context::APIContext::~APIContext() {
-}
+TE::Context::APIContext::~APIContext() {}
 
 void TE::Context::APIContext::SetCGContext(/*CGcontext& cgContext*/) {
     // m_cgContext = cgContext;
@@ -59,35 +56,23 @@ void TE::Context::APIContext::OnCloseWindow() {
         m_d3dDevice->Release();
 }
 
-void TE::Context::APIContext::BeginFrame() {
-}
+void TE::Context::APIContext::BeginFrame() {}
 
-void TE::Context::APIContext::EndFrame() {
-}
+void TE::Context::APIContext::EndFrame() {}
 
-ID3D11Device1 *TE::Context::APIContext::GetDevice() {
-    return m_d3dDevice;
-}
+ID3D11Device1 *TE::Context::APIContext::GetDevice() { return m_d3dDevice; }
 
-ID3D11DeviceContext1 *TE::Context::APIContext::GetDeviceContext() {
-    return m_d3dDeviceContext;
-}
+ID3D11DeviceContext1 *TE::Context::APIContext::GetDeviceContext() { return m_d3dDeviceContext; }
 
-ID3D11RenderTargetView *TE::Context::APIContext::GetBackBuffer() {
-    return m_d3dBackBuffer;
-}
+ID3D11RenderTargetView *TE::Context::APIContext::GetBackBuffer() { return m_d3dBackBuffer; }
 
 ID3D11DepthStencilView *TE::Context::APIContext::GetDepthStencilView() {
     return m_d3dDepthStencilView;
 }
 
-IDXGISwapChain1 *TE::Context::APIContext::GetSwapChain() {
-    return m_d3dSwapChain;
-}
+IDXGISwapChain1 *TE::Context::APIContext::GetSwapChain() { return m_d3dSwapChain; }
 
-ID3D11RasterizerState *TE::Context::APIContext::GetRasterizerState() {
-    return m_d3dRState;
-}
+ID3D11RasterizerState *TE::Context::APIContext::GetRasterizerState() { return m_d3dRState; }
 
 void TE::Context::APIContext::CreateSwapChain() {
     HRESULT hr                 = S_OK;
@@ -97,21 +82,19 @@ void TE::Context::APIContext::CreateSwapChain() {
     createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
-    D3D_DRIVER_TYPE driverTypes[] =
-        {
-            D3D_DRIVER_TYPE_HARDWARE,
-            D3D_DRIVER_TYPE_WARP,
-            D3D_DRIVER_TYPE_REFERENCE,
-        };
-    unsigned numDriverTypes = ARRAYSIZE(driverTypes);
+    D3D_DRIVER_TYPE driverTypes[] = {
+        D3D_DRIVER_TYPE_HARDWARE,
+        D3D_DRIVER_TYPE_WARP,
+        D3D_DRIVER_TYPE_REFERENCE,
+    };
+    unsigned numDriverTypes           = ARRAYSIZE(driverTypes);
 
-    D3D_FEATURE_LEVEL featureLevels[] =
-        {
-            // D3D_FEATURE_LEVEL_11_1,
-            D3D_FEATURE_LEVEL_11_0,
-            D3D_FEATURE_LEVEL_10_1,
-            D3D_FEATURE_LEVEL_10_0,
-        };
+    D3D_FEATURE_LEVEL featureLevels[] = {
+        // D3D_FEATURE_LEVEL_11_1,
+        D3D_FEATURE_LEVEL_11_0,
+        D3D_FEATURE_LEVEL_10_1,
+        D3D_FEATURE_LEVEL_10_0,
+    };
     unsigned numFeatureLevels = ARRAYSIZE(featureLevels);
 
     D3D_DRIVER_TYPE driverType;
@@ -120,15 +103,8 @@ void TE::Context::APIContext::CreateSwapChain() {
 
         ID3D11Device *device;
         ID3D11DeviceContext *deviceContext;
-        hr = D3D11CreateDevice(NULL,
-                               driverType,
-                               nullptr,
-                               createDeviceFlags,
-                               featureLevels,
-                               numFeatureLevels,
-                               D3D11_SDK_VERSION,
-                               &device,
-                               &m_d3dFeatureLevel,
+        hr = D3D11CreateDevice(NULL, driverType, nullptr, createDeviceFlags, featureLevels,
+                               numFeatureLevels, D3D11_SDK_VERSION, &device, &m_d3dFeatureLevel,
                                &deviceContext);
         if (SUCCEEDED(hr)) {
             m_d3dDevice        = static_cast<ID3D11Device1 *>(device);
@@ -161,12 +137,8 @@ void TE::Context::APIContext::CreateSwapChain() {
     IDXGIFactory2 *dxgiFactory;
     dxgiAdapter->GetParent(IID_PPV_ARGS(&dxgiFactory));
 
-    hr = dxgiFactory->CreateSwapChainForHwnd(m_d3dDevice,
-                                             GetHWND(),
-                                             &swapChainDesc,
-                                             nullptr,
-                                             nullptr,
-                                             &m_d3dSwapChain);
+    hr = dxgiFactory->CreateSwapChainForHwnd(m_d3dDevice, GetHWND(), &swapChainDesc, nullptr,
+                                             nullptr, &m_d3dSwapChain);
 
     if (FAILED(hr))
         // LOG FATAL ERROR
@@ -176,7 +148,7 @@ void TE::Context::APIContext::CreateSwapChain() {
 void TE::Context::APIContext::CreateBackBuffer() {
     // Create a render target view
     ID3D11Texture2D *pBackBuffer = NULL;
-    HRESULT hr                   = m_d3dSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID *)&pBackBuffer);
+    HRESULT hr = m_d3dSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID *)&pBackBuffer);
     if (FAILED(hr))
         // LOG FATAL ERROR
         exit(0);
@@ -203,7 +175,7 @@ void TE::Context::APIContext::CreateDepthStencilBufferAndView() {
     descDepth.BindFlags          = D3D11_BIND_DEPTH_STENCIL;
     descDepth.CPUAccessFlags     = 0;
     descDepth.MiscFlags          = 0;
-    HRESULT hr                   = m_d3dDevice->CreateTexture2D(&descDepth, NULL, &m_d3dDepthStencilBuffer);
+    HRESULT hr = m_d3dDevice->CreateTexture2D(&descDepth, NULL, &m_d3dDepthStencilBuffer);
     if (FAILED(hr))
         // LOG FATAL ERROR
         exit(1);
@@ -214,7 +186,8 @@ void TE::Context::APIContext::CreateDepthStencilBufferAndView() {
     descDSV.Format             = descDepth.Format;
     descDSV.ViewDimension      = D3D11_DSV_DIMENSION_TEXTURE2D;
     descDSV.Texture2D.MipSlice = 0;
-    hr                         = m_d3dDevice->CreateDepthStencilView(m_d3dDepthStencilBuffer, &descDSV, &m_d3dDepthStencilView);
+    hr = m_d3dDevice->CreateDepthStencilView(m_d3dDepthStencilBuffer, &descDSV,
+                                             &m_d3dDepthStencilView);
     if (FAILED(hr))
         // LOG FATAL ERROR
         exit(1);
@@ -240,7 +213,12 @@ void TE::Context::APIContext::CreateRasterizerState() {
         exit(1);
 }
 
-void TE::Context::APIContext::SetResolution(bool fullscreen, I32 width, I32 height, I32 colorBits, I32 positionX, I32 positionY) {
+void TE::Context::APIContext::SetResolution(bool fullscreen,
+                                            I32 width,
+                                            I32 height,
+                                            I32 colorBits,
+                                            I32 positionX,
+                                            I32 positionY) {
     if (!m_initialized)
         return;
 

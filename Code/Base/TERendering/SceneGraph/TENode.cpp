@@ -3,22 +3,15 @@
 #include <algorithm>
 #include <functional>
 
-TE::SceneGraph::Node::Node() {
-}
+TE::SceneGraph::Node::Node() {}
 
-TE::SceneGraph::Node::~Node() {
-}
+TE::SceneGraph::Node::~Node() {}
 
-void TE::SceneGraph::Node::AddChild(Spatial &child) {
-    m_children.push_back(&child);
-}
+void TE::SceneGraph::Node::AddChild(Spatial &child) { m_children.push_back(&child); }
 
-void TE::SceneGraph::Node::RemoveChild(Spatial &child) {
-    m_children.remove(&child);
-}
+void TE::SceneGraph::Node::RemoveChild(Spatial &child) { m_children.remove(&child); }
 
-void TE::SceneGraph::Node::RemoveFromParrent() {
-}
+void TE::SceneGraph::Node::RemoveFromParrent() {}
 
 void TE::SceneGraph::Node::GetRenderListNoCull(RenderablePtrList &renderList) {
     std::for_each(m_children.begin(), m_children.end(),
@@ -26,13 +19,13 @@ void TE::SceneGraph::Node::GetRenderListNoCull(RenderablePtrList &renderList) {
 
     /*std::for_each(m_children.begin(),
                   m_children.end(),
-                  std::bind(&Spatial::GetRenderListNoCull, std::placeholders::_1, std::ref(renderList)));*/
+                  std::bind(&Spatial::GetRenderListNoCull, std::placeholders::_1,
+       std::ref(renderList)));*/
 }
 
 void TE::SceneGraph::Node::GetRenderListNoSort(RenderablePtrList &renderList, Camera &camera) {
     if (!IsCulled(camera)) {
-        std::for_each(m_children.begin(),
-                      m_children.end(),
+        std::for_each(m_children.begin(), m_children.end(),
                       std::bind(&Spatial::GetRenderListNoSort, std::placeholders::_1,
                                 std::ref(renderList), std::ref(camera)));
     }
@@ -41,10 +34,8 @@ void TE::SceneGraph::Node::GetRenderListNoSort(RenderablePtrList &renderList, Ca
 void TE::SceneGraph::Node::UpdateWorldData() {
     Spatial::UpdateWorldData();
 
-    std::for_each(m_children.begin(),
-                  m_children.end(),
-                  std::bind(&Spatial::Update, std::placeholders::_1,
-                            false));
+    std::for_each(m_children.begin(), m_children.end(),
+                  std::bind(&Spatial::Update, std::placeholders::_1, false));
 }
 
 void TE::SceneGraph::Node::UpdateWorldBound() {
@@ -59,7 +50,8 @@ void TE::SceneGraph::Node::UpdateWorldBound() {
     }
 }
 /*
-void TE::SceneGraph::Node::UpdateRenderStateLocal( std::stack< Memory::Pointer0< GlobalState > >* stateStack, std::vector< Memory::Pointer0< Light > >* lightStack )
+void TE::SceneGraph::Node::UpdateRenderStateLocal( std::stack< Memory::Pointer0< GlobalState > >*
+stateStack, std::vector< Memory::Pointer0< Light > >* lightStack )
 {
         SpatialPtrList::iterator current = m_children.begin();
         SpatialPtrList::const_iterator last = m_children.end();

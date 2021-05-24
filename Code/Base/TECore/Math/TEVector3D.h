@@ -12,23 +12,16 @@
 #include <assert.h>
 #include <iostream>
 
-namespace TE {
-namespace Math {
-    template <typename Real>
-    class Vector3D {
+namespace TE::Math {
+    template <typename Real> class Vector3D {
       public:
         Real x, y, z;
 
         Vector3D() {}
 
-        Vector3D(const Vector3D &src) : x(src.x),
-                                        y(src.y),
-                                        z(src.z) {
-        }
+        Vector3D(const Vector3D &src) : x(src.x), y(src.y), z(src.z) {}
 
-        Vector3D(Real nx, Real ny, Real nz) : x(nx),
-                                              y(ny),
-                                              z(nz) {}
+        Vector3D(Real nx, Real ny, Real nz) : x(nx), y(ny), z(nz) {}
 
         void Set(Real nx, Real ny, Real nz) {
             x = nx;
@@ -108,24 +101,22 @@ namespace Math {
         static const Vector3D VECTOR3D_ONE;
     };
 
-    template <typename Real>
-    inline Real Magnitude(const Vector3D<Real> &v) {
+    template <typename Real> inline Real Magnitude(const Vector3D<Real> &v) {
         return Base<Real>::Sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
     }
 
-    template <typename Real>
-    inline Real MagnitudeSqr(const Vector3D<Real> &v) {
+    template <typename Real> inline Real MagnitudeSqr(const Vector3D<Real> &v) {
         return v.x * v.x + v.y * v.y + v.z * v.z;
     }
 
-    template <typename Real>
-    inline Real InverseMag(const Vector3D<Real> &v) {
+    template <typename Real> inline Real InverseMag(const Vector3D<Real> &v) {
         return Base<Real>::InverseSqrt(v.x * v.x + v.y * v.y + v.z * v.z);
     }
 
     template <typename Real>
     inline const Vector3D<Real> Cross(const Vector3D<Real> &lhs, const Vector3D<Real> &rhs) {
-        return (Vector3D<Real>(lhs.y * rhs.z - lhs.z * rhs.y, lhs.z * rhs.x - lhs.x * rhs.z, lhs.x * rhs.y - lhs.y * rhs.x));
+        return (Vector3D<Real>(lhs.y * rhs.z - lhs.z * rhs.y, lhs.z * rhs.x - lhs.x * rhs.z,
+                               lhs.x * rhs.y - lhs.y * rhs.x));
     }
 
     template <typename Real>
@@ -143,8 +134,7 @@ namespace Math {
         return ((lhs.x != rhs.x) || (lhs.y != rhs.y) || (lhs.z != rhs.z));
     }
 
-    template <typename Real>
-    inline Vector3D<Real> operator-(const Vector3D<Real> &v) {
+    template <typename Real> inline Vector3D<Real> operator-(const Vector3D<Real> &v) {
         return Vector3D<Real>(-v.x, -v.y, -v.z);
     }
 
@@ -158,18 +148,15 @@ namespace Math {
         return (Vector3D<Real>(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z));
     }
 
-    template <typename Real>
-    inline Vector3D<Real> operator*(const Vector3D<Real> &v, Real scalar) {
+    template <typename Real> inline Vector3D<Real> operator*(const Vector3D<Real> &v, Real scalar) {
         return (Vector3D<Real>(v.x * scalar, v.y * scalar, v.z * scalar));
     }
 
-    template <typename Real>
-    inline Vector3D<Real> operator*(Real scalar, const Vector3D<Real> &v) {
+    template <typename Real> inline Vector3D<Real> operator*(Real scalar, const Vector3D<Real> &v) {
         return (Vector3D<Real>(scalar * v.x, scalar * v.y, scalar * v.z));
     }
 
-    template <typename Real>
-    inline Vector3D<Real> operator/(const Vector3D<Real> &v, Real scalar) {
+    template <typename Real> inline Vector3D<Real> operator/(const Vector3D<Real> &v, Real scalar) {
         Real invScalar = Math::Base<Real>::REAL_ONE / scalar;
         return (Vector3D<Real>(v.x * invScalar, v.y * invScalar, v.z * invScalar));
     }
@@ -180,15 +167,11 @@ namespace Math {
         return output;
     }
 
-    template <typename Real>
-    inline bool IsZero(const Vector3D<Real> &v) {
-        return v.x == 0 &&
-               v.y == 0 &&
-               v.z == 0;
+    template <typename Real> inline bool IsZero(const Vector3D<Real> &v) {
+        return v.x == 0 && v.y == 0 && v.z == 0;
     }
 
-    template <typename Real>
-    inline Real Max(const Vector3D<Real> &v) {
+    template <typename Real> inline Real Max(const Vector3D<Real> &v) {
         Real temp = max(v.x, v.y);
         return max(temp, v.z);
     }
@@ -226,8 +209,8 @@ namespace Math {
         CreateComplementBasis(u, v, w);
     }
 
-    template <typename Real>
-    inline void CreateComplementBasis(Vector3D<Real> &u, Vector3D<Real> &v, const Vector3D<Real> &w) {
+    template <typename Real> inline void
+    CreateComplementBasis(Vector3D<Real> &u, Vector3D<Real> &v, const Vector3D<Real> &w) {
         Real invLength;
 
         if (Math::Base<Real>::Abs(w.x) >= Math::Base<Real>::Abs(w.y)) {
@@ -271,26 +254,25 @@ namespace Math {
     template <>
     inline const TE::Math::Vector3D<F64> TE::Math::Vector3D<F64>::VECTOR3D_AXIS_Z(0.0, 0.0, 1.0);
 
-    template <>
-    inline const TE::Math::Vector3D<F32> TE::Math::Vector3D<F32>::VECTOR3D_NEG_AXIS_X(-1.0f, 0.0f, 0.0f);
-    template <>
-    inline const TE::Math::Vector3D<F64> TE::Math::Vector3D<F64>::VECTOR3D_NEG_AXIS_X(-1.0, 0.0, 0.0);
+    template <> inline const TE::Math::Vector3D<F32>
+        TE::Math::Vector3D<F32>::VECTOR3D_NEG_AXIS_X(-1.0f, 0.0f, 0.0f);
+    template <> inline const TE::Math::Vector3D<F64>
+        TE::Math::Vector3D<F64>::VECTOR3D_NEG_AXIS_X(-1.0, 0.0, 0.0);
 
-    template <>
-    inline const TE::Math::Vector3D<F32> TE::Math::Vector3D<F32>::VECTOR3D_NEG_AXIS_Y(0.0f, -1.0f, 0.0f);
-    template <>
-    inline const TE::Math::Vector3D<F64> TE::Math::Vector3D<F64>::VECTOR3D_NEG_AXIS_Y(0.0, -1.0, 0.0);
+    template <> inline const TE::Math::Vector3D<F32>
+        TE::Math::Vector3D<F32>::VECTOR3D_NEG_AXIS_Y(0.0f, -1.0f, 0.0f);
+    template <> inline const TE::Math::Vector3D<F64>
+        TE::Math::Vector3D<F64>::VECTOR3D_NEG_AXIS_Y(0.0, -1.0, 0.0);
 
-    template <>
-    inline const TE::Math::Vector3D<F32> TE::Math::Vector3D<F32>::VECTOR3D_NEG_AXIS_Z(0.0f, 0.0f, -1.0f);
-    template <>
-    inline const TE::Math::Vector3D<F64> TE::Math::Vector3D<F64>::VECTOR3D_NEG_AXIS_Z(0.0, 0.0, -1.0);
+    template <> inline const TE::Math::Vector3D<F32>
+        TE::Math::Vector3D<F32>::VECTOR3D_NEG_AXIS_Z(0.0f, 0.0f, -1.0f);
+    template <> inline const TE::Math::Vector3D<F64>
+        TE::Math::Vector3D<F64>::VECTOR3D_NEG_AXIS_Z(0.0, 0.0, -1.0);
 
     template <>
     inline const TE::Math::Vector3D<F32> TE::Math::Vector3D<F32>::VECTOR3D_ONE(1.0f, 1.0f, 1.0f);
     template <>
     inline const TE::Math::Vector3D<F64> TE::Math::Vector3D<F64>::VECTOR3D_ONE(1.0, 1.0, 1.0);
-}
 }
 
 #endif

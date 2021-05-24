@@ -6,8 +6,7 @@
 TE::Graphics::CameraObject::CameraObject(I32 objectId, SceneGraph::SceneManager &sceneManager)
     : GraphicsObject(objectId, GraphicsObjectType::Camera, sceneManager),
       m_sceneManager(sceneManager),
-      m_cameraNode(m_camera) {
-}
+      m_cameraNode(m_camera) {}
 
 void TE::Graphics::CameraObject::SetValue(Core::Value &value) {
     switch (value.GetValueType()) {
@@ -31,11 +30,9 @@ void TE::Graphics::CameraObject::SetValue(Core::Value &value) {
     }
 }
 
-void TE::Graphics::CameraObject::Initialize() {
-}
+void TE::Graphics::CameraObject::Initialize() {}
 
-void TE::Graphics::CameraObject::Cleanup() {
-}
+void TE::Graphics::CameraObject::Cleanup() {}
 
 /*void TE::Graphics::CameraObject::JSONDeserialize( const Json::Value& jsonValue )
 {
@@ -73,7 +70,8 @@ void TE::Graphics::CameraObject::JSONSerialize(Json::Value& jsonValue)
 */
 void TE::Graphics::CameraObject::OnSubjectChange(Subject *subject, Bitmask64 changeBits) {
     if (changeBits & Engine::Change::Transform::All) {
-        auto transformChange = Engine::GetChangeData<Engine::Change::TransformChange>(subject, changeBits);
+        auto transformChange =
+            Engine::GetChangeData<Engine::Change::TransformChange>(subject, changeBits);
 
         if (changeBits & Engine::Change::Transform::Position) {
             m_cameraNode.SetTranslation(*transformChange.position);

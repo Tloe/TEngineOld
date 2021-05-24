@@ -9,8 +9,7 @@ TE::Engine::UniversalScene::UniversalScene(const std::string &sceneFilePath,
     : Resource(sceneFilePath),
       m_changeSyncer(changeSyncer),
       m_systems(systems),
-      m_objectId(0) {
-}
+      m_objectId(0) {}
 
 TE::Engine::UniversalScene::UniversalScene(UniversalScene &&other)
     : Resource(other.GetFilePath()),
@@ -18,8 +17,7 @@ TE::Engine::UniversalScene::UniversalScene(UniversalScene &&other)
       m_systems(other.m_systems),
       m_objectId(0),
       m_systemScenes(std::move(other.m_systemScenes)),
-      m_universalObjects(std::move(other.m_universalObjects)) {
-}
+      m_universalObjects(std::move(other.m_universalObjects)) {}
 
 const TE::Engine::SystemSceneUPtrMap &TE::Engine::UniversalScene::GetSystemScenes() {
     return m_systemScenes;
@@ -79,23 +77,28 @@ const TE::Engine::SystemSceneUPtr &TE::Engine::UniversalScene::GetSystemScene(U3
 }
 
 U32 TE::Engine::UniversalScene::GetSystemId(const std::string &systemName) {
-    auto findItr = std::find_if(std::begin(m_systems), std::end(m_systems),
-                                [&systemName](SystemUPtr &sysPtr) { return sysPtr->GetSystemName() == systemName; });
+    auto findItr =
+        std::find_if(std::begin(m_systems), std::end(m_systems), [&systemName](SystemUPtr &sysPtr) {
+            return sysPtr->GetSystemName() == systemName;
+        });
 
     return (*findItr)->GetSystemId();
 }
 
 TE::Engine::UniversalObject &TE::Engine::UniversalScene::GetUniversalObject(I32 objectId) {
-    assert(m_universalObjects.find(objectId) != m_universalObjects.end() && "Scene does not contain this object");
+    assert(m_universalObjects.find(objectId) != m_universalObjects.end() &&
+           "Scene does not contain this object");
 
     return m_universalObjects.find(objectId)->second;
 }
 
-TE::Engine::UniversalObject &TE::Engine::UniversalScene::CreateUniversalObject(const std::string &objectName, I32 objectId) {
+TE::Engine::UniversalObject &
+TE::Engine::UniversalScene::CreateUniversalObject(const std::string &objectName, I32 objectId) {
     if (objectId == -1)
         objectId = m_objectId++;
 
-    assert(m_universalObjects.find(objectId) == m_universalObjects.end() && "Universal object id already exists!");
+    assert(m_universalObjects.find(objectId) == m_universalObjects.end() &&
+           "Universal object id already exists!");
 
     UniversalObject universalObject(objectName, objectId, *this, m_changeSyncer);
     m_universalObjects.insert(std::make_pair(objectId, std::move(universalObject)));
@@ -107,14 +110,17 @@ void TE::Engine::UniversalScene::OnSubjectChange(Subject *subject, Bitmask64 cha
     // Handle scene stuff here
     if (changeBits & Change::Scene::All) {
         if (changeBits & Change::Scene::CreateObject) {
-            auto createObjectData = GetChangeData<Change::CreateObjectData>(subject, Change::Scene::CreateObject);
+            auto createObjectData =
+                GetChangeData<Change::CreateObjectData>(subject, Change::Scene::CreateObject);
 
             auto &universalObject = CreateUniversalObject(createObjectData.objectName);
 
             U32 objectId          = universalObject.GetObjectId();
 
             for (U32 i = 0; i < createObjectData.systemIds.size(); ++i) {
-                auto newSystemObject = GetSystemScene(createObjectData.systemIds[i])->CreateSystemObject(createObjectData.objectTypes[i], objectId);
+                auto newSystemObject =
+                    GetSystemScene(createObjectData.systemIds[i])
+                        ->CreateSystemObject(createObjectData.objectTypes[i], objectId);
 
                 newSystemObject->SetValue(createObjectData.values[i]);
             }

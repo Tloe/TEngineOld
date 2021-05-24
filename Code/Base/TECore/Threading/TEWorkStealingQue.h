@@ -5,8 +5,7 @@
 #include <deque>
 #include <mutex>
 
-namespace TE {
-namespace Threading {
+namespace TE::Threading {
     class WorkStealingQue {
       public:
         WorkStealingQue();
@@ -23,7 +22,6 @@ namespace Threading {
         std::deque<FunctionWrapper> m_que;
         mutable std::mutex m_queMutex;
     };
-}
 }
 
 #endif

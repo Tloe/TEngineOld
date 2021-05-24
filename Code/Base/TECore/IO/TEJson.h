@@ -17,7 +17,8 @@ namespace TE
                         virtual void JSONSerialize(Json::Value& jsonValue) = 0;
                 };
 
-                void JsonValueFromData(const U8* dataBegin, const U8* dataEnd, Json::Value & jsonValue);
+                void JsonValueFromData(const U8* dataBegin, const U8* dataEnd, Json::Value &
+jsonValue);
         }
 }
 

@@ -7,15 +7,11 @@
 TE::SceneGraph::Spatial::Spatial()
     : m_parent(NULL),
       m_worldBoundIsCurrent(false),
-      m_forceCull(false) {
-}
+      m_forceCull(false) {}
 
-TE::SceneGraph::Spatial::~Spatial() {
-}
+TE::SceneGraph::Spatial::~Spatial() {}
 
-const TE::Intersection::BSphere &TE::SceneGraph::Spatial::GetBounding() {
-    return m_bounding;
-}
+const TE::Intersection::BSphere &TE::SceneGraph::Spatial::GetBounding() { return m_bounding; }
 
 void TE::SceneGraph::Spatial::Update(bool initiator) {
     UpdateWorldData();
@@ -34,13 +30,16 @@ void TE::SceneGraph::Spatial::PropagateBoundToRoot() {
 void TE::SceneGraph::Spatial::UpdateWorldData() {
     if (m_parent) {
         if (m_parent->m_localTransform.HasTranslationChange()) {
-            m_worldTransform.SetTranslation(m_parent->m_worldTransform.GetTranslation() + m_localTransform.GetTranslation());
+            m_worldTransform.SetTranslation(m_parent->m_worldTransform.GetTranslation() +
+                                            m_localTransform.GetTranslation());
         }
         if (m_parent->m_localTransform.HasScaleChange()) {
-            m_worldTransform.SetScale(m_parent->m_worldTransform.GetScale() + m_localTransform.GetScale());
+            m_worldTransform.SetScale(m_parent->m_worldTransform.GetScale() +
+                                      m_localTransform.GetScale());
         }
         if (m_parent->m_localTransform.HasOrientationChange()) {
-            m_worldTransform.SetOrientation(m_parent->m_worldTransform.GetOrientation() * m_localTransform.GetOrientation());
+            m_worldTransform.SetOrientation(m_parent->m_worldTransform.GetOrientation() *
+                                            m_localTransform.GetOrientation());
         }
     } else {
         m_worldTransform = m_localTransform;
@@ -90,14 +89,15 @@ void TE::SceneGraph::Spatial::RemoveAllGlobalStates()
         m_globalStates.clear();
 }
 
-void TE::SceneGraph::Spatial::UpdateRenderState( std::stack< Memory::Pointer0< GlobalState > >* stateStack, std::vector< Memory::Pointer0< Light > >* lightStack )
+void TE::SceneGraph::Spatial::UpdateRenderState( std::stack< Memory::Pointer0< GlobalState > >*
+stateStack, std::vector< Memory::Pointer0< Light > >* lightStack )
 {
         bool initiator = stateStack == NULL;
 
         if(initiator)
         {
-                stateStack = new0 std::stack< Memory::Pointer0<GlobalState > >[GlobalState::STATE_COUNT];
-                for (unsigned i = 0; i < GlobalState::STATE_COUNT ; i++)
+                stateStack = new0 std::stack< Memory::Pointer0<GlobalState >
+>[GlobalState::STATE_COUNT]; for (unsigned i = 0; i < GlobalState::STATE_COUNT ; i++)
                 {
                         stateStack[i].push(GlobalState::s_default[i]);
                 }
@@ -123,14 +123,16 @@ void TE::SceneGraph::Spatial::UpdateRenderState( std::stack< Memory::Pointer0< G
         }
 }
 
-void TE::SceneGraph::Spatial::PropagateStateFromRoot( std::stack< Memory::Pointer0< GlobalState > >* stateStack, std::vector< Memory::Pointer0< Light > >* lightStack )
+void TE::SceneGraph::Spatial::PropagateStateFromRoot( std::stack< Memory::Pointer0< GlobalState > >*
+stateStack, std::vector< Memory::Pointer0< Light > >* lightStack )
 {
         if (m_parent) PropagateStateFromRoot(stateStack, lightStack);
 
         PushState(stateStack, lightStack);
 }
 
-void TE::SceneGraph::Spatial::PushState( std::stack< Memory::Pointer0< GlobalState > >* stateStack, std::vector< Memory::Pointer0< Light > >* lightStack )
+void TE::SceneGraph::Spatial::PushState( std::stack< Memory::Pointer0< GlobalState > >* stateStack,
+std::vector< Memory::Pointer0< Light > >* lightStack )
 {
         std::list<Memory::Pointer0<GlobalState> >::const_iterator lastItr = m_globalStates.end();
         std::list<Memory::Pointer0<GlobalState> >::iterator currentItr = m_globalStates.begin();
@@ -143,7 +145,8 @@ void TE::SceneGraph::Spatial::PushState( std::stack< Memory::Pointer0< GlobalSta
         lightStack->insert(lightStack->begin(), m_lights.begin(), m_lights.end());
 }
 
-void TE::SceneGraph::Spatial::PopState( std::stack< Memory::Pointer0< GlobalState > >* stateStack, std::vector< Memory::Pointer0< Light > >* lightStack )
+void TE::SceneGraph::Spatial::PopState( std::stack< Memory::Pointer0< GlobalState > >* stateStack,
+std::vector< Memory::Pointer0< Light > >* lightStack )
 {
         std::list<Memory::Pointer0<GlobalState> >::iterator stateItr = m_globalStates.begin();
         while (stateItr != m_globalStates.end())
@@ -174,10 +177,12 @@ bool TE::SceneGraph::Spatial::IsCulled(Camera &camera) const {
     return culled;
 }
 
-void TE::SceneGraph::Spatial::SetTranslation(const Math::Vector3D<Real> &translation, bool localTransform) {
+void TE::SceneGraph::Spatial::SetTranslation(const Math::Vector3D<Real> &translation,
+                                             bool localTransform) {
     if (localTransform) {
         m_localTransform.SetTranslation(translation);
-        // m_worldTransform.SetTranslation(m_parent->m_worldTransform.GetTranslation() + translation);
+        // m_worldTransform.SetTranslation(m_parent->m_worldTransform.GetTranslation() +
+        // translation);
     } else {
         assert(false && "Not sure if this should be possible?");
         m_worldTransform.SetTranslation(translation);
@@ -199,22 +204,27 @@ void TE::SceneGraph::Spatial::SetScale(const Math::Vector3D<Real> &scale, bool l
 void TE::SceneGraph::Spatial::SetScale(Real scale, bool localTransform) {
     if (localTransform) {
         m_localTransform.SetScale(scale);
-        // m_worldTransform.SetScale(m_parent->m_worldTransform.GetScale() +  Math::Vector3D<Real>(scale, scale, scale));
+        // m_worldTransform.SetScale(m_parent->m_worldTransform.GetScale() +
+        // Math::Vector3D<Real>(scale, scale, scale));
     } else {
         assert(false && "Not sure if this should be possible?");
         m_worldTransform.SetScale(scale);
-        m_localTransform.SetScale(Math::Vector3D<Real>(scale, scale, scale) - m_parent->m_worldTransform.GetScale());
+        m_localTransform.SetScale(Math::Vector3D<Real>(scale, scale, scale) -
+                                  m_parent->m_worldTransform.GetScale());
     }
 }
 
-void TE::SceneGraph::Spatial::SetOrientation(const Math::Quaternion<Real> &orientation, bool localTransform) {
+void TE::SceneGraph::Spatial::SetOrientation(const Math::Quaternion<Real> &orientation,
+                                             bool localTransform) {
     if (localTransform) {
         m_localTransform.SetOrientation(orientation);
-        // m_worldTransform.SetOrientation(m_parent->m_worldTransform.GetOrientation() * orientation);
+        // m_worldTransform.SetOrientation(m_parent->m_worldTransform.GetOrientation() *
+        // orientation);
     } else {
         assert(false && "Not sure if this should be possible?");
         m_worldTransform.SetOrientation(orientation);
-        m_localTransform.SetOrientation(orientation * Inverse(m_parent->m_worldTransform.GetOrientation()));
+        m_localTransform.SetOrientation(orientation *
+                                        Inverse(m_parent->m_worldTransform.GetOrientation()));
     }
 }
 

@@ -8,29 +8,27 @@
 #include <map>
 #include <unordered_map>
 
-namespace TE {
-namespace Network {
-    typedef U32 MessageId;
-    typedef I32 ConnectionId;
-    typedef U32 SequenceNo;
+namespace TE::Network {
+  typedef U32 MessageId;
+  typedef I32 ConnectionId;
+  typedef U32 SequenceNo;
 
-    struct Outgoing {
-        struct Message {
-            Net::Packet packet;
-            U32 missingAcks;
-            U32 queCount;
-        };
-
-        typedef std::unordered_map<MessageId, Message> OutgoingMessageMap;
-        typedef std::list<MessageId> MessageIdList;
-        typedef std::map<ConnectionId, MessageIdList> OutgoingMessageQueMap;
-        typedef std::multimap<SequenceNo, MessageId> MessageIdsInPackageMap;
-
-        OutgoingMessageMap messages;
-        OutgoingMessageQueMap ques;
-        MessageIdsInPackageMap messageIdsInPackage;
+  struct Outgoing {
+    struct Message {
+      Net::Packet packet;
+      U32 missingAcks;
+      U32 queCount;
     };
-}
+
+    using OutgoingMessageMap     = std::unordered_map<MessageId, Message>;
+    using MessageIdList          = std::list<MessageId>;
+    using OutgoingMessageQueMap  = std::map<ConnectionId, MessageIdList>;
+    using MessageIdsInPackageMap = std::multimap<SequenceNo, MessageId>;
+
+    OutgoingMessageMap messages;
+    OutgoingMessageQueMap ques;
+    MessageIdsInPackageMap messageIdsInPackage;
+  };
 }
 
 #endif

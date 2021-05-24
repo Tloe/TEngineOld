@@ -11,7 +11,11 @@
 
 #include <sstream>
 
-TE::Graphics::GraphicsSystem::GraphicsSystem(U32 systemId, const std::string &systemName, Platform::OSWinId osWinId, IO::FileIO &fileIO, Event::EventManager &eventManager)
+TE::Graphics::GraphicsSystem::GraphicsSystem(U32 systemId,
+                                             const std::string &systemName,
+                                             Platform::OSWinId osWinId,
+                                             IO::FileIO &fileIO,
+                                             Event::EventManager &eventManager)
     : m_systemId(systemId),
       m_systemName(systemName),
       m_renderer(osWinId, fileIO),
@@ -20,7 +24,10 @@ TE::Graphics::GraphicsSystem::GraphicsSystem(U32 systemId, const std::string &sy
     m_eventManager.Subscribe<Event::ResolutionEvent>(this);
 }
 
-TE::Graphics::GraphicsSystem::GraphicsSystem(U32 systemId, const std::string &systemName, TE::IO::FileIO &fileIO, TE::Event::EventManager &eventManager)
+TE::Graphics::GraphicsSystem::GraphicsSystem(U32 systemId,
+                                             const std::string &systemName,
+                                             TE::IO::FileIO &fileIO,
+                                             TE::Event::EventManager &eventManager)
     : m_systemId(systemId),
       m_systemName(systemName),
       m_renderer(fileIO),
@@ -82,34 +89,20 @@ void TE::Graphics::GraphicsSystem::SetValue(TE::Core::Value &value) {
         ss >> positionY;
         ss.clear();
 
-        Event::ResolutionEvent resolutionEvent(fullscreen,
-                                               updateViewPort,
-                                               width,
-                                               height,
-                                               viewportWidth,
-                                               viewportHeight,
-                                               positionX,
-                                               positionY);
+        Event::ResolutionEvent resolutionEvent(fullscreen, updateViewPort, width, height,
+                                               viewportWidth, viewportHeight, positionX, positionY);
         m_eventManager.QueEvent(resolutionEvent);
     } break;
     }
 }
 
-void TE::Graphics::GraphicsSystem::Startup() {
-    m_renderer.Startup();
-}
+void TE::Graphics::GraphicsSystem::Startup() { m_renderer.Startup(); }
 
-void TE::Graphics::GraphicsSystem::Shutdown() {
-    m_renderer.Shutdown();
-}
+void TE::Graphics::GraphicsSystem::Shutdown() { m_renderer.Shutdown(); }
 
-U32 TE::Graphics::GraphicsSystem::GetSystemId() {
-    return m_systemId;
-}
+U32 TE::Graphics::GraphicsSystem::GetSystemId() { return m_systemId; }
 
-const std::string &TE::Graphics::GraphicsSystem::GetSystemName() {
-    return m_systemName;
-}
+const std::string &TE::Graphics::GraphicsSystem::GetSystemName() { return m_systemName; }
 
 TE::Engine::SystemSceneUPtr TE::Graphics::GraphicsSystem::CreateScene() {
     return std::make_unique<GraphicsScene>(m_sceneManager);
@@ -117,16 +110,13 @@ TE::Engine::SystemSceneUPtr TE::Graphics::GraphicsSystem::CreateScene() {
 
 void TE::Graphics::GraphicsSystem::HandleEvent(Event::ResolutionEvent &resolutionEvent) {
     if (resolutionEvent.GetFullscreen()) {
-        m_renderer.SetFullscreen(resolutionEvent.GetWidth(),
-                                 resolutionEvent.GetHeight(),
+        m_renderer.SetFullscreen(resolutionEvent.GetWidth(), resolutionEvent.GetHeight(),
                                  resolutionEvent.GetUpdateViewport());
     } else {
-        m_renderer.SetWindowed(resolutionEvent.GetWidth(),
-                               resolutionEvent.GetHeight(),
+        m_renderer.SetWindowed(resolutionEvent.GetWidth(), resolutionEvent.GetHeight(),
                                resolutionEvent.GetViewportWidth(),
                                resolutionEvent.GetViewportHeight(),
-                               resolutionEvent.GetUpdateViewport(),
-                               resolutionEvent.GetPositionX(),
+                               resolutionEvent.GetUpdateViewport(), resolutionEvent.GetPositionX(),
                                resolutionEvent.GetPositionY());
     }
 }
@@ -136,8 +126,7 @@ TE::Platform::PlatformWindow &TE::Graphics::GraphicsSystem::GetPlatformWindow() 
 }
 
 TE::Graphics::GraphicsSystemFactory::GraphicsSystemFactory(Platform::OSWinId osWinId)
-    : m_osWinId(osWinId) {
-}
+    : m_osWinId(osWinId) {}
 
 Enum TE::Graphics::GraphicsSystemFactory::ValueFromString(const std::string &valueStr) {
     if (valueStr == "WindowTitle")
@@ -156,13 +145,18 @@ const std::string &TE::Graphics::GraphicsSystemFactory::GetSystemName() {
     return name;
 }
 
-TE::Engine::SystemUPtr TE::Graphics::GraphicsSystemFactory::Generate(U32 systemId, TE::Engine::EngineRoot &engine, std::vector<Core::Value> &values) {
+TE::Engine::SystemUPtr
+TE::Graphics::GraphicsSystemFactory::Generate(U32 systemId,
+                                              TE::Engine::EngineRoot &engine,
+                                              std::vector<Core::Value> &values) {
     std::unique_ptr<GraphicsSystem> graphicsSystem(nullptr);
 
     if (m_osWinId) {
-        graphicsSystem = std::make_unique<GraphicsSystem>(0, "Graphics", m_osWinId, engine.GetFileIO(), engine.GetEventManager());
+        graphicsSystem = std::make_unique<GraphicsSystem>(
+            0, "Graphics", m_osWinId, engine.GetFileIO(), engine.GetEventManager());
     } else {
-        graphicsSystem = std::make_unique<GraphicsSystem>(0, "Graphics", engine.GetFileIO(), engine.GetEventManager());
+        graphicsSystem = std::make_unique<GraphicsSystem>(0, "Graphics", engine.GetFileIO(),
+                                                          engine.GetEventManager());
     }
 
     for (U32 i = 0; i < values.size(); ++i) {

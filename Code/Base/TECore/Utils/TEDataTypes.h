@@ -5,32 +5,30 @@
 #include <cstdint>
 #include <string>
 
-typedef std::int8_t I8;
-typedef std::int16_t I16;
-typedef std::int32_t I32;
-typedef std::int64_t I64;
+using I8        = std::int8_t;
+using I16       = std::int16_t;
+using I32       = std::int32_t;
+using I64       = std::int64_t;
 
-typedef std::uint8_t U8;
-typedef std::uint16_t U16;
-typedef std::uint32_t U32;
-typedef std::uint64_t U64;
+using U8        = std::uint8_t;
+using U16       = std::uint16_t;
+using U32       = std::uint32_t;
+using U64       = std::uint64_t;
 
-typedef std::float_t F32;
-typedef std::double_t F64;
+using F32       = std::float_t;
+using F64       = std::double_t;
 
-typedef U32 ID;
-typedef I32 Enum;
-typedef F32 Real;
-typedef U32 Bitmask;
-typedef U64 Bitmask64;
+using ID        = U32;
+using Enum      = I32;
+using Real      = F32;
+using Bitmask   = U32;
+using Bitmask64 = U64;
 
-typedef std::size_t Hash;
+using Hash      = std::size_t;
 
 namespace TE {
     struct HashGenerator {
-        Hash operator()(const std::string &filePath) {
-            return s_hasher(filePath);
-        }
+        Hash operator()(const std::string &filePath) { return s_hasher(filePath); }
         static std::hash<std::string> s_hasher;
     };
 }

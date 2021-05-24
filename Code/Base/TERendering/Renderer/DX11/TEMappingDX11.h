@@ -4,8 +4,7 @@
 #include <d3d11.h>
 #include <string>
 
-namespace TE {
-namespace Render {
+namespace TE::Render {
     class APIMapping {
       public:
         static const std::string s_layoutSemantic[];
@@ -14,7 +13,6 @@ namespace Render {
         static const D3D11_PRIMITIVE_TOPOLOGY s_primitiveType[];
         static const D3D11_USAGE s_bufferUsage[];
     };
-}
 }
 
 #endif

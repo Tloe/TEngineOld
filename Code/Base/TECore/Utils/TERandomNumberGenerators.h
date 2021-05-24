@@ -5,17 +5,12 @@
 
 #include <random>
 
-namespace TE {
-namespace Utils {
+namespace TE::Utils {
     class RandomI32Generator {
       public:
-        RandomI32Generator(I32 rangeMin, I32 rangeMax)
-            : m_distribution(rangeMin, rangeMax) {
-        }
+        RandomI32Generator(I32 rangeMin, I32 rangeMax) : m_distribution(rangeMin, rangeMax) {}
 
-        I32 operator()() {
-            return m_distribution(s_randomNumberGenerator);
-        }
+        I32 operator()() { return m_distribution(s_randomNumberGenerator); }
 
       private:
         std::uniform_int_distribution<I32> m_distribution;
@@ -26,13 +21,9 @@ namespace Utils {
 
     class RandomF32Generator {
       public:
-        RandomF32Generator(F32 rangeMin, F32 rangeMax)
-            : m_distribution(rangeMin, rangeMax) {
-        }
+        RandomF32Generator(F32 rangeMin, F32 rangeMax) : m_distribution(rangeMin, rangeMax) {}
 
-        F32 operator()() {
-            return m_distribution(s_randomNumberGenerator);
-        }
+        F32 operator()() { return m_distribution(s_randomNumberGenerator); }
 
       private:
         std::uniform_real_distribution<F32> m_distribution;
@@ -40,7 +31,6 @@ namespace Utils {
     };
 
     std::mt19937 RandomF32Generator::s_randomNumberGenerator;
-}
 }
 
 #endif

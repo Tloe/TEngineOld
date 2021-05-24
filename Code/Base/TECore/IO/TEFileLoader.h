@@ -4,8 +4,7 @@
 #include <string>
 #include <vector>
 
-namespace TE {
-namespace IO {
+namespace TE::IO {
     class FileLoader {
       public:
         virtual ~FileLoader();
@@ -16,7 +15,6 @@ namespace IO {
     };
 
     typedef std::shared_ptr<FileLoader> FileLoaderPtr;
-}
 }
 
 #endif

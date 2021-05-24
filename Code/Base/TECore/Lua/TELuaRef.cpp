@@ -22,16 +22,11 @@ namespace {
 
 TE::Lua::LuaRef::LuaRef(State &state, I32 nativeRef)
     : m_state(state),
-      m_nativeRef(new int{nativeRef}, ReFDeleter(state)) {
-}
+      m_nativeRef(new int{nativeRef}, ReFDeleter(state)) {}
 
-TE::Lua::LuaRef::LuaRef(State &state)
-    : LuaRef(state, LUA_REFNIL) {
-}
+TE::Lua::LuaRef::LuaRef(State &state) : LuaRef(state, LUA_REFNIL) {}
 
-void TE::Lua::LuaRef::Push() const {
-    lua_rawgeti(m_state(), LUA_REGISTRYINDEX, *m_nativeRef);
-}
+void TE::Lua::LuaRef::Push() const { lua_rawgeti(m_state(), LUA_REGISTRYINDEX, *m_nativeRef); }
 
 void TE::Lua::LuaRef::Get() const {
     Push();

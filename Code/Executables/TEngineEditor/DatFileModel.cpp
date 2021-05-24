@@ -133,10 +133,8 @@ bool DatFileModel::NewFolder(const std::string &relativePath) {
 }
 
 bool DatFileModel::DeletePath(const QModelIndex &index) {
-    if ((!m_isRootPath &&
-         (index.row() == 0 || index.row() == 1)) ||
-        m_pathFoldersAndFiles.empty() ||
-        !index.isValid()) {
+    if ((!m_isRootPath && (index.row() == 0 || index.row() == 1)) ||
+        m_pathFoldersAndFiles.empty() || !index.isValid()) {
         return false;
     }
 

@@ -1,13 +1,13 @@
 #ifndef TETYPEID_H
 #define TETYPEID_H
 
+#include "TEDataTypes.h"
+
 namespace TE {
     namespace {
         class TypeIdGeneratorBase {
           public:
-            enum {
-                ALTTYPEID_INVALID = 0xFFffFFff
-            };
+            enum { ALTTYPEID_INVALID = 0xFFffFFff };
 
           protected:
             static unsigned GenerateAltTypeId() {
@@ -19,10 +19,9 @@ namespace TE {
         };
     }
 
-    typedef unsigned I32 TETypeId;
+    typedef U32 TETypeId;
 
-    template <typename T>
-    class TypeIdGenerator : public TypeIdGeneratorBase {
+    template <typename T> class TypeIdGenerator : public TypeIdGeneratorBase {
       public:
         static unsigned GetTypeId() {
             static unsigned s_ClassId = GenerateAltTypeId();

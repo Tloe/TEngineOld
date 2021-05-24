@@ -6,15 +6,10 @@
 #include <TEQuaternion.h>
 #include <TEVector3D.h>
 
-namespace TE {
-namespace Math {
-    template <typename Real>
-    class Transform {
+namespace TE::Math {
+    template <typename Real> class Transform {
       public:
-        Transform() : m_transformNeedsUpdate(false),
-                      m_isScaled(false) {
-            SetIdentity();
-        }
+        Transform() : m_transformNeedsUpdate(false), m_isScaled(false) { SetIdentity(); }
 
         /*
         const Transform& operator=(const Transform& rhs)
@@ -35,30 +30,25 @@ namespace Math {
 
         void SetIdentity() {
             m_isIdentity  = true;
-            m_scaleChange = m_orientationChange = m_translationChange = m_transformNeedsUpdate = false;
-            m_isScaled                                                                         = false;
-            m_translation                                                                      = Vector3D<Real>::VECTOR3D_ZERO;
-            m_scale                                                                            = Vector3D<Real>::VECTOR3D_ONE;
-            m_orientation                                                                      = Quaternion<Real>::QUATERNION_IDENTITY;
+            m_scaleChange = m_orientationChange = m_translationChange = m_transformNeedsUpdate =
+                false;
+            m_isScaled    = false;
+            m_translation = Vector3D<Real>::VECTOR3D_ZERO;
+            m_scale       = Vector3D<Real>::VECTOR3D_ONE;
+            m_orientation = Quaternion<Real>::QUATERNION_IDENTITY;
             UpdateTransformMatrix();
         }
 
-        const Vector3D<Real> &GetTranslation() {
-            return m_translation;
-        }
+        const Vector3D<Real> &GetTranslation() { return m_translation; }
 
-        const Quaternion<Real> &GetOrientation() {
-            return m_orientation;
-        }
+        const Quaternion<Real> &GetOrientation() { return m_orientation; }
 
         const Matrix3D<Real> GetOrientationMatrix() {
             // Prefer using the quaternion version, its cheaper!
             m_orientation.GetRotationMatrix();
         }
 
-        const Vector3D<Real> &GetScale() {
-            return m_scale;
-        }
+        const Vector3D<Real> &GetScale() { return m_scale; }
 
         void SetTranslation(const Vector3D<Real> &position) {
             m_translationChange = m_transformNeedsUpdate = true;
@@ -128,21 +118,13 @@ namespace Math {
             m_scale.z += scale;
         }
 
-        bool HasScaleChange() {
-            return m_scaleChange;
-        }
+        bool HasScaleChange() { return m_scaleChange; }
 
-        bool HasTranslationChange() {
-            return m_translationChange;
-        }
+        bool HasTranslationChange() { return m_translationChange; }
 
-        bool HasOrientationChange() {
-            return m_orientationChange;
-        }
+        bool HasOrientationChange() { return m_orientationChange; }
 
-        bool HasChange() {
-            return m_scaleChange || m_translationChange || m_orientationChange;
-        }
+        bool HasChange() { return m_scaleChange || m_translationChange || m_orientationChange; }
 
       private:
         void UpdateScale() {
@@ -160,17 +142,26 @@ namespace Math {
         }
 
         void UpdateOrientation() {
-            m_transform(0, 0) = 1 - (2 * m_orientation.y * m_orientation.y) - (2 * m_orientation.z * m_orientation.z);
-            m_transform(0, 1) = (2 * m_orientation.x * m_orientation.y) - (2 * m_orientation.z * m_orientation.w);
-            m_transform(0, 2) = (2 * m_orientation.x * m_orientation.z) + (2 * m_orientation.y * m_orientation.w);
+            m_transform(0, 0) = 1 - (2 * m_orientation.y * m_orientation.y) -
+                                (2 * m_orientation.z * m_orientation.z);
+            m_transform(0, 1) =
+                (2 * m_orientation.x * m_orientation.y) - (2 * m_orientation.z * m_orientation.w);
+            m_transform(0, 2) =
+                (2 * m_orientation.x * m_orientation.z) + (2 * m_orientation.y * m_orientation.w);
 
-            m_transform(1, 0) = (2 * m_orientation.x * m_orientation.y) + (2 * m_orientation.z * m_orientation.w);
-            m_transform(1, 1) = 1 - (2 * m_orientation.x * m_orientation.x) - (2 * m_orientation.z * m_orientation.z);
-            m_transform(1, 2) = (2 * m_orientation.y * m_orientation.z) - (2 * m_orientation.x * m_orientation.w);
+            m_transform(1, 0) =
+                (2 * m_orientation.x * m_orientation.y) + (2 * m_orientation.z * m_orientation.w);
+            m_transform(1, 1) = 1 - (2 * m_orientation.x * m_orientation.x) -
+                                (2 * m_orientation.z * m_orientation.z);
+            m_transform(1, 2) =
+                (2 * m_orientation.y * m_orientation.z) - (2 * m_orientation.x * m_orientation.w);
 
-            m_transform(2, 0) = (2 * m_orientation.x * m_orientation.z) - (2 * m_orientation.y * m_orientation.w);
-            m_transform(2, 1) = (2 * m_orientation.y * m_orientation.z) + (2 * m_orientation.x * m_orientation.w);
-            m_transform(2, 2) = 1 - (2 * m_orientation.x * m_orientation.x) - (2 * m_orientation.y * m_orientation.y);
+            m_transform(2, 0) =
+                (2 * m_orientation.x * m_orientation.z) - (2 * m_orientation.y * m_orientation.w);
+            m_transform(2, 1) =
+                (2 * m_orientation.y * m_orientation.z) + (2 * m_orientation.x * m_orientation.w);
+            m_transform(2, 2) = 1 - (2 * m_orientation.x * m_orientation.x) -
+                                (2 * m_orientation.y * m_orientation.y);
         }
 
         void UpdateTransformMatrix() {
@@ -196,7 +187,8 @@ namespace Math {
                 }
             }
 
-            m_transformNeedsUpdate = m_scaleChange = m_translationChange = m_orientationChange = false;
+            m_transformNeedsUpdate = m_scaleChange = m_translationChange = m_orientationChange =
+                false;
         }
 
         bool m_transformNeedsUpdate;
@@ -211,7 +203,6 @@ namespace Math {
         Quaternion<Real> m_orientation;
         Matrix4D<Real> m_transform;
     };
-}
 }
 
 #endif

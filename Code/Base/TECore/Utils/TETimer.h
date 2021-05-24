@@ -6,8 +6,7 @@
 
 #include <thread>
 
-namespace TE {
-namespace Time {
+namespace TE::Time {
     class Timer {
       public:
         Timer();
@@ -52,10 +51,7 @@ namespace Time {
         }
     }
 
-    inline U32 HzToMicroseconds(U32 hz) {
-        return 1000000 / hz;
-    }
-}
+    inline U32 HzToMicroseconds(U32 hz) { return 1000000 / hz; }
 }
 
 #endif

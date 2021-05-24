@@ -9,12 +9,9 @@
 #include <TEMatrix4D.h>
 #include <TERendererDX11.h>
 
-TE::Render::APIRenderer::APIRenderer(Context::APIContext &apiContext)
-    : m_apiContext(apiContext) {
-}
+TE::Render::APIRenderer::APIRenderer(Context::APIContext &apiContext) : m_apiContext(apiContext) {}
 
-TE::Render::APIRenderer::~APIRenderer() {
-}
+TE::Render::APIRenderer::~APIRenderer() {}
 
 void TE::Render::APIRenderer::Initialize(CGcontext &cgContext) {
     m_apiContext.SetCGContext(cgContext);
@@ -22,14 +19,14 @@ void TE::Render::APIRenderer::Initialize(CGcontext &cgContext) {
     SetViewPort(0, 0, 640, 480);
 }
 
-void TE::Render::APIRenderer::Cleanup() {
-    m_apiContext.Cleanup();
-}
+void TE::Render::APIRenderer::Cleanup() { m_apiContext.Cleanup(); }
 
 void TE::Render::APIRenderer::BeginFrame(const ColorRGBA &clearColor) {
     m_apiContext.BeginFrame();
-    m_apiContext.GetDeviceContext()->ClearRenderTargetView(m_apiContext.GetBackBuffer(), &clearColor.r);
-    m_apiContext.GetDeviceContext()->ClearDepthStencilView(m_apiContext.GetDepthStencilView(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+    m_apiContext.GetDeviceContext()->ClearRenderTargetView(m_apiContext.GetBackBuffer(),
+                                                           &clearColor.r);
+    m_apiContext.GetDeviceContext()->ClearDepthStencilView(m_apiContext.GetDepthStencilView(),
+                                                           D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
 void TE::Render::APIRenderer::EndFrame() {
@@ -59,14 +56,22 @@ void TE::Render::APIRenderer::SetViewPort(I32 x, I32 y, I32 width, I32 height) {
     m_apiContext.GetDeviceContext()->RSSetViewports(1, &vp);
 }
 
-void TE::Render::APIRenderer::SetResolution(I32 width, I32 height, I32 viewportWidth, I32 viewportHeight, bool fullscreen, bool updateViewport, I32 positionX, I32 positionY) {
+void TE::Render::APIRenderer::SetResolution(I32 width,
+                                            I32 height,
+                                            I32 viewportWidth,
+                                            I32 viewportHeight,
+                                            bool fullscreen,
+                                            bool updateViewport,
+                                            I32 positionX,
+                                            I32 positionY) {
     m_apiContext.SetResolution(fullscreen, width, height, 32, positionX, positionY);
 
     if (updateViewport)
         SetViewPort(0, 0, viewportWidth, viewportHeight);
 }
 
-TE::Render::APIVertexBufferLayoutUPtr TE::Render::APIRenderer::CreateAPIVertexBufferLayout(const Mesh &mesh, const Effect &effect) {
+TE::Render::APIVertexBufferLayoutUPtr
+TE::Render::APIRenderer::CreateAPIVertexBufferLayout(const Mesh &mesh, const Effect &effect) {
     return std::make_unique<APIVertexBufferLayout>(m_apiContext, mesh, effect);
 }
 
@@ -78,6 +83,8 @@ TE::Render::APIIndexBufferUPtr TE::Render::APIRenderer::CreateAPIIndexBuffer(con
     return std::make_unique<APIIndexBuffer>(m_apiContext, mesh);
 }
 
-TE::Render::APITexture2DUPtr TE::Render::APIRenderer::CreateAPITexture2D(Texture &texture, Effect &effect) {
-    return STD::make_unique<APITexture2D>(m_apiContext, texture, effect.GetCGParamaeter("texSampler0"));
+TE::Render::APITexture2DUPtr TE::Render::APIRenderer::CreateAPITexture2D(Texture &texture,
+                                                                         Effect &effect) {
+    return STD::make_unique<APITexture2D>(m_apiContext, texture,
+                                          effect.GetCGParamaeter("texSampler0"));
 }

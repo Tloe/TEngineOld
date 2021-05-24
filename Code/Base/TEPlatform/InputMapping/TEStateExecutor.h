@@ -7,8 +7,7 @@
 #include <memory>
 #include <string>
 
-namespace TE {
-namespace InputMapping {
+namespace TE::InputMapping {
     class StateExecutor {
       public:
         virtual ~StateExecutor();
@@ -21,8 +20,7 @@ namespace InputMapping {
         Hash m_nameHash;
     };
 
-    typedef std::unique_ptr<StateExecutor> StateExecutorUPtr;
-}
+    using StateExecutorUPtr = std::unique_ptr<StateExecutor>;
 }
 
 #endif

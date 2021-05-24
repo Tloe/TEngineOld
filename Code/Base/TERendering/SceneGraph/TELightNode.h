@@ -5,24 +5,22 @@
 #include <TELight.h>
 #include <TENode.h>
 
-namespace TE {
-namespace SceneGraph {
-    class LightNode : public Node {
-      public:
-        LightNode(const Light &light);
+namespace TE::SceneGraph {
+  class LightNode : public Node {
+  public:
+    LightNode(const Light &light);
 
-        virtual ~LightNode();
+    virtual ~LightNode();
 
-        void SetLight(const Light &light);
+    void SetLight(const Light &light);
 
-        Light &GetLight();
+    Light &GetLight();
 
-        virtual void UpdateWorldData();
+    virtual void UpdateWorldData();
 
-      private:
-        Light m_light;
-    };
-}
+  private:
+    Light m_light;
+  };
 }
 
 #endif

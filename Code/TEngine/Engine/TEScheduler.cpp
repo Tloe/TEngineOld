@@ -11,11 +11,9 @@
 TE::Engine::Scheduler::Scheduler(Threading::ThreadPool &threadPool)
     : m_threadPool(threadPool),
       m_threadingEnabled(true),
-      m_currentUniversalScene(nullptr) {
-}
+      m_currentUniversalScene(nullptr) {}
 
-TE::Engine::Scheduler::~Scheduler() {
-}
+TE::Engine::Scheduler::~Scheduler() {}
 
 void TE::Engine::Scheduler::RunDrawPassTasks(F32 interpolation) {
     if (m_currentUniversalScene) {
@@ -31,17 +29,11 @@ void TE::Engine::Scheduler::RunUpdatePassTasks(U64 t, U64 dt) {
     }
 }
 
-void TE::Engine::Scheduler::SetScene(UniversalScene &scene) {
-    m_currentUniversalScene = &scene;
-}
+void TE::Engine::Scheduler::SetScene(UniversalScene &scene) { m_currentUniversalScene = &scene; }
 
-void TE::Engine::Scheduler::EnableThreading() {
-    m_threadingEnabled = true;
-}
+void TE::Engine::Scheduler::EnableThreading() { m_threadingEnabled = true; }
 
-void TE::Engine::Scheduler::DisableThreading() {
-    m_threadingEnabled = false;
-}
+void TE::Engine::Scheduler::DisableThreading() { m_threadingEnabled = false; }
 
 void TE::Engine::Scheduler::PopulateQuesWithDrawTasks(F32 interpolation) {
     auto &systemScenes = m_currentUniversalScene->GetSystemScenes();

@@ -11,11 +11,9 @@ TE::Transform::TransformObject::TransformObject(I32 objectId, Event::EventManage
       m_scale(Math::Vector3D<F32>::VECTOR3D_ONE),
       m_orientation(Math::Quaternion<F32>::QUATERNION_IDENTITY),
       m_objectId(objectId),
-      m_eventManager(eventManager) {
-}
+      m_eventManager(eventManager) {}
 
-TE::Transform::TransformObject::~TransformObject() {
-}
+TE::Transform::TransformObject::~TransformObject() {}
 
 void TE::Transform::TransformObject::SetValue(Core::Value &value) {
     switch (value.GetValueType()) {
@@ -56,12 +54,9 @@ void TE::Transform::TransformObject::Initialize() {
     PostSubjectChanges(Engine::Change::Transform::All);
 }
 
-void TE::Transform::TransformObject::Cleanup() {
-}
+void TE::Transform::TransformObject::Cleanup() {}
 
-I32 TE::Transform::TransformObject::GetObjectId() const {
-    return m_objectId;
-}
+I32 TE::Transform::TransformObject::GetObjectId() const { return m_objectId; }
 
 /*void TE::Transform::TransformObject::JSONDeserialize( const Json::Value& jsonValue )
 {
@@ -101,7 +96,8 @@ Bitmask64 TE::Transform::TransformObject::GetPotentialSystemChanges() {
 
 void TE::Transform::TransformObject::OnSubjectChange(Subject *subject, Bitmask64 changeBits) {
     if (changeBits & Engine::Change::Transform::All) {
-        auto transformChange = Engine::GetChangeData<Engine::Change::TransformChange>(subject, changeBits);
+        auto transformChange =
+            Engine::GetChangeData<Engine::Change::TransformChange>(subject, changeBits);
 
         if (changeBits & Engine::Change::Transform::Position) {
             m_position = *transformChange.position;
@@ -133,12 +129,15 @@ void TE::Transform::TransformObject::HandleEvent(TE::Event::OrientationEvent &or
     PostSubjectChanges(Engine::Change::Transform::Orientation);
 }
 
-TE::Engine::Change::ChangeDataPtrVar TE::Transform::TransformObject::GetChangeData(Bitmask64 changeBits) {
+TE::Engine::Change::ChangeDataPtrVar
+TE::Transform::TransformObject::GetChangeData(Bitmask64 changeBits) {
     static Engine::Change::TransformChange transformChange;
 
-    transformChange.position    = (changeBits & Engine::Change::Transform::Position) ? &m_position : nullptr;
-    transformChange.scale       = (changeBits & Engine::Change::Transform::Scale) ? &m_scale : nullptr;
-    transformChange.orientation = (changeBits & Engine::Change::Transform::Position) ? &m_orientation : nullptr;
+    transformChange.position =
+        (changeBits & Engine::Change::Transform::Position) ? &m_position : nullptr;
+    transformChange.scale = (changeBits & Engine::Change::Transform::Scale) ? &m_scale : nullptr;
+    transformChange.orientation =
+        (changeBits & Engine::Change::Transform::Position) ? &m_orientation : nullptr;
 
     return Engine::Change::ChangeDataPtrVar(transformChange);
 }

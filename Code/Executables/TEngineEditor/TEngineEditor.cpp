@@ -19,7 +19,8 @@ TEngineEditor::TEngineEditor() {
     m_tegineRenderWidget->setMinimumSize(640, 480);
     setCentralWidget(m_tegineRenderWidget);
 
-    TE::IO::FileIOPtr fileLoader(new0 TE::IO::FileSystemIO("D:/coding/tengine/Executables/EngineTest"));
+    TE::IO::FileIOPtr fileLoader(
+        new0 TE::IO::FileSystemIO("D:/coding/tengine/Executables/EngineTest"));
     TE::Context::PlatformContext newContext(centralWidget()->winId());
     m_renderer = new0 TE::Render::Renderer(newContext, fileLoader);
     m_renderer->Initialize();
@@ -65,37 +66,37 @@ TEngineEditor::~TEngineEditor() {
 void TEngineEditor::SetupDemoScene() {
     TE::SceneGraph::NodePtr rootNode(new0 TE::SceneGraph::Node);
 
-    TE::Render::VertexBufferPtr newVertexBuffer(new0 TE::Render::VertexBuffer("/Meshes/Cube01/Cube01.vertexbuffer",
-                                                                              TE::Render::VertexBuffer::PRIMITIVETYPE_TRIANGLES,
-                                                                              TE::Render::VertexBuffer::USAGE_DYNAMIC));
+    TE::Render::VertexBufferPtr newVertexBuffer(new0 TE::Render::VertexBuffer(
+        "/Meshes/Cube01/Cube01.vertexbuffer", TE::Render::VertexBuffer::PRIMITIVETYPE_TRIANGLES,
+        TE::Render::VertexBuffer::USAGE_DYNAMIC));
 
     Hash vertexBuffer = m_renderer->Register(newVertexBuffer);
 
-    Hash indexBuffer  = m_renderer->Register(TE::Render::IndexBufferPtr(
-         new0 TE::Render::IndexBuffer("/Meshes/Cube01/Cube01.indexbuffer", TE::Render::IndexBuffer::USAGE_DYNAMIC)));
+    Hash indexBuffer = m_renderer->Register(TE::Render::IndexBufferPtr(new0 TE::Render::IndexBuffer(
+        "/Meshes/Cube01/Cube01.indexbuffer", TE::Render::IndexBuffer::USAGE_DYNAMIC)));
 
-    TE::Render::BufferLayoutPtr newVertexLayout(new0 TE::Render::VertexBufferLayout("DEBUG: CHANGE THIS IN LOADFILE OF TEFileSystemIO.cpp"));
+    TE::Render::BufferLayoutPtr newVertexLayout(new0 TE::Render::VertexBufferLayout(
+        "DEBUG: CHANGE THIS IN LOADFILE OF TEFileSystemIO.cpp"));
     newVertexLayout->AddElement(TE::Render::VertexBufferLayout::SEMANTIC_POSITION,
-                                TE::Render::VertexBufferLayout::TYPE_F32, 3,
-                                0);
+                                TE::Render::VertexBufferLayout::TYPE_F32, 3, 0);
     newVertexLayout->AddElement(TE::Render::VertexBufferLayout::SEMANTIC_NORMAL,
-                                TE::Render::VertexBufferLayout::TYPE_F32, 3,
-                                12);
+                                TE::Render::VertexBufferLayout::TYPE_F32, 3, 12);
     newVertexLayout->AddElement(TE::Render::VertexBufferLayout::SEMANTIC_TEXTURE,
-                                TE::Render::VertexBufferLayout::TYPE_F32, 2,
-                                24);
+                                TE::Render::VertexBufferLayout::TYPE_F32, 2, 24);
     Hash vertexLayout = m_renderer->Register(newVertexLayout);
 
-    Hash effect       = m_renderer->Register(TE::Render::EffectPtr(
-              new0 TE::Render::Effect("/Shaders/TEBasicTextured.cgfx")));
+    Hash effect       = m_renderer->Register(
+              TE::Render::EffectPtr(new0 TE::Render::Effect("/Shaders/TEBasicTextured.cgfx")));
 
-    Hash texture      = m_renderer->Register(TE::Render::TexturePtr(
-             new0 TE::Render::TexturePNG("/Textures/test.png")));
+    Hash texture = m_renderer->Register(
+        TE::Render::TexturePtr(new0 TE::Render::TexturePNG("/Textures/test.png")));
 
-    TE::SceneGraph::RenderablePtr cube(new0 TE::SceneGraph::Renderable(vertexLayout, vertexBuffer, indexBuffer, effect, texture));
+    TE::SceneGraph::RenderablePtr cube(
+        new0 TE::SceneGraph::Renderable(vertexLayout, vertexBuffer, indexBuffer, effect, texture));
     cubePtr = cube;
     TE::Intersection::BSphere bounding;
-    BSphereFromVertexData(bounding, newVertexBuffer->GetDataF32Ptr(), newVertexBuffer->GetElementCount());
+    BSphereFromVertexData(bounding, newVertexBuffer->GetDataF32Ptr(),
+                          newVertexBuffer->GetElementCount());
 
     cube->SetBounding(bounding);
     cube->GetWorldTransform().SetTranslation(TE::Math::Vector3D<Real>(0.0, 0.0, 0.0));
@@ -117,9 +118,7 @@ void TEngineEditor::SetupDemoScene() {
     m_sceneMgr->InitScene();
 }
 
-void TEngineEditor::CleanupDemoScene() {
-    m_sceneMgr->CleanupScene();
-}
+void TEngineEditor::CleanupDemoScene() { m_sceneMgr->CleanupScene(); }
 
 void TEngineEditor::DrawScene() {
     QRect geometry = centralWidget()->geometry();

@@ -2,11 +2,9 @@
 
 TE::Render::Effect::Effect(const std::string &filePath)
     : Resource(filePath),
-      m_isInitialized(false) {
-}
+      m_isInitialized(false) {}
 
-TE::Render::Effect::~Effect() {
-}
+TE::Render::Effect::~Effect() {}
 
 bool TE::Render::Effect::SetupNextPass() {
     return true;
@@ -55,7 +53,8 @@ void TE::Render::Effect::Initialize(/*CGcontext& cgContext*/) {
     /* m_cgTechnique = cgGetFirstTechnique(m_cgEffect); */
     /* while (m_cgEffect && cgValidateTechnique(m_cgTechnique) == CG_FALSE) */
     /* { */
-    /* //std::cout << "Technique " << cgGetTechniqueName(m_cgTechnique) << " did not validate" << std::endl; */
+    /* //std::cout << "Technique " << cgGetTechniqueName(m_cgTechnique) << " did not validate" <<
+     * std::endl; */
     /* 	m_cgTechnique = cgGetNextTechnique(m_cgTechnique); */
     /* } */
     /* if (!m_cgTechnique) */

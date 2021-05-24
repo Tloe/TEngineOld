@@ -6,42 +6,37 @@
 /* #include "Cg/cg.h" */
 #include <string>
 
-namespace TE {
-namespace Render {
-    class ShaderParameterSetter {
-      public:
-        void SetParameter(const std::string &parameterName, /*CGparameter& cgParameter,*/ const Math::Matrix4D<F32> matrix);
-        void SetParameter(const std::string &parameterName, /*CGparameter& cgParameter,*/ const Math::Matrix4D<F64> matrix);
-    };
+namespace TE::Render {
+  class ShaderParameterSetter {
+  public:
+    void SetParameter(const std::string &parameterName,
+                      /*CGparameter& cgParameter,*/ const Math::Matrix4D<F32> matrix);
+    void SetParameter(const std::string &parameterName,
+                      /*CGparameter& cgParameter,*/ const Math::Matrix4D<F64> matrix);
+  };
 
-    class ShaderParameterBase {
-    };
+  class ShaderParameterBase {};
 
-    template <typename T>
-    class ShaderParameter : public ShaderParameterBase {
-      public:
-        ShaderParameter(const std::string &parameterName)
-            : m_parameterName(parameterName) {}
+  template <typename T> class ShaderParameter : public ShaderParameterBase {
+  public:
+    ShaderParameter(const std::string &parameterName) : m_parameterName(parameterName) {}
 
-        ~ShaderParameter() {}
+    ~ShaderParameter() {}
 
-        const std::string &GetName() {
-            return m_parameterName;
-        }
+    const std::string &GetName() { return m_parameterName; }
 
-        void Update(/*CGparameter& cgParameter, */ const T &parameter);
+    void Update(/*CGparameter& cgParameter, */ const T &parameter);
 
-      private:
-        std::string m_parameterName;
-        ShaderParameterSetter m_parameterSetter;
-    };
+  private:
+    std::string m_parameterName;
+    ShaderParameterSetter m_parameterSetter;
+  };
 
-    template <typename T>
-    void TE::Render::ShaderParameter<T>::Update(/*CGparameter& cgParameter, */ const T &parameter) {
-        m_parameterSetter.SetParameter(m_parameterName, parameter);
-    }
+  template <typename T>
+  void TE::Render::ShaderParameter<T>::Update(/*CGparameter& cgParameter, */ const T &parameter) {
+    m_parameterSetter.SetParameter(m_parameterName, parameter);
+  }
 
-}
 }
 
 #endif

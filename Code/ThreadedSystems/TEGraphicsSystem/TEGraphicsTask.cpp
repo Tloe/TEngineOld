@@ -5,12 +5,9 @@
 #include <TESceneManager.h>
 
 TE::Graphics::GraphicsTask::GraphicsTask(SceneGraph::SceneManager &sceneManager)
-    : m_sceneManager(sceneManager) {
-}
+    : m_sceneManager(sceneManager) {}
 
-void TE::Graphics::GraphicsTask::Run() {
-    m_sceneManager.DrawScene(m_interpolation);
-}
+void TE::Graphics::GraphicsTask::Run() { m_sceneManager.DrawScene(m_interpolation); }
 
 Bitmask TE::Graphics::GraphicsTask::GetTaskFlags() {
     return Engine::TaskFlags::RunInMainThread | Engine::TaskFlags::DrawingTask;

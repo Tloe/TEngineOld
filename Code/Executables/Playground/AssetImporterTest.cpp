@@ -12,10 +12,10 @@ int AssetImporterTest() {
     std::vector<std::string> meshes;
     assetImporter.GetMesheNames(meshes);
 
-    TE::Render::Mesh cube01 = assetImporter.GetMesh("space_frig",
-                                                    TE::VERTEXBUFFER_POSITION | TE::VERTEXBUFFER_NORMALS | TE::VERTEXBUFFER_TEXTURECOORDS,
-                                                    TE::Render::Usage::DYNAMIC,
-                                                    TE::Render::Usage::DYNAMIC);
+    TE::Render::Mesh cube01 = assetImporter.GetMesh(
+        "space_frig",
+        TE::VERTEXBUFFER_POSITION | TE::VERTEXBUFFER_NORMALS | TE::VERTEXBUFFER_TEXTURECOORDS,
+        TE::Render::Usage::DYNAMIC, TE::Render::Usage::DYNAMIC);
 
     TE::IO::FileSystemIO fileIO("D:/coding/tengine/Executables/EngineTest");
     cube01.SetFilePath("/Meshes/space_frigate.mesh");

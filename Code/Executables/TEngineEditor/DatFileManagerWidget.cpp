@@ -3,8 +3,7 @@
 #include <QtGui>
 #include <TEDatPath.h>
 
-DatFileWidget::DatFileWidget(QWidget *parent)
-    : QWidget(parent) {
+DatFileWidget::DatFileWidget(QWidget *parent) : QWidget(parent) {
     m_closeAction = new0 QAction(tr("&Close"), this);
     connect(m_closeAction, SIGNAL(triggered()), this, SLOT(close()));
 
@@ -23,7 +22,9 @@ DatFileWidget::DatFileWidget(QWidget *parent)
     m_fileMenu->addAction(m_closeAction);
 
     m_fileModel = new0 QFileSystemModel;
-    m_fileModel->setFilter(QDir::Filters(QDir::NoDotAndDotDot | QDir::Hidden | QDir::AllEntries | QDir::Dirs | QDir::AllDirs | QDir::Files | QDir::Drives | QDir::Hidden));
+    m_fileModel->setFilter(QDir::Filters(QDir::NoDotAndDotDot | QDir::Hidden | QDir::AllEntries |
+                                         QDir::Dirs | QDir::AllDirs | QDir::Files | QDir::Drives |
+                                         QDir::Hidden));
     m_fileModel->setRootPath(QDir::rootPath());
 
     m_fileBrowser = new0 QTreeView(this);
@@ -45,14 +46,17 @@ DatFileWidget::DatFileWidget(QWidget *parent)
     m_datFilePathLineEdit->setEnabled(false);
 
     m_datFileModel = new0 DatFileModel(this);
-    connect(m_datFileModel, SIGNAL(PathChanged(const QString &)), m_datFilePathLineEdit, SLOT(setText(const QString &)));
+    connect(m_datFileModel, SIGNAL(PathChanged(const QString &)), m_datFilePathLineEdit,
+            SLOT(setText(const QString &)));
     // m_datFileModel->setDirPath(TE::IO::DatPath("/"));
 
     m_datFileBrowser = new0 QListView(this);
     m_datFileBrowser->setModel(m_datFileModel);
     m_datFileBrowser->setMinimumSize(350, 450);
-    // m_datFileBrowser->setSelectionMode(QAbstractItemView::ExtendedSelection); //Need to subclass QListView to use this
-    connect(m_datFileBrowser, SIGNAL(doubleClicked(const QModelIndex &)), m_datFileModel, SLOT(doubleClicked(const QModelIndex &)));
+    // m_datFileBrowser->setSelectionMode(QAbstractItemView::ExtendedSelection); //Need to subclass
+    // QListView to use this
+    connect(m_datFileBrowser, SIGNAL(doubleClicked(const QModelIndex &)), m_datFileModel,
+            SLOT(doubleClicked(const QModelIndex &)));
 
     QGridLayout *layout = new0 QGridLayout;
     layout->setMenuBar(m_menu);
@@ -79,18 +83,13 @@ DatFileWidget::DatFileWidget(QWidget *parent)
     // END DEGUG
 }
 
-DatFileWidget::~DatFileWidget() {
-}
+DatFileWidget::~DatFileWidget() {}
 
 void DatFileWidget::NewFolder() {
     bool ok;
 
-    QString folderName = QInputDialog::getText(this,
-                                               tr("Enter new folder name"),
-                                               tr("Folder name:"),
-                                               QLineEdit::Normal,
-                                               QString(""),
-                                               &ok);
+    QString folderName = QInputDialog::getText(
+        this, tr("Enter new folder name"), tr("Folder name:"), QLineEdit::Normal, QString(""), &ok);
 
     if (ok && !folderName.isEmpty()) {
         if (!m_datFileModel->NewFolder(folderName.toLocal8Bit().constData())) {
@@ -132,12 +131,9 @@ void DatFileWidget::SetResourceFolder() {
 }
 
 void DatFileWidget::OpenFile() {
-    QString filePath = QFileDialog::getSaveFilePath(this,
-                                                    tr("Get file name"),
-                                                    "",
-                                                    tr("Dat files (*.dat)"),
-                                                    0,
-                                                    QFileDialog::DontConfirmOverwrite);
+    QString filePath =
+        QFileDialog::getSaveFilePath(this, tr("Get file name"), "", tr("Dat files (*.dat)"), 0,
+                                     QFileDialog::DontConfirmOverwrite);
     if (filePath != "") {
         if (!m_datFileModel->OpenDatFile(filePath.toLocal8Bit().constData())) {
             m_msgBox.setText("Could not open dat file.");

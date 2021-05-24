@@ -6,11 +6,13 @@
 //#include "json/writer.h"
 //#include "json/reader.h"
 
-TE::Render::Mesh::Mesh(const std::string &filePath)
-    : Resource(filePath) {
-}
+TE::Render::Mesh::Mesh(const std::string &filePath) : Resource(filePath) {}
 
-TE::Render::Mesh::Mesh(const std::string &filePath, const VertexBufferInfo &vertexBufferInfo, const std::vector<U8> &vertexBufferData, const IndexBufferInfo &indexBufferInfo, const std::vector<U8> &indexBufferData)
+TE::Render::Mesh::Mesh(const std::string &filePath,
+                       const VertexBufferInfo &vertexBufferInfo,
+                       const std::vector<U8> &vertexBufferData,
+                       const IndexBufferInfo &indexBufferInfo,
+                       const std::vector<U8> &indexBufferData)
     : Resource(filePath),
       m_vertexBufferInfo(vertexBufferInfo),
       m_indexBufferInfo(indexBufferInfo) {
@@ -56,9 +58,10 @@ void TE::Render::Mesh::JSONDeserialize( const Json::Value& jsonMesh )
         {
                 VertexBufferInfo::LayoutElement layoutElement;
                 layoutElement.layoutSemantic = Semantics::POSITION;
-                layoutElement.valueType = jsonMesh["VertexBufferLayout"]["Position"]["ValueType"].asInt();
-                layoutElement.valueCount = jsonMesh["VertexBufferLayout"]["Position"]["ValueCount"].asInt();
-                layoutElement.byteOffset = jsonMesh["VertexBufferLayout"]["Position"]["ByteOffset"].asInt();
+                layoutElement.valueType =
+jsonMesh["VertexBufferLayout"]["Position"]["ValueType"].asInt(); layoutElement.valueCount =
+jsonMesh["VertexBufferLayout"]["Position"]["ValueCount"].asInt(); layoutElement.byteOffset =
+jsonMesh["VertexBufferLayout"]["Position"]["ByteOffset"].asInt();
                 m_vertexBufferInfo.layoutElements.push_back(layoutElement);
         }
 
@@ -66,9 +69,10 @@ void TE::Render::Mesh::JSONDeserialize( const Json::Value& jsonMesh )
         {
                 VertexBufferInfo::LayoutElement layoutElement;
                 layoutElement.layoutSemantic = Semantics::NORMAL;
-                layoutElement.valueType = jsonMesh["VertexBufferLayout"]["Normal"]["ValueType"].asInt();
-                layoutElement.valueCount = jsonMesh["VertexBufferLayout"]["Normal"]["ValueCount"].asInt();
-                layoutElement.byteOffset = jsonMesh["VertexBufferLayout"]["Normal"]["ByteOffset"].asInt();
+                layoutElement.valueType =
+jsonMesh["VertexBufferLayout"]["Normal"]["ValueType"].asInt(); layoutElement.valueCount =
+jsonMesh["VertexBufferLayout"]["Normal"]["ValueCount"].asInt(); layoutElement.byteOffset =
+jsonMesh["VertexBufferLayout"]["Normal"]["ByteOffset"].asInt();
                 m_vertexBufferInfo.layoutElements.push_back(layoutElement);
         }
 
@@ -79,9 +83,10 @@ void TE::Render::Mesh::JSONDeserialize( const Json::Value& jsonMesh )
                 {
                         VertexBufferInfo::LayoutElement layoutElement;
                         layoutElement.layoutSemantic = Semantics::TEXTURE0 + i;
-                        layoutElement.valueType = jsonMesh["VertexBufferLayout"]["Textures"][i]["ValueType"].asInt();
-                        layoutElement.valueCount = jsonMesh["VertexBufferLayout"]["Textures"][i]["ValueCount"].asInt();
-                        layoutElement.byteOffset = jsonMesh["VertexBufferLayout"]["Textures"][i]["ByteOffset"].asInt();
+                        layoutElement.valueType =
+jsonMesh["VertexBufferLayout"]["Textures"][i]["ValueType"].asInt(); layoutElement.valueCount =
+jsonMesh["VertexBufferLayout"]["Textures"][i]["ValueCount"].asInt(); layoutElement.byteOffset =
+jsonMesh["VertexBufferLayout"]["Textures"][i]["ByteOffset"].asInt();
                         m_vertexBufferInfo.layoutElements.push_back(layoutElement);
                 }
         }
@@ -109,26 +114,28 @@ void TE::Render::Mesh::JSONSerialize(Json::Value& jsonValue)
                 switch(m_vertexBufferInfo.layoutElements[i].layoutSemantic)
                 {
                         case Semantics::POSITION:
-                                jsonValue["VertexBufferLayout"]["Position"]["ValueType"] = m_vertexBufferInfo.layoutElements[i].valueType;
-                                jsonValue["VertexBufferLayout"]["Position"]["ValueCount"] = m_vertexBufferInfo.layoutElements[i].valueCount;
-                                jsonValue["VertexBufferLayout"]["Position"]["ByteOffset"] = m_vertexBufferInfo.layoutElements[i].byteOffset;
-                                break;
-                        case Semantics::NORMAL:
-                                jsonValue["VertexBufferLayout"]["Normal"]["ValueType"] = m_vertexBufferInfo.layoutElements[i].valueType;
-                                jsonValue["VertexBufferLayout"]["Normal"]["ValueCount"] = m_vertexBufferInfo.layoutElements[i].valueCount;
-                                jsonValue["VertexBufferLayout"]["Normal"]["ByteOffset"] = m_vertexBufferInfo.layoutElements[i].byteOffset;
-                                break;
-                        case Semantics::TEXTURE0:
-                        case Semantics::TEXTURE1:
-                        case Semantics::TEXTURE2:
-                        case Semantics::TEXTURE3:
-                        case Semantics::TEXTURE4:
+                                jsonValue["VertexBufferLayout"]["Position"]["ValueType"] =
+m_vertexBufferInfo.layoutElements[i].valueType;
+                                jsonValue["VertexBufferLayout"]["Position"]["ValueCount"] =
+m_vertexBufferInfo.layoutElements[i].valueCount;
+                                jsonValue["VertexBufferLayout"]["Position"]["ByteOffset"] =
+m_vertexBufferInfo.layoutElements[i].byteOffset; break; case Semantics::NORMAL:
+                                jsonValue["VertexBufferLayout"]["Normal"]["ValueType"] =
+m_vertexBufferInfo.layoutElements[i].valueType;
+                                jsonValue["VertexBufferLayout"]["Normal"]["ValueCount"] =
+m_vertexBufferInfo.layoutElements[i].valueCount;
+                                jsonValue["VertexBufferLayout"]["Normal"]["ByteOffset"] =
+m_vertexBufferInfo.layoutElements[i].byteOffset; break; case Semantics::TEXTURE0: case
+Semantics::TEXTURE1: case Semantics::TEXTURE2: case Semantics::TEXTURE3: case Semantics::TEXTURE4:
                         case Semantics::TEXTURE5:
                         case Semantics::TEXTURE6:
                         case Semantics::TEXTURE7:
-                                jsonValue["VertexBufferLayout"]["Textures"][textureIndex]["ValueType"] = m_vertexBufferInfo.layoutElements[i].valueType;
-                                jsonValue["VertexBufferLayout"]["Textures"][textureIndex]["ValueCount"] = m_vertexBufferInfo.layoutElements[i].valueCount;
-                                jsonValue["VertexBufferLayout"]["Textures"][textureIndex]["ByteOffset"] = m_vertexBufferInfo.layoutElements[i].byteOffset;
+                                jsonValue["VertexBufferLayout"]["Textures"][textureIndex]["ValueType"]
+= m_vertexBufferInfo.layoutElements[i].valueType;
+                                jsonValue["VertexBufferLayout"]["Textures"][textureIndex]["ValueCount"]
+= m_vertexBufferInfo.layoutElements[i].valueCount;
+                                jsonValue["VertexBufferLayout"]["Textures"][textureIndex]["ByteOffset"]
+= m_vertexBufferInfo.layoutElements[i].byteOffset;
                                 ++textureIndex;
                                 break;
                         default:
@@ -165,6 +172,4 @@ void TE::Render::Mesh::Load(IO::FileIO &fileIO) {
     JSONDeserialize(jsonMesh);*/
 }
 
-void TE::Render::Mesh::Save(IO::FileIO &fileIO) {
-    Resource::Save(fileIO);
-}
+void TE::Render::Mesh::Save(IO::FileIO &fileIO) { Resource::Save(fileIO); }

@@ -3,7 +3,8 @@
 #include <TEObb.h>
 #include <TEVector3D.h>
 
-void TE::Intersection::intersectConfig::setConfiguration(const TE::Math::Vector3D<Real> &axis, const Obb &obb) {
+void TE::Intersection::intersectConfig::setConfiguration(const TE::Math::Vector3D<Real> &axis,
+                                                         const Obb &obb) {
     // Description of coordinate ordering scheme for intersectionConfig.m_index.
     //
     // Vertex number (up/down) vs. sign of extent (only matters in mapping back)
@@ -20,17 +21,10 @@ void TE::Intersection::intersectConfig::setConfiguration(const TE::Math::Vector3
     // When it returns an ordering in the intrConfiguration, it is also
     // guarenteed to be in-order (if 4 vertices, then they are guarenteed in
     // an order that will create a box, e.g. 0,1,3,2).
-    F32 axes[3] =
-        {
-            Dot(axis, obb.m_axes[0]),
-            Dot(axis, obb.m_axes[1]),
-            Dot(axis, obb.m_axes[2])};
+    F32 axes[3]    = {Dot(axis, obb.m_axes[0]), Dot(axis, obb.m_axes[1]), Dot(axis, obb.m_axes[2])};
 
-    F32 absAxes[3] =
-        {
-            Math::Base<Real>::Abs(axes[0]),
-            Math::Base<Real>::Abs(axes[1]),
-            Math::Base<Real>::Abs(axes[2])};
+    F32 absAxes[3] = {Math::Base<Real>::Abs(axes[0]), Math::Base<Real>::Abs(axes[1]),
+                      Math::Base<Real>::Abs(axes[2])};
 
     F32 maxProjectedExtent;
 
@@ -96,8 +90,7 @@ void TE::Intersection::intersectConfig::setConfiguration(const TE::Math::Vector3
             // seg-seg
             m_map              = m2_2;
 
-            maxProjectedExtent = absAxes[1] * obb.m_extents[1] +
-                                 absAxes[2] * obb.m_extents[2];
+            maxProjectedExtent = absAxes[1] * obb.m_extents[1] + absAxes[2] * obb.m_extents[2];
 
             // axis 0 is perpendicular to axis
             if (axes[1] > Math::Base<Real>::REAL_ZERO) {
@@ -245,13 +238,13 @@ void TE::Intersection::intersectConfig::setConfiguration(const TE::Math::Vector3
         // point-point (unique maximal and minimal vertex)
         m_map              = m1_1;
 
-        maxProjectedExtent = absAxes[0] * obb.m_extents[0] + absAxes[1] * obb.m_extents[1] + absAxes[2] * obb.m_extents[2];
+        maxProjectedExtent = absAxes[0] * obb.m_extents[0] + absAxes[1] * obb.m_extents[1] +
+                             absAxes[2] * obb.m_extents[2];
 
         // only these two vertices matter, the rest are irrelevant
-        m_index[0] =
-            (axes[0] > Math::Base<Real>::REAL_ZERO ? 0 : 1) +
-            (axes[1] > Math::Base<Real>::REAL_ZERO ? 0 : 2) +
-            (axes[2] > Math::Base<Real>::REAL_ZERO ? 0 : 4);
+        m_index[0] = (axes[0] > Math::Base<Real>::REAL_ZERO ? 0 : 1) +
+                     (axes[1] > Math::Base<Real>::REAL_ZERO ? 0 : 2) +
+                     (axes[2] > Math::Base<Real>::REAL_ZERO ? 0 : 4);
         // by ordering the vertices this way, opposite corners add up to 7
         m_index[7] = 7 - m_index[0];
     }

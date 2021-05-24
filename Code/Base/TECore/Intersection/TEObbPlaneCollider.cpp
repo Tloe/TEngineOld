@@ -4,7 +4,11 @@
 #include <TEObbPlaneCollider.h>
 #include <TEPlane.h>
 
-bool TE::Intersection::ObbPlaneCollider::Collide(const Obb &obb, const Plane &plane, bool coarse, bool symetric, ContactSet *contacts) {
+bool TE::Intersection::ObbPlaneCollider::Collide(const Obb &obb,
+                                                 const Plane &plane,
+                                                 bool coarse,
+                                                 bool symetric,
+                                                 ContactSet *contacts) {
     // WARNING! Does not produce the correct contact points!
 
     F32 r = obb.m_extents[0] * Math::Base<Real>::Abs(Dot(plane.m_normal, obb.m_axes[0])) +
@@ -21,7 +25,8 @@ bool TE::Intersection::ObbPlaneCollider::Collide(const Obb &obb, const Plane &pl
             contacts->normals.push_back(-plane.m_normal);
         F32 penetration = Math::Base<Real>::Abs(r) - Math::Base<Real>::Abs(s);
         contacts->penetrations.push_back(penetration);
-        contacts->points.push_back(obb.m_center + (-plane.m_normal * (Math::Base<Real>::Abs(r) - (penetration * 0.5f))));
+        contacts->points.push_back(
+            obb.m_center + (-plane.m_normal * (Math::Base<Real>::Abs(r) - (penetration * 0.5f))));
     }
 
     return collision;

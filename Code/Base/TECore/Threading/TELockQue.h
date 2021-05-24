@@ -5,19 +5,15 @@
 #include <memory>
 #include <mutex>
 
-namespace TE {
-namespace Threading {
-    template <typename T>
-    class LockQue {
+namespace TE::Threading {
+    template <typename T> class LockQue {
         struct Node;
         typedef std::unique_ptr<Node> NodeUPtr;
 
       public:
         typedef std::shared_ptr<T> T_SPtr;
 
-        LockQue()
-            : m_head(new Node),
-              m_tail(m_head.get()) {}
+        LockQue() : m_head(new Node), m_tail(m_head.get()) {}
 
         T_SPtr TryPop() {
             NodeUPtr oldHead = TryPopHead();
@@ -36,9 +32,7 @@ namespace Threading {
             return oldHead->data;
         }
 
-        void WaitPop(T &value) {
-            const NodeUPtr oldHead = WaitPopHead(value);
-        }
+        void WaitPop(T &value) { const NodeUPtr oldHead = WaitPopHead(value); }
 
         void Push(T value) {
             T_SPtr newData = std::make_shared<T>(std::move(value));
@@ -124,7 +118,6 @@ namespace Threading {
         Node *m_tail;
         std::condition_variable m_dataCondition;
     };
-}
 }
 
 #endif

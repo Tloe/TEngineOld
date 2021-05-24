@@ -20,7 +20,6 @@ target_link_libraries(TECore
   PUBLIC
     CONAN_PKG::luajit
     CONAN_PKG::libpng
-    CONAN_PKG::enet
   PRIVATE
     ${CMAKE_THREAD_LIBS_INIT})
 

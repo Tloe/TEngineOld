@@ -9,15 +9,21 @@
 #include <d3dcommon.h>
 #include <dxgi.h>
 
-namespace TE {
-namespace Context {
+namespace TE::Context {
     class APIContext : public Platform::PlatformWindow {
       public:
-        APIContext(Platform::OSWinId osWinId, IO::FileIO &fileIO, const std::string &windowName = "TEngine");
+        APIContext(Platform::OSWinId osWinId,
+                   IO::FileIO &fileIO,
+                   const std::string &windowName = "TEngine");
         APIContext(IO::FileIO &fileIO, const std::string &windowName = "TEngine");
         virtual ~APIContext();
 
-        virtual void SetResolution(bool fullscreen, I32 width, I32 height, I32 colorBits, I32 positionX, I32 positionY);
+        virtual void SetResolution(bool fullscreen,
+                                   I32 width,
+                                   I32 height,
+                                   I32 colorBits,
+                                   I32 positionX,
+                                   I32 positionY);
         void BeginFrame();
         void EndFrame();
         void SetCGContext(/*CGcontext& cgContext*/);
@@ -48,7 +54,6 @@ namespace Context {
         ID3D11RasterizerState *m_d3dRState;
         bool m_initialized;
     };
-}
 }
 
 #endif

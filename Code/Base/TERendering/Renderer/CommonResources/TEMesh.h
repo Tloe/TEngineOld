@@ -5,8 +5,7 @@
 #include "TEMeshStructs.h"
 #include "TEResource.h"
 
-namespace TE {
-namespace Render {
+namespace TE::Render {
     class Mesh : public Resources::Resource //, public IO::JsonSerializer
     {
       public:
@@ -35,7 +34,6 @@ namespace Render {
         U32 m_indexBufferOffset;
         U32 m_jsonOffset;
     };
-}
 }
 
 #endif

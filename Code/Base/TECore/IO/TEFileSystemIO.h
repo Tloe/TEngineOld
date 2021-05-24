@@ -3,8 +3,7 @@
 
 #include "TEFileIO.h"
 
-namespace TE {
-namespace IO {
+namespace TE::IO {
     class FileSystemIO : public FileIO {
       public:
         FileSystemIO(const std::string &rootPath = "");
@@ -19,7 +18,6 @@ namespace IO {
       private:
         std::string m_rootPath;
     };
-}
 }
 
 #endif

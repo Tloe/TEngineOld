@@ -7,49 +7,39 @@
 #include <TECameraNode.h>
 #include <TESceneManager.h>
 
-namespace TE {
-    namespace Graphics {
-        class SceneGraphBuilder;
-    }
-    namespace Engine {
-        class Property;
-        typedef std::vector<Property> PropertyVec;
-    }
+namespace TE::Engine {
+  class Property;
+  using PropertyVec = std::vector<Property>;
+}
 
-    namespace Graphics {
-        class CameraObject : public GraphicsObject {
-          public:
-            struct Values {
-                enum {
-                    Frustrum,
-                    ActiveCamera,
-                    Parrent
-                };
-            };
+namespace TE::Graphics {
+  class SceneGraphBuilder;
 
-            struct FrustrumType {
-                enum {
-                    FromFov,
-                    FromValues
-                };
-            };
+  class CameraObject : public GraphicsObject {
+  public:
+    struct Values {
+      enum { Frustrum, ActiveCamera, Parrent };
+    };
 
-            CameraObject(I32 objectId, SceneGraph::SceneManager &sceneManager);
+    struct FrustrumType {
+      enum { FromFov, FromValues };
+    };
 
-            virtual void SetValue(Core::Value &value);
-            virtual void Initialize();
-            virtual void Cleanup();
-            //            virtual void JSONDeserialize(const Json::Value& jsonValue);
-            //			virtual void JSONSerialize(Json::Value& jsonValue);
-            virtual void OnSubjectChange(Subject *subject, Bitmask64 changeBits);
+    CameraObject(I32 objectId, SceneGraph::SceneManager &sceneManager);
 
-          private:
-            SceneGraph::SceneManager &m_sceneManager;
-            SceneGraph::CameraNode m_cameraNode;
-            SceneGraph::Camera m_camera;
-        };
+    virtual void SetValue(Core::Value &value);
+    virtual void Initialize();
+    virtual void Cleanup();
+    //            virtual void JSONDeserialize(const Json::Value& jsonValue);
+    //			virtual void JSONSerialize(Json::Value& jsonValue);
+    virtual void OnSubjectChange(Subject *subject, Bitmask64 changeBits);
 
-    }
+  private:
+    SceneGraph::SceneManager &m_sceneManager;
+    SceneGraph::CameraNode m_cameraNode;
+    SceneGraph::Camera m_camera;
+  };
+
 }
 
 #endif

@@ -7,8 +7,7 @@
 #include "TEShaderParameter.h"
 #include <TEResource.h>
 
-namespace TE {
-namespace Render {
+namespace TE::Render {
     class Effect : public Resources::Resource {
       public:
         Effect(const std::string &filePath);
@@ -27,7 +26,6 @@ namespace Render {
         /* CGpass m_cgPass; */
         /* std::unordered_map<std::string, CGparameter> m_cgParameters; */
     };
-}
 }
 
 #endif

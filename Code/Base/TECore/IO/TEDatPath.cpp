@@ -3,9 +3,7 @@
 
 std::string TE::IO::DatPath::m_validChars = "/._-";
 
-TE::IO::DatPath::DatPath(const std::string &path)
-    : m_path(path) {
-}
+TE::IO::DatPath::DatPath(const std::string &path) : m_path(path) {}
 
 bool TE::IO::DatPath::IsValid() const {
     bool valid = true;
@@ -18,21 +16,13 @@ bool TE::IO::DatPath::IsValid() const {
     return valid && m_path[0] == '/' && !m_path.empty();
 }
 
-bool TE::IO::DatPath::IsFile() const {
-    return m_path[m_path.size() - 1] != '/';
-}
+bool TE::IO::DatPath::IsFile() const { return m_path[m_path.size() - 1] != '/'; }
 
-bool TE::IO::DatPath::IsFolder() const {
-    return m_path[m_path.size() - 1] == '/';
-}
+bool TE::IO::DatPath::IsFolder() const { return m_path[m_path.size() - 1] == '/'; }
 
-bool TE::IO::DatPath::IsRoot() const {
-    return m_path.size() == 1 && m_path[0] == '/';
-}
+bool TE::IO::DatPath::IsRoot() const { return m_path.size() == 1 && m_path[0] == '/'; }
 
-const std::string &TE::IO::DatPath::GetFullPath() const {
-    return m_path;
-}
+const std::string &TE::IO::DatPath::GetFullPath() const { return m_path; }
 
 bool TE::IO::DatPath::InSubPathOf(const DatPath &datPath) {
     if (InSubPathOfRecursive(datPath)) {

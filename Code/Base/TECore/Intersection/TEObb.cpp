@@ -5,7 +5,9 @@
 #include <TEQuaternion.h>
 #include <TEVector3D.h>
 
-TE::Intersection::Obb::Obb(const TE::Math::Vector3D<Real> &center, const TE::Math::Vector3D<Real> axes[], const TE::Math::Vector3D<Real> &extents) {
+TE::Intersection::Obb::Obb(const TE::Math::Vector3D<Real> &center,
+                           const TE::Math::Vector3D<Real> axes[],
+                           const TE::Math::Vector3D<Real> &extents) {
     m_center  = center;
     m_extents = extents;
     m_axes[0] = axes[0];
@@ -43,7 +45,8 @@ void TE::Intersection::ObbFromVertexData(Obb &obb, const F32 *vertexData, unsign
     // Calc box center
     obb.m_center = TE::Math::Vector3D<Real>(vertexData[0], vertexData[1], vertexData[2]);
     for (unsigned i = 3; i < vDataCount - 2; i += 3) {
-        obb.m_center += TE::Math::Vector3D<Real>(vertexData[i + 0], vertexData[i + 1], vertexData[i + 2]);
+        obb.m_center +=
+            TE::Math::Vector3D<Real>(vertexData[i + 0], vertexData[i + 1], vertexData[i + 2]);
     }
 
     F32 invNumPoints = Math::Base<Real>::REAL_ONE / (vDataCount / 3);
@@ -67,11 +70,14 @@ void TE::Intersection::ObbFromVertexData(Obb &obb, const F32 *vertexData, unsign
     // and max(y2).  The box center is then adjusted to be
     //   C' = C + 0.5*(min(y0)+max(y0))*U0 + 0.5*(min(y1)+max(y1))*U1 +
     //        0.5*(min(y2)+max(y2))*U2
-    TE::Math::Vector3D<Real> diff = TE::Math::Vector3D<Real>(vertexData[0], vertexData[1], vertexData[2]) - obb.m_center;
-    TE::Math::Vector3D<Real> pmin = TE::Math::Vector3D<Real>(Dot(diff, obb.m_axes[0]), Dot(diff, obb.m_axes[1]), Dot(diff, obb.m_axes[2]));
+    TE::Math::Vector3D<Real> diff =
+        TE::Math::Vector3D<Real>(vertexData[0], vertexData[1], vertexData[2]) - obb.m_center;
+    TE::Math::Vector3D<Real> pmin = TE::Math::Vector3D<Real>(
+        Dot(diff, obb.m_axes[0]), Dot(diff, obb.m_axes[1]), Dot(diff, obb.m_axes[2]));
     TE::Math::Vector3D<Real> pmax = pmin;
     for (unsigned i = 3; i < vDataCount - 2; i += 3) {
-        diff = TE::Math::Vector3D<Real>(vertexData[i + 0], vertexData[i + 1], vertexData[i + 2]) - obb.m_center;
+        diff = TE::Math::Vector3D<Real>(vertexData[i + 0], vertexData[i + 1], vertexData[i + 2]) -
+               obb.m_center;
         for (unsigned j = 0; j < 3; ++j) {
             F32 dot = Dot(diff, obb.m_axes[j]);
             if (dot < pmin[j])
@@ -90,7 +96,8 @@ void TE::Intersection::ObbFromVertexData(Obb &obb, const F32 *vertexData, unsign
     obb.m_extents[2] = 0.5f * (pmax[2] - pmin[2]);
 }
 
-TE::Math::Vector3D<Real> TE::Intersection::FindNearestPointOnObb(const Obb &obb, const Math::Vector3D<Real> &p) {
+TE::Math::Vector3D<Real> TE::Intersection::FindNearestPointOnObb(const Obb &obb,
+                                                                 const Math::Vector3D<Real> &p) {
     TE::Math::Vector3D<Real> retPt;
     TE::Math::Vector3D<Real> d = p - obb.m_center;
 

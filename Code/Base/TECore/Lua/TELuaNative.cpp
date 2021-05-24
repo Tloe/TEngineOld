@@ -8,36 +8,23 @@
 
 #include <lua.hpp>
 
-void TE::Lua::Push(State &state) {
-}
+void TE::Lua::Push(State &state) {}
 
-void TE::Lua::Push(State &state, bool value) {
-    lua_pushboolean(state(), value);
-}
+void TE::Lua::Push(State &state, bool value) { lua_pushboolean(state(), value); }
 
-void TE::Lua::Push(State &state, I32 value) {
-    lua_pushinteger(state(), value);
-}
+void TE::Lua::Push(State &state, I32 value) { lua_pushinteger(state(), value); }
 
-void TE::Lua::Push(State &state, U32 value) {
-    lua_pushinteger(state(), value);
-}
+void TE::Lua::Push(State &state, U32 value) { lua_pushinteger(state(), value); }
 
-void TE::Lua::Push(State &state, F32 value) {
-    lua_pushnumber(state(), static_cast<double>(value));
-}
+void TE::Lua::Push(State &state, F32 value) { lua_pushnumber(state(), static_cast<double>(value)); }
 
-void TE::Lua::Push(State &state, F64 value) {
-    lua_pushnumber(state(), value);
-}
+void TE::Lua::Push(State &state, F64 value) { lua_pushnumber(state(), value); }
 
 void TE::Lua::Push(State &state, const std::string &value) {
     lua_pushstring(state(), value.c_str());
 }
 
-void TE::Lua::Push(State &state, const char *value) {
-    lua_pushstring(state(), value);
-}
+void TE::Lua::Push(State &state, const char *value) { lua_pushstring(state(), value); }
 
 bool TE::Lua::Detail::ReadStack(Id<bool> t, State &state, I32 index) {
     assert(lua_isboolean(state(), index));

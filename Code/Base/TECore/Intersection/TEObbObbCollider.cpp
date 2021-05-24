@@ -9,7 +9,18 @@ Real TE::Intersection::ObbObbCollider::s_contactTime;
 Real TE::Intersection::ObbObbCollider::s_minAxisPenetrationDepth;
 TE::Math::Vector3D<Real> TE::Intersection::ObbObbCollider::s_contactNormal;
 
-bool TE::Intersection::ObbObbCollider::Collide(const Obb &obb0, const Obb &obb1, Real dt, bool coarse, bool symetric, const Math::Vector3D<Real> *pos0 /*= NULL*/, const Math::Vector3D<Real> *pos1 /*= NULL*/, const Math::Vector3D<Real> *vel0 /*= NULL*/, const Math::Vector3D<Real> *vel1 /*= NULL*/, const Math::Vector3D<Real> *angvel0 /*= NULL*/, const Math::Vector3D<Real> *angvel1 /*= NULL*/, ContactSet *contacts) {
+bool TE::Intersection::ObbObbCollider::Collide(const Obb &obb0,
+                                               const Obb &obb1,
+                                               Real dt,
+                                               bool coarse,
+                                               bool symetric,
+                                               const Math::Vector3D<Real> *pos0 /*= NULL*/,
+                                               const Math::Vector3D<Real> *pos1 /*= NULL*/,
+                                               const Math::Vector3D<Real> *vel0 /*= NULL*/,
+                                               const Math::Vector3D<Real> *vel1 /*= NULL*/,
+                                               const Math::Vector3D<Real> *angvel0 /*= NULL*/,
+                                               const Math::Vector3D<Real> *angvel1 /*= NULL*/,
+                                               ContactSet *contacts) {
     // If coarse just do a quick static check.
     if (coarse)
         return StaticCheck(obb0, obb1);
@@ -37,7 +48,8 @@ bool TE::Intersection::ObbObbCollider::Collide(const Obb &obb0, const Obb &obb1,
         F32 subTime                           = stepsize * istep;
 
         // Compute box velocities and test boxes for intersection.
-        //!!! physObj0->m_position is the rotCenter here, if center of mass is used later this needs to be changed!
+        //!!! physObj0->m_position is the rotCenter here, if center of mass is used later this needs
+        //! to be changed!
         // TE::Math::Vector3D<Real> newpos0 = *pos0 + subTime * (*vel0);
         // TE::Math::Vector3D<Real> newpos1 = *pos1 + subTime * (*vel1);
         // TE::Math::Vector3D<Real> diff0 = subObb0.m_center - newpos0;
@@ -62,8 +74,10 @@ bool TE::Intersection::ObbObbCollider::Collide(const Obb &obb0, const Obb &obb1,
 
         // Update the box axes.
         for (unsigned i = 0; i < 3; ++i) {
-            subObb0.m_axes[i] = subObb0.m_axes[i]; // + stepsize*rotAxis0.Cross(subObbs[0].m_axes[i]);
-            subObb1.m_axes[i] = subObb1.m_axes[i]; //+ stepsize*rotAxis1.Cross(subObbs[1].m_axes[i]);
+            subObb0.m_axes[i] =
+                subObb0.m_axes[i]; // + stepsize*rotAxis0.Cross(subObbs[0].m_axes[i]);
+            subObb1.m_axes[i] =
+                subObb1.m_axes[i]; //+ stepsize*rotAxis1.Cross(subObbs[1].m_axes[i]);
         }
 
         // Use Gram-Schmidt to orthonormalize the updated axes. If
@@ -263,7 +277,11 @@ bool TE::Intersection::ObbObbCollider::StaticCheck(const Obb &obb0, const Obb &o
     return true;
 }
 
-bool TE::Intersection::ObbObbCollider::DynamicCheck(const Obb &obb0, const Obb &obb1, F32 tmax, TE::Math::Vector3D<Real> velocity0, TE::Math::Vector3D<Real> velocity1) {
+bool TE::Intersection::ObbObbCollider::DynamicCheck(const Obb &obb0,
+                                                    const Obb &obb1,
+                                                    F32 tmax,
+                                                    TE::Math::Vector3D<Real> velocity0,
+                                                    TE::Math::Vector3D<Real> velocity1) {
     if (velocity0 == velocity1) {
         s_contactTime = Math::Base<Real>::REAL_ZERO;
         return StaticCheck(obb0, obb1);
@@ -443,7 +461,12 @@ bool TE::Intersection::ObbObbCollider::DynamicCheck(const Obb &obb0, const Obb &
     return true;
 }
 
-bool TE::Intersection::ObbObbCollider::DeriveContacts(const Obb &obb0, const Obb &obb1, F32 tmax, const TE::Math::Vector3D<Real> &velocity0, const TE::Math::Vector3D<Real> &velocity1, ContactSet *contacts) {
+bool TE::Intersection::ObbObbCollider::DeriveContacts(const Obb &obb0,
+                                                      const Obb &obb1,
+                                                      F32 tmax,
+                                                      const TE::Math::Vector3D<Real> &velocity0,
+                                                      const TE::Math::Vector3D<Real> &velocity1,
+                                                      ContactSet *contacts) {
     s_contactTime                        = Math::Base<Real>::REAL_ZERO;
     F32 tlast                            = Math::Base<F32>::MAX_REAL;
 
@@ -458,14 +481,16 @@ bool TE::Intersection::ObbObbCollider::DeriveContacts(const Obb &obb0, const Obb
     // box 0 normals
     for (i0 = 0; i0 < 3; ++i0) {
         axis = obb0.m_axes[i0];
-        if (!FindintersectionOnAxis(obb0, obb1, axis, relVelocity, tmax, s_contactTime, tlast, side, box0Cfg, box1Cfg))
+        if (!FindintersectionOnAxis(obb0, obb1, axis, relVelocity, tmax, s_contactTime, tlast, side,
+                                    box0Cfg, box1Cfg))
             return false;
     }
 
     // box 1 normals
     for (i1 = 0; i1 < 3; ++i1) {
         axis = obb1.m_axes[i1];
-        if (!FindintersectionOnAxis(obb0, obb1, axis, relVelocity, tmax, s_contactTime, tlast, side, box0Cfg, box1Cfg))
+        if (!FindintersectionOnAxis(obb0, obb1, axis, relVelocity, tmax, s_contactTime, tlast, side,
+                                    box0Cfg, box1Cfg))
             return false;
     }
 
@@ -482,11 +507,13 @@ bool TE::Intersection::ObbObbCollider::DeriveContacts(const Obb &obb0, const Obb
                 // themselves.  At this time the faces have already been
                 // tested, and without separation, so all further separation
                 // tests will show only overlaps.
-                FindContactSet(obb0, obb1, velocity0, velocity1, side, box0Cfg, box1Cfg, s_contactTime);
+                FindContactSet(obb0, obb1, velocity0, velocity1, side, box0Cfg, box1Cfg,
+                               s_contactTime);
                 return true;
             }
 
-            if (!FindintersectionOnAxis(obb0, obb1, axis, relVelocity, tmax, s_contactTime, tlast, side, box0Cfg, box1Cfg))
+            if (!FindintersectionOnAxis(obb0, obb1, axis, relVelocity, tmax, s_contactTime, tlast,
+                                        side, box0Cfg, box1Cfg))
                 return false;
         }
     }
@@ -494,14 +521,16 @@ bool TE::Intersection::ObbObbCollider::DeriveContacts(const Obb &obb0, const Obb
     // velocity cross box 0 edges
     for (i0 = 0; i0 < 3; ++i0) {
         axis = Cross(relVelocity, obb0.m_axes[i0]);
-        if (!FindintersectionOnAxis(obb0, obb1, axis, relVelocity, tmax, s_contactTime, tlast, side, box0Cfg, box1Cfg))
+        if (!FindintersectionOnAxis(obb0, obb1, axis, relVelocity, tmax, s_contactTime, tlast, side,
+                                    box0Cfg, box1Cfg))
             return false;
     }
 
     // velocity cross box 1 edges
     for (i1 = 0; i1 < 3; ++i1) {
         axis = Cross(relVelocity, obb1.m_axes[i1]);
-        if (!FindintersectionOnAxis(obb0, obb1, axis, relVelocity, tmax, s_contactTime, tlast, side, box0Cfg, box1Cfg))
+        if (!FindintersectionOnAxis(obb0, obb1, axis, relVelocity, tmax, s_contactTime, tlast, side,
+                                    box0Cfg, box1Cfg))
             return false;
     }
 
@@ -513,7 +542,13 @@ bool TE::Intersection::ObbObbCollider::DeriveContacts(const Obb &obb0, const Obb
     return true;
 }
 
-bool TE::Intersection::ObbObbCollider::IsSeparated(F32 min0, F32 max0, F32 min1, F32 max1, F32 speed, F32 tmax, F32 &tlast) {
+bool TE::Intersection::ObbObbCollider::IsSeparated(F32 min0,
+                                                   F32 max0,
+                                                   F32 min1,
+                                                   F32 max1,
+                                                   F32 speed,
+                                                   F32 tmax,
+                                                   F32 &tlast) {
     s_minAxisPenetrationDepth = Math::Base<Real>::MAX_REAL;
 
     F32 invSpeed, t;
@@ -610,7 +645,17 @@ bool TE::Intersection::ObbObbCollider::IsSeparated(F32 min0, F32 max0, F32 min1,
     return false;
 }
 
-bool TE::Intersection::ObbObbCollider::FindintersectionOnAxis(const Obb &obb0, const Obb &obb1, const TE::Math::Vector3D<Real> &axis, const TE::Math::Vector3D<Real> &velocity, F32 tmax, F32 &tfirst, F32 &tlast, I32 &side, intersectConfig &box0CfgFinal, intersectConfig &box1CfgFinal) {
+bool TE::Intersection::ObbObbCollider::FindintersectionOnAxis(
+    const Obb &obb0,
+    const Obb &obb1,
+    const TE::Math::Vector3D<Real> &axis,
+    const TE::Math::Vector3D<Real> &velocity,
+    F32 tmax,
+    F32 &tfirst,
+    F32 &tlast,
+    I32 &side,
+    intersectConfig &box0CfgFinal,
+    intersectConfig &box1CfgFinal) {
     intersectConfig box0CfgStart;
     box0CfgStart.setConfiguration(axis, obb0);
 
@@ -713,7 +758,15 @@ bool TE::Intersection::ObbObbCollider::FindintersectionOnAxis(const Obb &obb0, c
     return true;
 }
 
-void TE::Intersection::ObbObbCollider::FindContactSet(const Obb &obb0, const Obb &obb1, const TE::Math::Vector3D<Real> &velocity0, const TE::Math::Vector3D<Real> &velocity1, I32 side, const intersectConfig &box0Cfg, const intersectConfig &box1Cfg, F32 tfirst, ContactSet *contacts) {
+void TE::Intersection::ObbObbCollider::FindContactSet(const Obb &obb0,
+                                                      const Obb &obb1,
+                                                      const TE::Math::Vector3D<Real> &velocity0,
+                                                      const TE::Math::Vector3D<Real> &velocity1,
+                                                      I32 side,
+                                                      const intersectConfig &box0Cfg,
+                                                      const intersectConfig &box1Cfg,
+                                                      F32 tfirst,
+                                                      ContactSet *contacts) {
     TE::Math::Vector3D<Real> pts[8];
     I32 numPts;
 

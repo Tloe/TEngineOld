@@ -8,9 +8,7 @@ TEngineRenderWidget::TEngineRenderWidget(QWidget *parent) {
     setFocusPolicy(Qt::StrongFocus);
 }
 
-QPaintEngine *TEngineRenderWidget::paintEngine() const {
-    return 0;
-}
+QPaintEngine *TEngineRenderWidget::paintEngine() const { return 0; }
 
 void TEngineRenderWidget::resizeEvent(QResizeEvent *) {
     // redraw, change renderer->SetBufferSize

@@ -2,38 +2,23 @@
 #include "TEVector3D.h"
 #include <TEQuaternion.h>
 
-TE::Core::Value::Value(Enum valueType)
-    : m_valueType(valueType),
-      m_readIndex(0) {
-}
+TE::Core::Value::Value(Enum valueType) : m_valueType(valueType), m_readIndex(0) {}
 
 void TE::Core::Value::AddString(const std::string &str) {
     m_variants.emplace_back(Core::Variant(str));
 }
 
-void TE::Core::Value::AddString(const char *str) {
-    m_variants.emplace_back(Core::Variant(str));
-}
+void TE::Core::Value::AddString(const char *str) { m_variants.emplace_back(Core::Variant(str)); }
 
-void TE::Core::Value::AddI32(I32 i32) {
-    m_variants.emplace_back(Core::Variant(i32));
-}
+void TE::Core::Value::AddI32(I32 i32) { m_variants.emplace_back(Core::Variant(i32)); }
 
-void TE::Core::Value::AddU32(U32 u32) {
-    m_variants.emplace_back(Core::Variant(u32));
-}
+void TE::Core::Value::AddU32(U32 u32) { m_variants.emplace_back(Core::Variant(u32)); }
 
-void TE::Core::Value::AddBool(bool boolean) {
-    m_variants.emplace_back(Core::Variant(boolean));
-}
+void TE::Core::Value::AddBool(bool boolean) { m_variants.emplace_back(Core::Variant(boolean)); }
 
-void TE::Core::Value::AddF32(F32 f32) {
-    m_variants.emplace_back(Core::Variant(f32));
-}
+void TE::Core::Value::AddF32(F32 f32) { m_variants.emplace_back(Core::Variant(f32)); }
 
-Enum TE::Core::Value::GetValueType() {
-    return m_valueType;
-}
+Enum TE::Core::Value::GetValueType() { return m_valueType; }
 
 const char *TE::Core::Value::GetCString() {
     assert(m_readIndex < m_variants.size());

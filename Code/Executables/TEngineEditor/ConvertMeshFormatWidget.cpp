@@ -1,8 +1,7 @@
 #include <ConvertMeshFormatWidget.h>
 #include <TEDatFile.h>
 
-ConvertMeshFormatWidget::ConvertMeshFormatWidget(QWidget *parent)
-    : QWidget(parent) {
+ConvertMeshFormatWidget::ConvertMeshFormatWidget(QWidget *parent) : QWidget(parent) {
     setWindowTitle(tr("Mesh Converter"));
 
     m_openAction = new0 QAction(tr("&Open file"), this);
@@ -65,8 +64,7 @@ ConvertMeshFormatWidget::ConvertMeshFormatWidget(QWidget *parent)
     setLayout(layout);
 }
 
-ConvertMeshFormatWidget::~ConvertMeshFormatWidget() {
-}
+ConvertMeshFormatWidget::~ConvertMeshFormatWidget() {}
 
 void ConvertMeshFormatWidget::OpenFile() {
     QString &filePath = QFileDialog::getOpenFilePath(this, tr("Open mesh file"), "", "");
@@ -86,7 +84,8 @@ void ConvertMeshFormatWidget::OpenFile() {
 
         show();
     } else {
-        QMessageBox::warning(NULL, tr("Could not open file"), tr("The assimp library could not open the file for import."));
+        QMessageBox::warning(NULL, tr("Could not open file"),
+                             tr("The assimp library could not open the file for import."));
     }
 }
 
@@ -96,24 +95,22 @@ void ConvertMeshFormatWidget::Convert() {
         return;
     std::string meshName      = selectedItems[0]->text().toLocal8Bit().constData();
 
-    QString folderPathQString = QFileDialog::getExistingDirectory(this,
-                                                                  tr("Select directory"),
-                                                                  "",
-                                                                  QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    QString folderPathQString = QFileDialog::getExistingDirectory(
+        this, tr("Select directory"), "",
+        QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     std::string folderPath(folderPathQString.toLocal8Bit().constData());
     folderPath += "/";
 
-    if (m_obbCheck->isChecked()) {
-    }
-    if (m_bsphereCheck->isChecked()) {
-    }
+    if (m_obbCheck->isChecked()) {}
+    if (m_bsphereCheck->isChecked()) {}
     if (m_indexBufferCheck->isChecked()) {
         std::vector<U8> indexBuffer;
         m_assetImporter.GetIndexBuffer(indexBuffer, meshName);
 
         m_fileSystemIO.SaveFile(folderPath + meshName + ".indexbuffer", indexBuffer);
     }
-    if (m_verticesCheck->isChecked() || m_textureCoordsCheck->isChecked() || m_verticesCheck->isChecked()) {
+    if (m_verticesCheck->isChecked() || m_textureCoordsCheck->isChecked() ||
+        m_verticesCheck->isChecked()) {
         I32 flags = 0;
         if (m_verticesCheck->isChecked())
             flags ^= TE::IO::VERTEXBUFFER_POSITION;

@@ -3,31 +3,21 @@
 
 #include "TEDataTypes.h"
 
-namespace TE {
-namespace Utils {
-    template <typename T, int Size>
-    class CircularQue {
+namespace TE::Utils {
+    template <typename T, int Size> class CircularQue {
       public:
-        CircularQue() : m_que(Size),
-                        m_head(0),
-                        m_tail(0) {}
+        CircularQue() : m_que(Size), m_head(0), m_tail(0) {}
 
         void Push(T data) {
             m_que[m_tail] = data;
             Addvance(m_tail);
         }
 
-        U32 GetTailIndex() const {
-            return m_tail;
-        }
+        U32 GetTailIndex() const { return m_tail; }
 
-        U32 GetHeadIndex() const {
-            return m_head;
-        }
+        U32 GetHeadIndex() const { return m_head; }
 
-        const T &GetHead() const {
-            return m_que[m_head];
-        }
+        const T &GetHead() const { return m_que[m_head]; }
 
         void Pop() {
             if (Empty())
@@ -46,9 +36,7 @@ namespace Utils {
             return true;
         }
 
-        bool Empty() const {
-            return m_head == m_tail;
-        }
+        bool Empty() const { return m_head == m_tail; }
 
       private:
         void Addvance(U32 &index) {
@@ -61,8 +49,6 @@ namespace Utils {
         U32 m_head;
         U32 m_tail;
     };
-
-}
 }
 
 #endif

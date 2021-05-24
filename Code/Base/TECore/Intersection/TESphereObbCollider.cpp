@@ -4,7 +4,11 @@
 #include <TESphereObbCollider.h>
 #include <TEVector3D.h>
 
-bool TE::Intersection::SphereObbCollider::Collide(const BSphere &bsphere, const Obb &obb, bool coarse, bool symetric, ContactSet *contacts) {
+bool TE::Intersection::SphereObbCollider::Collide(const BSphere &bsphere,
+                                                  const Obb &obb,
+                                                  bool coarse,
+                                                  bool symetric,
+                                                  ContactSet *contacts) {
     TE::Math::Vector3D<Real> colPt = FindNearestPointOnObb(obb, bsphere.m_center);
     TE::Math::Vector3D<Real> v     = colPt - bsphere.m_center;
 

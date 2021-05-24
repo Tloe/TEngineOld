@@ -12,8 +12,7 @@
 #include <assert.h>
 #include <map>
 
-namespace TE {
-namespace InputMapping {
+namespace TE::InputMapping {
     enum class InputState : I8 {
         Down      = (1 << 0),
         Up        = (1 << 1),
@@ -21,12 +20,7 @@ namespace InputMapping {
         NotSet    = (1 << 3)
     };
 
-    enum class RangeInput {
-        MouseDeltaX,
-        MouseDeltaY,
-        MouseX,
-        MouseY
-    };
+    enum class RangeInput { MouseDeltaX, MouseDeltaY, MouseX, MouseY };
 
     RangeInput RangeInputFromString(const std::string &str);
 
@@ -134,5 +128,5 @@ namespace InputMapping {
     std::string ToString(InputType inputType);
     InputType FromString(const std::string &inputType);
 }
-}
+
 #endif

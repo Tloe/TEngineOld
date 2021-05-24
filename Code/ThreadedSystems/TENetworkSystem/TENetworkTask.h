@@ -3,26 +3,22 @@
 
 #include "TESystemTask.h"
 
-namespace TE {
-    namespace Network {
-        class NetworkScene;
-    }
+namespace TE::Network {
+  class NetworkScene;
 
-    namespace Network {
-        class NetworkTask : public Engine::SystemTask {
-          public:
-            NetworkTask(NetworkScene &networkScene);
+  class NetworkTask : public Engine::SystemTask {
+  public:
+    NetworkTask(NetworkScene &networkScene);
 
-            virtual void Run(); // Return bool until msvc bug is fixed
-            virtual Bitmask GetTaskFlags();
-            virtual void SetDeltaValues(U64 t, U64 dt);
+    virtual void Run(); // Return bool until msvc bug is fixed
+    virtual Bitmask GetTaskFlags();
+    virtual void SetDeltaValues(U64 t, U64 dt);
 
-          private:
-            NetworkScene &m_networkScene;
-            U64 m_deltaTime;
-            U64 m_time;
-        };
-    }
+  private:
+    NetworkScene &m_networkScene;
+    U64 m_deltaTime;
+    U64 m_time;
+  };
 }
 
 #endif

@@ -8,11 +8,12 @@
 #include "TELinuxWindow.h"
 #include "TEOpenGL.h"
 
-namespace TE {
-namespace Context {
+namespace TE::Context {
     class APIContext : public Platform::PlatformWindow {
       public:
-        APIContext(Platform::OSWinId hwnd, IO::FileIO &fileIO, const std::string &windowName = "TEngine");
+        APIContext(Platform::OSWinId hwnd,
+                   IO::FileIO &fileIO,
+                   const std::string &windowName = "TEngine");
         APIContext(IO::FileIO &fileIO, const std::string &windowName = "TEngine");
         ~APIContext();
 
@@ -29,7 +30,6 @@ namespace Context {
         XVisualInfo *m_xlibVisualInfo;
         /* CGcontext m_cgContext; */
     };
-}
 }
 
 #endif

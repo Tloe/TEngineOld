@@ -14,10 +14,11 @@ void TE::Engine::Subject::AttachObserver(Observer &observer, Bitmask64 changeBit
 
 void TE::Engine::Subject::DetachObserver(Observer &observer) {
     std::lock_guard<std::mutex> lock(m_mutex);
-    auto findItr = std::find_if(std::begin(m_observerSubscriptions), std::end(m_observerSubscriptions),
-                                [&observer](ObserverSubscription &observerSubscription) {
-                                    return &observer == observerSubscription.observer;
-                                });
+    auto findItr =
+        std::find_if(std::begin(m_observerSubscriptions), std::end(m_observerSubscriptions),
+                     [&observer](ObserverSubscription &observerSubscription) {
+                         return &observer == observerSubscription.observer;
+                     });
 
     m_observerSubscriptions.erase(findItr);
 }
@@ -35,10 +36,6 @@ TE::Engine::Change::ChangeDataPtrVar TE::Engine::Subject::GetChangeData(Bitmask6
     return TE::Engine::Change::ChangeDataPtrVar();
 }
 
-TE::Engine::Subject::Priority TE::Engine::Subject::GetPriority() const {
-    return Priority::Level0;
-}
+TE::Engine::Subject::Priority TE::Engine::Subject::GetPriority() const { return Priority::Level0; }
 
-I32 TE::Engine::Subject::GetObjectId() const {
-    return -1;
-}
+I32 TE::Engine::Subject::GetObjectId() const { return -1; }

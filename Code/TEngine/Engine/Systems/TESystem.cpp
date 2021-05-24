@@ -1,4 +1,3 @@
 #include <TESystem.h>
 
-TE::Engine::System::~System() {
-}
+TE::Engine::System::~System() {}

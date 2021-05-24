@@ -4,13 +4,10 @@
 #include <future>
 #include <vector>
 
-namespace TE {
-namespace Threading {
-    template <typename R>
-    class FutureJoiner {
+namespace TE::Threading {
+    template <typename R> class FutureJoiner {
       public:
-        explicit FutureJoiner(std::vector<std::future<R>> &futures)
-            : m_futures(futures) {}
+        explicit FutureJoiner(std::vector<std::future<R>> &futures) : m_futures(futures) {}
 
         ~FutureJoiner() {
             for (auto &future : m_futures) {
@@ -21,7 +18,6 @@ namespace Threading {
       private:
         std::vector<std::future<R>> &m_futures;
     };
-}
 }
 
 #endif

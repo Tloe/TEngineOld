@@ -17,15 +17,14 @@ namespace {
         std::string filePath("/Scripts/" + moduleName + ".lua");
 
         std::vector<U8> data;
-        TE::IO::FileIO &fileIO = *static_cast<TE::IO::FileIO *>(lua_touserdata(luaState, lua_upvalueindex(1)));
+        TE::IO::FileIO &fileIO =
+            *static_cast<TE::IO::FileIO *>(lua_touserdata(luaState, lua_upvalueindex(1)));
         fileIO.LoadFile(filePath, data);
         if (!data.empty()) {
-            if (luaL_loadbuffer(luaState, reinterpret_cast<const char *>(&data[0]), data.size(), filePath.c_str())) {
-                std::string errorMsg(std::string("Error loading module \'" +
-                                                 moduleName +
-                                                 "' from file: " +
-                                                 filePath +
-                                                 ":\n" +
+            if (luaL_loadbuffer(luaState, reinterpret_cast<const char *>(&data[0]), data.size(),
+                                filePath.c_str())) {
+                std::string errorMsg(std::string("Error loading module \'" + moduleName +
+                                                 "' from file: " + filePath + ":\n" +
                                                  std::string(lua_tostring(luaState, -1))));
                 luaL_error(luaState, errorMsg.c_str());
             }
@@ -37,8 +36,7 @@ namespace {
     }
 }
 
-TE::Lua::State::State(IO::FileIO &fileIO)
-    : m_nativeState(luaL_newstate()) {
+TE::Lua::State::State(IO::FileIO &fileIO) : m_nativeState(luaL_newstate()) {
     StackReseter stackReseter(*this);
 
     luaL_openlibs(m_nativeState);
@@ -87,12 +85,14 @@ void TE::Lua::State::RunFile(IO::FileIO &fileIO, const std::string &filePath) {
 
     assert(fileData.size());
 
-    if (LoadBuffer(reinterpret_cast<const char *>(&(fileData[0])), fileData.size(), filePath.c_str()))
+    if (LoadBuffer(reinterpret_cast<const char *>(&(fileData[0])), fileData.size(),
+                   filePath.c_str()))
         CallBuffer();
 }
 
 void TE::Lua::State::RunDataBuffer(std::vector<U8> &dataBuffer, const std::string &bufferName) {
-    if (LoadBuffer(reinterpret_cast<const char *>(&(dataBuffer[0])), dataBuffer.size(), bufferName.c_str()))
+    if (LoadBuffer(reinterpret_cast<const char *>(&(dataBuffer[0])), dataBuffer.size(),
+                   bufferName.c_str()))
         CallBuffer();
 }
 
@@ -163,16 +163,15 @@ std::string TE::Lua::State::StackOutputString() {
         else if (lua_isnil(m_nativeState, i))
             outputStream << " nil" << std::endl;
         else
-            outputStream << " unknown: " << lua_typename(m_nativeState, lua_type(m_nativeState, i)) << std::endl;
+            outputStream << " unknown: " << lua_typename(m_nativeState, lua_type(m_nativeState, i))
+                         << std::endl;
     }
     outputStream << "---------- " << std::endl;
 
     return outputStream.str();
 }
 
-void TE::Lua::State::DebugStack() {
-    std::cout << StackOutputString() << std::endl;
-}
+void TE::Lua::State::DebugStack() { std::cout << StackOutputString() << std::endl; }
 
 void TE::Lua::State::DEBUGPrintTable(Table &luaTable) {
     lua_getglobal(m_nativeState, "printTable");

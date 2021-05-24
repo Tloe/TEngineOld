@@ -9,8 +9,7 @@ TE::Engine::SceneHandler::SceneHandler(ChangeSyncer &changeSyncer,
     : m_changeSyncer(changeSyncer),
       m_sceneResourceManager(fileIO),
       m_systems(systems),
-      m_scheduler(scheduler) {
-}
+      m_scheduler(scheduler) {}
 
 void TE::Engine::SceneHandler::AddSceneFile(const std::string &sceneFile) {
     UniversalScene newScene(sceneFile, m_changeSyncer, m_systems);

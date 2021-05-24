@@ -16,8 +16,7 @@ namespace {
 
 }
 
-TE::Network::MessageHandler::MessageHandler() {
-}
+TE::Network::MessageHandler::MessageHandler() {}
 
 void TE::Network::MessageHandler::QueBroadcastMessage(TE::Net::Packet &packet, bool reliable) {
     U32 messageId = ::GetUniqueMessageId();
@@ -34,7 +33,9 @@ void TE::Network::MessageHandler::QueBroadcastMessage(TE::Net::Packet &packet, b
     m_outgoing.messages.emplace(std::make_pair(messageId, std::move(message)));
 }
 
-void TE::Network::MessageHandler::QueMessage(TE::Net::Packet &packet, bool reliable, I32 connectionId) {
+void TE::Network::MessageHandler::QueMessage(TE::Net::Packet &packet,
+                                             bool reliable,
+                                             I32 connectionId) {
     U32 messageId = ::GetUniqueMessageId();
 
     Outgoing::Message message{std::move(packet), 0, 1};
@@ -46,7 +47,8 @@ void TE::Network::MessageHandler::QueMessage(TE::Net::Packet &packet, bool relia
     m_outgoing.messages.emplace(std::make_pair(messageId, std::move(message)));
 }
 
-void TE::Network::MessageHandler::AddNetworkObject(I32 objectId, TE::Network::NetworkObjectSPtr &networkObject) {
+void TE::Network::MessageHandler::AddNetworkObject(I32 objectId,
+                                                   TE::Network::NetworkObjectSPtr &networkObject) {
     m_networkObjects.insert(std::make_pair(objectId, networkObject));
 }
 
@@ -134,7 +136,9 @@ void TE::Network::MessageHandler::CheckAcks(U32 connectionId, std::vector<U32> &
     }
 }
 
-void TE::Network::MessageHandler::HandleIncoming(U32 connectionId, TE::Net::Packet &packet, U64 time) {
+void TE::Network::MessageHandler::HandleIncoming(U32 connectionId,
+                                                 TE::Net::Packet &packet,
+                                                 U64 time) {
     assert(m_connectionObjects.find(connectionId) != m_connectionObjects.end());
 
     I32 messageType;

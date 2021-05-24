@@ -7,27 +7,23 @@
 
 /* #include "Cg/cg.h" */
 
-namespace TE {
-    namespace Render {
-        class Texture;
-    }
+namespace TE::Render {
+  class Texture;
 
-    namespace Render {
-        class APITexture2D {
-          public:
-            APITexture2D(Texture &texture /*, CGparameter cgParameter */);
-            ~APITexture2D();
-            void Enable(/*CGparameter cgParameter*/);
-            void Disable();
+  class APITexture2D {
+  public:
+    APITexture2D(Texture &texture /*, CGparameter cgParameter */);
+    ~APITexture2D();
+    void Enable(/*CGparameter cgParameter*/);
+    void Disable();
 
-            U32 IncreaseUsageCount();
-            U32 DecreaseUsageCount();
+    U32 IncreaseUsageCount();
+    U32 DecreaseUsageCount();
 
-          private:
-            U32 m_usageCount;
-            GLuint m_glTexture;
-        };
-    }
+  private:
+    U32 m_usageCount;
+    GLuint m_glTexture;
+  };
 }
 
 #endif

@@ -3,16 +3,13 @@
 
 #include <memory>
 
-namespace TE {
-namespace Threading {
+namespace TE::Threading {
     class FunctionWrapper {
       public:
         FunctionWrapper();
 
-        template <typename F>
-        FunctionWrapper(F &&f)
-            : m_function(new FunctionStorage<F>(std::move(f))) {
-        }
+        template <typename F> FunctionWrapper(F &&f)
+            : m_function(new FunctionStorage<F>(std::move(f))) {}
 
         FunctionWrapper(FunctionWrapper &&other);
 
@@ -25,8 +22,7 @@ namespace Threading {
             virtual ~FunctionStorageBase() {}
             virtual void Call() = 0;
         };
-        template <typename F>
-        struct FunctionStorage : FunctionStorageBase {
+        template <typename F> struct FunctionStorage : FunctionStorageBase {
             F function;
             FunctionStorage(F &&function) : function(std::move(function)) {}
             virtual void Call() { function(); }
@@ -38,7 +34,6 @@ namespace Threading {
 
         FunctionStorageBaseUPtr m_function;
     };
-}
 }
 
 #endif

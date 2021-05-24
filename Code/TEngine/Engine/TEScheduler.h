@@ -6,38 +6,36 @@
 #include "TETimer.h"
 #include "TEUniversalScene.h"
 
-namespace TE {
-    namespace Threading {
-        class ThreadPool;
-    }
+namespace TE::Threading {
+  class ThreadPool;
+}
 
-    namespace Engine {
-        class Scheduler {
-          public:
-            Scheduler(Threading::ThreadPool &threadPool);
-            ~Scheduler();
+namespace TE::Engine {
+  class Scheduler {
+  public:
+    Scheduler(Threading::ThreadPool &threadPool);
+    ~Scheduler();
 
-            void RunDrawPassTasks(F32 interpolation);
-            void RunUpdatePassTasks(U64 t, U64 dt);
-            void SetScene(UniversalScene &scene);
-            void EnableThreading();
-            void DisableThreading();
+    void RunDrawPassTasks(F32 interpolation);
+    void RunUpdatePassTasks(U64 t, U64 dt);
+    void SetScene(UniversalScene &scene);
+    void EnableThreading();
+    void DisableThreading();
 
-          private:
-            void PopulateQuesWithDrawTasks(F32 interpolation);
-            void PopulateQuesWithNormalTasks(U64 t, U64 dt);
-            void AddToQueBasedOnFlags(Bitmask flag, SystemTask *systemTask);
-            void RunTaskQues(bool threaded);
+  private:
+    void PopulateQuesWithDrawTasks(F32 interpolation);
+    void PopulateQuesWithNormalTasks(U64 t, U64 dt);
+    void AddToQueBasedOnFlags(Bitmask flag, SystemTask *systemTask);
+    void RunTaskQues(bool threaded);
 
-            typedef std::vector<SystemTask *> SystemTaskVec;
+    using SystemTaskVec = std::vector<SystemTask *>;
 
-            Threading::ThreadPool &m_threadPool;
-            bool m_threadingEnabled;
-            SystemTaskVec m_anyThreadQue;
-            SystemTaskVec m_mainThreadQue;
-            UniversalScene *m_currentUniversalScene;
-        };
-    }
+    Threading::ThreadPool &m_threadPool;
+    bool m_threadingEnabled;
+    SystemTaskVec m_anyThreadQue;
+    SystemTaskVec m_mainThreadQue;
+    UniversalScene *m_currentUniversalScene;
+  };
 }
 
 #endif

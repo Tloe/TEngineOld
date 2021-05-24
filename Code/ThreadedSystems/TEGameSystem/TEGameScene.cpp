@@ -4,21 +4,16 @@
 
 #include <memory>
 
-TE::Game::GameScene::GameScene()
-    : m_gameTask(*this) {
-}
+TE::Game::GameScene::GameScene() : m_gameTask(*this) {}
 
-void TE::Game::GameScene::Initialize() {
-}
+void TE::Game::GameScene::Initialize() {}
 
-void TE::Game::GameScene::Cleanup() {
-}
+void TE::Game::GameScene::Cleanup() {}
 
-TE::Engine::SystemTask *TE::Game::GameScene::GetSystemTask() {
-    return &m_gameTask;
-}
+TE::Engine::SystemTask *TE::Game::GameScene::GetSystemTask() { return &m_gameTask; }
 
-TE::Engine::SystemObjectSPtr TE::Game::GameScene::CreateSystemObject(const std::string &objectType, I32 objectId) {
+TE::Engine::SystemObjectSPtr TE::Game::GameScene::CreateSystemObject(const std::string &objectType,
+                                                                     I32 objectId) {
     if (objectType == "ActorObject") {
         return std::make_shared<ActorObject>(objectId);
     } else if (objectType == "SpawnerObject") {
@@ -28,5 +23,4 @@ TE::Engine::SystemObjectSPtr TE::Game::GameScene::CreateSystemObject(const std::
     return std::shared_ptr<Engine::SystemObject>(nullptr);
 }
 
-void TE::Game::GameScene::Update() {
-}
+void TE::Game::GameScene::Update() {}

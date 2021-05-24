@@ -4,9 +4,7 @@
 #include "TEFileIO.h"
 #include "TEInput.h"
 
-TE::InputMapping::InputMapper::InputMapper(IO::FileIO &fileIO)
-    : m_fileIO(fileIO) {
-}
+TE::InputMapping::InputMapper::InputMapper(IO::FileIO &fileIO) : m_fileIO(fileIO) {}
 
 void TE::InputMapping::InputMapper::LoadInputFile(const std::string &filePath) {
     std::vector<U8> data;
@@ -32,7 +30,9 @@ void TE::InputMapping::InputMapper::JSONSerialize( Json::Value& jsonValue )
 
 }
 */
-void TE::InputMapping::InputMapper::MapInput(InputType inputType, bool pressed, bool previouslyPressed) {
+void TE::InputMapping::InputMapper::MapInput(InputType inputType,
+                                             bool pressed,
+                                             bool previouslyPressed) {
     if (pressed && !previouslyPressed) {
         if (MapAction(inputType))
             return;
@@ -118,17 +118,20 @@ void TE::InputMapping::InputMapper::PopContext(const std::string &contextName) {
         m_activeInputContexts.pop_front();
 }
 
-void TE::InputMapping::InputMapper::AddActionExecutor(ActionExecutorUPtr &actionExecutor, I32 priority) {
+void TE::InputMapping::InputMapper::AddActionExecutor(ActionExecutorUPtr &actionExecutor,
+                                                      I32 priority) {
     Hash nameHash = actionExecutor->m_nameHash;
     m_actionExecutors[nameHash].insert(std::make_pair(priority, std::move(actionExecutor)));
 }
 
-void TE::InputMapping::InputMapper::AddStateExecutor(StateExecutorUPtr &stateExecutor, I32 priority) {
+void TE::InputMapping::InputMapper::AddStateExecutor(StateExecutorUPtr &stateExecutor,
+                                                     I32 priority) {
     Hash nameHash = stateExecutor->m_nameHash;
     m_stateExecutors[nameHash].insert(std::make_pair(priority, std::move(stateExecutor)));
 }
 
-void TE::InputMapping::InputMapper::AddRangeExecutor(RangeExecutorUPtr &rangeExecutor, I32 priority) {
+void TE::InputMapping::InputMapper::AddRangeExecutor(RangeExecutorUPtr &rangeExecutor,
+                                                     I32 priority) {
     Hash nameHash = rangeExecutor->m_nameHash;
     m_rangeExecutors[nameHash].insert(std::make_pair(priority, std::move(rangeExecutor)));
 }

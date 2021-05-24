@@ -1,4 +1,3 @@
 #include "TELuaExtended.h"
 
-TE::Lua::Extended::Extended() {
-}
+TE::Lua::Extended::Extended() {}

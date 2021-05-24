@@ -3,23 +3,16 @@
 
 #include <TEGlobalState.h>
 
-namespace TE {
-namespace SceneGraph {
-    struct Wireframe : public GlobalState {
-        Wireframe() {
-            s_default[STATE_WIREFRAME].reset(new0 Wireframe);
-        }
+namespace TE::SceneGraph {
+  struct Wireframe : public GlobalState {
+    Wireframe() { s_default[STATE_WIREFRAME].reset(new0 Wireframe); }
 
-        virtual ~Wireframe() {
-        }
+    virtual ~Wireframe() {}
 
-        virtual I32 GetGlobalStateType() const {
-            return STATE_WIREFRAME;
-        }
+    virtual I32 GetGlobalStateType() const { return STATE_WIREFRAME; }
 
-        bool m_enabled;
-    };
-}
+    bool m_enabled;
+  };
 }
 
 #endif

@@ -8,22 +8,18 @@
 
 #include <cstdlib>
 
-namespace TE {
-    namespace Intersection {
-        struct BSphere;
-    }
-    namespace Intersection {
-        struct Plane;
-    }
-    namespace Intersection {
-        struct ContactSet;
-    }
+namespace TE::Intersection {
+  struct BSphere;
+  struct Plane;
+  struct ContactSet;
 
-    namespace Intersection {
-        struct SpherePlaneCollider {
-            static bool Collide(const BSphere &bsphere, const Plane &plane, bool coarse, bool symetric, ContactSet *contacts = NULL);
-        };
-    }
+  struct SpherePlaneCollider {
+    static bool Collide(const BSphere &bsphere,
+                        const Plane &plane,
+                        bool coarse,
+                        bool symetric,
+                        ContactSet *contacts = NULL);
+  };
 }
 
 #endif

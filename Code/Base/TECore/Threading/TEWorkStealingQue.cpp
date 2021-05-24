@@ -2,8 +2,7 @@
 
 #include <iostream>
 
-TE::Threading::WorkStealingQue::WorkStealingQue() {
-}
+TE::Threading::WorkStealingQue::WorkStealingQue() {}
 
 void TE::Threading::WorkStealingQue::Push(FunctionWrapper data) {
     std::lock_guard<std::mutex> lock(m_queMutex);

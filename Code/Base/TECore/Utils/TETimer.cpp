@@ -3,9 +3,7 @@
 #include <chrono>
 #include <thread>
 
-TE::Time::Timer::Timer()
-    : m_isRunning(true),
-      m_start(std::chrono::high_resolution_clock::now()) {
+TE::Time::Timer::Timer() : m_isRunning(true), m_start(std::chrono::high_resolution_clock::now()) {
     m_update = m_start;
 }
 
@@ -20,9 +18,7 @@ void TE::Time::Timer::Stop() {
     Update();
 }
 
-bool TE::Time::Timer::IsRunning() {
-    return m_isRunning;
-}
+bool TE::Time::Timer::IsRunning() { return m_isRunning; }
 
 U64 TE::Time::Timer::GetTime(Units unit) {
     switch (unit) {
@@ -99,13 +95,16 @@ U64 TE::Time::Timer::GetDeltaTime(Units unit) {
 }
 
 U64 TE::Time::Timer::GetDeltaMilliseconds() {
-    return std::chrono::duration_cast<std::chrono::milliseconds>(m_update - m_previousUpdate).count();
+    return std::chrono::duration_cast<std::chrono::milliseconds>(m_update - m_previousUpdate)
+        .count();
 }
 
 U64 TE::Time::Timer::GetDeltaMicroseconds() {
-    return std::chrono::duration_cast<std::chrono::microseconds>(m_update - m_previousUpdate).count();
+    return std::chrono::duration_cast<std::chrono::microseconds>(m_update - m_previousUpdate)
+        .count();
 }
 
 U64 TE::Time::Timer::GetDeltaNanoseconds() {
-    return std::chrono::duration_cast<std::chrono::nanoseconds>(m_update - m_previousUpdate).count();
+    return std::chrono::duration_cast<std::chrono::nanoseconds>(m_update - m_previousUpdate)
+        .count();
 }

@@ -7,16 +7,17 @@
 #include <list>
 #include <vector>
 
-namespace TE {
-namespace Net {
+namespace TE::Net {
     struct PacketData {
         U32 sequenceNumber;
         I64 time;
         I32 size;
     };
 
-    inline bool SequenceNumberMoreRecent(U32 s1, U32 s2, U32 maxSequenceNo = std::numeric_limits<U32>::max()) {
-        return ((s1 > s2) && (s1 - s2 <= maxSequenceNo / 2)) || ((s2 > s1) && (s2 - s1 > maxSequenceNo / 2));
+    inline bool
+    SequenceNumberMoreRecent(U32 s1, U32 s2, U32 maxSequenceNo = std::numeric_limits<U32>::max()) {
+        return ((s1 > s2) && (s1 - s2 <= maxSequenceNo / 2)) ||
+               ((s2 > s1) && (s2 - s1 > maxSequenceNo / 2));
     }
 
     class ReliabilityControl {
@@ -72,7 +73,6 @@ namespace Net {
         std::list<PacketData> m_receivedQueue;
         std::list<PacketData> m_ackedQueue;
     };
-}
 }
 
 #endif

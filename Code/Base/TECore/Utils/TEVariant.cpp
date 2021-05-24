@@ -2,16 +2,11 @@
 #include <assert.h>
 #include <cstring>
 
-TE::Core::Variant::Variant()
-    : m_variantType(VariantType::NotSet) {
-}
+TE::Core::Variant::Variant() : m_variantType(VariantType::NotSet) {}
 
-TE::Core::Variant::~Variant() {
-    ClearString();
-}
+TE::Core::Variant::~Variant() { ClearString(); }
 
-TE::Core::Variant::Variant(const Variant &other)
-    : m_variantType(VariantType::NotSet) {
+TE::Core::Variant::Variant(const Variant &other) : m_variantType(VariantType::NotSet) {
     if (other.m_variantType == VariantType::String) {
         SetString(other.m_value.cString);
     } else {
@@ -20,8 +15,7 @@ TE::Core::Variant::Variant(const Variant &other)
     }
 }
 
-TE::Core::Variant::Variant(Variant &&other)
-    : m_variantType(VariantType::NotSet) {
+TE::Core::Variant::Variant(Variant &&other) : m_variantType(VariantType::NotSet) {
     if (other.m_variantType == VariantType::String) {
         SetString(other.m_value.cString);
     } else {
@@ -52,41 +46,23 @@ TE::Core::Variant &TE::Core::Variant::operator=(TE::Core::Variant &&other) {
     return *this;
 }
 
-TE::Core::Variant::Variant(const std::string &str) {
-    SetString(str.c_str());
-}
+TE::Core::Variant::Variant(const std::string &str) { SetString(str.c_str()); }
 
-TE::Core::Variant::Variant(const char *str) {
-    SetString(str);
-}
+TE::Core::Variant::Variant(const char *str) { SetString(str); }
 
-TE::Core::Variant::Variant(I32 i32)
-    : m_variantType(VariantType::I32) {
-    m_value.i32 = i32;
-}
+TE::Core::Variant::Variant(I32 i32) : m_variantType(VariantType::I32) { m_value.i32 = i32; }
 
-TE::Core::Variant::Variant(U32 u32)
-    : m_variantType(VariantType::U32) {
-    m_value.u32 = u32;
-}
+TE::Core::Variant::Variant(U32 u32) : m_variantType(VariantType::U32) { m_value.u32 = u32; }
 
-TE::Core::Variant::Variant(bool boolean)
-    : m_variantType(VariantType::BOOL) {
+TE::Core::Variant::Variant(bool boolean) : m_variantType(VariantType::BOOL) {
     m_value.boolean = boolean;
 }
 
-TE::Core::Variant::Variant(F32 f32)
-    : m_variantType(VariantType::F32) {
-    m_value.f32 = f32;
-}
+TE::Core::Variant::Variant(F32 f32) : m_variantType(VariantType::F32) { m_value.f32 = f32; }
 
-TE::Core::VariantType TE::Core::Variant::GetType() const {
-    return m_variantType;
-}
+TE::Core::VariantType TE::Core::Variant::GetType() const { return m_variantType; }
 
-void TE::Core::Variant::SetString(const std::string &str) {
-    SetString(str.c_str());
-}
+void TE::Core::Variant::SetString(const std::string &str) { SetString(str.c_str()); }
 
 void TE::Core::Variant::SetString(const char *str) {
     ClearString();

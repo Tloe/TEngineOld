@@ -3,36 +3,35 @@
 
 #include "TEDataTypes.h"
 #include "TEGameTask.h"
+#include "TESystemObject.h"
 #include "TESystemScene.h"
 
 #include <string>
 
-namespace TE {
-    namespace Engine {
-        class SystemTask;
-    }
-    namespace Engine {
-        class SystemObject;
-        typedef std::shared_ptr<SystemObject> SystemObjectSPtr;
-    }
+namespace TE::Engine {
+  class SystemTask;
 
-    namespace Game {
-        class GameScene : public Engine::SystemScene {
-          public:
-            GameScene();
+  class SystemObject;
+  using SystemObjectSPtr = std::shared_ptr<SystemObject>;
+}
 
-            virtual void Initialize();
-            virtual void Cleanup();
+namespace TE::Game {
+  class GameScene : public Engine::SystemScene {
+  public:
+    GameScene();
 
-            virtual Engine::SystemTask *GetSystemTask();
-            virtual Engine::SystemObjectSPtr CreateSystemObject(const std::string &objectType, I32 objectId);
+    virtual void Initialize();
+    virtual void Cleanup();
 
-            void Update();
+    virtual Engine::SystemTask *GetSystemTask();
+    virtual Engine::SystemObjectSPtr CreateSystemObject(const std::string &objectType,
+                                                        I32 objectId);
 
-          private:
-            GameTask m_gameTask;
-        };
-    }
+    void Update();
+
+  private:
+    GameTask m_gameTask;
+  };
 }
 
 #endif

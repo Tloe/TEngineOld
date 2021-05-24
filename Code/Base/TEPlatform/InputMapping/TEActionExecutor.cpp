@@ -1,8 +1,6 @@
 #include "TEActionExecutor.h"
 
 TE::InputMapping::ActionExecutor::ActionExecutor(const std::string &actionName)
-    : m_nameHash(HashGenerator()(actionName)) {
-}
+    : m_nameHash(HashGenerator()(actionName)) {}
 
-TE::InputMapping::ActionExecutor::~ActionExecutor() {
-}
+TE::InputMapping::ActionExecutor::~ActionExecutor() {}

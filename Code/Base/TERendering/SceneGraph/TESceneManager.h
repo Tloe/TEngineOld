@@ -5,48 +5,41 @@
 #include <string>
 #include <unordered_map>
 
-namespace TE {
-    namespace SceneGraph {
-        class Camera;
-    }
-    namespace SceneGraph {
-        class Renderable;
-    }
-    namespace SceneGraph {
-        class Spatial;
-    }
-    namespace Render {
-        class Renderer;
-    }
+namespace TE::Render {
+  class Renderer;
+}
 
-    namespace SceneGraph {
-        class SceneManager {
-          public:
-            SceneManager(Render::Renderer &renderer);
+namespace TE::SceneGraph {
+  class Camera;
+  class Renderable;
+  class Spatial;
 
-            void SetActiveCamera(SceneGraph::Camera &camera);
+  class SceneManager {
+  public:
+    SceneManager(Render::Renderer &renderer);
 
-            void InitRenderable(SceneGraph::Renderable &renderable);
-            void CleanupRenderable(SceneGraph::Renderable &renderable);
+    void SetActiveCamera(SceneGraph::Camera &camera);
 
-            void DrawScene(F32 interpolation);
-            void DrawRenderable(SceneGraph::Renderable &renderable);
+    void InitRenderable(SceneGraph::Renderable &renderable);
+    void CleanupRenderable(SceneGraph::Renderable &renderable);
 
-            void AddToRootNode(Spatial &spatial);
-            void AddToNode(const std::string &parrent, SceneGraph::Node &node);
-            void AddToNode(const std::string &parrent, SceneGraph::Renderable &renderable);
+    void DrawScene(F32 interpolation);
+    void DrawRenderable(SceneGraph::Renderable &renderable);
 
-            Render::Renderer &GetRenderer();
+    void AddToRootNode(Spatial &spatial);
+    void AddToNode(const std::string &parrent, SceneGraph::Node &node);
+    void AddToNode(const std::string &parrent, SceneGraph::Renderable &renderable);
 
-          private:
-            typedef std::unordered_map<std::string, SceneGraph::Node *> NodeMap;
+    Render::Renderer &GetRenderer();
 
-            NodeMap m_nodeMap;
-            Render::Renderer &m_renderer;
-            SceneGraph::Node m_rootNode;
-            SceneGraph::Camera *m_activeCamera;
-        };
-    }
+  private:
+    using NodeMap = std::unordered_map<std::string, SceneGraph::Node *>;
+
+    NodeMap m_nodeMap;
+    Render::Renderer &m_renderer;
+    SceneGraph::Node m_rootNode;
+    SceneGraph::Camera *m_activeCamera;
+  };
 }
 
 #endif

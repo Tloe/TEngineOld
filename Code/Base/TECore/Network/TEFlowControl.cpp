@@ -9,9 +9,7 @@ namespace {
     const U32 tenSeconds   = TE::Time::Microseconds::Second * 10;
 }
 
-TE::Net::FlowControl::FlowControl() {
-    Reset();
-}
+TE::Net::FlowControl::FlowControl() { Reset(); }
 
 void TE::Net::FlowControl::Reset() {
     mode                          = Mode::Bad;
@@ -38,7 +36,8 @@ void TE::Net::FlowControl::Update(U64 deltaTime, U64 rtt) {
         m_goodConditionsTime += deltaTime;
         m_penaltyReductionAccumulator += deltaTime;
 
-        if (m_penaltyReductionAccumulator > tenSeconds && m_penaltyTime > Time::Microseconds::Second) {
+        if (m_penaltyReductionAccumulator > tenSeconds &&
+            m_penaltyTime > Time::Microseconds::Second) {
             m_penaltyTime /= 2;
             if (m_penaltyTime < Time::Microseconds::Second)
                 m_penaltyTime = Time::Microseconds::Second;
@@ -62,6 +61,4 @@ void TE::Net::FlowControl::Update(U64 deltaTime, U64 rtt) {
     }
 }
 
-U32 TE::Net::FlowControl::GetSendRate() {
-    return mode == Mode::Good ? 30 : 10;
-}
+U32 TE::Net::FlowControl::GetSendRate() { return mode == Mode::Good ? 30 : 10; }

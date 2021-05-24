@@ -4,11 +4,14 @@
 #include "TEConnection.h"
 #include "TEReliabilityControl.h"
 
-namespace TE {
-namespace Net {
+namespace TE::Net {
     class ReliableConnection : public Connection {
       public:
-        ReliableConnection(Socket &socket, const Address &address, U32 timeout, Connection::Mode connectionMode, U32 maxSequence = 0xffffff);
+        ReliableConnection(Socket &socket,
+                           const Address &address,
+                           U32 timeout,
+                           Connection::Mode connectionMode,
+                           U32 maxSequence = 0xffffff);
         ~ReliableConnection();
 
         virtual bool SendPacket(Net::Packet &packet);
@@ -24,7 +27,6 @@ namespace Net {
         ReliabilityControl m_reliabilityControl;
         U32 m_previousReceivedSeqNo;
     };
-}
 }
 
 #endif

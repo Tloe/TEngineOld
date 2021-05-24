@@ -31,8 +31,9 @@ int objectId = 3;
 
 class FireExecutor : public TE::InputMapping::ActionExecutor {
   public:
-    FireExecutor(TE::Event::EventManager &eventManager) : ActionExecutor("Fire0"),
-                                                          m_eventManager(eventManager) {}
+    FireExecutor(TE::Event::EventManager &eventManager)
+        : ActionExecutor("Fire0"),
+          m_eventManager(eventManager) {}
 
     virtual void Execute() {
         TE::Math::Quaternion<F32> rotation;
@@ -49,8 +50,9 @@ class FireExecutor : public TE::InputMapping::ActionExecutor {
 
 class MoveExecutor : public TE::InputMapping::RangeExecutor {
   public:
-    MoveExecutor(TE::Event::EventManager &eventManager) : RangeExecutor("MoveOnXAxis"),
-                                                          m_eventManager(eventManager) {}
+    MoveExecutor(TE::Event::EventManager &eventManager)
+        : RangeExecutor("MoveOnXAxis"),
+          m_eventManager(eventManager) {}
 
     virtual void Execute(F64 range) {
         TE::Math::Vector3D<F32> translation(3 * -static_cast<F32>(range), 0.0, 0.0);
@@ -64,18 +66,24 @@ class MoveExecutor : public TE::InputMapping::RangeExecutor {
 };
 
 void SpawnPlayer(TE::Engine::EngineRoot &engine) {
-    TE::Engine::UniversalScene &universalScene   = engine.GetSceneHandler().GetScene("/Scenes/TestScene.scene");
+    TE::Engine::UniversalScene &universalScene =
+        engine.GetSceneHandler().GetScene("/Scenes/TestScene.scene");
     TE::Engine::UniversalObject &universalObject = universalScene.CreateUniversalObject("Player0");
 
     U32 graphicsSystemId                         = universalScene.GetSystemId("Graphics");
     U32 transformSystemId                        = universalScene.GetSystemId("Transform");
     U32 networkSystemId                          = universalScene.GetSystemId("Network");
 
-    auto transformObject                         = universalScene.GetSystemScene(transformSystemId)->CreateSystemObject("TransformObject", universalObject.GetObjectId());
+    auto transformObject =
+        universalScene.GetSystemScene(transformSystemId)
+            ->CreateSystemObject("TransformObject", universalObject.GetObjectId());
     ;
-    auto renderableObject = universalScene.GetSystemScene(graphicsSystemId)->CreateSystemObject("RenderableObject", universalObject.GetObjectId());
+    auto renderableObject =
+        universalScene.GetSystemScene(graphicsSystemId)
+            ->CreateSystemObject("RenderableObject", universalObject.GetObjectId());
     ;
-    auto networkObject = universalScene.GetSystemScene(networkSystemId)->CreateSystemObject("NetworkObject", universalObject.GetObjectId());
+    auto networkObject = universalScene.GetSystemScene(networkSystemId)
+                             ->CreateSystemObject("NetworkObject", universalObject.GetObjectId());
 
     TE::Core::Value value(TE::Graphics::RenderableObject::Values::Mesh);
     value.AddString("/Meshes/Cube01.mesh");
@@ -154,7 +162,8 @@ I32 main() {
     engine.Startup();
 
     auto &graphicsSystem = engine.GetSystem<TE::Graphics::GraphicsSystem>("Graphics");
-    engine.SetMessageLoop([&graphicsSystem]() { return graphicsSystem.GetPlatformWindow().MessageLoop(); });
+    engine.SetMessageLoop(
+        [&graphicsSystem]() { return graphicsSystem.GetPlatformWindow().MessageLoop(); });
 
     engine.GetSceneHandler().AddSceneFile("/Scenes/TestScene.scene");
     engine.GetSceneHandler().SetCurrentScene("/Scenes/TestScene.scene");
@@ -162,10 +171,13 @@ I32 main() {
     SpawnPlayer(engine);
     if (true) // c == 'c')
     {
-        TE::InputMapping::InputMapper &inputMapper        = graphicsSystem.GetPlatformWindow().GetInputMapper();
+        TE::InputMapping::InputMapper &inputMapper =
+            graphicsSystem.GetPlatformWindow().GetInputMapper();
 
-        TE::InputMapping::ActionExecutorUPtr fireExecutor = std::make_unique<FireExecutor>(engine.GetEventManager());
-        TE::InputMapping::RangeExecutorUPtr rangeExecutor = std::make_unique<MoveExecutor>(engine.GetEventManager());
+        TE::InputMapping::ActionExecutorUPtr fireExecutor =
+            std::make_unique<FireExecutor>(engine.GetEventManager());
+        TE::InputMapping::RangeExecutorUPtr rangeExecutor =
+            std::make_unique<MoveExecutor>(engine.GetEventManager());
         inputMapper.AddActionExecutor(fireExecutor, 1);
         inputMapper.AddRangeExecutor(rangeExecutor, 1);
 

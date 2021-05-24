@@ -5,7 +5,9 @@
 #include <d3d11.h>
 #include <string>
 
-TE::Render::APITexture2D::APITexture2D(Context::APIContext &context, Texture &texture, CGparameter cgParameter)
+TE::Render::APITexture2D::APITexture2D(Context::APIContext &context,
+                                       Texture &texture,
+                                       CGparameter cgParameter)
     : m_usageCount(1) {
     texture.Prepare();
 
@@ -41,28 +43,22 @@ TE::Render::APITexture2D::APITexture2D(Context::APIContext &context, Texture &te
     loadInfo.Width          = fileInfo.Width;
     loadInfo.Height         = fileInfo.Height;
     loadInfo.FirstMipLevel  = 0;
-    loadInfo.MipLevels      = fileInfo.MipLevels;	//Set this in editor? Have TE types mapped to ogl and dx types
-    loadInfo.Usage          = D3D11_USAGE_DEFAULT;
-    loadInfo.BindFlags      = D3D11_BIND_SHADER_RESOURCE;
-    loadInfo.CpuAccessFlags = 0;
-    loadInfo.MiscFlags      = 0;
+    loadInfo.MipLevels      = fileInfo.MipLevels;	//Set this in editor? Have TE types mapped
+    to ogl and dx types loadInfo.Usage          = D3D11_USAGE_DEFAULT; loadInfo.BindFlags      =
+    D3D11_BIND_SHADER_RESOURCE; loadInfo.CpuAccessFlags = 0; loadInfo.MiscFlags      = 0;
     loadInfo.Format         = fileInfo.Format;   //Map with textureInfo.colorType !
     loadInfo.Filter         = D3DX11_FILTER_NONE;
     loadInfo.MipFilter      = D3DX11_FILTER_NONE;
     loadInfo.pSrcInfo       = &fileInfo;
 
     HRESULT hr = D3DX11CreateTextureFromMemory(context.GetDevice(),
-                                                                                       static_cast<const void*>(texture.GetImage().GetDataPtr()),
-                                                                                       texture.GetImage().GetDataSize(),
-                                                                                       &loadInfo,
-                                                                                       NULL,
+                                                                                       static_cast<const
+    void*>(texture.GetImage().GetDataPtr()), texture.GetImage().GetDataSize(), &loadInfo, NULL,
                                                                                        &m_d3dTexture,
                                                                                        NULL);
     */
 
-    HRESULT hr                       = context.GetDevice()->CreateTexture2D(&textureDesc,
-                                                                            &subData,
-                                                                            &m_d3dTexture);
+    HRESULT hr = context.GetDevice()->CreateTexture2D(&textureDesc, &subData, &m_d3dTexture);
 
     if (hr != S_OK)
         exit(1);
@@ -74,20 +70,14 @@ TE::Render::APITexture2D::APITexture2D(Context::APIContext &context, Texture &te
     cgSetSamplerState(cgParameter);
 }
 
-TE::Render::APITexture2D::~APITexture2D() {
-}
+TE::Render::APITexture2D::~APITexture2D() {}
 
 void TE::Render::APITexture2D::Enable(CGparameter cgParameter) {
     cgD3D11SetTextureParameter(cgParameter, m_d3dTexture);
 }
 
-void TE::Render::APITexture2D::Disable() {
-}
+void TE::Render::APITexture2D::Disable() {}
 
-U32 TE::Render::APITexture2D::IncreaseUsageCount() {
-    return ++m_usageCount;
-}
+U32 TE::Render::APITexture2D::IncreaseUsageCount() { return ++m_usageCount; }
 
-U32 TE::Render::APITexture2D::DecreaseUsageCount() {
-    return --m_usageCount;
-}
+U32 TE::Render::APITexture2D::DecreaseUsageCount() { return --m_usageCount; }

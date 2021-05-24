@@ -6,16 +6,8 @@
 #include <map>
 #include <vector>
 
-namespace TE {
-namespace Core {
-    enum class VariantType {
-        NotSet,
-        String,
-        I32,
-        U32,
-        BOOL,
-        F32
-    };
+namespace TE::Core {
+    enum class VariantType { NotSet, String, I32, U32, BOOL, F32 };
 
     class Variant {
       public:
@@ -65,7 +57,6 @@ namespace Core {
     };
 
     typedef std::vector<Variant> VariantVec;
-}
 }
 
 #endif

@@ -3,19 +3,14 @@
 
 #include <string>
 
-namespace TE {
-namespace IO {
+namespace TE::IO {
     class DatPath {
       public:
         explicit DatPath(const std::string &path);
 
-        bool operator<(const DatPath &other) const {
-            return m_path < other.m_path;
-        }
+        bool operator<(const DatPath &other) const { return m_path < other.m_path; }
 
-        bool operator==(const DatPath &other) const {
-            return m_path == other.m_path;
-        }
+        bool operator==(const DatPath &other) const { return m_path == other.m_path; }
 
         bool IsFile() const;
         bool IsFolder() const;
@@ -39,7 +34,6 @@ namespace IO {
         std::string m_path;
         static std::string m_validChars;
     };
-}
 }
 
 #endif

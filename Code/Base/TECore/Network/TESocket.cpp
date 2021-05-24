@@ -46,7 +46,10 @@ namespace {
 #endif
     }
 
-    bool CompareBufferProtocolId(std::vector<U8> buffer, I32 bytesInBuffer, I32 bitIndex, U16 protocolId) {
+    bool CompareBufferProtocolId(std::vector<U8> buffer,
+                                 I32 bytesInBuffer,
+                                 I32 bitIndex,
+                                 U16 protocolId) {
         if ((bitIndex + 16 + 7) / 8 > bytesInBuffer)
             return false;
 
@@ -62,15 +65,11 @@ namespace {
     }
 }
 
-TE::Net::Socket::Socket(U16 protocolId)
-    : m_protocolId(protocolId),
-      m_socket(0) {
+TE::Net::Socket::Socket(U16 protocolId) : m_protocolId(protocolId), m_socket(0) {
     m_receiveBuffer.resize(MaxPacketSize);
 }
 
-TE::Net::Socket::~Socket() {
-    Close();
-}
+TE::Net::Socket::~Socket() { Close(); }
 
 bool TE::Net::Socket::Open(const std::string &port, IPFamily ipFamily) {
     assert(!IsOpen());
@@ -134,9 +133,7 @@ void TE::Net::Socket::Close() {
     }
 }
 
-bool TE::Net::Socket::IsOpen() const {
-    return m_socket != 0;
-}
+bool TE::Net::Socket::IsOpen() const { return m_socket != 0; }
 
 bool TE::Net::Socket::SendTo(const Address &address, Packet &packet) {
     if (m_socket == 0)
@@ -144,15 +141,13 @@ bool TE::Net::Socket::SendTo(const Address &address, Packet &packet) {
 
     packet.WritePacketId(m_protocolId);
 
-    socklen_t sockaddrLenght = (address.GetSockaddrStorage().ss_family == AF_INET) ? INET_ADDRSTRLEN : INET6_ADDRSTRLEN;
+    socklen_t sockaddrLenght =
+        (address.GetSockaddrStorage().ss_family == AF_INET) ? INET_ADDRSTRLEN : INET6_ADDRSTRLEN;
 
     assert(packet.IsStartedAndEnded() && "Packet is not valid!");
-    int sent_bytes = sendto(m_socket,
-                            packet.GetBuffer(),
-                            packet.GetLength(),
-                            0,
-                            reinterpret_cast<const sockaddr *>(&address.GetSockaddrStorage()),
-                            sockaddrLenght);
+    int sent_bytes =
+        sendto(m_socket, packet.GetBuffer(), packet.GetLength(), 0,
+               reinterpret_cast<const sockaddr *>(&address.GetSockaddrStorage()), sockaddrLenght);
 
     ::AssertPacketNotToLong();
 
@@ -196,14 +191,13 @@ void TE::Net::Socket::Update() {
     sockaddr_storage sockAddress;
     socklen_t addressSize = sizeof(sockAddress);
     while (receivedBytes > 0) {
-        receivedBytes = recvfrom(m_socket,
-                                 reinterpret_cast<char *>(&m_receiveBuffer[0]),
-                                 MaxPacketSize,
-                                 0,
-                                 reinterpret_cast<sockaddr *>(&sockAddress),
-                                 &addressSize);
+        receivedBytes =
+            recvfrom(m_socket, reinterpret_cast<char *>(&m_receiveBuffer[0]), MaxPacketSize, 0,
+                     reinterpret_cast<sockaddr *>(&sockAddress), &addressSize);
 
-        if (receivedBytes > 0 && ::CompareBufferProtocolId(m_receiveBuffer, receivedBytes, PacketHeader::BitIndex::PacketId, m_protocolId)) {
+        if (receivedBytes > 0 &&
+            ::CompareBufferProtocolId(m_receiveBuffer, receivedBytes,
+                                      PacketHeader::BitIndex::PacketId, m_protocolId)) {
             Packet packet;
             packet.SetPacketBuffer(reinterpret_cast<U8 *>(&m_receiveBuffer[0]), receivedBytes);
             Address address;

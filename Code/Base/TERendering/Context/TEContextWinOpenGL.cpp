@@ -5,16 +5,16 @@
 #include <assert.h>
 #include <windows.h>
 
-TE::Context::APIContext::APIContext(Platform::OSWinId osWinId, IO::FileIO &fileIO, const std::string &windowName /*= "TEngine"*/)
-    : PlatformWindow(osWinId, fileIO, windowName) {
-}
+TE::Context::APIContext::APIContext(Platform::OSWinId osWinId,
+                                    IO::FileIO &fileIO,
+                                    const std::string &windowName /*= "TEngine"*/)
+    : PlatformWindow(osWinId, fileIO, windowName) {}
 
-TE::Context::APIContext::APIContext(IO::FileIO &fileIO, const std::string &windowName /*= "TEngine"*/)
-    : PlatformWindow(fileIO, windowName) {
-}
+TE::Context::APIContext::APIContext(IO::FileIO &fileIO,
+                                    const std::string &windowName /*= "TEngine"*/)
+    : PlatformWindow(fileIO, windowName) {}
 
-TE::Context::APIContext::~APIContext() {
-}
+TE::Context::APIContext::~APIContext() {}
 
 void TE::Context::APIContext::SetCGContext(/*CGcontext& cgContext*/) {
     // m_cgContext = cgContext;
@@ -59,9 +59,6 @@ void TE::Context::APIContext::OnCloseWindow() {
     }
 }
 
-void TE::Context::APIContext::BeginFrame() {
-}
+void TE::Context::APIContext::BeginFrame() {}
 
-void TE::Context::APIContext::EndFrame() {
-    SwapBuffers(m_hdc);
-}
+void TE::Context::APIContext::EndFrame() { SwapBuffers(m_hdc); }

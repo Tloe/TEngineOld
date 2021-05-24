@@ -20,9 +20,7 @@ void ReadDataResourceVector(png_structp png_ptr, png_bytep data, png_size_t leng
     dataStruct->size -= length;
 }
 
-TE::Images::ImagePng::ImagePng()
-    : m_prepared(false) {
-}
+TE::Images::ImagePng::ImagePng() : m_prepared(false) {}
 
 void TE::Images::ImagePng::Load(IO::FileIO &fileIO, const std::string &filePath) {
     if (m_filedata.empty()) {
@@ -31,9 +29,7 @@ void TE::Images::ImagePng::Load(IO::FileIO &fileIO, const std::string &filePath)
     }
 }
 
-bool TE::Images::ImagePng::IsLoaded() {
-    return !m_filedata.empty();
-}
+bool TE::Images::ImagePng::IsLoaded() { return !m_filedata.empty(); }
 
 void TE::Images::ImagePng::Prepare() {
     if (m_prepared)
@@ -162,30 +158,16 @@ void TE::Images::ImagePng::Prepare() {
     m_prepared = true;
 }
 
-U8 *TE::Images::ImagePng::GetDataPtr() {
-    return &m_filedata[0];
-}
+U8 *TE::Images::ImagePng::GetDataPtr() { return &m_filedata[0]; }
 
-U32 TE::Images::ImagePng::GetDataSize() {
-    return m_filedata.size();
-}
+U32 TE::Images::ImagePng::GetDataSize() { return m_filedata.size(); }
 
-U32 TE::Images::ImagePng::GetWidth() {
-    return m_width;
-}
+U32 TE::Images::ImagePng::GetWidth() { return m_width; }
 
-U32 TE::Images::ImagePng::GetHeight() {
-    return m_height;
-}
+U32 TE::Images::ImagePng::GetHeight() { return m_height; }
 
-U32 TE::Images::ImagePng::GetBitDepth() {
-    return m_bitDepth;
-}
+U32 TE::Images::ImagePng::GetBitDepth() { return m_bitDepth; }
 
-U32 TE::Images::ImagePng::GetColorType() {
-    return m_colorType;
-}
+U32 TE::Images::ImagePng::GetColorType() { return m_colorType; }
 
-void TE::Images::ImagePng::Unload() {
-    m_filedata.clear();
-}
+void TE::Images::ImagePng::Unload() { m_filedata.clear(); }

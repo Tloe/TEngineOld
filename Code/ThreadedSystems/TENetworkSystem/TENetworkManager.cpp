@@ -31,13 +31,12 @@ TE::Network::NetworkManager::NetworkManager()
       m_port("4444"),
       m_ipFamily(Net::IPFamily::IPv4),
       m_socket(::protocolId),
-      m_microsecondsPrFrame(0) {
-}
+      m_microsecondsPrFrame(0) {}
 
-TE::Network::NetworkManager::~NetworkManager() {
-}
+TE::Network::NetworkManager::~NetworkManager() {}
 
-void TE::Network::NetworkManager::HandleEvent(Event::EnvironmentUpdateEvent &environmentUpdateEvent) {
+void TE::Network::NetworkManager::HandleEvent(
+    Event::EnvironmentUpdateEvent &environmentUpdateEvent) {
     if (environmentUpdateEvent.GetName() == "Framerate") {
         if (environmentUpdateEvent.GetValue().GetString() == "30Hz") {
             m_microsecondsPrFrame = 33333;
@@ -47,13 +46,9 @@ void TE::Network::NetworkManager::HandleEvent(Event::EnvironmentUpdateEvent &env
     }
 }
 
-void TE::Network::NetworkManager::SetServerMode(bool value) {
-    m_server = value;
-}
+void TE::Network::NetworkManager::SetServerMode(bool value) { m_server = value; }
 
-void TE::Network::NetworkManager::SetPort(const std::string &port) {
-    m_port = port;
-}
+void TE::Network::NetworkManager::SetPort(const std::string &port) { m_port = port; }
 
 void TE::Network::NetworkManager::SetIpFamily(TE::Net::IPFamily ipFamily) {
     m_ipFamily = ipFamily;
@@ -76,9 +71,7 @@ void TE::Network::NetworkManager::Cleanup() {
     Net::CleanupSockets();
 }
 
-bool TE::Network::NetworkManager::IsServer() {
-    return m_server;
-}
+bool TE::Network::NetworkManager::IsServer() { return m_server; }
 
 TE::Network::ConnectionId TE::Network::NetworkManager::Connect(TE::Net::Address &address) {
     Net::Connection::Mode connectionMode;
@@ -132,11 +125,14 @@ void TE::Network::NetworkManager::Update(U64 deltaTime, U64 time) {
     }
 }
 
-void TE::Network::NetworkManager::AddNetworkObject(I32 objectId, TE::Network::NetworkObjectSPtr &networkObject) {
+void TE::Network::NetworkManager::AddNetworkObject(I32 objectId,
+                                                   TE::Network::NetworkObjectSPtr &networkObject) {
     m_messageHandler.AddNetworkObject(objectId, networkObject);
 }
 
-void TE::Network::NetworkManager::ReceiveQue(U32 connectionId, Net::Connection &connection, U64 time) {
+void TE::Network::NetworkManager::ReceiveQue(U32 connectionId,
+                                             Net::Connection &connection,
+                                             U64 time) {
     Net::Packet packet;
     while (connection.ReceivePacket(packet)) {
         m_messageHandler.HandleQuePacket(connectionId, packet, time);
@@ -150,7 +146,9 @@ void TE::Network::NetworkManager::CheckAcks(U32 connectionId, Net::ReliableConne
     }
 }
 
-void TE::Network::NetworkManager::SendQue(U32 connectionId, ConnectionData &connectionData, U64 deltaTime) {
+void TE::Network::NetworkManager::SendQue(U32 connectionId,
+                                          ConnectionData &connectionData,
+                                          U64 deltaTime) {
     if (m_messageHandler.HasQuedMessages(connectionId)) {
         U32 sequenceNo     = connectionData.connection.GetReliabilityControl().GetLocalSequence();
         Net::Packet packet = m_messageHandler.GenerateQuePacket(connectionId, sequenceNo);
@@ -186,7 +184,9 @@ void TE::Network::NetworkManager::QueSent(ConnectionData &connectionData) {
     }
 }
 
-bool TE::Network::NetworkManager::UpdateConnection(U32 connectionId, ConnectionData &connectionData, U64 deltaTime) {
+bool TE::Network::NetworkManager::UpdateConnection(U32 connectionId,
+                                                   ConnectionData &connectionData,
+                                                   U64 deltaTime) {
     connectionData.connection.Update(deltaTime);
     U64 rtt = connectionData.connection.GetReliabilityControl().GetRoundTripTime();
     connectionData.flowControl.Update(deltaTime, rtt);
@@ -206,8 +206,9 @@ void TE::Network::NetworkManager::CleanupConnection(U32 connectionId) {
     m_connections.erase(connectionId);
 }
 
-void TE::Network::NetworkManager::AddMessageCallback(I32 packetId, TE::Network::NetworkManager::MessageCallback messageCallback) {
-}
+void TE::Network::NetworkManager::AddMessageCallback(
+    I32 packetId,
+    TE::Network::NetworkManager::MessageCallback messageCallback) {}
 
 void TE::Network::NetworkManager::MapConnectionToObjectId(I32 connectionId, I32 objectId) {
     m_messageHandler.MapConnectionToObjectId(connectionId, objectId);

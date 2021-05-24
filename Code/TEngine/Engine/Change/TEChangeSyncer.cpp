@@ -16,7 +16,8 @@ TE::Engine::ChangeSyncer::ChangeSyncer(Threading::ThreadPool &threadPool)
     m_localChanges.resize(threadPool.GetThreadCount() + 1);
 
     {
-        auto futures = m_threadPool.SubmitToAllThreads(std::bind(&ChangeSyncer::InitThreadData, this));
+        auto futures =
+            m_threadPool.SubmitToAllThreads(std::bind(&ChangeSyncer::InitThreadData, this));
 
         Threading::FutureJoiner<void> joiner(futures);
     }
@@ -55,9 +56,7 @@ void TE::Engine::ChangeSyncer::SyncronizeChanges() {
             }
 
             futures.push_back(m_threadPool.Submit(std::bind(&ChangeSyncer::RangedChangeDistribution,
-                                                            this,
-                                                            subRangeBegin,
-                                                            subRangeEnd)));
+                                                            this, subRangeBegin, subRangeEnd)));
 
             subRangeBegin = subRangeEnd + 1;
             subRangeEnd += subRangeCount;
@@ -69,7 +68,10 @@ void TE::Engine::ChangeSyncer::SyncronizeChanges() {
     }
 }
 
-void TE::Engine::ChangeSyncer::RegisterChangeSubscription(Subject *subject, Bitmask64 changeBitsSubject, Observer *observer, Bitmask64 changeBitsObserver) {
+void TE::Engine::ChangeSyncer::RegisterChangeSubscription(Subject *subject,
+                                                          Bitmask64 changeBitsSubject,
+                                                          Observer *observer,
+                                                          Bitmask64 changeBitsObserver) {
     std::lock_guard<std::mutex> lock(m_updateMutex);
     subject->AttachObserver(*this, changeBitsSubject);
 
@@ -114,14 +116,17 @@ void TE::Engine::ChangeSyncer::GenerateTotalQuedChanges() {
             SubjectInfo *subjectInfo                 = nullptr;
             SubjectInfo *updatedLowerPriSubjectInfo  = nullptr;
             SubjectInfo *updatedHigherPriSubjectInfo = nullptr;
-            GetSubjectInfoPtrsFromSubject(mapItr.first, subjectInfo, updatedLowerPriSubjectInfo, updatedHigherPriSubjectInfo);
+            GetSubjectInfoPtrsFromSubject(mapItr.first, subjectInfo, updatedLowerPriSubjectInfo,
+                                          updatedHigherPriSubjectInfo);
 
             assert(subjectInfo->updateFrame != m_frameNumber);
 
             Bitmask64 changeBits;
             if (updatedHigherPriSubjectInfo) {
                 // Only the new changes not already stored for the subject with higher priority
-                changeBits = (m_changes[updatedHigherPriSubjectInfo->changeIndex].changeBits ^ mapItr.second) & mapItr.second;
+                changeBits = (m_changes[updatedHigherPriSubjectInfo->changeIndex].changeBits ^
+                              mapItr.second) &
+                             mapItr.second;
             } else {
                 changeBits = mapItr.second;
             }
@@ -133,7 +138,9 @@ void TE::Engine::ChangeSyncer::GenerateTotalQuedChanges() {
                 m_changes.push_back(subjectChange);
 
                 if (updatedLowerPriSubjectInfo) {
-                    std::cout << "This needs some more logic; dont delete changes that is not updated (TEChangeSyncer.cpp bottom of GenerateTotalQuedChanges())" << std::endl;
+                    std::cout << "This needs some more logic; dont delete changes that is not "
+                                 "updated (TEChangeSyncer.cpp bottom of GenerateTotalQuedChanges())"
+                              << std::endl;
                     m_changes[updatedLowerPriSubjectInfo->changeIndex].changeBits = Change::NotSet;
                 }
             }
@@ -157,7 +164,10 @@ bool TE::Engine::ChangeSyncer::RangedChangeDistribution(U32 rangeBegin, U32 rang
     return true;
 }
 
-void TE::Engine::ChangeSyncer::GetSubjectInfoPtrsFromSubject(const Subject *subject, SubjectInfo *&subjectInfo, SubjectInfo *&lowerPriSubjectInfo, SubjectInfo *&higherPriSubjectInfo) {
+void TE::Engine::ChangeSyncer::GetSubjectInfoPtrsFromSubject(const Subject *subject,
+                                                             SubjectInfo *&subjectInfo,
+                                                             SubjectInfo *&lowerPriSubjectInfo,
+                                                             SubjectInfo *&higherPriSubjectInfo) {
     SubjectInfoVec &subjectInfos = m_objectIdSubjects.find(subject->GetObjectId())->second;
 
     for (SubjectInfo &subjInfo : subjectInfos) {

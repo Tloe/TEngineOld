@@ -3,106 +3,105 @@
 #include <unordered_map>
 
 namespace {
-    const std::string inputTypeStrs[] =
-        {
-            "Key0",
-            "Key1",
-            "Key2",
-            "Key3",
-            "Key4",
-            "Key5",
-            "Key6",
-            "Key7",
-            "Key8",
-            "Key9",
-            "KeyA",
-            "KeyB",
-            "KeyC",
-            "KeyD",
-            "KeyE",
-            "KeyF",
-            "KeyG",
-            "KeyH",
-            "KeyI",
-            "KeyJ",
-            "KeyK",
-            "KeyL",
-            "KeyM",
-            "KeyN",
-            "KeyO",
-            "KeyP",
-            "KeyQ",
-            "KeyR",
-            "KeyS",
-            "KeyT",
-            "KeyU",
-            "KeyV",
-            "KeyW",
-            "KeyX",
-            "KeyY",
-            "KeyZ",
-            "KeyF1",
-            "KeyF2",
-            "KeyF3",
-            "KeyF4",
-            "KeyF5",
-            "KeyF6",
-            "KeyF7",
-            "KeyF8",
-            "KeyF9",
-            "KeyF10",
-            "KeyF11",
-            "KeyF12",
-            "KeyControlLeft",
-            "KeyControlRight",
-            "KeyAltLeft",
-            "KeyAltRight",
-            "KeyShiftLeft",
-            "KeyShiftRight",
-            "KeySpace",
-            "KeyEnter",
-            "KeyEscape",
-            "KeyBackspace",
-            "KeyTab",
-            "KeySeperator",
-            "KeyCapslock",
-            "KeyUp",
-            "KeyDown",
-            "KeyLeft",
-            "KeyRight",
-            "KeyPgUp",
-            "KeyPgDown",
-            "KeyHome",
-            "KeyEnd",
-            "KeyNum0",
-            "KeyNum1",
-            "KeyNum2",
-            "KeyNum3",
-            "KeyNum4",
-            "KeyNum5",
-            "KeyNum6",
-            "KeyNum7",
-            "KeyNum8",
-            "KeyNum9",
-            "KeyCollon",
-            "KeyPlus",
-            "KeyComma",
-            "KeyMinus",
-            "KeyPeriod",
-            "KeySlashQuest",
-            "KeyTilde",
-            "MouseLButton",
-            "MouseMButton",
-            "MouseRButton",
-            "MouseLClick",
-            "MouseMClick",
-            "MouseRClick",
-            "MouseLDoubleClick",
-            "MouseMDoubleClick",
-            "MouseRDoubleClick",
-            "Ascii"};
+    const std::string inputTypeStrs[] = {"Key0",
+                                         "Key1",
+                                         "Key2",
+                                         "Key3",
+                                         "Key4",
+                                         "Key5",
+                                         "Key6",
+                                         "Key7",
+                                         "Key8",
+                                         "Key9",
+                                         "KeyA",
+                                         "KeyB",
+                                         "KeyC",
+                                         "KeyD",
+                                         "KeyE",
+                                         "KeyF",
+                                         "KeyG",
+                                         "KeyH",
+                                         "KeyI",
+                                         "KeyJ",
+                                         "KeyK",
+                                         "KeyL",
+                                         "KeyM",
+                                         "KeyN",
+                                         "KeyO",
+                                         "KeyP",
+                                         "KeyQ",
+                                         "KeyR",
+                                         "KeyS",
+                                         "KeyT",
+                                         "KeyU",
+                                         "KeyV",
+                                         "KeyW",
+                                         "KeyX",
+                                         "KeyY",
+                                         "KeyZ",
+                                         "KeyF1",
+                                         "KeyF2",
+                                         "KeyF3",
+                                         "KeyF4",
+                                         "KeyF5",
+                                         "KeyF6",
+                                         "KeyF7",
+                                         "KeyF8",
+                                         "KeyF9",
+                                         "KeyF10",
+                                         "KeyF11",
+                                         "KeyF12",
+                                         "KeyControlLeft",
+                                         "KeyControlRight",
+                                         "KeyAltLeft",
+                                         "KeyAltRight",
+                                         "KeyShiftLeft",
+                                         "KeyShiftRight",
+                                         "KeySpace",
+                                         "KeyEnter",
+                                         "KeyEscape",
+                                         "KeyBackspace",
+                                         "KeyTab",
+                                         "KeySeperator",
+                                         "KeyCapslock",
+                                         "KeyUp",
+                                         "KeyDown",
+                                         "KeyLeft",
+                                         "KeyRight",
+                                         "KeyPgUp",
+                                         "KeyPgDown",
+                                         "KeyHome",
+                                         "KeyEnd",
+                                         "KeyNum0",
+                                         "KeyNum1",
+                                         "KeyNum2",
+                                         "KeyNum3",
+                                         "KeyNum4",
+                                         "KeyNum5",
+                                         "KeyNum6",
+                                         "KeyNum7",
+                                         "KeyNum8",
+                                         "KeyNum9",
+                                         "KeyCollon",
+                                         "KeyPlus",
+                                         "KeyComma",
+                                         "KeyMinus",
+                                         "KeyPeriod",
+                                         "KeySlashQuest",
+                                         "KeyTilde",
+                                         "MouseLButton",
+                                         "MouseMButton",
+                                         "MouseRButton",
+                                         "MouseLClick",
+                                         "MouseMClick",
+                                         "MouseRClick",
+                                         "MouseLDoubleClick",
+                                         "MouseMDoubleClick",
+                                         "MouseRDoubleClick",
+                                         "Ascii"};
 
-    void FillMapInputTypeEnumMap(std::unordered_map<std::string, TE::InputMapping::InputType> &inputTypeEnums) {
+    void FillMapInputTypeEnumMap(
+        std::unordered_map<std::string, TE::InputMapping::InputType> &inputTypeEnums) {
         inputTypeEnums.insert(std::make_pair("Key0", TE::InputMapping::InputType::Key0));
         inputTypeEnums.insert(std::make_pair("Key1", TE::InputMapping::InputType::Key1));
         inputTypeEnums.insert(std::make_pair("Key2", TE::InputMapping::InputType::Key2));
@@ -151,19 +150,28 @@ namespace {
         inputTypeEnums.insert(std::make_pair("KeyF10", TE::InputMapping::InputType::KeyF10));
         inputTypeEnums.insert(std::make_pair("KeyF11", TE::InputMapping::InputType::KeyF11));
         inputTypeEnums.insert(std::make_pair("KeyF12", TE::InputMapping::InputType::KeyF12));
-        inputTypeEnums.insert(std::make_pair("KeyControlLeft", TE::InputMapping::InputType::KeyControlLeft));
-        inputTypeEnums.insert(std::make_pair("KeyControlRight", TE::InputMapping::InputType::KeyControlRight));
-        inputTypeEnums.insert(std::make_pair("KeyAltLeft", TE::InputMapping::InputType::KeyAltLeft));
-        inputTypeEnums.insert(std::make_pair("KeyAltRight", TE::InputMapping::InputType::KeyAltRight));
-        inputTypeEnums.insert(std::make_pair("KeyShiftLeft", TE::InputMapping::InputType::KeyShiftLeft));
-        inputTypeEnums.insert(std::make_pair("KeyShiftRight", TE::InputMapping::InputType::KeyShiftRight));
+        inputTypeEnums.insert(
+            std::make_pair("KeyControlLeft", TE::InputMapping::InputType::KeyControlLeft));
+        inputTypeEnums.insert(
+            std::make_pair("KeyControlRight", TE::InputMapping::InputType::KeyControlRight));
+        inputTypeEnums.insert(
+            std::make_pair("KeyAltLeft", TE::InputMapping::InputType::KeyAltLeft));
+        inputTypeEnums.insert(
+            std::make_pair("KeyAltRight", TE::InputMapping::InputType::KeyAltRight));
+        inputTypeEnums.insert(
+            std::make_pair("KeyShiftLeft", TE::InputMapping::InputType::KeyShiftLeft));
+        inputTypeEnums.insert(
+            std::make_pair("KeyShiftRight", TE::InputMapping::InputType::KeyShiftRight));
         inputTypeEnums.insert(std::make_pair("KeySpace", TE::InputMapping::InputType::KeySpace));
         inputTypeEnums.insert(std::make_pair("KeyEnter", TE::InputMapping::InputType::KeyEnter));
         inputTypeEnums.insert(std::make_pair("KeyEscape", TE::InputMapping::InputType::KeyEscape));
-        inputTypeEnums.insert(std::make_pair("KeyBackspace", TE::InputMapping::InputType::KeyBackspace));
+        inputTypeEnums.insert(
+            std::make_pair("KeyBackspace", TE::InputMapping::InputType::KeyBackspace));
         inputTypeEnums.insert(std::make_pair("KeyTab", TE::InputMapping::InputType::KeyTab));
-        // inputTypeEnums.insert(std::make_pair("KeySeperator", TE::InputMapping::InputType::KeySeperator));
-        inputTypeEnums.insert(std::make_pair("KeyCapslock", TE::InputMapping::InputType::KeyCapslock));
+        // inputTypeEnums.insert(std::make_pair("KeySeperator",
+        // TE::InputMapping::InputType::KeySeperator));
+        inputTypeEnums.insert(
+            std::make_pair("KeyCapslock", TE::InputMapping::InputType::KeyCapslock));
         inputTypeEnums.insert(std::make_pair("KeyUp", TE::InputMapping::InputType::KeyUp));
         inputTypeEnums.insert(std::make_pair("KeyDown", TE::InputMapping::InputType::KeyDown));
         inputTypeEnums.insert(std::make_pair("KeyLeft", TE::InputMapping::InputType::KeyLeft));
@@ -187,17 +195,27 @@ namespace {
         inputTypeEnums.insert(std::make_pair("KeyComma", TE::InputMapping::InputType::KeyComma));
         inputTypeEnums.insert(std::make_pair("KeyMinus", TE::InputMapping::InputType::KeyMinus));
         inputTypeEnums.insert(std::make_pair("KeyPeriod", TE::InputMapping::InputType::KeyPeriod));
-        inputTypeEnums.insert(std::make_pair("KeySlashQuest", TE::InputMapping::InputType::KeySlashQuest));
+        inputTypeEnums.insert(
+            std::make_pair("KeySlashQuest", TE::InputMapping::InputType::KeySlashQuest));
         inputTypeEnums.insert(std::make_pair("KeyTilde", TE::InputMapping::InputType::KeyTilde));
-        /*inputTypeEnums.insert(std::make_pair("MouseLButton", TE::InputMapping::InputType::MouseLButton));
-                inputTypeEnums.insert(std::make_pair("MouseMButton", TE::InputMapping::InputType::MouseMButton));
-                inputTypeEnums.insert(std::make_pair("MouseRButton", TE::InputMapping::InputType::MouseRButton));
-                inputTypeEnums.insert(std::make_pair("MouseLClick", TE::InputMapping::InputType::MouseLClick));
-                inputTypeEnums.insert(std::make_pair("MouseMClick", TE::InputMapping::InputType::MouseMClick));
-                inputTypeEnums.insert(std::make_pair("MouseRClick", TE::InputMapping::InputType::MouseRClick));
-                inputTypeEnums.insert(std::make_pair("MouseLDoubleClick", TE::InputMapping::InputType::MouseLDoubleClick));
-                inputTypeEnums.insert(std::make_pair("MouseMDoubleClick", TE::InputMapping::InputType::MouseMDoubleClick));
-                inputTypeEnums.insert(std::make_pair("MouseRDoubleClick", TE::InputMapping::InputType::MouseRDoubleClick));
+        /*inputTypeEnums.insert(std::make_pair("MouseLButton",
+        TE::InputMapping::InputType::MouseLButton));
+                inputTypeEnums.insert(std::make_pair("MouseMButton",
+        TE::InputMapping::InputType::MouseMButton));
+                inputTypeEnums.insert(std::make_pair("MouseRButton",
+        TE::InputMapping::InputType::MouseRButton));
+                inputTypeEnums.insert(std::make_pair("MouseLClick",
+        TE::InputMapping::InputType::MouseLClick));
+                inputTypeEnums.insert(std::make_pair("MouseMClick",
+        TE::InputMapping::InputType::MouseMClick));
+                inputTypeEnums.insert(std::make_pair("MouseRClick",
+        TE::InputMapping::InputType::MouseRClick));
+                inputTypeEnums.insert(std::make_pair("MouseLDoubleClick",
+        TE::InputMapping::InputType::MouseLDoubleClick));
+                inputTypeEnums.insert(std::make_pair("MouseMDoubleClick",
+        TE::InputMapping::InputType::MouseMDoubleClick));
+                inputTypeEnums.insert(std::make_pair("MouseRDoubleClick",
+        TE::InputMapping::InputType::MouseRDoubleClick));
         inputTypeEnums.insert(std::make_pair("Ascii", TE::InputMapping::InputType::Ascii));*/
     }
 }

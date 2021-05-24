@@ -4,14 +4,12 @@
 #include <TEVector3D.h>
 #include <vector>
 
-namespace TE {
-namespace Intersection {
+namespace TE::Intersection {
     struct ContactSet {
         std::vector<Math::Vector3D<Real>> points;
         std::vector<Real> penetrations;
         std::vector<Math::Vector3D<Real>> normals;
     };
-}
 }
 
 #endif

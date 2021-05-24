@@ -4,55 +4,50 @@
 #include "TEDataTypes.h"
 
 #include "TEOpenGL.h"
+#include "TERendererOpenGL.h"
 
 #include <memory>
 #include <vector>
 
-namespace TE {
-    namespace Render {
-        class Effect;
-    }
-    namespace Render {
-        class Mesh;
-    }
+namespace TE::Render {
+  class Effect;
+  class Mesh;
 
-    namespace Render {
-        class APIVertexBufferLayout {
-          public:
-            APIVertexBufferLayout(const Render::Mesh &mesh, const Render::Effect &effect);
-            ~APIVertexBufferLayout();
+  class APIVertexBufferLayout {
+  public:
+    APIVertexBufferLayout(const Render::Mesh &mesh, const Render::Effect &effect);
+    ~APIVertexBufferLayout();
 
-            void Enable();
-            void Disable();
+    void Enable();
+    void Disable();
 
-            U32 IncreaseUsageCount();
-            U32 DecreaseUsageCount();
+    U32 IncreaseUsageCount();
+    U32 DecreaseUsageCount();
 
-          private:
-            U32 m_usageCount;
+  private:
+    U32 m_usageCount;
 
-            I32 m_stride;
+    I32 m_stride;
 
-            bool m_hasPosition;
-            I32 m_positionValueCount;
-            GLuint m_positionValueType;
-            I32 m_positionOffset;
+    bool m_hasPosition;
+    I32 m_positionValueCount;
+    GLuint m_positionValueType;
+    I32 m_positionOffset;
 
-            bool m_hasNormals;
-            I32 m_normalValueCount;
-            GLuint m_normalValueType;
-            I32 m_normalOffset;
+    bool m_hasNormals;
+    I32 m_normalValueCount;
+    GLuint m_normalValueType;
+    I32 m_normalOffset;
 
-            unsigned m_textureCount;
-            std::vector<I32> m_textureValueCount;
-            std::vector<GLuint> m_textureValueType;
-            std::vector<I32> m_textureOffset;
+    unsigned m_textureCount;
+    std::vector<I32> m_textureValueCount;
+    std::vector<GLuint> m_textureValueType;
+    std::vector<I32> m_textureOffset;
 
-            GLuint m_glVAO;
-        };
+    GLuint m_glVAO;
+  };
 
-        typedef std::unique_ptr<APIVertexBufferLayout> APIVertexBufferLayoutUPtr;
-    }
+  using APIVertexBufferLayoutUPtr = std::unique_ptr<APIVertexBufferLayout>;
 }
 
 #endif

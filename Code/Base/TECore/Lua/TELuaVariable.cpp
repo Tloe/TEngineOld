@@ -36,8 +36,7 @@ TE::Lua::Variable::Variable(State &state, LuaRef keyRef, const std::vector<LuaRe
     : m_state(state),
       m_keyPath(keyPath),
       m_keyRef(keyRef),
-      m_callTriggered(false) {
-}
+      m_callTriggered(false) {}
 
 TE::Lua::Variable TE::Lua::Variable::operator[](const std::string &key) const {
     CheckCreateTable();
@@ -99,29 +98,17 @@ TE::Lua::Variable::operator std::string() const {
     return ReadStack<std::string>(Id<std::string>{}, m_state);
 }
 
-void TE::Lua::Variable::operator=(bool value) const {
-    Store(value);
-}
+void TE::Lua::Variable::operator=(bool value) const { Store(value); }
 
-void TE::Lua::Variable::operator=(I32 value) const {
-    Store(value);
-}
+void TE::Lua::Variable::operator=(I32 value) const { Store(value); }
 
-void TE::Lua::Variable::operator=(U32 value) const {
-    Store(value);
-}
+void TE::Lua::Variable::operator=(U32 value) const { Store(value); }
 
-void TE::Lua::Variable::operator=(F32 value) const {
-    Store(value);
-}
+void TE::Lua::Variable::operator=(F32 value) const { Store(value); }
 
-void TE::Lua::Variable::operator=(const std::string &value) const {
-    Store(value);
-}
+void TE::Lua::Variable::operator=(const std::string &value) const { Store(value); }
 
-void TE::Lua::Variable::operator=(const char *value) const {
-    Store(value);
-}
+void TE::Lua::Variable::operator=(const char *value) const { Store(value); }
 
 void TE::Lua::Variable::Call(I32 returnCount) const {
     m_callTriggered = false;

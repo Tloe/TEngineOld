@@ -4,9 +4,7 @@
 #include "lua.hpp"
 
 I32 TE::Lua::LuaAbsoluteIndex(State &state, I32 index) {
-    return (index > 0 || index <= LUA_REGISTRYINDEX)
-             ? index
-             : lua_gettop(state()) + index + 1;
+    return (index > 0 || index <= LUA_REGISTRYINDEX) ? index : lua_gettop(state()) + index + 1;
 }
 
 void TE::Lua::LuaSwap(State &state, I32 index0, I32 index1) {
@@ -29,6 +27,4 @@ void TE::Lua::CreateTableInRegistry(State &state, const std::string &name) {
     lua_settable(state(), LUA_REGISTRYINDEX);
 }
 
-lua_State *TE::Lua::StateToNative(State &state) {
-    return state();
-}
+lua_State *TE::Lua::StateToNative(State &state) { return state(); }

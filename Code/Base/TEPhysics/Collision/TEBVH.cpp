@@ -2,10 +2,10 @@
 #include <TEPotentialContact.h>
 #include <TESphereSphereCollider.h>
 
-TE::CollisionDetection::BVHNode::BVHNode(BVHNode *parent, Intersection::BSphere bVol, I32 entityId) : m_parent(parent),
-                                                                                                      m_boundingVol(bVol),
-                                                                                                      m_entityId(entityId) {
-}
+TE::CollisionDetection::BVHNode::BVHNode(BVHNode *parent, Intersection::BSphere bVol, I32 entityId)
+    : m_parent(parent),
+      m_boundingVol(bVol),
+      m_entityId(entityId) {}
 
 TE::CollisionDetection::BVHNode::~BVHNode() {
     if (m_parent) {
@@ -38,7 +38,8 @@ TE::CollisionDetection::BVHNode::~BVHNode() {
     }
 }
 
-void TE::CollisionDetection::BVHNode::GetPotentialContacts(std::vector<PotentialContact> &potentialContacts) {
+void TE::CollisionDetection::BVHNode::GetPotentialContacts(
+    std::vector<PotentialContact> &potentialContacts) {
     if (IsLeaf())
         return;
 
@@ -66,11 +67,14 @@ void TE::CollisionDetection::BVHNode::Insert(I32 entityId, Intersection::BSphere
     }
 }
 
-void TE::CollisionDetection::BVHNode::GetPotentialContactsWith(BVHNode *other, std::vector<PotentialContact> &potentialContacts) {
+void TE::CollisionDetection::BVHNode::GetPotentialContactsWith(
+    BVHNode *other,
+    std::vector<PotentialContact> &potentialContacts) {
     // I think I spent almost a week getting this function right. thats why its so well commented :)
     bool overlaps = CheckOverlap(other);
 
-    // If bounding volume of this and the other overlaps and the two nodes are leaf's theres a new contact
+    // If bounding volume of this and the other overlaps and the two nodes are leaf's theres a new
+    // contact
     if (overlaps && IsLeaf() && other->IsLeaf()) {
         PotentialContact potentialContact;
         potentialContact.entityId0 = m_entityId;
@@ -92,10 +96,11 @@ void TE::CollisionDetection::BVHNode::GetPotentialContactsWith(BVHNode *other, s
         }
     }
 
-    // This part continue traversal down the tree. If the parent of the two nodes are not the same it
-    // means that we are on the path to find contacts with one node and the branch of the other(The recursion
-    // started in the previous if statement) and we should not check the branch of each node. This will
-    // be done once the other recursion completes(again, the one started in the previous if statement)
+    // This part continue traversal down the tree. If the parent of the two nodes are not the same
+    // it means that we are on the path to find contacts with one node and the branch of the
+    // other(The recursion started in the previous if statement) and we should not check the branch
+    // of each node. This will be done once the other recursion completes(again, the one started in
+    // the previous if statement)
     if (m_parent == other->m_parent) {
         if (!IsLeaf())
             m_child0->GetPotentialContactsWith(m_child1, potentialContacts);
@@ -105,7 +110,8 @@ void TE::CollisionDetection::BVHNode::GetPotentialContactsWith(BVHNode *other, s
 }
 
 void TE::CollisionDetection::BVHNode::RecalculateBoundingVolume(bool recurse /*= true*/) {
-    assert(false && "Debug: recurse is never checked? is it right to default to true? Check all calls to this function");
+    assert(false && "Debug: recurse is never checked? is it right to default to true? Check all "
+                    "calls to this function");
 
     if (IsLeaf())
         return;
@@ -118,13 +124,12 @@ void TE::CollisionDetection::BVHNode::RecalculateBoundingVolume(bool recurse /*=
         m_parent->RecalculateBoundingVolume(true);
 }
 
-bool TE::CollisionDetection::BVHNode::IsLeaf() {
-    return m_entityId != -1;
-}
+bool TE::CollisionDetection::BVHNode::IsLeaf() { return m_entityId != -1; }
 
 bool TE::CollisionDetection::BVHNode::CheckOverlap(BVHNode *other) {
     if (IsLeaf() && other->IsLeaf())
         return false;
 
-    return Intersection::SphereSphereCollider::Collide(m_boundingVol, other->m_boundingVol, true, NULL);
+    return Intersection::SphereSphereCollider::Collide(m_boundingVol, other->m_boundingVol, true,
+                                                       NULL);
 }

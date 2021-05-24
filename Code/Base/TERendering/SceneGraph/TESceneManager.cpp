@@ -9,9 +9,7 @@
 #include "TESpatial.h"
 #include "TETexture.h"
 
-TE::SceneGraph::SceneManager::SceneManager(Render::Renderer &renderer)
-    : m_renderer(renderer) {
-}
+TE::SceneGraph::SceneManager::SceneManager(Render::Renderer &renderer) : m_renderer(renderer) {}
 
 void TE::SceneGraph::SceneManager::DrawScene(F32 interpolation) {
     m_renderer.BeginFrame();
@@ -71,13 +69,9 @@ void TE::SceneGraph::SceneManager::SetActiveCamera(SceneGraph::Camera &camera) {
     m_activeCamera = &camera;
 }
 
-TE::Render::Renderer &TE::SceneGraph::SceneManager::GetRenderer() {
-    return m_renderer;
-}
+TE::Render::Renderer &TE::SceneGraph::SceneManager::GetRenderer() { return m_renderer; }
 
-void TE::SceneGraph::SceneManager::AddToRootNode(Spatial &spatial) {
-    m_rootNode.AddChild(spatial);
-}
+void TE::SceneGraph::SceneManager::AddToRootNode(Spatial &spatial) { m_rootNode.AddChild(spatial); }
 
 void TE::SceneGraph::SceneManager::AddToNode(const std::string &parrent, SceneGraph::Node &node) {
     assert(parrent == "Root" || m_nodeMap.find(parrent) != m_nodeMap.end());
@@ -90,7 +84,8 @@ void TE::SceneGraph::SceneManager::AddToNode(const std::string &parrent, SceneGr
     }
 }
 
-void TE::SceneGraph::SceneManager::AddToNode(const std::string &parrent, SceneGraph::Renderable &renderable) {
+void TE::SceneGraph::SceneManager::AddToNode(const std::string &parrent,
+                                             SceneGraph::Renderable &renderable) {
     assert(parrent == "Root" || m_nodeMap.find(parrent) != m_nodeMap.end());
 
     if (parrent == "Root") {

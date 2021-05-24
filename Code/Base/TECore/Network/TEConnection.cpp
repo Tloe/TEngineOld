@@ -2,7 +2,10 @@
 #include <assert.h>
 #include <iostream>
 
-TE::Net::Connection::Connection(Socket &socket, const Address &address, U32 timeout, Connection::Mode connectionMode)
+TE::Net::Connection::Connection(Socket &socket,
+                                const Address &address,
+                                U32 timeout,
+                                Connection::Mode connectionMode)
     : m_socket(socket),
       m_address(address),
       m_timeout(timeout),
@@ -19,25 +22,17 @@ TE::Net::Connection::~Connection() {
     OnStop();
 }
 
-bool TE::Net::Connection::IsRunning() const {
-    return m_running;
-}
+bool TE::Net::Connection::IsRunning() const { return m_running; }
 
-bool TE::Net::Connection::IsConnecting() const {
-    return m_state == Connection::State::Connecting;
-}
+bool TE::Net::Connection::IsConnecting() const { return m_state == Connection::State::Connecting; }
 
 bool TE::Net::Connection::ConnectFailed() const {
     return m_state == Connection::State::ConnectFail;
 }
 
-bool TE::Net::Connection::IsConnected() const {
-    return m_state == Connection::State::Connected;
-}
+bool TE::Net::Connection::IsConnected() const { return m_state == Connection::State::Connected; }
 
-TE::Net::Connection::Mode TE::Net::Connection::GetMode() const {
-    return m_mode;
-}
+TE::Net::Connection::Mode TE::Net::Connection::GetMode() const { return m_mode; }
 
 void TE::Net::Connection::Update(U64 deltaTime) {
     assert(m_running);
@@ -58,8 +53,7 @@ void TE::Net::Connection::Update(U64 deltaTime) {
 
 bool TE::Net::Connection::SendPacket(Packet &packet) {
     assert(m_running);
-    if (m_state != Connection::State::Connected &&
-        m_state != Connection::State::Connecting) {
+    if (m_state != Connection::State::Connected && m_state != Connection::State::Connecting) {
         return false;
     }
 

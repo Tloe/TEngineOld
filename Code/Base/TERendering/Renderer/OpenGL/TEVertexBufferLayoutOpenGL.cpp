@@ -3,7 +3,8 @@
 #include "TEMesh.h"
 #include <TEVertexBufferLayoutOpenGL.h>
 
-TE::Render::APIVertexBufferLayout::APIVertexBufferLayout(const Render::Mesh &mesh, const Render::Effect &effect)
+TE::Render::APIVertexBufferLayout::APIVertexBufferLayout(const Render::Mesh &mesh,
+                                                         const Render::Effect &effect)
     : m_usageCount(1),
       m_stride(0),
       m_hasPosition(false),
@@ -20,7 +21,8 @@ TE::Render::APIVertexBufferLayout::APIVertexBufferLayout(const Render::Mesh &mes
             m_normalValueCount = layoutElements[i].valueCount;
             m_normalValueType  = APIMapping::s_dataType[layoutElements[i].valueType];
             m_normalOffset     = layoutElements[i].byteOffset;
-        } else if (layoutElements[i].layoutSemantic >= Semantics::TEXTURE0 && layoutElements[i].layoutSemantic <= Semantics::TEXTURE7) {
+        } else if (layoutElements[i].layoutSemantic >= Semantics::TEXTURE0 &&
+                   layoutElements[i].layoutSemantic <= Semantics::TEXTURE7) {
             m_textureValueCount.push_back(layoutElements[i].valueCount);
             m_textureValueType.push_back(APIMapping::s_dataType[layoutElements[i].valueType]);
             m_textureOffset.push_back(layoutElements[i].byteOffset);
@@ -39,21 +41,16 @@ TE::Render::APIVertexBufferLayout::APIVertexBufferLayout(const Render::Mesh &mes
     if (m_hasPosition) {
         glEnableVertexAttribArray(APIMapping::s_semantics[Semantics::POSITION]);
         assert(glGetError() == GL_NO_ERROR);
-        glVertexAttribPointer(APIMapping::s_semantics[Semantics::POSITION],
-                              m_positionValueCount,
-                              m_positionValueType,
-                              GL_FALSE,
-                              m_stride,
+        glVertexAttribPointer(APIMapping::s_semantics[Semantics::POSITION], m_positionValueCount,
+                              m_positionValueType, GL_FALSE, m_stride,
                               reinterpret_cast<void *>(m_positionOffset));
         assert(glGetError() == GL_NO_ERROR);
     }
     if (m_hasNormals) {
         glEnableVertexAttribArray(APIMapping::s_semantics[Semantics::NORMAL]);
         assert(glGetError() == GL_NO_ERROR);
-        glVertexAttribPointer(APIMapping::s_semantics[Semantics::NORMAL],
-                              m_normalValueCount,
-                              m_normalValueType,
-                              GL_FALSE, m_stride,
+        glVertexAttribPointer(APIMapping::s_semantics[Semantics::NORMAL], m_normalValueCount,
+                              m_normalValueType, GL_FALSE, m_stride,
                               reinterpret_cast<void *>(m_normalOffset));
         assert(glGetError() == GL_NO_ERROR);
     }
@@ -61,10 +58,7 @@ TE::Render::APIVertexBufferLayout::APIVertexBufferLayout(const Render::Mesh &mes
         glEnableVertexAttribArray(APIMapping::s_semantics[Semantics::TEXTURE0] + i);
         assert(glGetError() == GL_NO_ERROR);
         glVertexAttribPointer(APIMapping::s_semantics[Semantics::TEXTURE0] + i,
-                              m_textureValueCount[i],
-                              m_textureValueType[i],
-                              GL_FALSE,
-                              m_stride,
+                              m_textureValueCount[i], m_textureValueType[i], GL_FALSE, m_stride,
                               reinterpret_cast<void *>(m_textureOffset[i]));
         assert(glGetError() == GL_NO_ERROR);
     }
@@ -73,8 +67,7 @@ TE::Render::APIVertexBufferLayout::APIVertexBufferLayout(const Render::Mesh &mes
     assert(glGetError() == GL_NO_ERROR);
 }
 
-TE::Render::APIVertexBufferLayout::~APIVertexBufferLayout() {
-}
+TE::Render::APIVertexBufferLayout::~APIVertexBufferLayout() {}
 
 void TE::Render::APIVertexBufferLayout::Enable() {
     glBindVertexArray(m_glVAO);
@@ -86,10 +79,6 @@ void TE::Render::APIVertexBufferLayout::Disable() {
     assert(glGetError() == GL_NO_ERROR);
 }
 
-U32 TE::Render::APIVertexBufferLayout::IncreaseUsageCount() {
-    return ++m_usageCount;
-}
+U32 TE::Render::APIVertexBufferLayout::IncreaseUsageCount() { return ++m_usageCount; }
 
-U32 TE::Render::APIVertexBufferLayout::DecreaseUsageCount() {
-    return --m_usageCount;
-}
+U32 TE::Render::APIVertexBufferLayout::DecreaseUsageCount() { return --m_usageCount; }

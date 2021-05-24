@@ -3,14 +3,13 @@
 
 #include <TEVector3D.h>
 
-namespace TE {
-namespace Intersection {
+namespace TE::Intersection {
     struct BSphere {
         BSphere() {}
-        BSphere(const Math::Vector3D<Real> &center, Real radius) : m_center(center),
-                                                                   m_radius(radius) {}
-        BSphere(const BSphere &rhs) : m_center(rhs.m_center),
-                                      m_radius(rhs.m_radius) {}
+        BSphere(const Math::Vector3D<Real> &center, Real radius)
+            : m_center(center),
+              m_radius(radius) {}
+        BSphere(const BSphere &rhs) : m_center(rhs.m_center), m_radius(rhs.m_radius) {}
         BSphere &operator=(const BSphere &rhs);
 
         Math::Vector3D<Real> m_center;
@@ -25,5 +24,5 @@ namespace Intersection {
     void EigenSphere(BSphere &bsphere, const F32 *vertexData, U32 vDataCount);
     void Grow(BSphere &bsphere0, const BSphere &bsphere1);
 }
-}
+
 #endif

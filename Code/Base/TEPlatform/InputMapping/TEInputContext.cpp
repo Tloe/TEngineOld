@@ -4,8 +4,7 @@
 #include "TERange.h"
 #include "TEState.h"
 
-TE::InputMapping::InputContext::InputContext() {
-}
+TE::InputMapping::InputContext::InputContext() {}
 
 /*void TE::InputMapping::InputContext::JSONDeserialize( const Json::Value& jsonValue )
 {

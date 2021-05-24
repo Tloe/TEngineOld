@@ -3,14 +3,14 @@
 #include <TERenderable.h>
 #include <TEVector3D.h>
 
-TE::SceneGraph::Renderable::Renderable() {
-}
+TE::SceneGraph::Renderable::Renderable() {}
 
 void TE::SceneGraph::Renderable::UpdateWorldBound() {
     m_bounding.m_center = m_worldTransform.GetTranslation();
 }
 
-/*void TE::SceneGraph::Renderable::UpdateRenderStateLocal( std::stack< Memory::Pointer0< GlobalState > >* stateStack, std::vector<LightPtr>* lightStack )
+/*void TE::SceneGraph::Renderable::UpdateRenderStateLocal( std::stack< Memory::Pointer0< GlobalState
+> >* stateStack, std::vector<LightPtr>* lightStack )
 {
         for (unsigned i = 0; i < GlobalState::STATE_COUNT ; i++)
         {
@@ -27,7 +27,8 @@ void TE::SceneGraph::Renderable::GetRenderListNoCull(RenderablePtrList &renderLi
     renderList.push_back(this);
 }
 
-void TE::SceneGraph::Renderable::GetRenderListNoSort(RenderablePtrList &renderList, Camera &camera) {
+void TE::SceneGraph::Renderable::GetRenderListNoSort(RenderablePtrList &renderList,
+                                                     Camera &camera) {
     if (!IsCulled(camera)) {
         renderList.push_back(this);
     }
@@ -37,11 +38,13 @@ void TE::SceneGraph::Renderable::SetMesh(Resources::ResourceHandle<Render::Mesh>
     m_mesh = resourceHandle;
 }
 
-void TE::SceneGraph::Renderable::SetEffect(Resources::ResourceHandle<Render::Effect> &resourceHandle) {
+void TE::SceneGraph::Renderable::SetEffect(
+    Resources::ResourceHandle<Render::Effect> &resourceHandle) {
     m_effect = resourceHandle;
 }
 
-void TE::SceneGraph::Renderable::AddTexture(Resources::ResourceHandle<Render::Texture> &resourceHandle) {
+void TE::SceneGraph::Renderable::AddTexture(
+    Resources::ResourceHandle<Render::Texture> &resourceHandle) {
     m_textures.push_back(resourceHandle);
 }
 

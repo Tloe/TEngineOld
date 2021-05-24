@@ -4,8 +4,7 @@
 #include "TEDataTypes.h"
 #include "TEInput.h"
 
-namespace TE {
-namespace InputMapping {
+namespace TE::InputMapping {
     struct Range {
         std::string name;
         Hash nameHash;
@@ -20,7 +19,6 @@ namespace InputMapping {
     };
 
     F64 ConvertRange(Range &range, F64 rawValue);
-}
 }
 
 #endif

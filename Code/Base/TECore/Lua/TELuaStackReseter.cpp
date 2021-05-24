@@ -5,9 +5,6 @@
 
 TE::Lua::StackReseter::StackReseter(State &state)
     : m_state(state),
-      m_savedStackTop(lua_gettop(state())) {
-}
+      m_savedStackTop(lua_gettop(state())) {}
 
-TE::Lua::StackReseter::~StackReseter() {
-    lua_settop(m_state(), m_savedStackTop);
-}
+TE::Lua::StackReseter::~StackReseter() { lua_settop(m_state(), m_savedStackTop); }

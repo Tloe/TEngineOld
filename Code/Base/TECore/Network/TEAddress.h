@@ -4,12 +4,8 @@
 #include "TEDataTypes.h"
 #include "TESocketIncludes.h"
 
-namespace TE {
-namespace Net {
-    enum class IPFamily {
-        IPv4,
-        IPv6
-    };
+namespace TE::Net {
+    enum class IPFamily { IPv4, IPv6 };
 
     class Address {
       public:
@@ -31,7 +27,6 @@ namespace Net {
       private:
         sockaddr_storage m_address;
     };
-}
 }
 
 #endif

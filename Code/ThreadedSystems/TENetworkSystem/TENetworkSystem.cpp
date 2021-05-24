@@ -6,15 +6,16 @@
 #include "TENetworkScene.h"
 #include "TEValue.h"
 
-TE::Network::NetworkSystem::NetworkSystem(U32 systemId, const std::string &systemName, Engine::EngineRoot &engine)
+TE::Network::NetworkSystem::NetworkSystem(U32 systemId,
+                                          const std::string &systemName,
+                                          Engine::EngineRoot &engine)
     : m_systemId(systemId),
       m_systemName(systemName),
       m_eventManager(engine.GetEventManager()) {
     m_eventManager.Subscribe<Event::EnvironmentUpdateEvent>(&m_networkManager);
 }
 
-TE::Network::NetworkSystem::~NetworkSystem() {
-}
+TE::Network::NetworkSystem::~NetworkSystem() {}
 
 void TE::Network::NetworkSystem::SetValue(TE::Core::Value &value) {
     switch (value.GetValueType()) {
@@ -43,21 +44,13 @@ void TE::Network::NetworkSystem::SetValue(TE::Core::Value &value) {
     }
 }
 
-void TE::Network::NetworkSystem::Startup() {
-    m_networkManager.Initialize();
-}
+void TE::Network::NetworkSystem::Startup() { m_networkManager.Initialize(); }
 
-void TE::Network::NetworkSystem::Shutdown() {
-    m_networkManager.Cleanup();
-}
+void TE::Network::NetworkSystem::Shutdown() { m_networkManager.Cleanup(); }
 
-U32 TE::Network::NetworkSystem::GetSystemId() {
-    return m_systemId;
-}
+U32 TE::Network::NetworkSystem::GetSystemId() { return m_systemId; }
 
-const std::string &TE::Network::NetworkSystem::GetSystemName() {
-    return m_systemName;
-}
+const std::string &TE::Network::NetworkSystem::GetSystemName() { return m_systemName; }
 
 TE::Engine::SystemSceneUPtr TE::Network::NetworkSystem::CreateScene() {
     return std::make_unique<NetworkScene>(m_eventManager, m_networkManager);
@@ -84,7 +77,10 @@ const std::string &TE::Network::NetworkSystemFactory::GetSystemName() {
     return name;
 }
 
-TE::Engine::SystemUPtr TE::Network::NetworkSystemFactory::Generate(U32 systemId, TE::Engine::EngineRoot &engine, std::vector<Core::Value> &values) {
+TE::Engine::SystemUPtr
+TE::Network::NetworkSystemFactory::Generate(U32 systemId,
+                                            TE::Engine::EngineRoot &engine,
+                                            std::vector<Core::Value> &values) {
     auto networkSystem = std::make_unique<Network::NetworkSystem>(systemId, "Network", engine);
 
     for (U32 i = 0; i < values.size(); ++i) {

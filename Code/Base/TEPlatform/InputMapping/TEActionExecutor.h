@@ -6,23 +6,21 @@
 #include <memory>
 #include <string>
 
-namespace TE {
-namespace InputMapping {
-    class ActionExecutor {
-      public:
-        friend class InputMapper;
+namespace TE::InputMapping {
+  class ActionExecutor {
+  public:
+    friend class InputMapper;
 
-        ActionExecutor(const std::string &actionName);
-        virtual ~ActionExecutor();
+    ActionExecutor(const std::string &actionName);
+    virtual ~ActionExecutor();
 
-        virtual void Execute() = 0;
+    virtual void Execute() = 0;
 
-      private:
-        Hash m_nameHash;
-    };
+  private:
+    Hash m_nameHash;
+  };
 
-    typedef std::unique_ptr<ActionExecutor> ActionExecutorUPtr;
-}
+  using ActionExecutorUPtr = std::unique_ptr<ActionExecutor>;
 }
 
 #endif

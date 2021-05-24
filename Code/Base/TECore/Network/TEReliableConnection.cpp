@@ -3,14 +3,16 @@
 #include <assert.h>
 #include <iostream>
 
-TE::Net::ReliableConnection::ReliableConnection(Socket &socket, const Address &address, U32 timeout, Connection::Mode connectionMode, U32 maxSequence)
+TE::Net::ReliableConnection::ReliableConnection(Socket &socket,
+                                                const Address &address,
+                                                U32 timeout,
+                                                Connection::Mode connectionMode,
+                                                U32 maxSequence)
     : Connection(socket, address, timeout, connectionMode),
       m_reliabilityControl(maxSequence),
-      m_previousReceivedSeqNo(-1) {
-}
+      m_previousReceivedSeqNo(-1) {}
 
-TE::Net::ReliableConnection::~ReliableConnection() {
-}
+TE::Net::ReliableConnection::~ReliableConnection() {}
 
 bool TE::Net::ReliableConnection::SendPacket(Net::Packet &packet) {
     U32 sequenceNo = m_reliabilityControl.GetLocalSequence();
@@ -60,14 +62,8 @@ TE::Net::ReliabilityControl &TE::Net::ReliableConnection::GetReliabilityControl(
     return m_reliabilityControl;
 }
 
-void TE::Net::ReliableConnection::OnStop() {
-    ClearData();
-}
+void TE::Net::ReliableConnection::OnStop() { ClearData(); }
 
-void TE::Net::ReliableConnection::OnDisconnect() {
-    ClearData();
-}
+void TE::Net::ReliableConnection::OnDisconnect() { ClearData(); }
 
-void TE::Net::ReliableConnection::ClearData() {
-    m_reliabilityControl.Reset();
-}
+void TE::Net::ReliableConnection::ClearData() { m_reliabilityControl.Reset(); }

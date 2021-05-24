@@ -6,8 +6,7 @@
 
 #include <vector>
 
-namespace TE {
-namespace Images {
+namespace TE::Images {
     class ImagePng : public Image {
       public:
         ImagePng();
@@ -24,9 +23,7 @@ namespace Images {
         virtual U32 GetColorType();
 
       private:
-        enum {
-            SIGNATURE_LENGTH = 8
-        };
+        enum { SIGNATURE_LENGTH = 8 };
 
         std::vector<U8> m_filedata;
         bool m_prepared;
@@ -35,7 +32,6 @@ namespace Images {
         U32 m_bitDepth;
         U32 m_colorType;
     };
-}
 }
 
 #endif

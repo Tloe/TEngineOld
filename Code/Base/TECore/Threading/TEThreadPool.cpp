@@ -20,14 +20,11 @@ TE::Threading::ThreadPool::ThreadPool(U32 threadCount)
     }
 }
 
-TE::Threading::ThreadPool::~ThreadPool() {
-    m_done = true;
-}
+TE::Threading::ThreadPool::~ThreadPool() { m_done = true; }
 
 void TE::Threading::ThreadPool::RunPendingTask() {
     FunctionWrapper task;
-    if (PopTaskFromLocalWorkQue(task) ||
-        PopTaskFromGlobalWorkQue(task) ||
+    if (PopTaskFromLocalWorkQue(task) || PopTaskFromGlobalWorkQue(task) ||
         (!m_workStealingDisabled && PopTaskFromOtherLocalWorkQue(task))) {
         task();
     } else {
@@ -35,9 +32,7 @@ void TE::Threading::ThreadPool::RunPendingTask() {
     }
 }
 
-U32 TE::Threading::ThreadPool::GetThreadCount() const {
-    return m_threads.size();
-}
+U32 TE::Threading::ThreadPool::GetThreadCount() const { return m_threads.size(); }
 
 void TE::Threading::ThreadPool::WorkerFunction(U32 localThreadIndex) {
     m_localThreadIndex = localThreadIndex;
@@ -76,6 +71,4 @@ bool TE::Threading::ThreadPool::AllLocalWorkQuesEmpty() {
     return true;
 }
 
-U32 TE::Threading::ThreadPool::GetLocalThreadIndex() {
-    return m_localThreadIndex;
-}
+U32 TE::Threading::ThreadPool::GetLocalThreadIndex() { return m_localThreadIndex; }

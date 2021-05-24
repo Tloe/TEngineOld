@@ -12,84 +12,78 @@
 
 #include <lua.hpp>
 
-namespace TE {
-    namespace Core {
-        class Variant;
-    }
-    namespace Lua {
-        class Table;
-    }
-    namespace Lua {
-        class Variable;
-    }
-    namespace Lua {
-        class State;
-    }
-    namespace IO {
-        class FileIO;
-    }
+namespace TE::Core {
+  class Variant;
+}
 
-    namespace Lua {
-        class State {
-          public:
-            State(IO::FileIO &fileIO);
-            State(const State &other) = delete;
-            State &operator=(const State &rhs) = delete;
-            State(State &&rhs);
-            ~State();
+namespace TE::IO {
+  class FileIO;
+}
 
-            lua_State *operator()() { return m_nativeState; }
+namespace TE::Lua {
+  class Table;
+  class Variable;
+  class State;
 
-            bool operator()(std::string &code);
+  class State {
+  public:
+    State(IO::FileIO &fileIO);
+    State(const State &other) = delete;
+    State &operator=(const State &rhs) = delete;
+    State(State &&rhs);
+    ~State();
 
-            Variable operator[](const std::string &key);
-            Variable operator[](I32 key);
+    lua_State *operator()() { return m_nativeState; }
 
-            void RunFile(IO::FileIO &fileIO, const std::string &filePath);
-            void RunDataBuffer(std::vector<U8> &dataBuffer, const std::string &bufferName);
+    bool operator()(std::string &code);
 
-            template <typename Ret, typename... Args>
-            void Register(const std::string &name, std::function<Ret(Args...)> func);
+    Variable operator[](const std::string &key);
+    Variable operator[](I32 key);
 
-            template <typename Ret, typename... Args>
-            void Register(const std::string &name, Ret (*func)(Args...));
+    void RunFile(IO::FileIO &fileIO, const std::string &filePath);
+    void RunDataBuffer(std::vector<U8> &dataBuffer, const std::string &bufferName);
 
-            std::string StackOutputString();
-            void DebugStack();
-            void DEBUGPrintTable(Table &luaTable);
+    template <typename Ret, typename... Args>
+    void Register(const std::string &name, std::function<Ret(Args...)> func);
 
-            template <typename ClassT, typename... CTorArgs, typename... Members, size_t... N>
-            void RegisterClass(const std::string &name, std::tuple<Members...> members, Indices<N...>);
+    template <typename Ret, typename... Args>
+    void Register(const std::string &name, Ret (*func)(Args...));
 
-          private:
-            void AddCustomLoader(IO::FileIO &fileIO);
-            bool LoadBuffer(const char *buffer, size_t size, std::string name);
-            bool CallBuffer();
+    std::string StackOutputString();
+    void DebugStack();
+    void DEBUGPrintTable(Table &luaTable);
 
-            std::unordered_map<std::string, std::unique_ptr<BaseClass>> m_classes;
-            std::unordered_map<std::string, std::unique_ptr<BaseFunction>> m_functions;
-            lua_State *m_nativeState;
-        };
+    template <typename ClassT, typename... CTorArgs, typename... Members, size_t... N>
+    void RegisterClass(const std::string &name, std::tuple<Members...> members, Indices<N...>);
 
-        template <typename Ret, typename... Args>
-        void State::Register(const std::string &name, std::function<Ret(Args...)> func) {
-            m_functions[name] = std::unique_ptr<BaseFunction>(
-                new Function<RetCount<Ret>::Count, Ret, Args...>(*this, name, func));
-        }
+  private:
+    void AddCustomLoader(IO::FileIO &fileIO);
+    bool LoadBuffer(const char *buffer, size_t size, std::string name);
+    bool CallBuffer();
 
-        template <typename Ret, typename... Args>
-        void State::Register(const std::string &name, Ret (*func)(Args...)) {
-            m_functions[name] = std::unique_ptr<BaseFunction>(
-                new Function<RetCount<Ret>::Count, Ret, Args...>(*this, name, func));
-        }
+    std::unordered_map<std::string, std::unique_ptr<BaseClass>> m_classes;
+    std::unordered_map<std::string, std::unique_ptr<BaseFunction>> m_functions;
+    lua_State *m_nativeState;
+  };
 
-        template <typename ClassT, typename... CTorArgs, typename... Members, size_t... N>
-        void State::RegisterClass(const std::string &name, std::tuple<Members...> members, Indices<N...>) {
-            m_classes.emplace(std::make_pair(name, std::make_unique<Class<ClassT, Constructor<ClassT, CTorArgs...>, Members...>>(*this,
-                                                                                                                                 name,
-                                                                                                                                 std::get<N>(members)...)));
-        }
-    }
+  template <typename Ret, typename... Args>
+  void State::Register(const std::string &name, std::function<Ret(Args...)> func) {
+    m_functions[name] = std::unique_ptr<BaseFunction>(
+        new Function<RetCount<Ret>::Count, Ret, Args...>(*this, name, func));
+  }
+
+  template <typename Ret, typename... Args>
+  void State::Register(const std::string &name, Ret (*func)(Args...)) {
+    m_functions[name] = std::unique_ptr<BaseFunction>(
+        new Function<RetCount<Ret>::Count, Ret, Args...>(*this, name, func));
+  }
+
+  template <typename ClassT, typename... CTorArgs, typename... Members, size_t... N> void
+  State::RegisterClass(const std::string &name, std::tuple<Members...> members, Indices<N...>) {
+    m_classes.emplace(std::make_pair(
+        name, std::make_unique<Class<ClassT, Constructor<ClassT, CTorArgs...>, Members...>>(
+                  *this, name, std::get<N>(members)...)));
+  }
 }
 
 #endif

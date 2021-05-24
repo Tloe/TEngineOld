@@ -6,7 +6,8 @@
 #include <time.h>
 #include <vector>
 
-TE::Intersection::BSphere &TE::Intersection::BSphere::operator=(const TE::Intersection::BSphere &rhs) {
+TE::Intersection::BSphere &
+TE::Intersection::BSphere::operator=(const TE::Intersection::BSphere &rhs) {
     if (this != &rhs) {
         m_center = rhs.m_center;
         m_radius = rhs.m_radius;
@@ -16,15 +17,19 @@ TE::Intersection::BSphere &TE::Intersection::BSphere::operator=(const TE::Inters
 }
 
 Real TE::Intersection::Size(const BSphere &bsphere) {
-    return static_cast<Real>(1.333333) * TE::Math::Base<Real>::PI * bsphere.m_radius * bsphere.m_radius * bsphere.m_radius;
+    return static_cast<Real>(1.333333) * TE::Math::Base<Real>::PI * bsphere.m_radius *
+           bsphere.m_radius * bsphere.m_radius;
 }
 
-void TE::Intersection::BSphereFromVertexData(BSphere &bsphere, const F32 *vertexData, unsigned vDataCount) {
+void TE::Intersection::BSphereFromVertexData(BSphere &bsphere,
+                                             const F32 *vertexData,
+                                             unsigned vDataCount) {
     //	Calculates a iterative sphere
 
     std::vector<F32> vDataCopy(vertexData, vertexData + vDataCount);
 
-    // 12 iterations gives a close fitted sphere. All spheres should be calculated at load time anyways!
+    // 12 iterations gives a close fitted sphere. All spheres should be calculated at load time
+    // anyways!
     const unsigned NUM_ITER = 12;
     unsigned numPts         = vDataCount / 3;
 

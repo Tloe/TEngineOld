@@ -19,10 +19,7 @@ int NetworkTestMain() {
 
     const bool printAcks          = false;
 
-    enum Mode {
-        Client,
-        Server
-    };
+    enum Mode { Client, Server };
 
     Mode mode = Server;
     TE::Net::Address address;
@@ -46,8 +43,9 @@ int NetworkTestMain() {
         return 1;
     }
     TE::Net::Socket socket(4032);
-    const std::string port = (mode == Server) ? serverPort : (cn == '1') ? clientPort1
-                                                                         : clientPort2;
+    const std::string port = (mode == Server) ? serverPort
+                           : (cn == '1')      ? clientPort1
+                                              : clientPort2;
     std::cout << port << std::endl;
     assert(socket.Open(port, TE::Net::IPFamily::IPv4));
 
@@ -56,9 +54,7 @@ int NetworkTestMain() {
         TE::Net::Address address;
         address.SetAddress("127.0.0.1", serverPort, TE::Net::IPFamily::IPv4);
 
-        TE::Net::ReliableConnection connection(socket,
-                                               address,
-                                               TE::Time::Microseconds::Second * 10,
+        TE::Net::ReliableConnection connection(socket, address, TE::Time::Microseconds::Second * 10,
                                                TE::Net::Connection::Mode::Client);
 
         while (true) {
@@ -90,7 +86,8 @@ int NetworkTestMain() {
                 F32 f;
                 message.ReadF32(f);
                 std::cout << str << " count: " << count << " float: " << f;
-                // std::cout << str << " rtt: " << connection.GetReliabilityControl().GetRoundTripTime() << std::endl;
+                // std::cout << str << " rtt: " <<
+                // connection.GetReliabilityControl().GetRoundTripTime() << std::endl;
             }
 
             std::cout << std::endl;
@@ -105,7 +102,9 @@ int NetworkTestMain() {
 
             TE::Net::Address newAddress;
             while (socket.HasIncomingConnection(newAddress)) {
-                connections.push_back(TE::Net::ReliableConnection(socket, newAddress, TE::Time::Microseconds::Second * 10, TE::Net::Connection::Mode::Server));
+                connections.push_back(TE::Net::ReliableConnection(
+                    socket, newAddress, TE::Time::Microseconds::Second * 10,
+                    TE::Net::Connection::Mode::Server));
             }
 
             if (!connections.empty()) {
@@ -147,7 +146,8 @@ int NetworkTestMain() {
                     incomingPacket.StartReading();
                     std::string str;
                     incomingPacket.ReadString(str);
-                    // std::cout << str << " rtt: " << connection.GetReliabilityControl().GetRoundTripTime() << std::endl;
+                    // std::cout << str << " rtt: " <<
+                    // connection.GetReliabilityControl().GetRoundTripTime() << std::endl;
                 }
             }
 
@@ -181,7 +181,8 @@ int NetworkTestMain() {
 
                 if (connection.IsConnected())
                 {
-                        flowControl.Update(deltaTime, connection.GetReliabilityControll().GetRoundTripTime());
+                        flowControl.Update(deltaTime,
+    connection.GetReliabilityControll().GetRoundTripTime());
                 }
 
                 const U32 sendRate = flowControl.GetSendRate();
@@ -290,17 +291,20 @@ int NetworkTestMain() {
                         U32 acked_packets = connection.GetReliabilityControll().GetAckedPackets();
                         U32 lost_packets = connection.GetReliabilityControll().GetLostPackets();
 
-                        F32 sent_bandwidth = connection.GetReliabilityControll().GetSentBandwidth_kbit();
-                        F32 acked_bandwidth = connection.GetReliabilityControll().GetAckedBandwidth_kbit();
+                        F32 sent_bandwidth =
+    connection.GetReliabilityControll().GetSentBandwidth_kbit(); F32 acked_bandwidth =
+    connection.GetReliabilityControll().GetAckedBandwidth_kbit();
 
             //std::cout << "rtt " << rtt << std::endl;
                         //std::cout << "sent " << sent_packets << std::endl;
                         //std::cout << "acked " << acked_packets << ", lost "
                         //	<< lost_packets << "("
-                        //	<<  ((sent_packets > 0) ? (float) lost_packets / (float) sent_packets * 100.0f : 0)
+                        //	<<  ((sent_packets > 0) ? (float) lost_packets / (float)
+    sent_packets * 100.0f : 0)
                         //	<< ")" << std::endl;
             //std::cout << "sent bandwidth = " << sent_bandwidth << "kbps" << std::endl;
-            //std::cout << "acked bandwith = " << acked_bandwidth << "kbps" << std::endl << std::endl;
+            //std::cout << "acked bandwith = " << acked_bandwidth << "kbps" << std::endl <<
+    std::endl;
 
                         statsAccumulator -= 250000ULL;
                 }
