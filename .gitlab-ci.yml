@@ -13,7 +13,7 @@ build_ubuntu_image:
     changes:
       - Utils/Docker/Ubuntu
   stage: build_docker_images
-  image: docker:latest
+  image: registry.gitlab.com/tloe/tengine:ubuntu
   services:
     - docker:dind
   script:
@@ -42,6 +42,8 @@ build_ubuntu_image:
 
 build_ubuntu:
   image: registry.gitlab.com/tloe/tengine:ubuntu
+  tags:
+    - tengine-ubuntu
   services: 
     - docker:dind
   stage: build

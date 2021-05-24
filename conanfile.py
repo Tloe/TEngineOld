@@ -11,7 +11,7 @@ class TEngine(ConanFile):
     description = "Game engine"
     settings = "os", "compiler", "build_type", "arch"
     # "assimp/5.0.1" removed for now for shorter ci runtime
-    requires = "enet/1.3.17","libpng/1.6.37","glew/2.1.0","luajit/2.0.5"
+    requires = "libpng/1.6.37","glew/2.1.0","luajit/2.0.5", "catch2/2.11.1"
     options = {"shared": [True, False]}
     default_options = {"shared": False}
 
