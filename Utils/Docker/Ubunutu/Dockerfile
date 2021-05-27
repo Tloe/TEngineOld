@@ -16,7 +16,8 @@ RUN apt-get update && \
     git clone https://github.com/llvm/llvm-project.git && \
     cd llvm-project && \
     cmake -S llvm -B build -G Ninja -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra" -DLLVM_USE_LINKER=gold -DCMAKE_BUILD_TYPE=Release && \
-    cmake --build build ninja -j 5
+    cmake --build build ninja -j 5 && \
+    cmake --build build --target install
 
 
 
