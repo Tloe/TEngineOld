@@ -13,7 +13,7 @@ build_ubuntu_image:
   #   changes:
   #     - Utils/Docker/Ubunutu/Dockerfile
   stage: build_docker_images
-  image: registry.gitlab.com/tloe/tengine:ubuntu
+  # image: registry.gitlab.com/tloe/tengine:ubuntu
   services:
     - docker:dind
   script:
