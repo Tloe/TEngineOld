@@ -12,13 +12,13 @@ RUN apt-get update && \
     apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main' && \
     apt-get update && \
     apt-get install -y cmake && \
-    pip3 install conan
+    pip3 install conan && \
+    conan config install Utils/Conan/settings.yml
     # git clone https://github.com/llvm/llvm-project.git && \
     # cd llvm-project && \
     # cmake -S llvm -B build -G Ninja -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra" -DLLVM_USE_LINKER=gold -DCMAKE_BUILD_TYPE=Release && \
     # cmake --build build ninja -j 5 && \
     # cmake --build build --target install && \
-    # conan config install Utils/Conan/settings.yml
 
 
 
