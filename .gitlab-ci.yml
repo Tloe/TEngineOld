@@ -12,6 +12,7 @@ build_ubuntu_image:
   # only:
   #   changes:
   #     - Utils/Docker/Ubunutu/Dockerfile
+  image: docker:latest
   stage: build_docker_images
   # image: registry.gitlab.com/tloe/tengine:ubuntu
   services:
