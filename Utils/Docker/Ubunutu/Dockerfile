@@ -17,7 +17,8 @@ RUN apt-get update && \
     cd llvm-project && \
     cmake -S llvm -B build -G Ninja -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra" -DLLVM_USE_LINKER=gold -DCMAKE_BUILD_TYPE=Release && \
     cmake --build build ninja -j 5 && \
-    cmake --build build --target install
+    cmake --build build --target install && \
+    conan config install Utils/Conan/settings.yml
 
 
 

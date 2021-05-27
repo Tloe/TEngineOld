@@ -9,9 +9,9 @@ stages:
   - build
 
 build_ubuntu_image:
-  only:
-    changes:
-      - Utils/Docker/Ubuntu
+  # only:
+  #   changes:
+  #     - Utils/Docker/Ubunutu/Dockerfile
   stage: build_docker_images
   image: registry.gitlab.com/tloe/tengine:ubuntu
   services:
@@ -70,7 +70,6 @@ build_windows:
     - $env:Path += ';C:\Users\Terje\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\Scripts'
     - mkdir build
     - cd build
-    - conan
     - conan export ..\Utils\Conan\Luajit\luajit.py
     - conan install .. --profile ..\Utils\Conan\Profiles\Msvc\TEngineRelease -g cmake_multi --build=missing
     - conan build ..
