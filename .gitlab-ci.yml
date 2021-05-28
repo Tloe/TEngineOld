@@ -38,12 +38,13 @@ build_windows:
   tags:
     - tengine-windows
   stage: build
-  script:
+  before_script:
     - $env:Path += ';C:\Program Files\CMake\bin'
     - $env:Path += ';C:\Users\Terje\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\Scripts'
     - mkdir build
+    - conan export Utils\Conan\Luajit\luajit.py || true #Ignore exit code 1
+    - conan install . --profile Utils\Conan\Profiles\Msvc\TEngineRelease -g cmake_multi --build=missing
+  script:
     - cd build
-    - conan export ..\Utils\Conan\Luajit\luajit.py || true #Ignore exit code 1
-    - conan install .. --profile ..\Utils\Conan\Profiles\Msvc\TEngineRelease -g cmake_multi --build=missing
     - conan build ..
 
