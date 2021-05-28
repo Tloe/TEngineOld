@@ -1,9 +1,3 @@
-# .shared_windows_runners:
-#   tags:
-#   - shared-windows
-#   - windows
-#   - windows-1809
-
 stages:
   - build_docker_images
   - build
@@ -23,24 +17,6 @@ build_ubuntu_image:
     - docker build -t registry.gitlab.com/tloe/tengine:ubuntu .
     - docker push registry.gitlab.com/tloe/tengine:ubuntu
 
-# build_windows_image:
-#   # tags:
-#   #   - tengine-windows
-#   # only:
-#   #   changes:
-#   #     - Utils/Docker/Windows10
-#   extends:
-#     - .shared_windows_runners
-#   # tags:
-#   #   - tengine-windows
-#   stage: build_docker_images
-#   image: docker:latest
-#   script:
-#     - cd Utils/Docker/Windows10
-#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-#     - docker build -t registry.gitlab.com/tloe/tengine:windows10 .
-#     - docker push registry.gitlab.com/tloe/tengine:windows10
-
 build_ubuntu:
   image: registry.gitlab.com/tloe/tengine:ubuntu
   tags:
@@ -59,28 +35,15 @@ build_ubuntu:
     - conan build .. 
 
 build_windows:
-  # image: registry.gitlab.com/tloe/tengine:windows10
   tags:
     - tengine-windows
   stage: build
   script:
-    # - $env:Path += ';C:\Python39;C:\Python39\Scripts'
     - $env:Path += ';C:\Program Files\CMake\bin'
-    # - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-    # - py get-pip.py
-    # - pip install conan
     - $env:Path += ';C:\Users\Terje\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\Scripts'
     - mkdir build
     - cd build
-    - conan export ..\Utils\Conan\Luajit\luajit.py
+    - conan export ..\Utils\Conan\Luajit\luajit.py || true #Ignore exit code 1
     - conan install .. --profile ..\Utils\Conan\Profiles\Msvc\TEngineRelease -g cmake_multi --build=missing
     - conan build ..
 
-
-     #- choco install -y conan cmake ninja #visualstudio2019-workload-vctools #visualstudio2019community
-   #- $env:Path += ';C:\Program Files\ninja'
-   #   - $env:Path += ';C:\Program Files\CMake\bin'
-   #- $env:Path += ';C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x64'
-   #- Utils\vs\buildenv.bat
-   #   - Get-ChildItem -Path C:\ -Include python*.exe -Recurse -ErrorAction SilentlyContinue # find file
-   #- cmake -G "Ninja" -DCMAKE_BUILD_TYPE:STRING="Debug" -DCONAN_CMD:FILEPATH="conan.exe" -DConfig_API:STRING="OpenGL" -DCMAKE_C_COMPILER:FILEPATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.26.28801\bin\Hostx64\x64\cl.exe" -DCMAKE_CXX_COMPILER:FILEPATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.26.28801\bin\Hostx64\x64\cl.exe" -DCMAKE_MAKE_PROGRAM="ninja.exe" ..
