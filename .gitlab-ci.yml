@@ -29,7 +29,7 @@ build_ubuntu:
     - cd build
     - export CC=clang
     - export CXX=clang++
-    - conan config install Utils/Conan/settings.yml
+    - conan config install ../Utils/Conan/settings.yml
     - conan export ../Utils/Conan/Luajit/luajit.py
     - conan install .. --profile ../Utils/Conan/Profiles/Linux/TEngineRelease -g cmake --build=missing
     - conan build .. 
