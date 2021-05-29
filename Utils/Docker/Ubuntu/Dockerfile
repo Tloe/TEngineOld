@@ -4,10 +4,10 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
     apt-get install -y apt-transport-https ca-certificates gnupg python3-pip libgl-dev pkg-config libglu1-mesa-dev libxxf86vm-dev lsb-release wget software-properties-common && \
-    bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" 13 && \
+    bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" 12 && \
     apt-get install -y libc++-11-dev libc++abi-11-dev  && \
-    ln -s /usr/bin/clang-13 /usr/bin/clang && \
-    ln -s /usr/bin/clang++-13 /usr/bin/clang++ && \
+    ln -s /usr/bin/clang-12 /usr/bin/clang && \
+    ln -s /usr/bin/clang++-12 /usr/bin/clang++ && \
     bash -c "wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null" && \
     apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main' && \
     apt-get update && \
